@@ -1,4 +1,4 @@
-package com.abaferastech.mylearner.base
+package com.abaferastech.marvelapp.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
