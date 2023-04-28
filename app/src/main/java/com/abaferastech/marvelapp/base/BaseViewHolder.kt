@@ -1,4 +1,4 @@
-package com.abaferastech.mytopicslap.base
+package com.abaferastech.marvelapp.base
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding
