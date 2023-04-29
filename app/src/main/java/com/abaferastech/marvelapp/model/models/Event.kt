@@ -7,7 +7,7 @@ data class Event(
     val title: String?,
     val description: String?,
     val resourceURI: String?,
-    val urls: Array<Url>?,
+    val urls: List<Url>?,
     val modified: Date?,
     val start: Date?,
     val end: Date?,

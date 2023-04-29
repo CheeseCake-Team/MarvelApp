@@ -8,7 +8,7 @@ data class Character(
     val description: String?,
     val modified: Date?,
     val resourceURI: String?,
-    val urls: Array<Url>?,
+    val urls: List<Url>?,
     val thumbnail: Image?,
     val series: ItemList<Series>?,
     val stories: ItemList<Story>?,
