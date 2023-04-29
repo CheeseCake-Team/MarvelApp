@@ -1,14 +1,15 @@
 package com.abaferastech.marvelapp.view
 
+import android.os.Bundle
+import android.os.PersistableBundle
 import android.view.LayoutInflater
-import com.abaferastech.marvelapp.databinding.ActivityMainBinding
+import androidx.appcompat.app.AppCompatActivity
+import com.abaferastech.marvelapp.BuildConfig
 import com.abaferastech.marvelapp.base.BaseActivity
 
-class MainActivity : BaseActivity<ActivityMainBinding>() {
-    override val bindingInflater: (LayoutInflater) -> ActivityMainBinding
-        get() = ActivityMainBinding::inflate
+class MainActivity : AppCompatActivity() {
+    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
+        super.onCreate(savedInstanceState, persistentState)
 
-    override fun init() {
-        //TODO("Not yet implemented")
     }
 }
