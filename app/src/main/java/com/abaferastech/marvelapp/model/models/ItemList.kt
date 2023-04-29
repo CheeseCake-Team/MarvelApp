@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.model.a
+package com.abaferastech.marvelapp.model.models
 
 data class ItemList<T> (
     val available: Int?,
