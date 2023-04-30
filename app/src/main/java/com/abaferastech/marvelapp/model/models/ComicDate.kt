@@ -1,8 +1,13 @@
 package com.abaferastech.marvelapp.model.models
 
-import java.util.Date
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
 
 data class ComicDate(
-    val type: String?,
-    val date: Date?
+    @SerializedName("date")
+    @Expose
+    val date: String? = "",
+    @SerializedName("type")
+    @Expose
+    val type: String? = ""
 )

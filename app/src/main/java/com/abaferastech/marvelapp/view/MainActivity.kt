@@ -13,16 +13,14 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState, persistentState)
 
     }
-}
 
-fun main() {
-    val timestamp = Instant.now().epochSecond.toString()
-    val privateKey = BuildConfig.pKey
-    val publicKey = BuildConfig.lKey
-    val inputString = timestamp + privateKey + publicKey
-    val md = MessageDigest.getInstance("MD5")
-    val hash = md.digest(inputString.toByteArray())
 
-    val hexString = hash.joinToString("") { "%02x".format(it) }
-    println(hexString)
+    fun generateHash(): String {
+        val timestamp = Instant.now().epochSecond.toString()
+        val privateKey = BuildConfig.pKey
+        val publicKey = BuildConfig.lKey
+        val inputString = timestamp + privateKey + publicKey
+        val md = MessageDigest.getInstance("MD5").digest(inputString.toByteArray())
+        return md.joinToString("") { "%02x".format(it) }
+    }
 }

@@ -1,7 +1,16 @@
 package com.abaferastech.marvelapp.model.models
 
+import com.google.gson.annotations.Expose
+import com.google.gson.annotations.SerializedName
+
 data class TextObject(
-    val type: String?,
-    val language: String?,
-    val text: String?
+    @SerializedName("language")
+    @Expose
+    val language: String? = "",
+    @SerializedName("text")
+    @Expose
+    val text: String? = "",
+    @SerializedName("type")
+    @Expose
+    val type: String? = ""
 )

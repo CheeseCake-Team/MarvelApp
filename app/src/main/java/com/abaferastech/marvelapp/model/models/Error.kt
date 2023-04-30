@@ -3,11 +3,11 @@ package com.abaferastech.marvelapp.model.models
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class ComicPrice(
-    @SerializedName("price")
+data class Error(
+    @SerializedName("code")
     @Expose
-    val price: Double? = 0.0,
-    @SerializedName("type")
+    val code: Int?,
+    @SerializedName("status")
     @Expose
-    val type: String? = ""
+    val status: String?
 )
