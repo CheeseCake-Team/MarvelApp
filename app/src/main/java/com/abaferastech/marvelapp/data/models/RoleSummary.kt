@@ -1,16 +1,17 @@
-package com.abaferastech.marvelapp.model.models
+package com.abaferastech.marvelapp.data.models
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class TypeSummary (
+data class RoleSummary(
     @SerializedName("name")
     @Expose
-    val name: String? = "",
+    val name: String?,
     @SerializedName("resourceURI")
     @Expose
-    val resourceURI: String? = "",
-    @SerializedName("type")
+    val resourceURI: String?,
+
+    @SerializedName("role")
     @Expose
-    val type: String? = ""
+    val role: String?
 )

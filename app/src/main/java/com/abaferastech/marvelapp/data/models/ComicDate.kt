@@ -1,12 +1,12 @@
-package com.abaferastech.marvelapp.model.models
+package com.abaferastech.marvelapp.data.models
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class ComicPrice(
-    @SerializedName("price")
+data class ComicDate(
+    @SerializedName("date")
     @Expose
-    val price: Double? = 0.0,
+    val date: String? = "",
     @SerializedName("type")
     @Expose
     val type: String? = ""

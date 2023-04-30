@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.view
+package com.abaferastech.marvelapp.ui
 
 import android.os.Bundle
 import android.os.PersistableBundle

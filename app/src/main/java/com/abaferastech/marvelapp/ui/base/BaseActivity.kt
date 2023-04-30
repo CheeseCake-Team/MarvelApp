@@ -1,13 +1,12 @@
-package com.abaferastech.mytopicslap.base
+package com.abaferastech.marvelapp.ui.base
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<VB : ViewBinding> : Fragment() {
+
+abstract class BaseActivity<VB : ViewBinding> : AppCompatActivity() {
 
     abstract val bindingInflater: (LayoutInflater) -> VB
 
@@ -17,18 +16,19 @@ abstract class BaseFragment<VB : ViewBinding> : Fragment() {
         get() = _binding as VB
 
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         _binding = bindingInflater(layoutInflater)
-        return _binding!!.root
+        setContentView(_binding!!.root)
+        init()
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
     }
+
+    abstract fun init()
 
 }

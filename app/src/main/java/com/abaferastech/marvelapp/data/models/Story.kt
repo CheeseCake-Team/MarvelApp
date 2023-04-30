@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.model.models
+package com.abaferastech.marvelapp.data.models
 
 import java.util.Date
 import com.google.gson.annotations.Expose

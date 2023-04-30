@@ -1,12 +1,12 @@
-package com.abaferastech.marvelapp.model.api
+package com.abaferastech.marvelapp.data.network
 
-import com.abaferastech.marvelapp.model.models.Character
-import com.abaferastech.marvelapp.model.models.Comic
-import com.abaferastech.marvelapp.model.models.Creator
-import com.abaferastech.marvelapp.model.models.Data
-import com.abaferastech.marvelapp.model.models.Event
-import com.abaferastech.marvelapp.model.models.Series
-import com.abaferastech.marvelapp.model.models.Story
+import com.abaferastech.marvelapp.data.models.Character
+import com.abaferastech.marvelapp.data.models.Comic
+import com.abaferastech.marvelapp.data.models.Creator
+import com.abaferastech.marvelapp.data.models.Data
+import com.abaferastech.marvelapp.data.models.Event
+import com.abaferastech.marvelapp.data.models.Series
+import com.abaferastech.marvelapp.data.models.Story
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path

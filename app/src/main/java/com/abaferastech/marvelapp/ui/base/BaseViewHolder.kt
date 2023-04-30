@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.base
+package com.abaferastech.marvelapp.ui.base
 
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewbinding.ViewBinding

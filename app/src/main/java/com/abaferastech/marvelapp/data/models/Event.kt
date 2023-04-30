@@ -1,10 +1,10 @@
-package com.abaferastech.marvelapp.model.models
+package com.abaferastech.marvelapp.data.models
 
 import java.util.Date
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Series(
+data class Event(
     @SerializedName("id")
     @Expose
     val id: Int?,
@@ -25,21 +25,17 @@ data class Series(
     @Expose
     val urls: List<Url>?,
 
-    @SerializedName("startYear")
-    @Expose
-    val startYear: Int?,
-
-    @SerializedName("endYear")
-    @Expose
-    val endYear: Int?,
-
-    @SerializedName("rating")
-    @Expose
-    val rating: String?,
-
     @SerializedName("modified")
     @Expose
     val modified: Date?,
+
+    @SerializedName("start")
+    @Expose
+    val start: Date?,
+
+    @SerializedName("end")
+    @Expose
+    val end: Date?,
 
     @SerializedName("thumbnail")
     @Expose
@@ -53,9 +49,9 @@ data class Series(
     @Expose
     val stories: ItemList<Story>?,
 
-    @SerializedName("events")
+    @SerializedName("series")
     @Expose
-    val events: ItemList<Event>?,
+    val series: ItemList<Series>?,
 
     @SerializedName("characters")
     @Expose
@@ -73,5 +69,3 @@ data class Series(
     @Expose
     val previous: Summary?
 )
-
-

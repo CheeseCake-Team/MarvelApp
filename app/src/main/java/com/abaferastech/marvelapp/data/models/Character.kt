@@ -1,33 +1,21 @@
-package com.abaferastech.marvelapp.model.models
+package com.abaferastech.marvelapp.data.models
 
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import java.util.Date
 
-data class Creator(
+data class Character(
     @SerializedName("id")
     @Expose
-    val id: Int?,
+    val id: Int? = 0,
 
-    @SerializedName("firstName")
+    @SerializedName("name")
     @Expose
-    val firstName: String?,
+    val name: String?,
 
-    @SerializedName("middleName")
+    @SerializedName("description")
     @Expose
-    val middleName: String?,
-
-    @SerializedName("lastName")
-    @Expose
-    val lastName: String?,
-
-    @SerializedName("suffix")
-    @Expose
-    val suffix: String?,
-
-    @SerializedName("fullName")
-    @Expose
-    val fullName: String?,
+    val description: String?,
 
     @SerializedName("modified")
     @Expose
