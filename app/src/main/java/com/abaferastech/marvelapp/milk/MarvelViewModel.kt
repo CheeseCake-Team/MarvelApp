@@ -12,20 +12,16 @@ import java.time.Instant
 
 class MarvelViewModel : ViewModel(){
     val stories = MutableLiveData<Story>()
-    val ts = Instant.now().epochSecond.toString()
-    val apiKey = BuildConfig.pKey
-    val hash = generateHash()
+
 
     init {
-        getMarvelStories(ts,apiKey,hash)
+        getMarvelStories()
+        Log.d("aliiiiiiii","error.message.toString()")
 
     }
 
-
-    private fun getMarvelStories(ts:String, apiKey:String, hash:String) {
-
-
-        MarvelAPI.apiService.getStories(ts, apiKey, hash)
+    private fun getMarvelStories() {
+        MarvelAPI.apiService.getStories()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
@@ -37,14 +33,15 @@ class MarvelViewModel : ViewModel(){
                 }
             )
     }
-    fun generateHash(): String {
-        val timestamp = Instant.now().epochSecond.toString()
-        val privateKey = BuildConfig.pKey
-        val publicKey = BuildConfig.lKey
-        val inputString = timestamp + privateKey + publicKey
-        val md = MessageDigest.getInstance("MD5").digest(inputString.toByteArray())
-        return md.joinToString("") { "%02x".format(it) }
-    }
+
+//    private fun generateHash(): String {
+//        val timestamp = Instant.now().epochSecond.toString()
+//        val privateKey = BuildConfig.pKey
+//        val publicKey = BuildConfig.lKey
+//        val inputString = timestamp + privateKey + publicKey
+//        val md = MessageDigest.getInstance("MD5").digest(inputString.toByteArray())
+//        return md.joinToString("") { "%02x".format(it) }
+//    }
 
 
 }
