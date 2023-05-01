@@ -42,14 +42,7 @@ class MarvelQueryParametersInterceptor : Interceptor {
         return bigInt.toString(16).padStart(32, '0')
     }
 
-//    fun calculateMd5(text: String): String {
-//        val privateKey = BuildConfig.pKey
-//        val publicKey = BuildConfig.lKey
-//        val messageDigest = MessageDigest.getInstance("MD5")
-//        val digest = messageDigest.digest(text.toByteArray())
-//        val bigInt = BigInteger(1, digest)
-//        return bigInt.toString(16).padStart(32, '0')
-//    }
+
 
 
 }

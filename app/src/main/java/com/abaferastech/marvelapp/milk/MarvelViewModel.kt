@@ -1,5 +1,6 @@
 package com.abaferastech.marvelapp.milk
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -11,7 +12,7 @@ import java.security.MessageDigest
 import java.time.Instant
 
 class MarvelViewModel : ViewModel(){
-    val stories = MutableLiveData<Story>()
+    val stories = MutableLiveData<List<Story>>()
 
 
     init {
@@ -20,13 +21,17 @@ class MarvelViewModel : ViewModel(){
 
     }
 
+
     private fun getMarvelStories() {
-        MarvelAPI.apiService.getStories()
+
+        val result = MarvelAPI.apiService.getStories()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
-                { result ->
-                    stories.postValue(result)
+                { response ->
+                    stories.postValue(response.data.results)
+                    Log.d("aliiiiiiii",response.data.results.toString())
+
                 },
                 { error ->
                     Log.d("aliiiiiiii",error.message.toString())
@@ -34,14 +39,7 @@ class MarvelViewModel : ViewModel(){
             )
     }
 
-//    private fun generateHash(): String {
-//        val timestamp = Instant.now().epochSecond.toString()
-//        val privateKey = BuildConfig.pKey
-//        val publicKey = BuildConfig.lKey
-//        val inputString = timestamp + privateKey + publicKey
-//        val md = MessageDigest.getInstance("MD5").digest(inputString.toByteArray())
-//        return md.joinToString("") { "%02x".format(it) }
-//    }
+
 
 
 }

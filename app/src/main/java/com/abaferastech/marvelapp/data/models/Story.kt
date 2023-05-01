@@ -4,6 +4,17 @@ import java.util.Date
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
+data class ApiResponse(
+    @SerializedName("data")
+    @Expose
+    val data: MarvelData
+)
+
+data class MarvelData(
+
+    val results: List<Story>
+)
+
 data class Story(
     @SerializedName("id")
     @Expose
@@ -54,5 +65,12 @@ data class Story(
 
     @SerializedName("originalissue")
     @Expose
-    val originalissue: Summary?
+    val originalissue: Summary?,
+
+    @SerializedName("results")
+    @Expose
+    val results: ItemList<Story>
+
+
+
 )
