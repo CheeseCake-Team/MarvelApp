@@ -1,20 +1,29 @@
 package com.abaferastech.marvelapp.milk
 
 import com.abaferastech.marvelapp.data.models.ApiResponse
+import com.abaferastech.marvelapp.data.models.Series
 import com.abaferastech.marvelapp.data.models.Story
 import io.reactivex.rxjava3.core.Single
 import okhttp3.OkHttpClient
+import retrofit2.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 
 interface MarvelApiService {
+
     @GET("stories")
-    fun getStories(): Single<ApiResponse>
+    fun getStories(): Single<ApiResponse<Story>>
+
+
+    @GET("stories")
+    fun getSeries(): Single<Response<MarvelResponse>>
 }
+
 
 
 object MarvelAPI {

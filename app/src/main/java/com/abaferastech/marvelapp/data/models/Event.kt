@@ -39,7 +39,7 @@ data class Event(
 
     @SerializedName("thumbnail")
     @Expose
-    val thumbnail: Image?,
+    val thumbnail: Thumbnail?,
 
     @SerializedName("comics")
     @Expose

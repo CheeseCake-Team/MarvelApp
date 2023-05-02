@@ -4,16 +4,6 @@ import java.util.Date
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class ApiResponse(
-    @SerializedName("data")
-    @Expose
-    val data: MarvelData
-)
-
-data class MarvelData(
-
-    val results: List<Story>
-)
 
 data class Story(
     @SerializedName("id")
@@ -41,36 +31,36 @@ data class Story(
 
     @SerializedName("thumbnail")
     @Expose
-    val thumbnail: Image?,
+    val thumbnail: Thumbnail?,
 
     @SerializedName("comics")
     @Expose
-    val comics: ItemList<Comic>?,
+    val comics: NestedItem?,
 
     @SerializedName("series")
     @Expose
-    val series: ItemList<Series>?,
+    val series: NestedItem?,
 
     @SerializedName("events")
     @Expose
-    val events: ItemList<Event>?,
+    val events: NestedItem?,
 
     @SerializedName("characters")
     @Expose
-    val characters: ItemList<Character>?,
+    val characters: NestedItem?,
 
     @SerializedName("creators")
     @Expose
-    val creators: ItemList<Creator>?,
+    val creators: NestedItem?,
 
     @SerializedName("originalissue")
     @Expose
-    val originalissue: Summary?,
+    val originalissue: StoryItem?,
 
-    @SerializedName("results")
-    @Expose
-    val results: ItemList<Story>
-
+////    @SerializedName("results")
+////    @Expose
+////    val results: ItemList<Story>
+////
 
 
 )

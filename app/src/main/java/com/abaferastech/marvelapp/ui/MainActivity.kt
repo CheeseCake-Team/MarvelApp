@@ -15,8 +15,8 @@ class MainActivity() : BaseActivity<ActivityMainBinding>() {
 
     override fun init() {
         viewModel = ViewModelProvider(this)[MarvelViewModel::class.java]
-        viewModel.stories.observe(this) {
-            binding.text.text = it.toString()
+        viewModel.series.observe(this) {
+            binding.text.text = it[0].toString()
         }
     }
 

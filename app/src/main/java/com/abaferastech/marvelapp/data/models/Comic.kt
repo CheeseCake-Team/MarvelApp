@@ -100,11 +100,11 @@ data class Comic(
 
     @SerializedName("thumbnail")
     @Expose
-    val thumbnail: Image?,
+    val thumbnail: Thumbnail?,
 
     @SerializedName("images")
     @Expose
-    val images: List<Image>?,
+    val images: List<Thumbnail>?,
 
     @SerializedName("creators")
     @Expose

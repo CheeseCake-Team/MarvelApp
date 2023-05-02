@@ -31,7 +31,7 @@ data class Character(
 
     @SerializedName("thumbnail")
     @Expose
-    val thumbnail: Image?,
+    val thumbnail: Thumbnail?,
 
     @SerializedName("series")
     @Expose
