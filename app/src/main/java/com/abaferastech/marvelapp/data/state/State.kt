@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.data.models.state
+package com.abaferastech.marvelapp.data.state
 
 sealed class State<out T> {
     data class Success<T>(val data: T?) : State<T>()

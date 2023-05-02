@@ -1,30 +1,10 @@
-package com.abaferastech.marvelapp.milk
+package com.abaferastech.marvelapp.data.network
 
-import com.abaferastech.marvelapp.data.models.ApiResponse
-import com.abaferastech.marvelapp.data.models.Series
-import com.abaferastech.marvelapp.data.models.Story
-import io.reactivex.rxjava3.core.Single
 import okhttp3.OkHttpClient
-import retrofit2.Response
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.http.GET
-import retrofit2.http.Query
-
-
-interface MarvelApiService {
-
-    @GET("stories")
-    fun getStories(): Single<ApiResponse<Story>>
-
-
-    @GET("stories")
-    fun getSeries(): Single<Response<MarvelResponse>>
-}
-
-
 
 object MarvelAPI {
     private const val BASE_URL = "https://gateway.marvel.com/v1/public/"
@@ -36,7 +16,7 @@ object MarvelAPI {
     private val client = OkHttpClient
         .Builder()
         .addInterceptor(interceptor)
-        .addInterceptor(MarvelQueryParametersInterceptor())
+        .addInterceptor(MarvelInterceptor())
         .build()
 
 

@@ -3,7 +3,6 @@ package com.abaferastech.marvelapp.ui
 import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import com.abaferastech.marvelapp.databinding.ActivityMainBinding
-import com.abaferastech.marvelapp.milk.MarvelViewModel
 import com.abaferastech.marvelapp.ui.base.BaseActivity
 
 class MainActivity() : BaseActivity<ActivityMainBinding>() {

@@ -1,6 +1,5 @@
-package com.abaferastech.marvelapp.milk
+package com.abaferastech.marvelapp.data.network
 
-import android.util.Log
 import com.abaferastech.marvelapp.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Interceptor.Chain
@@ -9,22 +8,18 @@ import java.math.BigInteger
 import java.security.MessageDigest
 import java.time.Instant
 
-class MarvelQueryParametersInterceptor : Interceptor {
+class MarvelInterceptor : Interceptor {
 
     override fun intercept(chain:Chain): Response {
         val timeStamp = Instant.now().epochSecond.toString()
-
         val originalRequest = chain.request()
         val originalRequestUrl = originalRequest.url
 
-        Log.i("aliiiiiiiiiiiiiiiiiiii", "intercept: $timeStamp")
-        Log.i("aliiiiiiiiiiiiiiiiiiii", "intercept: ${generateHash(timeStamp)}")
         val newUrl = originalRequestUrl.newBuilder()
             .addQueryParameter("ts", timeStamp)
             .addQueryParameter("apikey", BuildConfig.lKey)
             .addQueryParameter("hash", generateHash(timeStamp))
             .build()
-        Log.i("aliiiiiiiiiiiiiiiiiiii", "intercept: $newUrl")
 
         val newRequest = originalRequest
             .newBuilder()
@@ -41,8 +36,5 @@ class MarvelQueryParametersInterceptor : Interceptor {
         val bigInt = BigInteger(1, md)
         return bigInt.toString(16).padStart(32, '0')
     }
-
-
-
 
 }
