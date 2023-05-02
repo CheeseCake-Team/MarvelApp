@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.abaferastech.marvelapp.data.models.ResourceItem
+import com.abaferastech.marvelapp.data.model.ResourceItem
 
 abstract class BaseAdapter<T: ResourceItem>(
     resourceItemDiffCallBack: BaseDiffUtilCallBack<T>
