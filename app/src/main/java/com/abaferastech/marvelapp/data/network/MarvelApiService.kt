@@ -8,8 +8,6 @@ import retrofit2.http.GET
 
 
 interface MarvelApiService {
-//    @GET("stories")
-//    fun getStories(): Single<ApiResponse<Story>>
 
     @GET("series")
     fun getSeries(): Single<Response<MarvelResponse<Series>>>
