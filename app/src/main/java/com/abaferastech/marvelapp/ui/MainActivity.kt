@@ -1,26 +1,23 @@
 package com.abaferastech.marvelapp.ui
 
-import android.os.Bundle
-import android.os.PersistableBundle
-import androidx.appcompat.app.AppCompatActivity
-import com.abaferastech.marvelapp.BuildConfig
-import java.security.MessageDigest
-import java.time.Instant
+import android.view.LayoutInflater
+import androidx.lifecycle.ViewModelProvider
+import com.abaferastech.marvelapp.databinding.ActivityMainBinding
+import com.abaferastech.marvelapp.ui.base.BaseActivity
+
+class MainActivity() : BaseActivity<ActivityMainBinding>() {
+    override val bindingInflater: (LayoutInflater) -> ActivityMainBinding =
+        ActivityMainBinding::inflate
+
+    lateinit var viewModel: MarvelViewModel
 
 
-class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
-
+    override fun init() {
+        viewModel = ViewModelProvider(this)[MarvelViewModel::class.java]
+        viewModel.series.observe(this) {
+            binding.text.text = it[0].toString()
+        }
     }
 
 
-    fun generateHash(): String {
-        val timestamp = Instant.now().epochSecond.toString()
-        val privateKey = BuildConfig.pKey
-        val publicKey = BuildConfig.lKey
-        val inputString = timestamp + privateKey + publicKey
-        val md = MessageDigest.getInstance("MD5").digest(inputString.toByteArray())
-        return md.joinToString("") { "%02x".format(it) }
-    }
 }
