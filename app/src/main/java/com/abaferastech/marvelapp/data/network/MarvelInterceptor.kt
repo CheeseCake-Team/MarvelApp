@@ -16,6 +16,7 @@ class MarvelInterceptor : Interceptor {
         val originalRequestUrl = originalRequest.url
 
         val newUrl = originalRequestUrl.newBuilder()
+            .scheme("https")
             .addQueryParameter("ts", timeStamp)
             .addQueryParameter("apikey", BuildConfig.lKey)
             .addQueryParameter("hash", generateHash(timeStamp))
