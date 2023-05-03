@@ -1,40 +1,47 @@
 package com.abaferastech.marvelapp.data.repository
 
-import android.util.Log
-import com.abaferastech.marvelapp.data.model.Series
-import com.abaferastech.marvelapp.data.network.MarvelAPI
+import com.abaferastech.marvelapp.data.model.*
 import com.abaferastech.marvelapp.data.model.response.MarvelResponse
 import com.abaferastech.marvelapp.data.model.state.State
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import com.abaferastech.marvelapp.data.network.MarvelAPI
+import com.abaferastech.marvelapp.utils.wrapWithState
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
-import retrofit2.Response
 
 class MarvelRepository {
 
-//    fun getAllMarvelSeries(): Single<State<MarvelResponse<Series>>> {
-//        return wrapperWithState { MarvelAPI.apiService.getAllSeries() }
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//    }
-
-    fun getSpecificMarvelSeries(seriesId: Int): Single<State<MarvelResponse<Series>>> {
-        return wrapperWithState { MarvelAPI.apiService.getSpecificSeries(seriesId) }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+    fun getAllSeries(): Single<State<MarvelResponse<Series>>> {
+        return wrapWithState { MarvelAPI.apiService.getAllSeries() }
     }
 
-    private fun <T> wrapperWithState(function: () -> Single<Response<T>>): Single<State<T>> {
-        return function().map {
-            if (it.isSuccessful) {
-                Log.i("mahamehoooooooo", "wrapperWithState: $it")
-                State.Success(it.body())
-            } else {
-                Log.i("mahamehoooooooo", "wrapperWithState: $it")
-                State.Error(it.message())
-            }
-        }
+    fun getSingleSeries(seriesId: Int): Single<State<MarvelResponse<Series>>> {
+        return wrapWithState { MarvelAPI.apiService.getSingleSeries(seriesId) }
     }
+
+    fun getSeriesComics(seriesId: Int): Single<State<MarvelResponse<Comics>>> {
+        return wrapWithState { MarvelAPI.apiService.getSeriesComics(seriesId) }
+    }
+
+    fun getSeriesEvents(seriesId: Int): Single<State<MarvelResponse<Events>>> {
+        return wrapWithState { MarvelAPI.apiService.getSeriesEvents(seriesId) }
+    }
+
+    fun getSeriesCharacters(seriesId: Int): Single<State<MarvelResponse<Characters>>> {
+        return wrapWithState { MarvelAPI.apiService.getSeriesCharacters(seriesId) }
+    }
+
+    fun getSeriesStories(seriesId: Int): Single<State<MarvelResponse<Stories>>> {
+        return wrapWithState { MarvelAPI.apiService.getSeriesStories(seriesId) }
+    }
+
+    fun getSeriesCreators(seriesId: Int): Single<State<MarvelResponse<Creators>>> {
+        return wrapWithState { MarvelAPI.apiService.getSeriesCreators(seriesId) }
+    }
+
+
+    fun getAllStories(): Single<State<MarvelResponse<Stories>>> {
+        return wrapWithState { MarvelAPI.apiService.getAllStories() }
+    }
+
 
 
 }

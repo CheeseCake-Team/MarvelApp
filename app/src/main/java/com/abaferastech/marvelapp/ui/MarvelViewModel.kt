@@ -18,7 +18,7 @@ class MarvelViewModel : ViewModel() {
     }
 
     private fun getMarvelStories() {
-        repository.getSpecificMarvelSeries(15)
+        repository.getSingleSeries(15)
             .subscribe({ response ->
                 Log.d("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh", response.toData()!!.data.results.first().toString())
                 series.postValue(response.toData()!!.data.results.first())
