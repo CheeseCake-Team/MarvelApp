@@ -9,19 +9,19 @@ import com.abaferastech.marvelapp.data.model.Series
 class MarvelViewModel : ViewModel() {
     private val repository = MarvelRepository()
 
-    val series = MutableLiveData<List<Series>>()
+    val series = MutableLiveData<Series>()
 
     init {
         getMarvelStories()
-        Log.d("aliiiiiiii", "error.message.toString()")
+        Log.d("aliiiiiiii", "")
 
     }
 
     private fun getMarvelStories() {
-        repository.getMarvelSeries()
+        repository.getSpecificMarvelSeries(15)
             .subscribe({ response ->
-                Log.d("aliiiiiiii", response.toData()!!.data.results.toString())
-                series.postValue(response.toData()!!.data.results)
+                Log.d("hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh", response.toData()!!.data.results.first().toString())
+                series.postValue(response.toData()!!.data.results.first())
             }, { message ->
                 Log.d("aliiiiiiii", "$message")
             })
