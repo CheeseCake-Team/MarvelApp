@@ -3,7 +3,7 @@ package com.abaferastech.marvelapp.ui
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.abaferastech.marvelapp.data.reposatory.MarvelRepository
+import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.data.model.Series
 
 class MarvelViewModel : ViewModel() {

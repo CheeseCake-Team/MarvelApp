@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.data.reposatory
+package com.abaferastech.marvelapp.data.repository
 
 import android.util.Log
 import com.abaferastech.marvelapp.data.model.Series

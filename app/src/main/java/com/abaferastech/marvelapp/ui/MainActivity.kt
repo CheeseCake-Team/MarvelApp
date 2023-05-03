@@ -1,19 +1,22 @@
 package com.abaferastech.marvelapp.ui
 
-import android.view.LayoutInflater
+import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.ActivityMainBinding
-import com.abaferastech.marvelapp.ui.base.BaseActivity
 
-class MainActivity() : BaseActivity<ActivityMainBinding>() {
-    override val bindingInflater: (LayoutInflater) -> ActivityMainBinding =
-        ActivityMainBinding::inflate
+class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        init()
+    }
 
-    lateinit var viewModel: MarvelViewModel
-
-
-    override fun init() {
-        viewModel = ViewModelProvider(this)[MarvelViewModel::class.java]
+    fun init() {
+        val viewModel = ViewModelProvider(this)[MarvelViewModel::class.java]
         viewModel.series.observe(this) {
             binding.text.text = it.toString()
         }
