@@ -1,30 +1,43 @@
 package com.abaferastech.marvelapp.ui
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import com.abaferastech.marvelapp.data.reposatory.MarvelRepository
 import com.abaferastech.marvelapp.data.model.Series
+import com.abaferastech.marvelapp.data.model.response.MarvelResponse
+import com.abaferastech.marvelapp.data.model.state.State
+import com.abaferastech.marvelapp.ui.base.BaseViewModel
+import io.reactivex.rxjava3.kotlin.addTo
 
-class MarvelViewModel : ViewModel() {
-    private val repository = MarvelRepository()
+class MarvelViewModel : BaseViewModel() {
 
-    val series = MutableLiveData<List<Series>>()
+    private val _series = MutableLiveData<Series>()
+    val series: LiveData<Series> get() = _series
+
 
     init {
         getMarvelStories()
-        Log.d("aliiiiiiii", "error.message.toString()")
-
     }
 
     private fun getMarvelStories() {
-        repository.getMarvelSeries()
-            .subscribe({ response ->
-                Log.d("aliiiiiiii", response.toData()!!.data.results.toString())
-                series.postValue(response.toData()!!.data.results)
-            }, { message ->
-                Log.d("aliiiiiiii", "$message")
-            })
+        repository.getSingleSeries(15)
+            .subscribe(::onSuccess, ::onError)
+            .addTo(compositeDisposable)
+
+
     }
 
+    private fun onSuccess(state: State<MarvelResponse<Series>>) {
+        when (state) {
+            is State.Error -> TODO()
+            State.Loading -> TODO()
+            is State.Success -> {
+                _series.postValue(state.toData()?.data?.results?.first())
+            }
+        }
+    }
+
+    private fun onError(e: Throwable) {
+        Log.e("MarvelAPI", "getMarvelStories() - Error: ${e.message}")
+    }
 }
