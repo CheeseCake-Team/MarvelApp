@@ -6,10 +6,14 @@ import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.Series
 import com.abaferastech.marvelapp.data.model.response.MarvelResponse
 import com.abaferastech.marvelapp.data.model.state.State
+import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 
 class MarvelViewModel : BaseViewModel() {
+
+    private val repository = MarvelRepository()
+
 
     private val _series = MutableLiveData<Series>()
     val series: LiveData<Series> get() = _series
@@ -20,10 +24,9 @@ class MarvelViewModel : BaseViewModel() {
     }
 
     private fun getMarvelStories() {
-        repository.getSingleSeries(15)
+        repository.getSingleSeriesFullUrl("http://gateway.marvel.com/v1/public/series/757")
             .subscribe(::onSuccess, ::onError)
             .addTo(compositeDisposable)
-
 
     }
 
