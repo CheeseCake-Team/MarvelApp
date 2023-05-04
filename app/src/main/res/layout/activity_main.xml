@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.abaferastech.marvelapp.ui.MarvelViewModel" />
@@ -15,17 +16,21 @@
         tools:context=".ui.MainActivity">
 
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_stories"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="32sp"
-            android:text="vasvvvvvf"
+            android:clipToPadding="false"
+            android:orientation="horizontal"
             android:textColor="@color/black"
+            android:textSize="32sp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:itemCount="3"
+            tools:listitem="@layout/stories_iteam" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

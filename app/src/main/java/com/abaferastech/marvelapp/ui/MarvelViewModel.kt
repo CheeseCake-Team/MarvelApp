@@ -1,41 +1,39 @@
 package com.abaferastech.marvelapp.ui
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.model.Series
+import androidx.lifecycle.ViewModel
+import com.abaferastech.marvelapp.data.model.Stories
 import com.abaferastech.marvelapp.data.model.response.MarvelResponse
 import com.abaferastech.marvelapp.data.model.state.State
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
-import com.abaferastech.marvelapp.ui.base.BaseViewModel
-import io.reactivex.rxjava3.kotlin.addTo
 
-class MarvelViewModel : BaseViewModel() {
-
+class MarvelViewModel : ViewModel() {
     private val repository = MarvelRepository()
-
-
-    private val _series = MutableLiveData<Series>()
-    val series: LiveData<Series> get() = _series
+    private val _stories = MutableLiveData<Stories>()
+    val stories: LiveData<Stories> get() = _stories
 
 
     init {
         getMarvelStories()
     }
 
+    @SuppressLint("CheckResult")
     private fun getMarvelStories() {
-        repository.getSingleSeriesFullUrl("http://gateway.marvel.com/v1/public/series/757")
+        repository.getSingleStory(15)
             .subscribe(::onSuccess, ::onError)
-            .addTo(compositeDisposable)
+
 
     }
 
-    private fun onSuccess(state: State<MarvelResponse<Series>>) {
+    private fun onSuccess(state: State<MarvelResponse<Stories>>) {
         when (state) {
             is State.Error -> TODO()
             State.Loading -> TODO()
             is State.Success -> {
-                _series.postValue(state.toData()?.data?.results?.first())
+                _stories.postValue(state.toData()?.data?.results?.first())
             }
         }
     }

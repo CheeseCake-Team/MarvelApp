@@ -17,10 +17,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun init() {
         val viewModel = ViewModelProvider(this)[MarvelViewModel::class.java]
-        viewModel.series.observe(this) {
-            binding.text.text = it.toString()
+        viewModel.stories.observe(this) {
+
         }
     }
-
-
 }
