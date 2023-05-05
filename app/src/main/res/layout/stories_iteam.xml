@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
-            name="stories"
-            type="com.abaferastech.marvelapp.data.model.Stories" />
+            name="comics"
+            type="com.abaferastech.marvelapp.data.model.Comics" />
     </data>
 
 
@@ -20,9 +21,10 @@
 
             <ImageView
                 android:id="@+id/image_view_story_image"
-                android:layout_width="match_parent"
+                android:layout_width="match_parent "
                 android:layout_height="120dp"
-                android:src="@{stories.thumbnail.extension}"
+                tools:src="@color/material_dynamic_tertiary70"
+                app:imageUrl="@{comics.myThumbnail()}"
                 app:layout_constraintBottom_toTopOf="@+id/text_view_story_name"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -33,7 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
-                android:text="@{stories.title}"
+                android:text="@{comics.title}"
+                tools:text="story name"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

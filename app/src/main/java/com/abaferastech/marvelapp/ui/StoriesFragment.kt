@@ -3,12 +3,13 @@ package com.abaferastech.marvelapp.ui
 import android.os.Bundle
 import android.view.View
 import com.abaferastech.marvelapp.R
+import com.abaferastech.marvelapp.data.model.Comics
 import com.abaferastech.marvelapp.data.model.Stories
 import com.abaferastech.marvelapp.databinding.ActivityMainBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 
 class StoriesFragment : BaseFragment<ActivityMainBinding, MarvelViewModel>(),
-   StoriesInteractionListener {
+    ComicsInteractionListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -29,7 +30,7 @@ class StoriesFragment : BaseFragment<ActivityMainBinding, MarvelViewModel>(),
         binding.recyclerViewStories.adapter = storiesAdapter
     }
 
-    override fun onClickSeries(stories: Stories) {
+    override fun onClickSeries(comics: Comics) {
         TODO("Not yet implemented")
     }
 }

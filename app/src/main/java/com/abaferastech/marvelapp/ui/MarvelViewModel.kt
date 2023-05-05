@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.abaferastech.marvelapp.data.model.Comics
 import com.abaferastech.marvelapp.data.model.Stories
 import com.abaferastech.marvelapp.data.model.response.MarvelResponse
 import com.abaferastech.marvelapp.data.model.state.State
@@ -12,8 +13,8 @@ import com.abaferastech.marvelapp.data.repository.MarvelRepository
 
 class MarvelViewModel : ViewModel() {
     private val repository = MarvelRepository()
-    private val _stories = MutableLiveData<Stories>()
-    val stories: LiveData<Stories> get() = _stories
+    private val _stories = MutableLiveData<List<Comics>>()
+    val stories: LiveData<List<Comics>> get() = _stories
 
 
     init {
@@ -22,18 +23,19 @@ class MarvelViewModel : ViewModel() {
 
     @SuppressLint("CheckResult")
     private fun getMarvelStories() {
-        repository.getSingleStory(15)
+        repository.getAllComics()
             .subscribe(::onSuccess, ::onError)
 
 
     }
 
-    private fun onSuccess(state: State<MarvelResponse<Stories>>) {
+    private fun onSuccess(state: State<MarvelResponse<Comics>>) {
         when (state) {
-            is State.Error -> TODO()
-            State.Loading -> TODO()
+            is State.Error -> Log.e("Mujtaba", "error")
+            State.Loading -> Log.e("Mujtaba", "Loading")
             is State.Success -> {
-                _stories.postValue(state.toData()?.data?.results?.first())
+                _stories.postValue(state.toData()?.data?.results)
+                Log.e("Mujtaba", state.toData()?.data?.results.toString())
             }
         }
     }
