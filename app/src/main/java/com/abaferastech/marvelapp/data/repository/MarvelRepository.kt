@@ -8,6 +8,9 @@ import com.abaferastech.marvelapp.utils.wrapWithState
 import io.reactivex.rxjava3.core.Single
 
 class MarvelRepository {
+    fun getAllEvents(): Single<State<MarvelResponse<Events>>> {
+        return wrapWithState { MarvelAPI.apiService.getAllEvents() }
+    }
 
     fun getAllSeries(): Single<State<MarvelResponse<Series>>> {
         return wrapWithState { MarvelAPI.apiService.getAllSeries() }
@@ -37,7 +40,6 @@ class MarvelRepository {
         return wrapWithState { MarvelAPI.apiService.getSeriesCreators(seriesId) }
     }
 
-
     fun getAllComics(): Single<State<MarvelResponse<Comics>>> {
         return wrapWithState { MarvelAPI.apiService.getAllComics() }
     }
@@ -65,8 +67,6 @@ class MarvelRepository {
     fun getComicStories(comicsId: Int): Single<State<MarvelResponse<Stories>>> {
         return wrapWithState { MarvelAPI.apiService.getComicStories(comicsId) }
     }
-
-
 
     fun getAllCreators(): Single<State<MarvelResponse<Creators>>> {
         return wrapWithState { MarvelAPI.apiService.getAllCreators() }
@@ -96,7 +96,6 @@ class MarvelRepository {
         return wrapWithState { MarvelAPI.apiService.getCreatorStories(creatorId) }
     }
 
-
     fun getAllStories(): Single<State<MarvelResponse<Stories>>> {
         return wrapWithState { MarvelAPI.apiService.getAllStories() }
     }
@@ -124,8 +123,4 @@ class MarvelRepository {
     fun getStorySeries(storyId: Int):  Single<State<MarvelResponse<Series>>> {
         return wrapWithState { MarvelAPI.apiService.getStorySeries(storyId) }
     }
-
-
-
-
 }
