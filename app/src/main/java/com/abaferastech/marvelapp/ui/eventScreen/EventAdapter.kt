@@ -11,17 +11,12 @@ class EventAdapter(items : List<Events> , listener: EventsInteractionListener) :
     override val layoutID: Int
         get() = R.layout.item_events
 
-
-    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        super.onBindViewHolder(holder, position)
-        val currentItem = getItems()[position]
-        when (holder) {
-
-            is ItemViewHolder -> {
-
-                holder.binding.setVariable(BR.item,currentItem)
-            }
-        }
+    override fun bindItemViewHolder(
+        holder: BaseViewHolder,
+        item: Events,
+        listener: BaseInteractionListener?
+    ) {
+        holder.binding.setVariable(BR.item,item)
     }
 
 }

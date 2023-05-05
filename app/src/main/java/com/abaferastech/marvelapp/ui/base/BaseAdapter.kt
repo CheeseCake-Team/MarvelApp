@@ -46,6 +46,7 @@ abstract class BaseAdapter<T>(
 
     abstract class BaseViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
 
+    class ItemViewHolder(binding: ViewDataBinding) : BaseViewHolder(binding)
 
     inner class DiffUtils<T>(private val oldList: List<T>, private val newList: List<T>) :
         DiffUtil.Callback() {
