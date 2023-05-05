@@ -14,6 +14,7 @@ class CreatorsAdapter(
 ) : BaseAdapter<Comics>(items, listener){
     override val layoutID: Int
         get() = R.layout.creator_series_card
+
 }
 interface CreatorsInteractionListener : BaseInteractionListener{
     fun onClickCreator(creator : Creators)
