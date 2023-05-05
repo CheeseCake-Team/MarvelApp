@@ -16,7 +16,7 @@ abstract class BaseAdapter<T>(
 
     abstract val layoutID: Int
 
-
+    abstract fun bindItemViewHolder(holder: BaseViewHolder, item: T, listener: BaseInteractionListener?)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return ItemViewHolder(
@@ -31,9 +31,7 @@ abstract class BaseAdapter<T>(
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         val currentItem = items[position]
-        when (holder) {
-//            TODO()
-        }
+        bindItemViewHolder(holder, currentItem, listener)
     }
 
     fun setItems(newItems: List<T>) {
@@ -46,9 +44,8 @@ abstract class BaseAdapter<T>(
 
     fun getItems() = items
 
-    class ItemViewHolder(private val binding: ViewDataBinding) : BaseViewHolder(binding)
+    abstract class BaseViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
 
-    abstract class BaseViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
 
     inner class DiffUtils<T>(private val oldList: List<T>, private val newList: List<T>) :
         DiffUtil.Callback() {
