@@ -23,7 +23,8 @@
         android:layout_marginHorizontal="16dp"
         android:layout_marginVertical="8dp"
         app:cardCornerRadius="4dp"
-        app:cardElevation="8dp">
+        style="@style/Widget.Material3.CardView.Elevated"
+        >
 
         <androidx.constraintlayout.widget.ConstraintLayout
 
@@ -33,7 +34,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                app:imageUrl="@{item.thumbnail.path}"
+                app:imageUrl="@{item.thumbnail}"
                 android:foreground="@drawable/gradiant"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -44,10 +45,11 @@
                 android:id="@+id/textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16sp"
-                android:text="@{item.title}"
                 android:layout_margin="16dp"
-                android:textColor="@color/white"
+                android:fontFamily="@font/bangers"
+                android:text="@{item.title}"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                android:textColor="#FFFFFF"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="Event" />
