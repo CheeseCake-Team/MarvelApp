@@ -21,9 +21,9 @@ fun imageUrl (view: ImageView, thumbnail: Thumbnail?){
 fun setRecyclerViewItems(view: RecyclerView, items: List<Characters>?){
 
     if (items != null){
-        (view.adapter as CharactersAdpter).setItems(items)
+        (view.adapter as CharactersAdapter).setItems(items)
     }
     else{
-        (view.adapter as CharactersAdpter).setItems(emptyList())
+        (view.adapter as CharactersAdapter).setItems(emptyList())
     }
 }

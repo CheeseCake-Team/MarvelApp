@@ -12,14 +12,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_characters"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="12dp"
         app:items="@{viewModel.characters}"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:spanCount="3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="12dp" />
+        app:spanCount="3" />
 
 
 </layout>
