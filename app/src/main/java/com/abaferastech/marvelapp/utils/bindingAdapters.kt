@@ -6,8 +6,9 @@ import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.data.model.Comics
+import com.abaferastech.marvelapp.data.model.Series
 import com.abaferastech.marvelapp.data.model.state.State
-import com.abaferastech.marvelapp.ui.creators.CreatorsAdapter
+import com.abaferastech.marvelapp.ui.creators.CreatorAdapters
 import com.bumptech.glide.Glide
 
 @BindingAdapter(value = ["app:showWhenLoading"])
@@ -42,11 +43,11 @@ fun setImageFromUrl(view: ImageView, url: String){
     Glide.with(view).load(url).centerCrop().into(view)
 }
 @BindingAdapter (value = ["app:items"])
-fun setRecyclerItems(view: RecyclerView, items: List<Comics>){
+fun setRecyclerItems(view: RecyclerView, items: List<Series>){
     if(items != null){
-        (view.adapter as CreatorsAdapter).setItems(items)
+        (view.adapter as CreatorAdapters).setItems(items)
     } else {
-        (view.adapter as CreatorsAdapter).setItems(emptyList())
+        (view.adapter as CreatorAdapters).setItems(emptyList())
 
     }
 }

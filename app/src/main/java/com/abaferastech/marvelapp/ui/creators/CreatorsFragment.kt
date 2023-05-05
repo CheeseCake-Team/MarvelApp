@@ -1,12 +1,15 @@
 package com.abaferastech.marvelapp.ui.creators
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.CreatorSeriesFragmentBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
+import com.abaferastech.marvelapp.ui.eventScreen.EventAdapter
+import com.abaferastech.marvelapp.ui.eventScreen.EventsInteractionListener
 
 
 class CreatorsFragment : BaseFragment<CreatorSeriesFragmentBinding,CreatorsViewModel>() {
@@ -21,15 +24,10 @@ class CreatorsFragment : BaseFragment<CreatorSeriesFragmentBinding,CreatorsViewM
     override val viewModelClass: Class<CreatorsViewModel>
         get() = CreatorsViewModel::class.java
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        val adapter = CreatorsAdapter(mutableListOf(), viewModel)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val adapter = CreatorAdapters(emptyList(), object : SeriesInterActionListener{})
         binding.recyclerSeries.adapter = adapter
-        return inflater.inflate(R.layout.creator_series_fragment, container, false)
-
     }
 
 }
