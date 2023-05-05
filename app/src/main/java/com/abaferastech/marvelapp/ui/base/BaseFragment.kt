@@ -16,7 +16,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel> : Fragment() 
     abstract val layoutIdFragment: Int
     abstract val viewModelClass: Class<VM>
 
-    val viewModel: VM by lazy {
+    protected val viewModel: VM by lazy {
         ViewModelProvider(this)[viewModelClass]
     }
 
