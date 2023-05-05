@@ -1,46 +1,43 @@
-package com.abaferastech.marvelapp.ui
+package com.abaferastech.marvelapp.ui.eventScreen
 
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.model.Series
+import com.abaferastech.marvelapp.data.model.Events
 import com.abaferastech.marvelapp.data.model.response.MarvelResponse
 import com.abaferastech.marvelapp.data.model.state.State
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 
-class MarvelViewModel : BaseViewModel() {
-
+class EventsViewModel : BaseViewModel() {
     private val repository = MarvelRepository()
 
-
-    private val _series = MutableLiveData<Series>()
-    val series: LiveData<Series> get() = _series
-
+    private val _events = MutableLiveData<List<Events>>()
+    val events: LiveData<List<Events>> get() = _events
 
     init {
-        getMarvelStories()
+        getMarvelEvents()
     }
 
-    private fun getMarvelStories() {
-        repository.getSeriesFullUrl("http://gateway.marvel.com/v1/public/series/757")
+    private fun getMarvelEvents() {
+        repository.getAllEvents()
             .subscribe(::onSuccess, ::onError)
             .addTo(compositeDisposable)
-
     }
 
-    private fun onSuccess(state: State<MarvelResponse<Series>>) {
+    private fun onSuccess(state: State<MarvelResponse<Events>>) {
         when (state) {
             is State.Error -> TODO()
             State.Loading -> TODO()
             is State.Success -> {
-                _series.postValue(state.toData()?.data?.results?.first())
+                Log.i("Ekko",state.toData()?.data?.results.toString())
+                _events.postValue(state.toData()?.data?.results)
             }
         }
     }
 
     private fun onError(e: Throwable) {
-        Log.e("MarvelAPI", "getMarvelStories() - Error: ${e.message}")
+        Log.e("MarvelAPI", "getMarvelEvents() - Error: ${e.message}")
     }
 }

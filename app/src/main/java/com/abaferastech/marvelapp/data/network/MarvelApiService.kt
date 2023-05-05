@@ -7,8 +7,13 @@ import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 
-
 interface MarvelApiService {
+
+    @GET("events")
+    fun getAllEvents(): Single<Response<MarvelResponse<Events>>>
+
+    @GET("characters")
+    fun getAllCharacters(): Single<Response<MarvelResponse<Characters>>>
 
     @GET("series")
     fun getAllSeries(): Single<Response<MarvelResponse<Series>>>
@@ -34,7 +39,6 @@ interface MarvelApiService {
     @GET("series/{seriesId}/stories")
     fun getSeriesStories(@Path("seriesId") characterId: Int): Single<Response<MarvelResponse<Stories>>>
 
-
     @GET("comics")
     fun getAllComics(): Single<Response<MarvelResponse<Comics>>>
 
@@ -56,8 +60,6 @@ interface MarvelApiService {
     @GET("comics/{comicsId}/stories")
     fun getComicStories(@Path("comicsId") comicsId: Int): Single<Response<MarvelResponse<Stories>>>
 
-
-
     @GET("creators")
     fun getAllCreators(): Single<Response<MarvelResponse<Creators>>>
 
@@ -78,7 +80,6 @@ interface MarvelApiService {
 
     @GET("creators/{creatorId}/stories")
     fun getCreatorStories(@Path("creatorId") creatorId: Int): Single<Response<MarvelResponse<Stories>>>
-
 
     @GET("stories")
     fun getAllStories(): Single<Response<MarvelResponse<Stories>>>
