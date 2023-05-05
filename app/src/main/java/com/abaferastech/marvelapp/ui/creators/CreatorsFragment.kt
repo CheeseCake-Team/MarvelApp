@@ -27,6 +27,8 @@ class CreatorsFragment : BaseFragment<CreatorSeriesFragmentBinding,CreatorsViewM
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.creator_series_fragment, container, false)
+        val adapter = CreatorsAdapter(mutableListOf(), viewModel)
+        binding.recyclerSeries.adapter = adapter
     }
 
 }
