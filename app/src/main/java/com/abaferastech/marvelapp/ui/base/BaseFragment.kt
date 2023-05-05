@@ -33,8 +33,9 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
 
         _binding.apply {
             lifecycleOwner = viewLifecycleOwner
-            setVariable(BR.viewModel, viewModel)
+            setVariable(BR.viewModel,viewModel)
             return root
         }
     }
+
 }
