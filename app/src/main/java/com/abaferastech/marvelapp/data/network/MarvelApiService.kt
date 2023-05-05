@@ -17,7 +17,7 @@ interface MarvelApiService {
     fun getSingleSeries(@Path("seriesId") seriesId: Int): Single<Response<MarvelResponse<Series>>>
 
     @GET("{fullUrl}")
-    fun getSingleSeriesFullUrl(@Path(value = "fullUrl", encoded = true) fullUrl: String): Single<Response<MarvelResponse<Series>>>
+    fun getSeriesFullUrl(@Path(value = "fullUrl", encoded = true) fullUrl: String): Single<Response<MarvelResponse<Series>>>
 
     @GET("series/{seriesId}/events")
     fun getSeriesEvents(@Path("seriesId") characterId: Int): Single<Response<MarvelResponse<Events>>>

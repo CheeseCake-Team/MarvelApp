@@ -16,6 +16,8 @@ abstract class BaseAdapter<T>(
 
     abstract val layoutID: Int
 
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return ItemViewHolder(
             DataBindingUtil.inflate(
@@ -44,7 +46,7 @@ abstract class BaseAdapter<T>(
 
     fun getItems() = items
 
-    class ItemViewHolder(val binding: ViewDataBinding) : BaseViewHolder(binding)
+    class ItemViewHolder(private val binding: ViewDataBinding) : BaseViewHolder(binding)
 
     abstract class BaseViewHolder(binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
 
