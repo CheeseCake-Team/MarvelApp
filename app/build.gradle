@@ -40,8 +40,6 @@ android {
     buildFeatures{
         buildConfig = true
         dataBinding = true
-        viewBinding = true
-
     }
 }
 
@@ -80,4 +78,10 @@ dependencies {
 
     implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.11'
     implementation 'com.squareup.okhttp3:okhttp:5.0.0-alpha.3'
+
+    implementation "androidx.fragment:fragment:1.5.7"
+    implementation "androidx.activity:activity-ktx:1.7.1"
+
+    implementation 'androidx.navigation:navigation-fragment-ktx:2.5.3'
+    implementation 'androidx.navigation:navigation-ui-ktx:2.5.3'
 }
