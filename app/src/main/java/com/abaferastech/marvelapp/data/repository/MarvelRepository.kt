@@ -12,6 +12,10 @@ class MarvelRepository {
         return wrapWithState { MarvelAPI.apiService.getAllEvents() }
     }
 
+    fun getAllCharacters(): Single<State<MarvelResponse<Characters>>> {
+        return wrapWithState { MarvelAPI.apiService.getAllCharacters() }
+    }
+
     fun getAllSeries(): Single<State<MarvelResponse<Series>>> {
         return wrapWithState { MarvelAPI.apiService.getAllSeries() }
     }
