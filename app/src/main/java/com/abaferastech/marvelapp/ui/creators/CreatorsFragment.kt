@@ -1,16 +1,15 @@
 package com.abaferastech.marvelapp.ui.creators
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.databinding.FragmentCreatorBinding
+import com.abaferastech.marvelapp.databinding.CreatorSeriesFragmentBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 
 
-class CreatorsFragment : BaseFragment<FragmentCreatorBinding,CreatorsViewModel>() {
+class CreatorsFragment : BaseFragment<CreatorSeriesFragmentBinding,CreatorsViewModel>() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,7 +17,7 @@ class CreatorsFragment : BaseFragment<FragmentCreatorBinding,CreatorsViewModel>(
     }
 
     override val layoutIdFragment: Int
-        get() = R.layout.fragment_creator
+        get() = R.layout.creator_series_fragment
     override val viewModelClass: Class<CreatorsViewModel>
         get() = CreatorsViewModel::class.java
 
@@ -27,7 +26,7 @@ class CreatorsFragment : BaseFragment<FragmentCreatorBinding,CreatorsViewModel>(
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_creator, container, false)
+        return inflater.inflate(R.layout.creator_series_fragment, container, false)
     }
 
 }

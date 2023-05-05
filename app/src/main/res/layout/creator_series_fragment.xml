@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#C3BEBE"
+        tools:context="ui.creators.CreatorsFragment">
+
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_creator"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/creator_img"
+            app:civ_border_color="#FAFAFAFA"
+            app:civ_border_width="4dp"
+            app:layout_constraintBottom_toTopOf="@id/text_follow"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/text_creator_name"
+            android:layout_width="200dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:text="SALADIN AHMED"
+            android:textColor="#D9000000"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@id/text_job"
+            app:layout_constraintEnd_toEndOf="@id/image_creator"
+            app:layout_constraintStart_toStartOf="@id/image_creator"
+            app:layout_constraintTop_toBottomOf="@id/image_creator"
+
+            />
+
+        <TextView
+            android:id="@+id/text_job"
+            android:layout_width="200dp"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:text="CREATOR"
+            android:textColor="#AB000000"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@id/image_creator"
+            app:layout_constraintStart_toStartOf="@id/image_creator"
+            app:layout_constraintTop_toBottomOf="@id/text_creator_name"
+
+            />
+
+        <TextView
+            android:id="@+id/text_stat_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_marginStart="110dp"
+            android:background="@drawable/baseline_star_outline_24"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/text_follow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_follow"
+            android:layout_width="150dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="FOLLOW CREATOR"
+            android:textColor="#D9000000"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_series"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:padding="12dp"
+            android:paddingVertical="12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/text_follow"
+            tools:listitem="@layout/creator_series_card" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
