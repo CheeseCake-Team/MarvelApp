@@ -6,10 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.Events
 import com.abaferastech.marvelapp.data.model.response.MarvelResponse
 import com.abaferastech.marvelapp.data.model.state.State
+import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 
 class EventsViewModel : BaseViewModel() {
+    private val repository = MarvelRepository()
 
     private val _events = MutableLiveData<List<Events>>()
     val events: LiveData<List<Events>> get() = _events
