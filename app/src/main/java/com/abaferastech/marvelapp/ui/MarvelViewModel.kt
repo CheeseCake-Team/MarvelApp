@@ -24,7 +24,7 @@ class MarvelViewModel : BaseViewModel() {
     }
 
     private fun getMarvelStories() {
-        repository.getSingleSeriesFullUrl("http://gateway.marvel.com/v1/public/series/757")
+        repository.getSeriesFullUrl("http://gateway.marvel.com/v1/public/series/757")
             .subscribe(::onSuccess, ::onError)
             .addTo(compositeDisposable)
 

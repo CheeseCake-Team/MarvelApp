@@ -17,8 +17,8 @@ class MarvelRepository {
         return wrapWithState { MarvelAPI.apiService.getSingleSeries(seriesId) }
     }
 
-    fun getSingleSeriesFullUrl(fullUrl: String): Single<State<MarvelResponse<Series>>> {
-        return wrapWithState { MarvelAPI.apiService.getSingleSeriesFullUrl(fullUrl) }
+    fun getSeriesFullUrl(fullUrl: String): Single<State<MarvelResponse<Series>>> {
+        return wrapWithState { MarvelAPI.apiService.getSeriesFullUrl(fullUrl) }
     }
 
     fun getSeriesComics(seriesId: Int): Single<State<MarvelResponse<Comics>>> {
