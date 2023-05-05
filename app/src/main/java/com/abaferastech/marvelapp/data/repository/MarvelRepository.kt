@@ -17,6 +17,10 @@ class MarvelRepository {
         return wrapWithState { MarvelAPI.apiService.getSingleSeries(seriesId) }
     }
 
+    fun getSingleSeriesFullUrl(fullUrl: String): Single<State<MarvelResponse<Series>>> {
+        return wrapWithState { MarvelAPI.apiService.getSingleSeriesFullUrl(fullUrl) }
+    }
+
     fun getSeriesComics(seriesId: Int): Single<State<MarvelResponse<Comics>>> {
         return wrapWithState { MarvelAPI.apiService.getSeriesComics(seriesId) }
     }
@@ -65,7 +69,6 @@ class MarvelRepository {
     fun getComicStories(comicsId: Int): Single<State<MarvelResponse<Stories>>> {
         return wrapWithState { MarvelAPI.apiService.getComicStories(comicsId) }
     }
-
 
 
     fun getAllCreators(): Single<State<MarvelResponse<Creators>>> {
@@ -121,11 +124,9 @@ class MarvelRepository {
         return wrapWithState { MarvelAPI.apiService.getStoryCreators(storyId) }
     }
 
-    fun getStorySeries(storyId: Int):  Single<State<MarvelResponse<Series>>> {
+    fun getStorySeries(storyId: Int): Single<State<MarvelResponse<Series>>> {
         return wrapWithState { MarvelAPI.apiService.getStorySeries(storyId) }
     }
-
-
 
 
 }

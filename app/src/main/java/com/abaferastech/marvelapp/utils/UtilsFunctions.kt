@@ -11,11 +11,10 @@ import retrofit2.Response
 fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<State<T>> {
     return function().map {
         if (it.isSuccessful) {
-            Log.i("mahamehoooooooo", "wrapperWithState: $it")
             State.Success(it.body())
         } else {
-            Log.i("mahamehoooooooo", "wrapperWithState: $it")
             State.Error(it.message())
         }
-    }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }.subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
 }
