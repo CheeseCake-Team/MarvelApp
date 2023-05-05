@@ -11,16 +11,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        init()
+
     }
 
-    private fun init() {
-        val viewModel = ViewModelProvider(this)[MarvelViewModel::class.java]
-        viewModel.series.observe(this) {
-            binding.text.text = it.toString()
-        }
-    }
 
 
 }

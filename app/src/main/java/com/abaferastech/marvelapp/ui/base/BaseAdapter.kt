@@ -6,6 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.abaferastech.marvelapp.BR
+
 
 interface BaseInteractionListener
 
@@ -30,7 +32,9 @@ abstract class BaseAdapter<T>(
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         val currentItem = items[position]
         when (holder) {
-//            TODO()
+            is ItemViewHolder ->{
+                holder.binding.setVariable(BR.item,currentItem)
+            }
         }
     }
 
