@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.abaferastech.marvelapp.BR
 
 abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragment() {
 
@@ -32,7 +33,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : BaseViewModel> : Fragmen
 
         _binding.apply {
             lifecycleOwner = viewLifecycleOwner
-            TODO("BR viewModel")
+            setVariable(BR.viewModel,viewModel)
             return root
         }
     }
