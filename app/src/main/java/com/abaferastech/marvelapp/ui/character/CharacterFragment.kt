@@ -1,10 +1,7 @@
 package com.abaferastech.marvelapp.ui.character
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentCharacterBinding
@@ -22,6 +19,13 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding,CharacterViewMod
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        init()
+        initTapLayout()
+        initViewPager()
+
+    }
+
+    fun init() {
         tabLayout = binding.tabLayout
         viewPager = binding.viewPager
         adapter = CharacterFragmentPageAdapter(requireActivity().supportFragmentManager,lifecycle)
@@ -30,6 +34,9 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding,CharacterViewMod
             addTab(tabLayout.newTab().setText("Details"))
         }
         viewPager.adapter = adapter
+    }
+
+    fun initTapLayout() {
         tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
@@ -42,7 +49,9 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding,CharacterViewMod
             override fun onTabReselected(tab: TabLayout.Tab?) {
             }
         })
+    }
 
+    fun initViewPager() {
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
