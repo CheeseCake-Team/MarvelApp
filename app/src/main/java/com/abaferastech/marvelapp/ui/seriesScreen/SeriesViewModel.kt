@@ -40,7 +40,7 @@ class SeriesViewModel : BaseViewModel() {
     }
 
 
-    }
+}
 
 
 private fun OnError(e: Throwable) {
