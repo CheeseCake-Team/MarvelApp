@@ -30,4 +30,5 @@ class CreatorsFragment : BaseFragment<CreatorSeriesFragmentBinding,CreatorsViewM
         binding.recyclerSeries.adapter = adapter
     }
 
+
 }
