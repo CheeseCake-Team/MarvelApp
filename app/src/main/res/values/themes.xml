@@ -49,4 +49,10 @@
         <item name="colorSurfaceBright">@color/md_theme_surfaceBright</item>
         <item name="colorPrimaryInverse">@color/md_theme_inversePrimary</item>
     </style>
+
+    <style name="CircleImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%
+        </item>
+    </style>
 </resources>

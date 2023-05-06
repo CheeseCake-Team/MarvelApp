@@ -19,23 +19,22 @@
             android:id="@+id/image_view_character"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            app:imageUrl="@{item.thumbnail}"
             android:src="@drawable/ic_launcher_background"
+            app:imageUrl="@{item.thumbnail}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearance="@style/CircleImageView"
             tools:ignore="MissingConstraints" />
 
         <TextView
-            android:text="@{item.name}"
             android:id="@+id/text_view_character_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:text="@{item.name}"
             app:layout_constraintEnd_toEndOf="@+id/image_view_character"
             app:layout_constraintStart_toStartOf="@+id/image_view_character"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_character"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/image_view_character" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
