@@ -13,12 +13,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="4dp">
+        android:padding="@dimen/space_4dp">
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_view_character"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="@dimen/character_image_view_dimens"
+            android:layout_height="@dimen/character_image_view_dimens"
+            android:src="@drawable/ic_launcher_background"
             app:imageUrl="@{item.thumbnail}"
             android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
@@ -30,7 +31,7 @@
             android:id="@+id/text_view_character_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="@dimen/space_4dp"
             android:fontFamily="@font/bangers"
             android:text="@{item.name}"
             android:textAlignment="center"

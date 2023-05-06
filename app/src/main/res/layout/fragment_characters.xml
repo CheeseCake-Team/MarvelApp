@@ -13,7 +13,7 @@
         android:id="@+id/recycler_view_characters"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="12dp"
+        android:padding="@dimen/space_12dp"
         app:items="@{viewModel.characters}"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:layout_constraintEnd_toEndOf="parent"

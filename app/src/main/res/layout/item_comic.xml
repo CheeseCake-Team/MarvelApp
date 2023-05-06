@@ -16,12 +16,12 @@
 
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.Material3.CardView.Filled"
-        android:layout_width="160dp"
+        android:layout_width="@dimen/comic_card_view_width"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/space_4dp"
         android:onClick="@{() -> listener.onClickSeries(comic)}"
         app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="4dp">
+        app:cardCornerRadius="@dimen/space_4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -30,7 +30,7 @@
             <ImageView
                 android:id="@+id/image_view_story_image"
                 android:layout_width="match_parent"
-                android:layout_height="220dp"
+                android:layout_height="@dimen/comic_image_view_height"
                 android:contentDescription="@string/image_of_the_comic"
                 android:scaleType="fitXY"
                 app:imageUrl="@{comic.thumbnail}"
@@ -41,7 +41,7 @@
                 android:id="@+id/text_view_comic_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/space_6dp"
                 android:ellipsize="marquee"
                 android:fontFamily="@font/bangers"
                 android:maxLines="1"
@@ -56,7 +56,7 @@
                 android:id="@+id/text_view_comic_issue_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/space_6dp"
                 android:fontFamily="@font/bangers"
                 android:text="@{@string/issue(comic.issueNumber.toString())}"
                 app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +67,7 @@
                 android:id="@+id/text_view_comic_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/space_8dp"
                 android:fontFamily="@font/bangers"
                 android:text="@{comic.modified.substring(0,10)}"
                 app:layout_constraintBottom_toBottomOf="parent"
