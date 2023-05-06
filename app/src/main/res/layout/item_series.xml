@@ -14,131 +14,66 @@
             type="com.abaferastech.marvelapp.ui.base.BaseInteractionListener" />
     </data>
 
-    <LinearLayout
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Material3.CardView.Filled"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="4dp">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            app:cardBackgroundColor="@android:color/transparent"
-            app:cardCornerRadius="4dp">
+            <ImageView
+                android:id="@+id/image_view_story_image"
+                android:layout_width="160dp"
+                android:layout_height="220dp"
+                app:imageUrl="@{Series.thumbnail}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@color/material_dynamic_tertiary70" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/text_view_comic_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:ellipsize="marquee"
+                android:fontFamily="@font/bangers"
+                android:maxLines="1"
+                android:text="@{Series.title}"
+                app:layout_constraintEnd_toEndOf="@+id/image_view_story_image"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/image_view_story_image"
+                app:layout_constraintTop_toBottomOf="@+id/image_view_story_image"
+                tools:text="The amazing spider-man" />
 
-                <ImageView
-                    android:id="@+id/image_view_story_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    app:imageUrl="@{Series.thumbnail}"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@color/material_dynamic_tertiary70" />
+            <TextView
+                android:id="@+id/text_view_comic_issue_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="@{Series.rating}"
+                app:layout_constraintStart_toStartOf="@+id/text_view_comic_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_comic_name"
+                tools:text="Issue #13" />
 
-                <TextView
-                    android:id="@+id/text_view_comic_name"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:ellipsize="marquee"
-                    android:fontFamily="@font/bangers"
-                    android:maxLines="1"
-                    android:text="@{Series.title}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/image_view_story_image"
-                    tools:text="The amazing spider-man" />
+            <TextView
+                android:id="@+id/text_view_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@{Integer.toString(Series.startYear)}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/text_view_comic_issue_number"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_comic_issue_number"
+                tools:text="Sep, 13 2021" />
 
-                <TextView
-                    android:id="@+id/text_view_comic_issue_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@{Series.rating}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_view_comic_name"
-                    tools:text="Issue #13" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <TextView
-                    android:id="@+id/text_view_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@{Integer.toString(Series.startYear)}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_view_comic_issue_number"
-                    tools:text="Sep, 13 2021" />
+    </com.google.android.material.card.MaterialCardView>
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-        <com.google.android.material.card.MaterialCardView
-            style="@style/Widget.Material3.CardView.Filled"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="4dp"
-            app:cardBackgroundColor="@android:color/transparent"
-            app:cardCornerRadius="4dp">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/image_view_story_image2"
-                    android:layout_width="match_parent"
-                    android:layout_height="220dp"
-                    app:imageUrl="@{Series.thumbnail}"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:src="@color/material_dynamic_tertiary70" />
-
-                <TextView
-                    android:id="@+id/text_view_comic_name2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:ellipsize="marquee"
-                    android:fontFamily="@font/bangers"
-                    android:maxLines="1"
-                    android:text="@{Series.title}"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/image_view_story_image2"
-                    tools:text="The amazing spider-man" />
-
-                <TextView
-                    android:id="@+id/text_view_comic_issue_number2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="6dp"
-                    android:text="@{Series.rating}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_view_comic_name2"
-                    tools:text="Issue #13" />
-
-                <TextView
-                    android:id="@+id/text_view_date2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:text="@{Integer.toString(Series.startYear)}"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/text_view_comic_issue_number2"
-                    tools:text="Sep, 13 2021" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-        </com.google.android.material.card.MaterialCardView>
-
-    </LinearLayout>
 </layout>
