@@ -13,7 +13,6 @@ import com.bumptech.glide.Glide
 fun imageUrl (view: ImageView, thumbnail: Thumbnail?){
     Glide.with(view)
         .load("${thumbnail?.path}.${thumbnail?.extension}")
-        .centerCrop()
         .into(view)
 }
 

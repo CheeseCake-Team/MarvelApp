@@ -3,15 +3,18 @@ package com.abaferastech.marvelapp.ui.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.abaferastech.marvelapp.data.model.Characters
 import com.abaferastech.marvelapp.data.model.Comics
 import com.abaferastech.marvelapp.data.model.Series
 import com.abaferastech.marvelapp.data.model.Tag
-import com.abaferastech.marvelapp.databinding.ItemHeaderBinding
+import com.abaferastech.marvelapp.databinding.ItemHeaderViewPagerBinding
 import com.abaferastech.marvelapp.databinding.ItemTagBinding
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.characters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
+import com.zhpan.indicator.enums.IndicatorSlideMode
+import com.zhpan.indicator.enums.IndicatorStyle
 
 private const val HEADER_ITEM = 0
 private const val TAG_ITEM = 1
@@ -32,7 +35,7 @@ class HomeAdapter(private val items: List<DataItem>, listener: ComicsInteraction
         return when (viewType) {
             HEADER_ITEM -> {
                 BaseAdapter.ItemViewHolder(
-                    ItemHeaderBinding.inflate(
+                    ItemHeaderViewPagerBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent, false
                     )
@@ -94,8 +97,29 @@ class HomeAdapter(private val items: List<DataItem>, listener: ComicsInteraction
                 }
             }
 
-            is ItemHeaderBinding -> {
-                (holder.binding).character = (items[position] as DataItem.HeaderItem).item
+            is ItemHeaderViewPagerBinding -> {
+                val adapter = HeaderAdapter((items[position] as DataItem.HeaderItem).items)
+                holder.binding.apply {
+                    viewPagerHeader.adapter = adapter
+                    pageIndicatorView.apply {
+                        setSliderWidth(120F)
+                        setSliderHeight(15F)
+                        setIndicatorStyle(IndicatorStyle.DASH)
+                        setPageSize(viewPagerHeader.adapter!!.itemCount)
+                        notifyDataChanged()
+                    }
+                    viewPagerHeader.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                        override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+                            super.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                            pageIndicatorView.onPageScrolled(position, positionOffset, positionOffsetPixels)
+                        }
+
+                        override fun onPageSelected(position: Int) {
+                            super.onPageSelected(position)
+                            pageIndicatorView.onPageSelected(position)
+                        }
+                    })
+                }
             }
         }
     }
@@ -110,5 +134,5 @@ sealed class DataItem() {
     data class CharacterTagItem(val tag: Tag<Characters>, override val rank: Int) : DataItem()
 
     data class SeriesTagItem(val tag: Tag<Series>, override val rank: Int) : DataItem()
-    data class HeaderItem(val item: Characters, override val rank: Int) : DataItem()
+    data class HeaderItem(val items: List<Characters>, override val rank: Int) : DataItem()
 }
