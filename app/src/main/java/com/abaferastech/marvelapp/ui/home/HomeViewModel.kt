@@ -1,4 +1,5 @@
 package com.abaferastech.marvelapp.ui.home
+
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.Characters
@@ -31,21 +32,20 @@ class HomeViewModel : BaseViewModel() {
     }
 
     private fun onSuccessZip(
-        tripe:Triple<State<MarvelResponse<Characters>>,
+        results:Triple<State<MarvelResponse<Characters>>,
                 State<MarvelResponse<Comics>>,
                 State<MarvelResponse<Series>>>
-
     ) {
         when {
-            tripe.first is State.Success && tripe.second is State.Success && tripe.third is State.Success -> {
-                val characters = tripe.first.toData()?.data?.results
-                val comics = tripe.second.toData()?.data?.results
-                val series = tripe.third.toData()?.data?.results
+            results.first is State.Success && results.second is State.Success && results.third is State.Success -> {
+                val characters = results.first.toData()?.data!!.results
+                val comics = results.second.toData()?.data!!.results
+                val series = results.third.toData()?.data!!.results
                 val data = listOf(
-                    DataItem.HeaderItem(characters!![2], 0),
+                    DataItem.HeaderItem(characters[2], 0),
                     DataItem.CharacterTagItem(Tag<Characters>("CHARACTERS", characters), 1),
-                    DataItem.ComicsTagItem(Tag<Comics>("COMICS", comics!!), 2),
-                    DataItem.SeriesTagItem(Tag<Series>("SERIES", series!!), 3)
+                    DataItem.ComicsTagItem(Tag<Comics>("COMICS", comics), 2),
+                    DataItem.SeriesTagItem(Tag<Series>("SERIES", series), 3)
                 )
                 _homeData.postValue(data)
             }
