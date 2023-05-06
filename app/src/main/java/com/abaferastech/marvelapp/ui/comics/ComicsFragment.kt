@@ -18,7 +18,6 @@ import io.reactivex.rxjava3.core.Observer
 
 class ComicsFragment() :  BaseFragment<FragmentComicsBinding, ComicsViewModel>() ,ComicsInteractionListener{
 
-
     override val layoutIdFragment: Int
         get() = R.layout.fragment_comics
     override val viewModelClass: Class<ComicsViewModel>
@@ -26,15 +25,11 @@ class ComicsFragment() :  BaseFragment<FragmentComicsBinding, ComicsViewModel>()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val adapter=ComicsAdapter(emptyList(),viewModel)
         binding.comicsList.adapter=adapter
-
-        viewModel.comics.observe(this.viewLifecycleOwner,{
-            Log.v("observe-fun", "${it}")
-            var listOfComics=it
-            adapter.setItems(listOfComics)
-        })
+        viewModel.comics.observe(this.viewLifecycleOwner) {response->
+            adapter.setItems(response)
+        }
     }
 
     override fun onClickComic(comics: Comics) {

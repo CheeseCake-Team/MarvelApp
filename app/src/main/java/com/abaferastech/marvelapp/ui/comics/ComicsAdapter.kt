@@ -10,8 +10,6 @@ class ComicsAdapter(
     : BaseAdapter<Comics>(items, listener) {
     override val layoutID: Int
         get() = R.layout.item_comics
-
-
 }
 interface ComicsInteractionListener : BaseInteractionListener {
     fun onClickComic(comics : Comics)

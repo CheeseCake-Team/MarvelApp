@@ -14,15 +14,14 @@ class ComicsViewModel() :BaseViewModel(),ComicsInteractionListener {
    private val _comics = MutableLiveData<List<Comics>>()
     val comics:LiveData<List<Comics>>
         get() = _comics
-
-    init {
-        getMarvelComics()
-    }
+    init { getMarvelComics()  }
 
     @SuppressLint("CheckResult")
     private fun getMarvelComics() {
+        compositeDisposable.add(
         repository.getAllComics()
             .subscribe(::onSuccess,::onError)
+        )
     }
     private fun onSuccess(state: State<MarvelResponse<Comics>>) {
         when (state) {

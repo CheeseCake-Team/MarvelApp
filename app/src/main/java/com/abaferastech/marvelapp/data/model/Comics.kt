@@ -43,7 +43,7 @@ data class Date(
 )
 
 data class Price(
-    @SerializedName("price") val price: Int?,
+    @SerializedName("price") val price: Float?,
     @SerializedName("type") val type: String?
 )
 
