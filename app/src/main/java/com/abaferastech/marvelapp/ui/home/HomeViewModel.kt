@@ -20,19 +20,13 @@ class HomeViewModel : BaseViewModel() {
     val homeData: MutableLiveData<List<DataItem>?> get() = _homeData
 
     init {
-        Observable.zip(
-            repository.getAllCharacters().toObservable(),
-            repository.getAllComics().toObservable(),
-            repository.getAllSeries().toObservable()
-        ) { characters, comics, series ->
-            Triple(characters, comics, series)
-        }
+        repository.getHomeData()
             .subscribe(::onSuccessZip, ::onError)
             .addTo(compositeDisposable)
     }
 
     private fun onSuccessZip(
-        results:Triple<State<MarvelResponse<Characters>>,
+        results: Triple<State<MarvelResponse<Characters>>,
                 State<MarvelResponse<Comics>>,
                 State<MarvelResponse<Series>>>
     ) {
@@ -46,12 +40,16 @@ class HomeViewModel : BaseViewModel() {
                     .filter { it.thumbnail?.path != "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available" }
                 val data = listOf(
                     DataItem.HeaderItem(characters.shuffled().take(3), 0),
-                    DataItem.CharacterTagItem(Tag<Characters>("CHARACTERS", characters.shuffled()), 1),
+                    DataItem.CharacterTagItem(
+                        Tag<Characters>("CHARACTERS", characters.shuffled()),
+                        1
+                    ),
                     DataItem.ComicsTagItem(Tag<Comics>("COMICS", comics.shuffled()), 2),
                     DataItem.SeriesTagItem(Tag<Series>("SERIES", series.shuffled()), 3)
                 )
                 _homeData.postValue(data)
             }
+
             else -> {
                 // handle error cases
             }

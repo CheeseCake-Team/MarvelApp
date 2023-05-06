@@ -45,8 +45,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_arrow_forward"
+            android:drawableTint="@color/md_theme_onBackground"
             android:fontFamily="@font/bangers"
             android:text="@string/see_all"
+            android:textColor="@color/md_theme_onBackground"
             app:layout_constraintBottom_toBottomOf="@+id/text_view_tag_title"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/text_view_tag_title" />
