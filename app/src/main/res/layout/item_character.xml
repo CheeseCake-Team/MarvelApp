@@ -17,9 +17,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_view_character"
-            android:layout_width="110dp"
-            android:layout_height="110dp"
-            android:src="@drawable/ic_launcher_background"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             app:imageUrl="@{item.thumbnail}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -28,12 +27,14 @@
 
         <TextView
             android:id="@+id/text_view_character_name"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/bangers"
             android:text="@{item.name}"
             android:textAlignment="center"
+            android:maxLines="1"
+            android:ellipsize="end"
             app:layout_constraintEnd_toEndOf="@+id/image_view_character"
             app:layout_constraintStart_toStartOf="@+id/image_view_character"
             app:layout_constraintTop_toBottomOf="@+id/image_view_character" />
