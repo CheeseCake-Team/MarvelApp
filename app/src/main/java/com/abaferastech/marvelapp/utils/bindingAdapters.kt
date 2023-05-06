@@ -5,7 +5,7 @@ import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.abaferastech.marvelapp.data.model.Comics
+import com.abaferastech.marvelapp.data.model.response.Thumbnail
 import com.abaferastech.marvelapp.data.model.Series
 import com.abaferastech.marvelapp.data.model.state.State
 import com.abaferastech.marvelapp.ui.creators.CreatorAdapters
@@ -38,10 +38,13 @@ fun<T> showWhenSuccess(view: View, state: State<T>?){
     }
 }
 
-@BindingAdapter(value = ["app:ImageUrl"])
-fun setImageFromUrl(view: ImageView, url: String){
-    Glide.with(view).load(url).centerCrop().into(view)
-}
+//@BindingAdapter(value = ["app:ImageUrl"])
+//fun setImageFromUrl(view: ImageView, url: String){
+//    Glide.with(view)
+//        .load("${thumbnail?.path}.${thumbnail?.extension}")
+//        .centerCrop()
+//        .into(view)
+//}
 @BindingAdapter (value = ["app:items"])
 fun setRecyclerItems(view: RecyclerView, items: List<Series>){
     if(items != null){

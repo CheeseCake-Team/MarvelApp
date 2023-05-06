@@ -27,7 +27,7 @@
                 android:layout_width="90dp"
                 android:layout_height="150dp"
                 android:scaleType="centerCrop"
-                app:ImageUrl="@{item.thumbnail}"
+                app:imageUrl="@{item.thumbnail}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -46,14 +46,11 @@
                 android:id="@+id/text_series_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="40dp"
                 android:layout_marginEnd="8dp"
                 android:maxLines="1"
-                android:text="@{creatorSeries.title}"
-
-
+                android:text="@{item.title}"
                 app:layout_constraintStart_toEndOf="@id/image_series"
                 app:layout_constraintTop_toTopOf="parent"
 
@@ -66,11 +63,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:drawablePadding="4dp"
-                android:text="@{creatorSeries.endYear}"
-
-
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="#99000000"
+                android:text="@{item.endYear}"
                 app:layout_constraintEnd_toEndOf="@id/text_series_name"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/text_series_name"
@@ -83,13 +78,10 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:drawablePadding="4dp"
-                android:text="@{creatorSeries.startYear}"
+                android:text="@{item.rating}"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
-
-
                 android:textColor="#99000000"
                 app:layout_constraintStart_toStartOf="@+id/text_issue_number"
-
                 app:layout_constraintTop_toBottomOf="@+id/text_issue_number" />
 
 

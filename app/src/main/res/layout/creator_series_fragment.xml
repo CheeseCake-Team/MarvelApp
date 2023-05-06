@@ -18,7 +18,7 @@
 
 
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <com.google.android.material.imageview.ShapeableImageView
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/image_creator"
             android:layout_width="200dp"
@@ -28,8 +28,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toTopOf="@id/text_follow"
             android:src="@drawable/creator_img"
-            app:civ_border_width="4dp"
-            app:civ_border_color="#FAFAFAFA"
+            app:imageUrl="@{viewModel.creator.thumbnail}"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -42,7 +41,7 @@
             android:gravity="center"
             app:layout_constraintTop_toBottomOf="@id/image_creator"
             app:layout_constraintBottom_toTopOf="@id/text_job"
-            android:text="SALADIN AHMED"
+            android:text="@{viewModel.creator.fullName}"
             android:textStyle="bold"
             android:textSize="24dp"
             android:layout_marginTop="8dp"
@@ -57,9 +56,8 @@
             app:layout_constraintEnd_toEndOf="@id/image_creator"
             app:layout_constraintTop_toBottomOf="@id/text_creator_name"        android:gravity="center"
             android:textStyle="bold"
-            android:textSize="15dp"
+            android:textSize="15sp"
             android:textColor="#AB000000"
-
             />
         <TextView
             android:id="@+id/text_stat_icon"
@@ -101,7 +99,7 @@
             app:layout_constraintTop_toBottomOf="@id/text_follow"
             app:layout_constraintVertical_bias="1.0"
             tools:layout_editor_absoluteX="0dp"
-            app:items="@{viewModel.stories}"
+            app:items="@{viewModel.series}"
             tools:listitem="@layout/creator_series_card" />
 
 
