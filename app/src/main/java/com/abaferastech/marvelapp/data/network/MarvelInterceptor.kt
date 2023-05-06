@@ -21,6 +21,7 @@ class MarvelInterceptor : Interceptor {
             .addQueryParameter("ts", timeStamp)
             .addQueryParameter("apikey", BuildConfig.lKey)
             .addQueryParameter("hash", generateHash(timeStamp))
+            .addQueryParameter("limit", "45")
             .build()
 
         val newRequest = originalRequest
