@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="characterViewModel"
             type="com.abaferastech.marvelapp.ui.character.CharacterViewModel" />
@@ -18,14 +19,15 @@
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            app:tabMode="scrollable"
-            app:tabIndicatorGravity="stretch"
-            app:tabIndicatorAnimationMode="elastic"
-            app:tabTextColor="@color/design_default_color_on_primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tabGravity="fill"
+            app:tabIndicatorAnimationMode="linear"
+            app:tabIndicatorGravity="bottom"
+            app:tabMode="scrollable"
+            app:tabTextColor="@color/design_default_color_on_primary" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
