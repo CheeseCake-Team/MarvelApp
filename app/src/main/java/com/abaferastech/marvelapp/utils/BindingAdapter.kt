@@ -12,17 +12,16 @@ import com.bumptech.glide.Glide
 fun imageUrl (view: ImageView, thumbnail: Thumbnail?){
     Glide.with(view)
         .load("${thumbnail?.path}.${thumbnail?.extension}")
-        .centerCrop()
         .into(view)
 }
 
 @BindingAdapter(value = ["app:items"])
-fun setRecyclerViewItems(view: RecyclerView, items: List<Events>?){
-
-    if (items != null){
-        (view.adapter as EventAdapter).setItems(items)
-    }
-    else{
-        (view.adapter as EventAdapter).setItems(emptyList())
+fun <T> setRecyclerViewItems(view: RecyclerView, items: List<T>?) {
+    items?.let {
+        when (view.adapter) {
+            is EventAdapter -> {
+                (view.adapter as EventAdapter).setItems(items as List<Events>)
+            }
+        }
     }
 }

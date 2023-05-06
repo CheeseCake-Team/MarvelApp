@@ -1,63 +1,60 @@
 package com.abaferastech.marvelapp.ui.home
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.Characters
 import com.abaferastech.marvelapp.data.model.Comics
 import com.abaferastech.marvelapp.data.model.Series
+import com.abaferastech.marvelapp.data.model.Tag
 import com.abaferastech.marvelapp.data.model.response.MarvelResponse
 import com.abaferastech.marvelapp.data.model.state.State
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.addTo
+
 class HomeViewModel : BaseViewModel() {
     private val repository = MarvelRepository()
 
-    private val _characters = MutableLiveData<List<Characters>>()
-    val characters: LiveData<List<Characters>> get() = _characters
-
-    private val _comics = MutableLiveData<List<Comics>>()
-    val comics: LiveData<List<Comics>> get() = _comics
-
-    private val _series = MutableLiveData<List<Series>>()
-    val series: LiveData<List<Series>> get() = _series
+    private val _homeData = MutableLiveData<List<DataItem>?>()
+    val homeData: MutableLiveData<List<DataItem>?> get() = _homeData
 
     init {
-        getMarvelCharacters()
-        getMarvelComics()
-        getMarvelSeries()
-    }
-    private fun getMarvelSeries() {
-        repository.getAllSeries()
-            .subscribe(::onSuccess, ::onError)
+        Observable.zip(
+            repository.getAllCharacters().toObservable(),
+            repository.getAllComics().toObservable(),
+            repository.getAllSeries().toObservable()
+        ) { characters, comics, series ->
+            Triple(characters, comics, series)
+        }
+            .subscribe(::onSuccessZip, ::onError)
             .addTo(compositeDisposable)
     }
 
-    private fun getMarvelComics() {
-        repository.getAllComics()
-            .subscribe(::onSuccess, ::onError)
-            .addTo(compositeDisposable)
-    }
+    private fun onSuccessZip(
+        tripe:Triple<State<MarvelResponse<Characters>>,
+                State<MarvelResponse<Comics>>,
+                State<MarvelResponse<Series>>>
 
-    private fun getMarvelCharacters() {
-        repository.getAllCharacters()
-            .subscribe(::onSuccess, ::onError)
-            .addTo(compositeDisposable)
-    }
-
-    private fun <T> onSuccess(state: State<MarvelResponse<T>>) {
-        when (state) {
-            is State.Error -> TODO()
-            State.Loading -> TODO()
-            is State.Success -> {
-                when (state.toData()?.data?.results?.firstOrNull()) {
-                    is Characters -> _characters.postValue(state.toData()?.data?.results as List<Characters>?)
-                    is Comics -> _comics.postValue(state.toData()?.data?.results as List<Comics>?)
-                    is Series -> _series.postValue(state.toData()?.data?.results as List<Series>?)
-                }
+    ) {
+        when {
+            tripe.first is State.Success && tripe.second is State.Success && tripe.third is State.Success -> {
+                val characters = tripe.first.toData()?.data?.results
+                val comics = tripe.second.toData()?.data?.results
+                val series = tripe.third.toData()?.data?.results
+                val data = listOf(
+                    DataItem.HeaderItem(characters!![2], 0),
+                    DataItem.CharacterTagItem(Tag<Characters>("CHARACTERS", characters), 1),
+                    DataItem.ComicsTagItem(Tag<Comics>("COMICS", comics!!), 2),
+                    DataItem.SeriesTagItem(Tag<Series>("SERIES", series!!), 3)
+                )
+                _homeData.postValue(data)
+            }
+            else -> {
+                // handle error cases
             }
         }
     }
+
 
     private fun onError(e: Throwable) {
         Log.e("MarvelAPI", "getMarvelStories() - Error: ${e.message}")
