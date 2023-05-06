@@ -4,12 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="comics"
             type="com.abaferastech.marvelapp.data.model.Comics" />
     </data>
-
 
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.Material3.CardView.Filled"
@@ -27,6 +25,7 @@
                 android:id="@+id/image_view_story_image"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
+                android:contentDescription="@string/image_of_the_comic"
                 app:imageUrl="@{comics.myThumbnail()}"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@color/material_dynamic_tertiary70" />
@@ -57,7 +56,7 @@
                 tools:text="Issue #13" />
 
             <TextView
-                android:id="@+id/text_view_date"
+                android:id="@+id/text_view_comic_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
