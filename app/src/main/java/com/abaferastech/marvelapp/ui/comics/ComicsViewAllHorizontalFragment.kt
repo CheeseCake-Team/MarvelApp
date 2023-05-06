@@ -3,13 +3,13 @@ package com.abaferastech.marvelapp.ui.comics
 import android.os.Bundle
 import android.view.View
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.databinding.FragmentComicsViewAllBinding
+import com.abaferastech.marvelapp.databinding.FragmentComicsViewAllHorizontalBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 
-class ComicsViewAllFragment : BaseFragment<FragmentComicsViewAllBinding, ComicsViewModel>() {
+class ComicsViewAllHorizontalFragment : BaseFragment<FragmentComicsViewAllHorizontalBinding, ComicsViewModel>() {
 
     override val layoutIdFragment: Int
-        get() = R.layout.fragment_comics_view_all
+        get() = R.layout.fragment_comics_view_all_horizontal
 
     override val viewModelClass: Class<ComicsViewModel>
         get() = ComicsViewModel::class.java
