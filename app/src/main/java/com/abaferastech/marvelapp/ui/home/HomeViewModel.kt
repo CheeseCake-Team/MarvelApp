@@ -39,10 +39,13 @@ class HomeViewModel : BaseViewModel() {
         when {
             results.first is State.Success && results.second is State.Success && results.third is State.Success -> {
                 val characters = results.first.toData()?.data!!.results
+                    .filter { it.thumbnail?.path != "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available" }
                 val comics = results.second.toData()?.data!!.results
+                    .filter { it.thumbnail?.path != "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available" }
                 val series = results.third.toData()?.data!!.results
+                    .filter { it.thumbnail?.path != "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available" }
                 val data = listOf(
-                    DataItem.HeaderItem(characters[2], 0),
+                    DataItem.HeaderItem(characters.take(3), 0),
                     DataItem.CharacterTagItem(Tag<Characters>("CHARACTERS", characters), 1),
                     DataItem.ComicsTagItem(Tag<Comics>("COMICS", comics), 2),
                     DataItem.SeriesTagItem(Tag<Series>("SERIES", series), 3)
