@@ -4,4 +4,5 @@
     <string name="see_all">SEE ALL</string>
     <string name="an_image_for_an_important_character">An image for an important character</string>
     <string name="see_more">See more</string>
+    <string name="issue">Issue #%1$s</string>
 </resources>
