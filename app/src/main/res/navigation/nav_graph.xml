@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/eventsFragment">
+    app:startDestination="@id/characterDetailsFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -12,4 +13,13 @@
         android:id="@+id/eventsFragment"
         android:name="com.abaferastech.marvelapp.ui.eventScreen.EventsFragment"
         android:label="EventsFragment" />
+    <fragment
+        android:id="@+id/characterFragment"
+        android:name="com.abaferastech.marvelapp.ui.character.CharacterFragment"
+        android:label="fragment_character"
+        tools:layout="@layout/fragment_character" />
+    <fragment
+        android:id="@+id/characterDetailsFragment"
+        android:name="com.abaferastech.marvelapp.ui.character.CharacterDetailsFragment"
+        android:label="CharacterDetailsFragment" />
 </navigation>

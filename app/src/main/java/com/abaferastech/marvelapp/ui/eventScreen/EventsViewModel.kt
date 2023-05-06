@@ -20,7 +20,7 @@ class EventsViewModel : BaseViewModel() {
         getMarvelEvents()
     }
 
-    private fun getMarvelEvents() {
+    fun getMarvelEvents() {
         repository.getAllEvents()
             .subscribe(::onSuccess, ::onError)
             .addTo(compositeDisposable)
