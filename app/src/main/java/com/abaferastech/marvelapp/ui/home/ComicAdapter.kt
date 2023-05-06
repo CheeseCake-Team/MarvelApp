@@ -1,11 +1,12 @@
-package com.abaferastech.marvelapp.ui
+package com.abaferastech.marvelapp.ui.home
 
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.Comics
+import com.abaferastech.marvelapp.databinding.ItemComicBinding
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 
-class StoriesAdapter(items: List<Comics>, listener: ComicsInteractionListener) :
+class ComicAdapter(items: List<Comics>, listener: ComicsInteractionListener) :
     BaseAdapter<Comics>(items, listener) {
     override val layoutID = R.layout.item_comic
 
@@ -14,11 +15,8 @@ class StoriesAdapter(items: List<Comics>, listener: ComicsInteractionListener) :
         item: Comics,
         listener: BaseInteractionListener?
     ) {
-        /*val itemBinding = holder.binding as StoriesIteamBinding
-        itemBinding.comics = item
-        itemBinding.root.setOnClickListener {
-            (listener as? ComicsInteractionListener)?.onClickSeries(item)
-        }*/
+        (holder.binding as ItemComicBinding).comic = item
+        (holder.binding as ItemComicBinding).listener = listener as ComicsInteractionListener
     }
 }
 
