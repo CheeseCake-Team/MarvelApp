@@ -12,16 +12,13 @@
         <OnSwipe motion:touchAnchorId="@+id/recycler_series" />
     </Transition>
 
-    <ConstraintSet android:id="@+id/start">
-    </ConstraintSet>
-
     <ConstraintSet android:id="@+id/end">
         <Constraint
             android:id="@+id/image_background"
             android:layout_width="match_parent"
             android:layout_height="100dp"
             motion:layout_constraintTop_toTopOf="parent"
-            android:elevation="16dp"/>
+            />
         <Constraint
             android:id="@+id/image_creator"
             android:layout_width="60dp"
@@ -72,6 +69,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             motion:layout_constraintTop_toBottomOf="@id/image_background" />
+        <Constraint
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@id/image_creator" />
+        <Constraint
+            android:id="@+id/divider"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            motion:layout_constraintTop_toBottomOf="@id/text_creator_name"
+            android:visibility="visible" />
 
     </ConstraintSet>
 </MotionScene>
