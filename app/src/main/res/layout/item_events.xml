@@ -34,6 +34,7 @@
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/event_image_view_height"
+                android:scaleType="centerCrop"
                 app:imageUrl="@{item.thumbnail}"
                 android:foreground="@drawable/gradiant"
                 app:layout_constraintEnd_toEndOf="parent"

@@ -16,7 +16,7 @@ class ComicAdapter(items: List<Comics>, listener: ComicsInteractionListener) :
         listener: BaseInteractionListener?
     ) {
         (holder.binding as ItemComicBinding).comic = item
-        (holder.binding as ItemComicBinding).listener = listener as ComicsInteractionListener
+        holder.binding.listener = listener as ComicsInteractionListener
     }
 }
 

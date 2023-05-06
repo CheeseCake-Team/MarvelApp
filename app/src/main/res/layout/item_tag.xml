@@ -6,8 +6,12 @@
     <data>
 
         <variable
-            name="tagItem"
-            type="com.abaferastech.marvelapp.data.model.Tag" />
+            name="dataItem"
+            type="com.abaferastech.marvelapp.data.model.DataItem" />
+
+        <variable
+            name="listener"
+            type="com.abaferastech.marvelapp.ui.home.NavigationInteractionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -21,10 +25,10 @@
             android:layout_marginStart="@dimen/space_16dp"
             android:layout_marginTop="@dimen/space_16dp"
             android:fontFamily="@font/bangers"
-            android:text="@{tagItem.title}"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:tagTitle="@{dataItem}"
             tools:text="title" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -34,7 +38,7 @@
             android:clipToPadding="false"
             android:orientation="horizontal"
             android:padding="@dimen/space_12dp"
-            app:items="@{tagItem.resourcesData}"
+            app:setAdapter="@{dataItem}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/text_view_tag_title"
             tools:listitem="@layout/item_comic" />
@@ -47,10 +51,13 @@
             android:drawableEnd="@drawable/ic_arrow_forward"
             android:drawableTint="@color/md_theme_onBackground"
             android:fontFamily="@font/bangers"
+            android:onClick="@{() -> listener.onNavigate(dataItem)}"
             android:text="@string/see_all"
             android:textColor="@color/md_theme_onBackground"
             app:layout_constraintBottom_toBottomOf="@+id/text_view_tag_title"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/text_view_tag_title" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.6" />
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>
