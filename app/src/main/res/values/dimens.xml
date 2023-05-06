@@ -13,4 +13,5 @@
     <dimen name="header_image_view_height">450dp</dimen>
     <dimen name="series_card_view_width">160dp</dimen>
     <dimen name="series_image_view_height">220dp</dimen>
+    <dimen name="space_32dp">32dp</dimen>
 </resources>

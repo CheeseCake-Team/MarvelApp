@@ -45,10 +45,10 @@ class HomeViewModel : BaseViewModel() {
                 val series = results.third.toData()?.data!!.results
                     .filter { it.thumbnail?.path != "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available" }
                 val data = listOf(
-                    DataItem.HeaderItem(characters.take(3), 0),
-                    DataItem.CharacterTagItem(Tag<Characters>("CHARACTERS", characters), 1),
-                    DataItem.ComicsTagItem(Tag<Comics>("COMICS", comics), 2),
-                    DataItem.SeriesTagItem(Tag<Series>("SERIES", series), 3)
+                    DataItem.HeaderItem(characters.shuffled().take(3), 0),
+                    DataItem.CharacterTagItem(Tag<Characters>("CHARACTERS", characters.shuffled()), 1),
+                    DataItem.ComicsTagItem(Tag<Comics>("COMICS", comics.shuffled()), 2),
+                    DataItem.SeriesTagItem(Tag<Series>("SERIES", series.shuffled()), 3)
                 )
                 _homeData.postValue(data)
             }
