@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_homeFragment_to_charactersFragment"
             app:destination="@id/charactersFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_seriesViewAllFragment"
+            app:destination="@id/seriesViewAllFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventsFragment"
