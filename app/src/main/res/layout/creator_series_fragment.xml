@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.creators.CreatorsViewModel" />
+            type="com.abaferastech.marvelapp.ui.creators.CreatorViewModel" />
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout

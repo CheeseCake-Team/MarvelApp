@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             motion:layout_constraintTop_toTopOf="@id/image_creator"
             motion:layout_constraintBottom_toBottomOf="@id/image_creator"
-            motion:layout_constraintStart_toEndtOf="@id/image_creator"
+            motion:layout_constraintStart_toEndOf="@id/image_creator"
             android:layout_marginStart="8dp"/>
 
         <Constraint
