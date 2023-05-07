@@ -12,4 +12,5 @@
     <string name="search">Search</string>
     <string name="favorite">Favorite</string>
     <string name="event">Event</string>
+    <string name="filter_button">Filter Button</string>
 </resources>
