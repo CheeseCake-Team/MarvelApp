@@ -27,9 +27,6 @@ class ComicsFragment() :  BaseFragment<FragmentComicsBinding, ComicsViewModel>()
         super.onViewCreated(view, savedInstanceState)
         val adapter=ComicsAdapter(emptyList(),viewModel)
         binding.comicsList.adapter=adapter
-        viewModel.comics.observe(this.viewLifecycleOwner) {response->
-            adapter.setItems(response)
-        }
     }
 
     override fun onClickComic(comics: Comics) {
