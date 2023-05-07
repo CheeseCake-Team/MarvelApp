@@ -11,6 +11,9 @@ class MarvelRepository {
     fun getAllEvents(): Single<State<MarvelResponse<Events>>> {
         return wrapWithState { MarvelAPI.apiService.getAllEvents() }
     }
+    fun getEventComics(eventId: Int): Single<State<MarvelResponse<Comics>>> {
+        return wrapWithState { MarvelAPI.apiService.getEventComics(eventId) }
+    }
 
     fun getAllSeries(): Single<State<MarvelResponse<Series>>> {
         return wrapWithState { MarvelAPI.apiService.getAllSeries() }
