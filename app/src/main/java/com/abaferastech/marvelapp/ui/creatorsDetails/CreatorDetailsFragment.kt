@@ -17,7 +17,7 @@ class CreatorDetailsFragment : BaseFragment<CreatorDetailsBinding, CreatorDetail
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getMarvelCreator(15)
+        viewModel.getMarvelCreator(1)
         val adapter = CreatorAdapter(emptyList(), object : SeriesInteractionListener {})
         binding.recyclerSeries.adapter = adapter
 
