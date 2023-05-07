@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.ui.character
+package com.abaferastech.marvelapp.ui.characterDetails
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

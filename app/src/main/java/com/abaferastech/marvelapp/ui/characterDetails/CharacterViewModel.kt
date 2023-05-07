@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.ui.character
+package com.abaferastech.marvelapp.ui.characterDetails
 
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 

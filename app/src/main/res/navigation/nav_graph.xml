@@ -22,12 +22,12 @@
         android:label="EventsFragment" />
     <fragment
         android:id="@+id/characterFragment"
-        android:name="com.abaferastech.marvelapp.ui.character.CharacterFragment"
+        android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterFragment"
         android:label="fragment_character"
         tools:layout="@layout/fragment_character" />
     <fragment
         android:id="@+id/characterDetailsFragment"
-        android:name="com.abaferastech.marvelapp.ui.character.CharacterDetailsFragment"
+        android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsFragment"
         android:label="CharacterDetailsFragment" />
     <fragment
         android:id="@+id/comicsViewAllHorizontalFragment"
@@ -45,4 +45,8 @@
         android:id="@+id/charactersFragment"
         android:name="com.abaferastech.marvelapp.ui.characters.CharactersFragment"
         android:label="CharactersFragment" />
+    <fragment
+        android:id="@+id/seriesViewAllFragment"
+        android:name="com.abaferastech.marvelapp.ui.seriesViewAll.SeriesViewAllFragment"
+        android:label="SeriesViewAllFragment" />
 </navigation>

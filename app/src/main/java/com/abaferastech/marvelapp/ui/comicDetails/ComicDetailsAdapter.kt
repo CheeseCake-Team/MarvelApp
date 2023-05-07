@@ -2,22 +2,15 @@ package com.abaferastech.marvelapp.ui.comicDetails
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentResultOwner
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.abaferastech.marvelapp.data.model.DataItem
 import com.abaferastech.marvelapp.databinding.FragmentCharacterBinding
 import com.abaferastech.marvelapp.databinding.ItemHeaderDetailsBinding
-import com.abaferastech.marvelapp.databinding.ItemHeaderViewPagerBinding
-import com.abaferastech.marvelapp.databinding.ItemTagBinding
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
-import com.abaferastech.marvelapp.ui.character.CharacterDetailsFragment
-import com.abaferastech.marvelapp.ui.character.CharacterFragment
-import com.abaferastech.marvelapp.ui.character.CharacterFragmentPageAdapter
-import com.abaferastech.marvelapp.ui.home.HeaderAdapter
+import com.abaferastech.marvelapp.ui.characterDetails.CharacterFragmentPageAdapter
 import com.abaferastech.marvelapp.ui.home.NavigationInteractionListener
 import com.google.android.material.tabs.TabLayout
-import com.zhpan.indicator.enums.IndicatorStyle
 
 private const val HEADER_ITEM = 0
 private const val TAG_ITEM = 1

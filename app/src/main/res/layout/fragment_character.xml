@@ -7,7 +7,7 @@
 
         <variable
             name="fragment"
-            type="com.abaferastech.marvelapp.ui.character.CharacterFragment" />
+            type="com.abaferastech.marvelapp.ui.characterDetails.CharacterFragment" />
 
 
     </data>
