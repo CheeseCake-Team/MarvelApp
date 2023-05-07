@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.Events
 import com.abaferastech.marvelapp.databinding.FragmentEventsBinding
@@ -25,4 +27,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding, EventsViewModel>() {
         val adapter = EventAdapter(emptyList(), object : EventsInteractionListener{})
         binding.recyclerViewEvents.adapter = adapter
     }
+
+
+
 }
