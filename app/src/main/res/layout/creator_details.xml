@@ -17,6 +17,13 @@
         tools:context=".ui.base.CreatorSeriesFragment"
         app:layoutDescription="@xml/creator_details_scene">
 
+        <View
+            android:id="@+id/view_creator_image_background"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:id="@+id/image_creator"
             android:layout_width="200dp"
@@ -39,51 +46,18 @@
             android:gravity="center"
             android:text="@{viewModel.creator.fullName}"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@id/text_job"
+            app:layout_constraintBottom_toTopOf="@id/scrollView"
             app:layout_constraintEnd_toEndOf="@id/image_creator"
             app:layout_constraintStart_toStartOf="@id/image_creator"
             app:layout_constraintTop_toBottomOf="@id/image_creator"
             tools:text="Creator Name" />
-
-        <TextView
-            android:id="@+id/text_job"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8dp"
-            android:gravity="center"
-            android:text="CREATOR"
-            app:layout_constraintEnd_toEndOf="@id/text_creator_name"
-            app:layout_constraintStart_toStartOf="@id/text_creator_name"
-            app:layout_constraintTop_toBottomOf="@id/text_creator_name" />
-
-        <TextView
-            android:id="@+id/text_stat_icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="110dp"
-            android:background="@drawable/baseline_star_outline_24"
-            app:layout_constraintBottom_toBottomOf="@id/text_follow"
-            app:layout_constraintEnd_toStartOf="@id/text_follow"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/text_follow" />
-
-        <TextView
-            android:id="@+id/text_follow"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8dp"
-            android:gravity="center"
-            android:text="FOLLOW CREATOR"
-            app:layout_constraintEnd_toEndOf="@id/text_job"
-            app:layout_constraintStart_toStartOf="@id/text_job"
-            app:layout_constraintTop_toBottomOf="@id/text_job" />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_8dp"
-            app:layout_constraintTop_toBottomOf="@id/text_follow">
+            app:layout_constraintTop_toBottomOf="@id/text_creator_name">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_series"
