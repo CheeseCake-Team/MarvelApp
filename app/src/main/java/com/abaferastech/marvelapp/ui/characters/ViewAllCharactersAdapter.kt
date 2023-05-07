@@ -22,5 +22,5 @@ class ViewAllCharactersAdapter(items: List<Characters>, listener: CharactersInte
 }
 
 interface CharactersInteractionListener : BaseInteractionListener {
-    fun onCharacterClick(character: Characters)
+    fun onClickCharacter(character: Characters)
 }

@@ -1,6 +1,7 @@
 package com.abaferastech.marvelapp.ui.home
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.*
 import com.abaferastech.marvelapp.data.model.response.MarvelResponse
@@ -16,7 +17,7 @@ class HomeViewModel : BaseViewModel(),ComicsInteractionListener, CharactersInter
     private val repository = MarvelRepository()
 
     private val _homeData = MutableLiveData<List<DataItem>?>()
-    val homeData: MutableLiveData<List<DataItem>?> get() = _homeData
+    val homeData: LiveData<List<DataItem>?> get() = _homeData
 
     init {
         repository.getHomeData()
@@ -59,11 +60,11 @@ class HomeViewModel : BaseViewModel(),ComicsInteractionListener, CharactersInter
         Log.e("MarvelAPI", "getMarvelStories() - Error: ${e.message}")
     }
 
-    override fun onCharacterClick(character: Characters) {
+    override fun onClickCharacter(character: Characters) {
         TODO("Not yet implemented")
     }
 
-    override fun onClickSeries(Comics: Comics) {
+    override fun onClickComics(comics: Comics) {
         TODO("Not yet implemented")
     }
 

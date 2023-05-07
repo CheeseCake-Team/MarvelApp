@@ -4,12 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="fragment"
             type="com.abaferastech.marvelapp.ui.characterDetails.CharacterFragment" />
-
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

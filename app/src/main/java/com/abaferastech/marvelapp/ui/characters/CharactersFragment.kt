@@ -17,7 +17,7 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersVie
         super.onViewCreated(view, savedInstanceState)
 
         val adapter = ViewAllCharactersAdapter(emptyList(), object : CharactersInteractionListener {
-            override fun onCharacterClick(character: Characters) {
+            override fun onClickCharacter(character: Characters) {
 
             }
         })

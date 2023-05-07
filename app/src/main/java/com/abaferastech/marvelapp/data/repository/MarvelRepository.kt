@@ -4,7 +4,6 @@ import com.abaferastech.marvelapp.data.model.*
 import com.abaferastech.marvelapp.data.model.response.MarvelResponse
 import com.abaferastech.marvelapp.data.model.state.State
 import com.abaferastech.marvelapp.data.network.MarvelAPI
-import com.abaferastech.marvelapp.utils.wrapWithState
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
