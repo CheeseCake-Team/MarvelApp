@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">MarvelApp</string>
     <string name="image_of_the_comic">Image of the comic</string>
+    <string name="image_of_the_series">Image of the series</string>
     <string name="see_all">SEE ALL</string>
     <string name="an_image_for_an_important_character">An image for an important character</string>
     <string name="see_more">See more</string>

@@ -31,7 +31,7 @@
                 android:id="@+id/image_view_series_image"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/series_image_view_height"
-                android:contentDescription="@string/image_of_the_comic"
+                android:contentDescription="@string/image_of_the_series"
                 android:scaleType="fitXY"
                 app:imageUrl="@{series.thumbnail}"
                 app:layout_constraintTop_toTopOf="parent"
