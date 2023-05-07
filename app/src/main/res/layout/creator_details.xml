@@ -14,15 +14,14 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.base.CreatorSeriesFragment"
-        app:layoutDescription="@xml/creator_details_scene">
+        app:layoutDescription="@xml/creator_details_scene"
+        tools:context=".ui.base.CreatorSeriesFragment">
 
         <View
             android:id="@+id/view_creator_image_background"
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:id="@+id/image_creator"
@@ -50,7 +49,11 @@
             app:layout_constraintEnd_toEndOf="@id/image_creator"
             app:layout_constraintStart_toStartOf="@id/image_creator"
             app:layout_constraintTop_toBottomOf="@id/image_creator"
-            tools:text="Creator Name" />
+            tools:text="Creator Name"
+            android:maxLines="1"
+            android:fontFamily="@font/bangers"
+
+            />
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/scrollView"

@@ -17,7 +17,7 @@
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="4dp">
+        android:layout_marginBottom="8dp">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,15 +26,15 @@
 
             <ImageView
                 android:id="@+id/image_series"
-                android:layout_width="90dp"
-                android:layout_height="150dp"
+                android:layout_width="160dp"
+                android:layout_height="200dp"
+
                 android:scaleType="centerCrop"
                 app:imageUrl="@{item.thumbnail}"
-                tools:src="@drawable/placeholder"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                />
+                tools:src="@drawable/placeholder" />
 
             <ImageView
                 android:id="@+id/image_more_sitting"
@@ -55,9 +55,10 @@
                 android:layout_marginEnd="8dp"
                 android:maxLines="1"
                 android:text="@{item.title}"
-                tools:text="Series name"
                 app:layout_constraintStart_toEndOf="@id/image_series"
                 app:layout_constraintTop_toTopOf="parent"
+                tools:text="Series name"
+                android:fontFamily="@font/bangers"
 
 
                 />
@@ -68,14 +69,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:drawablePadding="4dp"
+                android:text="@{String.valueOf(item.endYear)}"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="#99000000"
-                android:text="@{String.valueOf(item.endYear)}"
-                tools:text="Series issue number"
+                android:fontFamily="@font/bangers"
                 app:layout_constraintEnd_toEndOf="@id/text_series_name"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@id/text_series_name"
-                app:layout_constraintTop_toBottomOf="@+id/text_series_name" />
+                app:layout_constraintTop_toBottomOf="@+id/text_series_name"
+                tools:text="Series issue number" />
 
             <TextView
                 android:id="@+id/text_series_date"
@@ -85,11 +87,13 @@
                 android:layout_marginBottom="16dp"
                 android:drawablePadding="4dp"
                 android:text="@{item.rating}"
-                tools:text="Series date"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="#99000000"
                 app:layout_constraintStart_toStartOf="@+id/text_issue_number"
-                app:layout_constraintTop_toBottomOf="@+id/text_issue_number" />
+                app:layout_constraintTop_toBottomOf="@+id/text_issue_number"
+                android:maxLines="1"
+                android:fontFamily="@font/bangers"
+                tools:text="Series date" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
