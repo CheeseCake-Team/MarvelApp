@@ -1,12 +1,12 @@
 package com.abaferastech.marvelapp.ui.character
 
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.databinding.FragmentCharacterDetailsBinding
+import com.abaferastech.marvelapp.databinding.FragmentCharacterBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 
-class CharacterDetailsFragment : BaseFragment<FragmentCharacterDetailsBinding, CharacterViewModel>() {
+class CharacterDetailsFragment : BaseFragment<FragmentCharacterBinding, CharacterViewModel>() {
     override val layoutIdFragment: Int
-        get() = R.layout.fragment_character_details
+        get() = R.layout.item_header_details
     override val viewModelClass: Class<CharacterViewModel>
         get() = CharacterViewModel::class.java
 

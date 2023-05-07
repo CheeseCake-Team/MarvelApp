@@ -31,6 +31,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),Navigati
             is DataItem.ComicsTagItem -> TODO()
             is DataItem.HeaderItem -> TODO()
             is DataItem.SeriesTagItem -> TODO()
+            else -> {}
         }
     }
 

@@ -6,8 +6,10 @@
     <data>
 
         <variable
-            name="characterViewModel"
-            type="com.abaferastech.marvelapp.ui.character.CharacterViewModel" />
+            name="fragment"
+            type="com.abaferastech.marvelapp.ui.character.CharacterFragment" />
+
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,7 +26,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tabGravity="fill"
-            app:tabIndicatorAnimationMode="elastic"
+            app:tabIndicatorAnimationMode="linear"
             app:tabIndicatorGravity="bottom"
             app:tabMode="scrollable"
             app:tabTextColor="@color/design_default_color_on_primary" />

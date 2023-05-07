@@ -17,7 +17,7 @@ class CharacterFragmentPageAdapter(
     override fun createFragment(position: Int): Fragment {
         return if (position == 0)
 
-        ComicsViewAllHorizontalFragment()
+            ComicsViewAllHorizontalFragment()
         else
             EventsFragment()
     }
