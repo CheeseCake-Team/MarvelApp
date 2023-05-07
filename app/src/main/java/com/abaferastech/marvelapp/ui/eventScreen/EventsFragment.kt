@@ -3,12 +3,9 @@ package com.abaferastech.marvelapp.ui.eventScreen
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.Observer
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.model.Events
 import com.abaferastech.marvelapp.databinding.FragmentEventsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import java.util.Objects
 
 
 class EventsFragment : BaseFragment<FragmentEventsBinding, EventsViewModel>() {
@@ -22,7 +19,7 @@ class EventsFragment : BaseFragment<FragmentEventsBinding, EventsViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         Log.i("Ekko","here")
-        val adapter = EventAdapter(emptyList(), object : EventsInteractionListener{})
+        val adapter = EventAdapter(emptyList(), null)
         binding.recyclerViewEvents.adapter = adapter
     }
 }
