@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
 import com.abaferastech.marvelapp.R
+import com.abaferastech.marvelapp.data.local.SharedPreferencesServicesImpl
 import com.abaferastech.marvelapp.databinding.FragmentCharacterBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
