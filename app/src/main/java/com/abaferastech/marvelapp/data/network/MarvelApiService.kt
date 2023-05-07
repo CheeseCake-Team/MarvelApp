@@ -6,11 +6,18 @@ import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MarvelApiService {
 
     @GET("events")
     fun getAllEvents(): Single<Response<MarvelResponse<Events>>>
+
+    @GET("comics")
+    fun searchInComics (@Query("title") searchQuery: String): Single<Response<MarvelResponse<Comics>>>
+
+    @GET("characters")
+    fun searchInCharacters (@Query("name") searchQuery: String): Single<Response<MarvelResponse<Characters>>>
 
     @GET("characters")
     fun getAllCharacters(): Single<Response<MarvelResponse<Characters>>>

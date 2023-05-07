@@ -30,4 +30,5 @@
     <color name="md_theme_surfaceTint">#FFB3B0</color>
     <color name="md_theme_outlineVariant">#534342</color>
     <color name="md_theme_scrim">#000000</color>
+    <color name="search_bar_background_color">#292A2D</color>
 </resources>
