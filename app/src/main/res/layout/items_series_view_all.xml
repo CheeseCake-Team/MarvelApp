@@ -11,7 +11,7 @@
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.ui.home.SeriesInteractionListener" />
+            type="com.abaferastech.marvelapp.ui.seriesViewAll.SeriesViewAllInteractionListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
