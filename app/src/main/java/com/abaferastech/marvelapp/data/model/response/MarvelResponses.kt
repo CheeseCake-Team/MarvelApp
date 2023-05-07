@@ -1,6 +1,5 @@
 package com.abaferastech.marvelapp.data.model.response
 
-import com.abaferastech.marvelapp.data.model.Series
 import com.google.gson.annotations.SerializedName
 
 data class MarvelResponse<T>(
