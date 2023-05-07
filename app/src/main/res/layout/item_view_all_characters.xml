@@ -17,8 +17,8 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_view_character"
-            android:layout_width="@dimen/character_image_view_dimens"
-            android:layout_height="@dimen/character_image_view_dimens"
+            android:layout_width="@dimen/characters_image_view_dimens"
+            android:layout_height="@dimen/characters_image_view_dimens"
             android:src="@drawable/ic_launcher_background"
             app:imageUrl="@{item.thumbnail}"
             android:scaleType="centerCrop"

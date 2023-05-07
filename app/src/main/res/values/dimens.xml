@@ -3,7 +3,7 @@
 
     <dimen name="space_12dp">12dp</dimen>
     <dimen name="space_4dp">4dp</dimen>
-    <dimen name="character_image_view_dimens">110dp</dimen>
+    <dimen name="character_image_view_dimens">80dp</dimen>
     <dimen name="comic_card_view_width">160dp</dimen>
     <dimen name="comic_image_view_height">220dp</dimen>
     <dimen name="space_6dp">6dp</dimen>
@@ -14,4 +14,6 @@
     <dimen name="series_card_view_width">160dp</dimen>
     <dimen name="series_image_view_height">220dp</dimen>
     <dimen name="space_32dp">32dp</dimen>
+    <dimen name="elevation_1">1dp</dimen>
+    <dimen name="characters_image_view_dimens">110dp</dimen>
 </resources>
