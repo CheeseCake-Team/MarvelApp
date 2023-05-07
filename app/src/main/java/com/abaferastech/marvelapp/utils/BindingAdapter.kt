@@ -22,6 +22,12 @@ fun imageUrl (view: ImageView, thumbnail: Thumbnail?){
         .into(view)
 }
 
+@BindingAdapter("app:imageUrl")
+fun imageUrl(imageView: ImageView, path: String?){
+    path.let {
+        Glide.with(imageView.context).load(path).into(imageView)
+    }
+}
 //@BindingAdapter(value = ["app:items"])
 //fun <T> setRecyclerViewItems(view: RecyclerView, items: List<T>?) {
 //    items?.let {
