@@ -7,7 +7,6 @@ import com.abaferastech.marvelapp.databinding.ItemSeriesBinding
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 
-
 class SeriesAdapter(items: List<Series>, listener: SeriesInteractionListener) :
     BaseAdapter<Series>(items, listener) {
     override val layoutID: Int

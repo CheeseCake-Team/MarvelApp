@@ -1,8 +1,6 @@
 package com.abaferastech.marvelapp.data.model
 
-import com.abaferastech.marvelapp.databinding.FragmentComicDetailsBinding
-import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
-import com.abaferastech.marvelapp.ui.character.CharacterFragment
+import com.abaferastech.marvelapp.ui.characterDetails.CharacterFragment
 import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.home.ComicsInteractionListener
 import com.abaferastech.marvelapp.ui.home.SeriesInteractionListener

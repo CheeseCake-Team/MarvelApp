@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.data.model.DataItem
 import com.abaferastech.marvelapp.data.model.Events
 import com.abaferastech.marvelapp.data.model.response.Thumbnail
+import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.characters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.eventScreen.EventAdapter
 import com.abaferastech.marvelapp.ui.home.ComicAdapter
@@ -21,17 +22,21 @@ fun imageUrl (view: ImageView, thumbnail: Thumbnail?){
         .into(view)
 }
 
-@BindingAdapter(value = ["app:items"])
-fun <T> setRecyclerViewItems(view: RecyclerView, items: List<T>?) {
-    items?.let {
-        when (view.adapter) {
-            is EventAdapter -> {
-                (view.adapter as EventAdapter).setItems(items as List<Events>)
-            }
-        }
-    }
-}
+//@BindingAdapter(value = ["app:items"])
+//fun <T> setRecyclerViewItems(view: RecyclerView, items: List<T>?) {
+//    items?.let {
+//        when (view.adapter) {
+//            is EventAdapter -> {
+//                (view.adapter as EventAdapter).setItems(items as List<Events>)
+//            }
+//        }
+//    }
+//}
 
+@BindingAdapter(value = ["app:items"])
+fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
+    (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
+}
 
 
 
