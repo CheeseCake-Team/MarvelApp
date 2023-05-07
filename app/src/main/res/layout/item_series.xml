@@ -24,14 +24,14 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <ImageView
                 android:id="@+id/image_view_story_image"
                 android:layout_width="160dp"
                 android:layout_height="220dp"
-                app:imageUrl="@{series.thumbnail}"
                 android:scaleType="fitXY"
+                app:imageUrl="@{series.thumbnail}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -41,7 +41,6 @@
                 android:id="@+id/text_view_comic_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_6dp"
                 android:ellipsize="marquee"
                 android:fontFamily="@font/bangers"
                 android:maxLines="1"
@@ -53,42 +52,21 @@
                 tools:text="The amazing spider-man" />
 
             <TextView
-                android:id="@+id/text_view_comic_issue_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_6dp"
-                android:text="@{series.rating}"
-                app:layout_constraintStart_toStartOf="@+id/text_view_comic_name"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_comic_name"
-                tools:text="Issue #13" />
-
-            <TextView
                 android:id="@+id/text_view_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@{Integer.toString(Series.startYear)}"
+                android:layout_marginTop="4dp"
+                android:text="@{Integer.toString(series.startYear)}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/text_view_comic_issue_number"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_comic_issue_number"
+                app:layout_constraintEnd_toEndOf="@+id/text_view_comic_name"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/text_view_comic_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_comic_name"
+                app:layout_constraintVertical_bias="0.0"
                 tools:text="Sep, 13 2021" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
 
-</layout>
-
-                android:text="@{series.modified.substring(0,10)}"
-                android:maxLines="1"
-                android:ellipsize="marquee"
-                android:fontFamily="@font/bangers"
-                android:layout_marginTop="@dimen/space_6dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_comic_name"
-                tools:text="Issue #13" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.google.android.material.card.MaterialCardView>
 </layout>
