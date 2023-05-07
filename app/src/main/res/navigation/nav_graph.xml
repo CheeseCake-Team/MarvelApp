@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/comicDetailsFragment">
+    app:startDestination="@id/creatorFragment2">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -37,4 +37,8 @@
         android:id="@+id/comicDetailsFragment"
         android:name="com.abaferastech.marvelapp.ui.comicDetails.ComicDetailsFragment"
         android:label="ComicDetailsFragment" />
+    <fragment
+        android:id="@+id/creatorFragment2"
+        android:name="com.abaferastech.marvelapp.ui.creatorsDetails.CreatorDetailsFragment"
+        android:label="CreatorFragment" />
 </navigation>

@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.creators.CreatorsViewModel" />
+            type="com.abaferastech.marvelapp.ui.creatorsDetails.CreatorDetailsViewModel" />
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent"
             android:layout_marginBottom="8dp"
             app:roundPercent="1"
-            tools:src="@drawable/creator_img" />
+             />
 
         <com.google.android.material.divider.MaterialDivider
             android:id="@+id/divider"
@@ -101,7 +101,7 @@
             android:layout_marginHorizontal="16dp"
             app:items="@{viewModel.series}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/creator_series_card" />
+            tools:listitem="@layout/item_creator_series" />
 
         </androidx.core.widget.NestedScrollView>
 

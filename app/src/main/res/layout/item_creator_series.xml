@@ -11,7 +11,7 @@
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.ui.base.BaseInteractionListener" />
+            type="com.abaferastech.marvelapp.ui.creatorsDetails.SeriesInteractionListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -33,7 +33,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:src="@drawable/creator_img"/>
+                />
 
             <ImageView
                 android:id="@+id/image_more_sitting"
@@ -69,7 +69,7 @@
                 android:drawablePadding="4dp"
                 android:textAppearance="?attr/textAppearanceBodyMedium"
                 android:textColor="#99000000"
-                android:text="@{item.endYear}"
+                android:text="@{String.valueOf(item.endYear)}"
                 tools:text="Series issue number"
                 app:layout_constraintEnd_toEndOf="@id/text_series_name"
                 app:layout_constraintHorizontal_bias="0.0"

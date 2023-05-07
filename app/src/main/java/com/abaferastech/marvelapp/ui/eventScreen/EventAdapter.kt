@@ -21,8 +21,6 @@ class EventAdapter(items : List<Events> , listener: EventsInteractionListener) :
        (holder.binding as ItemEventsBinding).item = item
     }
 
-
-
 }
 
 interface EventsInteractionListener : BaseInteractionListener {

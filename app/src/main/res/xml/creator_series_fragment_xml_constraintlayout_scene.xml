@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene 
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
+
 
     <Transition
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
         motion:duration="1000">
-       <KeyFrameSet>
-       </KeyFrameSet>
+        <KeyFrameSet></KeyFrameSet>
         <OnSwipe motion:touchAnchorId="@+id/recycler_series" />
     </Transition>
 
@@ -17,53 +16,51 @@
             android:id="@+id/image_background"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            motion:layout_constraintTop_toTopOf="parent"
-            />
+            motion:layout_constraintTop_toTopOf="parent" />
         <Constraint
             android:id="@+id/image_creator"
             android:layout_width="60dp"
             android:layout_height="60dp"
-            motion:layout_constraintTop_toTopOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
-            />
+            motion:layout_constraintTop_toTopOf="parent" />
         <Constraint
             android:id="@+id/text_creator_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintTop_toTopOf="@id/image_creator"
+            android:layout_marginStart="8dp"
             motion:layout_constraintBottom_toBottomOf="@id/image_creator"
-            motion:layout_constraintStart_toEndtOf="@id/image_creator"
-            android:layout_marginStart="8dp"/>
+            motion:layout_constraintStart_toEndOf="@id/image_creator"
+            motion:layout_constraintTop_toTopOf="@id/image_creator" />
 
         <Constraint
             android:id="@+id/text_job"
-            motion:layout_constraintEnd_toEndOf="@id/text_creator_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintTop_toBottomOf="@id/text_creator_name"
-            motion:layout_constraintStart_toStartOf="@id/text_creator_name"
             android:layout_marginTop="8dp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            motion:layout_constraintEnd_toEndOf="@id/text_creator_name"
+            motion:layout_constraintStart_toStartOf="@id/text_creator_name"
+            motion:layout_constraintTop_toBottomOf="@id/text_creator_name" />
         <Constraint
             android:id="@+id/text_stat_icon"
-            motion:layout_constraintEnd_toStartOf="@id/text_follow"
             android:layout_width="24dp"
             android:layout_height="24dp"
-            motion:layout_constraintBottom_toBottomOf="@id/text_follow"
             android:layout_marginStart="110dp"
-            motion:layout_constraintTop_toTopOf="@id/text_follow"
+            android:visibility="gone"
+            motion:layout_constraintBottom_toBottomOf="@id/text_follow"
+            motion:layout_constraintEnd_toStartOf="@id/text_follow"
             motion:layout_constraintStart_toStartOf="parent"
-            android:visibility="gone" />
+            motion:layout_constraintTop_toTopOf="@id/text_follow" />
 
         <Constraint
             android:id="@+id/text_follow"
-            motion:layout_constraintEnd_toEndOf="@id/text_job"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            motion:layout_constraintTop_toBottomOf="@id/text_job"
-            motion:layout_constraintStart_toStartOf="@id/text_job"
             android:layout_marginTop="8dp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            motion:layout_constraintEnd_toEndOf="@id/text_job"
+            motion:layout_constraintStart_toStartOf="@id/text_job"
+            motion:layout_constraintTop_toBottomOf="@id/text_job" />
         <Constraint
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
@@ -78,8 +75,8 @@
             android:id="@+id/divider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            motion:layout_constraintTop_toBottomOf="@id/text_creator_name"
-            android:visibility="visible" />
+            android:visibility="visible"
+            motion:layout_constraintTop_toBottomOf="@id/text_creator_name" />
 
     </ConstraintSet>
 </MotionScene>
