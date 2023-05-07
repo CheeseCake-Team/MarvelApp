@@ -5,13 +5,13 @@ import com.abaferastech.marvelapp.databinding.FragmentEventBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 
 
-class EventFragment : BaseFragment<FragmentEventBinding,EventviewMoel>() {
+class EventFragment : BaseFragment<FragmentEventBinding,EventViewModel>() {
 
     override val layoutIdFragment: Int
         get() = R.layout.fragment_event
 
-    override val viewModelClass: Class<EventviewMoel>
-        get() = EventviewMoel::class.java
+    override val viewModelClass: Class<EventViewModel>
+        get() = EventViewModel::class.java
 
 
 
