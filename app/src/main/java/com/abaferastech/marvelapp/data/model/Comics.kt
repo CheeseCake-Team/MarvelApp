@@ -35,10 +35,7 @@ data class Comics(
     @SerializedName("urls") val urls: List<Url?>?,
     @SerializedName("variantDescription") val variantDescription: String?,
     @SerializedName("variants") val variants: List<Variant?>?
-){
-    fun myThumbnail() = thumbnail?.path + "." + thumbnail?.extension
-
-}
+)
 
 data class Date(
     @SerializedName("date") val date: String?,

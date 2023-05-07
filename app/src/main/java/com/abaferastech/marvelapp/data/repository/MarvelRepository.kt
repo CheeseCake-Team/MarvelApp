@@ -5,9 +5,23 @@ import com.abaferastech.marvelapp.data.model.response.MarvelResponse
 import com.abaferastech.marvelapp.data.model.state.State
 import com.abaferastech.marvelapp.data.network.MarvelAPI
 import com.abaferastech.marvelapp.utils.wrapWithState
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
 class MarvelRepository {
+
+    fun getHomeData(): Observable<Triple<State<MarvelResponse<Characters>>,
+            State<MarvelResponse<Comics>>,
+            State<MarvelResponse<Series>>>> {
+        return Observable.zip(
+            getAllCharacters().toObservable(),
+            getAllComics().toObservable(),
+            getAllSeries().toObservable()
+        ) { characters, comics, series ->
+            Triple(characters, comics, series)
+        }
+    }
+
     fun getAllEvents(): Single<State<MarvelResponse<Events>>> {
         return wrapWithState { MarvelAPI.apiService.getAllEvents() }
     }

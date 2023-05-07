@@ -6,21 +6,21 @@
     <data>
 
         <variable
-            name="Series"
+            name="series"
             type="com.abaferastech.marvelapp.data.model.Series" />
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.ui.base.BaseInteractionListener" />
+            type="com.abaferastech.marvelapp.ui.home.SeriesInteractionListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.Material3.CardView.Filled"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="@dimen/space_4dp"
         app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="4dp">
+        app:cardCornerRadius="@dimen/space_4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -30,7 +30,8 @@
                 android:id="@+id/image_view_story_image"
                 android:layout_width="160dp"
                 android:layout_height="220dp"
-                app:imageUrl="@{Series.thumbnail}"
+                app:imageUrl="@{series.thumbnail}"
+                android:scaleType="fitXY"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -40,11 +41,11 @@
                 android:id="@+id/text_view_comic_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/space_6dp"
                 android:ellipsize="marquee"
                 android:fontFamily="@font/bangers"
                 android:maxLines="1"
-                android:text="@{Series.title}"
+                android:text="@{series.title}"
                 app:layout_constraintEnd_toEndOf="@+id/image_view_story_image"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/image_view_story_image"
@@ -55,8 +56,8 @@
                 android:id="@+id/text_view_comic_issue_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="@{Series.rating}"
+                android:layout_marginTop="@dimen/space_6dp"
+                android:text="@{series.rating}"
                 app:layout_constraintStart_toStartOf="@+id/text_view_comic_name"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_comic_name"
                 tools:text="Issue #13" />
@@ -76,4 +77,18 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+</layout>
+
+                android:text="@{series.modified.substring(0,10)}"
+                android:maxLines="1"
+                android:ellipsize="marquee"
+                android:fontFamily="@font/bangers"
+                android:layout_marginTop="@dimen/space_6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_comic_name"
+                tools:text="Issue #13" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 </layout>

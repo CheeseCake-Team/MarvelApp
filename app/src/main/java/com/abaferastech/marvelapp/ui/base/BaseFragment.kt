@@ -38,5 +38,4 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel> : Fragment() 
             return root
         }
     }
-
 }

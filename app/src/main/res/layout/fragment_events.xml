@@ -12,7 +12,7 @@
     </data>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:paddingVertical="12dp"
+        android:paddingVertical="@dimen/space_12dp"
         android:id="@+id/recycler_view_events"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

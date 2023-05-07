@@ -1,19 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/seriesFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.abaferastech.marvelapp.ui.home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_comicsViewAllHorizontalFragment"
+            app:destination="@id/comicsViewAllHorizontalFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_charactersFragment"
+            app:destination="@id/charactersFragment" />
+    </fragment>
     <fragment
         android:id="@+id/eventsFragment"
         android:name="com.abaferastech.marvelapp.ui.eventScreen.EventsFragment"
         android:label="EventsFragment" />
     <fragment
-        android:id="@+id/seriesFragment"
-        android:name="com.abaferastech.marvelapp.ui.seriesScreen.SeriesFragment"
-        android:label="SeriesFragment" />
+        android:id="@+id/characterFragment"
+        android:name="com.abaferastech.marvelapp.ui.character.CharacterFragment"
+        android:label="fragment_character"
+        tools:layout="@layout/fragment_character" />
+    <fragment
+        android:id="@+id/characterDetailsFragment"
+        android:name="com.abaferastech.marvelapp.ui.character.CharacterDetailsFragment"
+        android:label="CharacterDetailsFragment" />
+    <fragment
+        android:id="@+id/comicsViewAllHorizontalFragment"
+        android:name="com.abaferastech.marvelapp.ui.comics.ComicsViewAllHorizontalFragment"
+        android:label="ComicsViewAllHorizontalFragment" />
+    <fragment
+        android:id="@+id/comicDetailsFragment"
+        android:name="com.abaferastech.marvelapp.ui.comicDetails.ComicDetailsFragment"
+        android:label="ComicDetailsFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.abaferastech.marvelapp.ui.search.SearchFragment"
+        android:label="SearchFragment" />
+    <fragment
+        android:id="@+id/charactersFragment"
+        android:name="com.abaferastech.marvelapp.ui.characters.CharactersFragment"
+        android:label="CharactersFragment" />
 </navigation>
