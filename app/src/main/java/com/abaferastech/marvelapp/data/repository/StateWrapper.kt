@@ -1,6 +1,5 @@
-package com.abaferastech.marvelapp.utils
+package com.abaferastech.marvelapp.data.repository
 
-import android.util.Log
 import com.abaferastech.marvelapp.data.model.state.State
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
