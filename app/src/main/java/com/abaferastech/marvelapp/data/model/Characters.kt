@@ -11,7 +11,6 @@ data class Characters(
     @SerializedName("events") val events: MarvelEntity<ResponseItem>?,
 
     @SerializedName("id") val id: Int?,
-    @SerializedName("description") val description: String?,
     @SerializedName("modified") val modified: String?,
     @SerializedName("name") val name: String?,
     @SerializedName("description") val description: String?,
