@@ -25,7 +25,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),Navigati
     override fun onNavigate(dataItem: DataItem) {
         when (dataItem) {
             is DataItem.CharacterTagItem -> {
-                val action = HomeFragmentDirections.actionHomeFragmentToEventsFragment()
+                val action = HomeFragmentDirections.actionHomeFragmentToCharactersFragment()
                 findNavController().navigate(action)
             }
             is DataItem.ComicsTagItem -> TODO()
