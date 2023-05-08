@@ -19,6 +19,11 @@ interface MarvelApiService {
     @GET("characters")
     fun searchInCharacters (@Query("name") searchQuery: String): Single<Response<MarvelResponse<Characters>>>
 
+    @GET("characters/{characterId}")
+    fun getSingleCharacter(@Path("characterId") characterId: Int): Single<Response<MarvelResponse<Characters>>>
+    @GET("events/{eventsId}")
+    fun getEventsById(@Path("eventsId") eventsId: Int): Single<Response<MarvelResponse<Events>>>
+
     @GET("characters")
     fun getAllCharacters(): Single<Response<MarvelResponse<Characters>>>
 

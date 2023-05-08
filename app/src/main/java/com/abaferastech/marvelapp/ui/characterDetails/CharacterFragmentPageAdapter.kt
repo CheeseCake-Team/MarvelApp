@@ -8,7 +8,8 @@ import com.abaferastech.marvelapp.ui.eventScreen.EventsFragment
 
 class CharacterFragmentPageAdapter(
     fragmentManager: FragmentManager,
-    lifecycle: androidx.lifecycle.Lifecycle
+    lifecycle: androidx.lifecycle.Lifecycle,
+    private val id: Int
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {
         return 2
@@ -17,8 +18,8 @@ class CharacterFragmentPageAdapter(
     override fun createFragment(position: Int): Fragment {
         return if (position == 0)
 
-            ComicsViewAllHorizontalFragment()
+            ComicsViewAllHorizontalFragment(id)
         else
-            EventsFragment()
+            EventsFragment(id)
     }
 }

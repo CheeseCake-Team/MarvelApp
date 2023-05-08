@@ -9,6 +9,7 @@ import com.abaferastech.marvelapp.data.model.state.State
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
+import com.abaferastech.marvelapp.ui.seriesViewAll.SeriesViewAllInteractionListener
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.addTo
 
@@ -27,7 +28,10 @@ class HomeViewModel : BaseViewModel(),ComicsInteractionListener, CharactersInter
     private fun onSuccessZip(
         results:Triple<State<MarvelResponse<Characters>>,
                 State<MarvelResponse<Comics>>,
-                State<MarvelResponse<Series>>>
+                State<MarvelResponse<Series>>>,
+
+
+
     ) {
         when {
             results.first is State.Success && results.second is State.Success && results.third is State.Success -> {
@@ -67,4 +71,8 @@ class HomeViewModel : BaseViewModel(),ComicsInteractionListener, CharactersInter
     override fun onClickSeries(series: Series) {
         TODO("Not yet implemented")
     }
+
+//    override fun onClickSeries(series: Series) {
+//        TODO("Not yet implemented")
+//    }
 }
