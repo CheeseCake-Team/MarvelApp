@@ -19,6 +19,9 @@
         <action
             android:id="@+id/action_homeFragment_to_comicsGridFragment"
             app:destination="@id/comicsGridFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_characterFragment"
+            app:destination="@id/characterFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventsFragment"
@@ -27,21 +30,16 @@
     <fragment
         android:id="@+id/characterFragment"
         android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterFragment"
-        android:label="fragment_character"
-        tools:layout="@layout/fragment_character" />
-    <!--    <fragment-->
-    <!--        android:id="@+id/characterDetailsFragment"-->
-    <!--        android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsFragment"-->
-    <!--        android:label="CharacterDetailsFragment" />-->
-        tools:layout="@layout/fragment_character" >
+        android:label="Character"
+        tools:layout="@layout/fragment_character">
         <argument
             android:name="chatacterId"
             app:argType="integer" />
     </fragment>
-    <fragment
-        android:id="@+id/characterDetailsFragment"
-        android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsFragment"
-        android:label="CharacterDetailsFragment" />
+<!--    <fragment-->
+<!--        android:id="@+id/characterDetailsFragment"-->
+<!--        android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsFragment"-->
+<!--        android:label="CharacterDetailsFragment" />-->
     <fragment
         android:id="@+id/comicsViewAllHorizontalFragment"
         android:name="com.abaferastech.marvelapp.ui.comic.comics.ComicsViewAllHorizontalFragment"
