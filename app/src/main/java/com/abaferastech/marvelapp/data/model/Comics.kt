@@ -16,7 +16,7 @@ data class Comics(
     @SerializedName("dates") val dates: List<Date?>?,
     @SerializedName("description") val description: String?,
     @SerializedName("diamondCode") val diamondCode: String?,
-    @SerializedName("digitalId") val digitalId: Int?,
+//    @SerializedName("digitalId") val digitalId: Int?,
     @SerializedName("ean") val ean: String?,
     @SerializedName("format") val format: String?,
     @SerializedName("id") val id: Int?,
@@ -43,7 +43,7 @@ data class Date(
 )
 
 data class Price(
-    @SerializedName("price") val price: Int?,
+    @SerializedName("price") val price: Float?,
     @SerializedName("type") val type: String?
 )
 

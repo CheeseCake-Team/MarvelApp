@@ -8,7 +8,6 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
 
-
 interface MarvelApiService {
 
 
@@ -18,11 +17,28 @@ interface MarvelApiService {
     @GET("events")
     fun getAllEvents(): Single<Response<MarvelResponse<Events>>>
 
+    @GET("comics")
+    fun searchInComics (@Query("title") searchQuery: String): Single<Response<MarvelResponse<Comics>>>
+
+    @GET("characters")
+    fun searchInCharacters (@Query("name") searchQuery: String): Single<Response<MarvelResponse<Characters>>>
+
+    @GET("characters/{characterId}")
+    fun getSingleCharacter(@Path("characterId") characterId: Int): Single<Response<MarvelResponse<Characters>>>
+    @GET("events/{eventsId}")
+    fun getEventsById(@Path("eventsId") eventsId: Int): Single<Response<MarvelResponse<Events>>>
+
+    @GET("characters")
+    fun getAllCharacters(): Single<Response<MarvelResponse<Characters>>>
+
     @GET("series")
     fun getAllSeries(): Single<Response<MarvelResponse<Series>>>
 
     @GET("series/{seriesId}")
     fun getSingleSeries(@Path("seriesId") seriesId: Int): Single<Response<MarvelResponse<Series>>>
+
+    @GET("{fullUrl}")
+    fun getSeriesFullUrl(@Path(value = "fullUrl", encoded = true) fullUrl: String): Single<Response<MarvelResponse<Series>>>
 
     @GET("series/{seriesId}/events")
     fun getSeriesEvents(@Path("seriesId") characterId: Int): Single<Response<MarvelResponse<Events>>>

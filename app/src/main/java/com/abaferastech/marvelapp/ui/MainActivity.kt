@@ -3,8 +3,10 @@ package com.abaferastech.marvelapp.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.abaferastech.marvelapp.R
+import com.abaferastech.marvelapp.data.local.SharedPreferencesServicesImpl
 import com.abaferastech.marvelapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -12,15 +14,12 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-        init()
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val controller = navHostFragment.navController
+        binding.bottomNavigationBar.setupWithNavController(controller)
+        SharedPreferencesServicesImpl
+            .initSharedPreferences(applicationContext)
     }
-
-    private fun init() {
-        val viewModel = ViewModelProvider(this)[MarvelViewModel::class.java]
-        viewModel.series.observe(this) {
-            binding.text.text = it.toString()
-        }
-    }
-
 
 }

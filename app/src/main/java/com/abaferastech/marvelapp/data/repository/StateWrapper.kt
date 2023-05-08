@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.utils
+package com.abaferastech.marvelapp.data.repository
 
 import android.util.Log
 import com.abaferastech.marvelapp.data.model.state.State
@@ -11,11 +11,12 @@ import retrofit2.Response
 fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<State<T>> {
     return function().map {
         if (it.isSuccessful) {
-            Log.i("mahamehoooooooo", "wrapperWithState: $it")
+            Log.i("netanrtnaarnartntrn", "wrapWithState: ${it.body()}")
             State.Success(it.body())
         } else {
-            Log.i("mahamehoooooooo", "wrapperWithState: $it")
+            Log.i("netanrtnaarnartntrn", "wrapWithState: ${it.message()}")
             State.Error(it.message())
         }
-    }.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+    }.subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
 }

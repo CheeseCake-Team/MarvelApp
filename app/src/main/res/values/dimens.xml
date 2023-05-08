@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="space_12dp">12dp</dimen>
+    <dimen name="space_4dp">4dp</dimen>
+    <dimen name="character_image_view_dimens">80dp</dimen>
+    <dimen name="comic_card_view_width">160dp</dimen>
+    <dimen name="comic_image_view_height">220dp</dimen>
+    <dimen name="space_6dp">6dp</dimen>
+    <dimen name="space_8dp">8dp</dimen>
+    <dimen name="space_16dp">16dp</dimen>
+    <dimen name="event_image_view_height">200dp</dimen>
+    <dimen name="header_image_view_height">450dp</dimen>
+    <dimen name="series_card_view_width">160dp</dimen>
+    <dimen name="series_image_view_height">220dp</dimen>
+    <dimen name="space_32dp">32dp</dimen>
+    <dimen name="elevation_1">1dp</dimen>
+    <dimen name="characters_image_view_dimens">110dp</dimen>
+</resources>
