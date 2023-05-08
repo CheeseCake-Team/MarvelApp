@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="comic"
+            name="comics"
             type="com.abaferastech.marvelapp.data.model.Comics" />
 
         <variable
@@ -19,7 +19,7 @@
         style="@style/Widget.Material3.CardView.Filled"
         android:layout_width="160dp"
         android:layout_height="wrap_content"
-        android:layout_margin="4dp"
+        android:layout_margin="16dp"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="4dp">
 
@@ -31,7 +31,8 @@
                 android:id="@+id/image_view_comic_image"
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
-                app:imageUrl="@{comic.thumbnail}"
+                app:imageUrl="@{comics.thumbnail}"
+                android:scaleType="fitXY"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@color/material_dynamic_tertiary70" />
 
@@ -43,7 +44,7 @@
                 android:ellipsize="marquee"
                 android:maxLines="1"
                 android:fontFamily="@font/bangers"
-                android:text="@{comic.title}"
+                android:text="@{comics.title.toString()}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -54,9 +55,8 @@
                 android:id="@+id/text_view_comic_issue_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_6dp"
-                android:fontFamily="@font/bangers"
-                android:text="@{@string/issue(comic.issueNumber.toString())}"
+                android:layout_marginTop="6dp"
+                android:text="@{comics.issueNumber.toString()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_comic_name"
                 tools:text="Issue #13" />
@@ -65,9 +65,8 @@
                 android:id="@+id/text_view_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_8dp"
-                android:fontFamily="@font/bangers"
-                android:text="@{comic.modified.substring(0,10)}"
+                android:layout_marginTop="8dp"
+                android:text="@{comics.issueNumber.toString()}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_comic_issue_number"
