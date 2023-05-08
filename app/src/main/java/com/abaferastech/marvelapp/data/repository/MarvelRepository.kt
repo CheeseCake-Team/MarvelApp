@@ -8,7 +8,6 @@ import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 
 class MarvelRepository {
-
     fun getHomeData(): Observable<Triple<State<MarvelResponse<Characters>>,
             State<MarvelResponse<Comics>>,
             State<MarvelResponse<Series>>>> {
@@ -24,8 +23,6 @@ class MarvelRepository {
     fun searchInComics(query: String): Single<State<MarvelResponse<Comics>>> {
         return wrapWithState { MarvelAPI.apiService.searchInComics(query) }
     }
-
-
 
     fun getAllEvents(): Single<State<MarvelResponse<Events>>> {
         return wrapWithState { MarvelAPI.apiService.getAllEvents() }

@@ -3,6 +3,7 @@ package com.abaferastech.marvelapp.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.abaferastech.marvelapp.R
@@ -20,6 +21,11 @@ class MainActivity : AppCompatActivity() {
         binding.bottomNavigationBar.setupWithNavController(controller)
         SharedPreferencesServicesImpl
             .initSharedPreferences(applicationContext)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        findNavController(R.id.fragmentContainerView).navigateUp()
+        return true
     }
 
 }
