@@ -76,4 +76,8 @@
             android:name="eventId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/creatorDetailsFragment"
+        android:name="com.abaferastech.marvelapp.ui.creatorsDetails.CreatorDetailsFragment"
+        android:label="CreatorDetailsFragment" />
 </navigation>
