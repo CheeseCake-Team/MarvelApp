@@ -21,6 +21,7 @@ class EventsViewModel : BaseViewModel() {
             .subscribe(::onSuccess, ::onError)
             .addTo(compositeDisposable)
     }
+
     fun getEventsById(eventsId:Int) {
         repository.getCharacterEvents(eventsId)
             .subscribe(::onSuccess, ::onError)
