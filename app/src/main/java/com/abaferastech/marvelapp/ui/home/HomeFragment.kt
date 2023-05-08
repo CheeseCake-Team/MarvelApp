@@ -20,6 +20,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),Navigati
             val adapter = HomeAdapter(it as List<DataItem>, this)
             binding.recyclerViewHome.adapter = adapter
         }
+        viewModel.isCharacterClicked.observe(viewLifecycleOwner){isClicked ->
+            if(isClicked){
+                val selectedCharacter = viewModel.selectedCharacterID.value
+                val action = selectedCharacter?.let {
+                    HomeFragmentDirections.actionHomeFragmentToCharacterFragment(
+                        it
+                    )
+                }
+                action?.let { findNavController().navigate(it) }
+                viewModel.resetCharacterClickStatus()
+            }
+
+        }
     }
 
     override fun onNavigate(dataItem: DataItem) {
@@ -28,7 +41,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),Navigati
                 val action = HomeFragmentDirections.actionHomeFragmentToCharactersFragment()
                 findNavController().navigate(action)
             }
-            is DataItem.ComicsTagItem -> TODO()
+            is DataItem.ComicsTagItem -> {
+
+
+            }
             is DataItem.HeaderItem -> TODO()
             is DataItem.SeriesTagItem -> {
                 val action = HomeFragmentDirections.actionHomeFragmentToSeriesViewAllFragment()

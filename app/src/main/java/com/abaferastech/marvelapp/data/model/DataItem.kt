@@ -4,6 +4,7 @@ import com.abaferastech.marvelapp.ui.characterDetails.CharacterFragment
 import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.home.ComicsInteractionListener
 import com.abaferastech.marvelapp.ui.home.SeriesInteractionListener
+import com.abaferastech.marvelapp.ui.seriesViewAll.SeriesViewAllInteractionListener
 
 sealed class DataItem() {
 
@@ -23,6 +24,7 @@ sealed class DataItem() {
         val tag: Tag<Series>, val rank: Int,
         val interactionListener: SeriesInteractionListener
     ) : DataItem()
+
 
     data class HeaderItem(
         val items: List<Characters>,
