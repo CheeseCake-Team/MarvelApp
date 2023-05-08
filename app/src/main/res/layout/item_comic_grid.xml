@@ -17,7 +17,7 @@
 
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.Material3.CardView.Filled"
-        android:layout_width="160dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         app:cardBackgroundColor="@android:color/transparent"
@@ -29,10 +29,12 @@
 
             <ImageView
                 android:id="@+id/image_view_comic_image"
-                android:layout_width="match_parent"
+                android:layout_width="160dp"
                 android:layout_height="220dp"
-                app:imageUrl="@{comics.thumbnail}"
                 android:scaleType="fitXY"
+                app:imageUrl="@{comics.thumbnail}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@color/material_dynamic_tertiary70" />
 
@@ -42,12 +44,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:ellipsize="marquee"
-                android:maxLines="1"
                 android:fontFamily="@font/bangers"
-                android:text="@{comics.title.toString()}"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:maxLines="1"
+                android:text="@{comics.title}"
+                app:layout_constraintEnd_toEndOf="@+id/image_view_comic_image"
                 app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/image_view_comic_image"
                 app:layout_constraintTop_toBottomOf="@+id/image_view_comic_image"
                 tools:text="The amazing spider-man" />
 
@@ -56,9 +58,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="@{`Issue #`+comics.issueNumber.toString()}"
                 android:fontFamily="sans-serif"
-                app:layout_constraintStart_toStartOf="parent"
+                android:text="@{`Issue #`+comics.issueNumber.toString()}"
+                app:layout_constraintStart_toStartOf="@+id/image_view_comic_image"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_comic_name"
                 tools:text="Issue #13" />
 
@@ -67,10 +69,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@{comics.modified.toString().substring(0,10)}"
                 android:fontFamily="sans-serif"
+                android:text="@{comics.modified.toString().substring(0,10)}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/image_view_comic_image"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_comic_issue_number"
                 tools:text="Sep, 13 2021" />
 

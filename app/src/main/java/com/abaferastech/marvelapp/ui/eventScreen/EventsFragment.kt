@@ -3,6 +3,7 @@ package com.abaferastech.marvelapp.ui.eventScreen
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentEventsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
@@ -19,10 +20,11 @@ class EventsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+
         val characterId = arguments?.getInt(CHARACTER_ID)
 
         if (characterId != null) {
-            Log.d("TAG", "onViewCreated: there is id $characterId")
             viewModel.getEventsById(characterId)
         } else {
             viewModel.getMarvelEvents()

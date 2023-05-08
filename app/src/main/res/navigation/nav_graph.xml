@@ -3,53 +3,58 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
+    android:label="Comics"
     app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
         android:name="com.abaferastech.marvelapp.ui.home.HomeFragment"
-        android:label="HomeFragment" >
-        <action
-            android:id="@+id/action_homeFragment_to_comicsViewAllHorizontalFragment"
-            app:destination="@id/comicsViewAllHorizontalFragment" />
+        android:label="Home">
         <action
             android:id="@+id/action_homeFragment_to_charactersFragment"
             app:destination="@id/charactersFragment" />
         <action
             android:id="@+id/action_homeFragment_to_seriesViewAllFragment"
             app:destination="@id/seriesViewAllFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_comicsGridFragment"
+            app:destination="@id/comicsGridFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventsFragment"
         android:name="com.abaferastech.marvelapp.ui.eventScreen.EventsFragment"
-        android:label="EventsFragment" />
+        android:label="Events" />
     <fragment
         android:id="@+id/characterFragment"
         android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterFragment"
         android:label="fragment_character"
         tools:layout="@layout/fragment_character" />
-    <fragment
-        android:id="@+id/characterDetailsFragment"
-        android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsFragment"
-        android:label="CharacterDetailsFragment" />
+    <!--    <fragment-->
+    <!--        android:id="@+id/characterDetailsFragment"-->
+    <!--        android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsFragment"-->
+    <!--        android:label="CharacterDetailsFragment" />-->
     <fragment
         android:id="@+id/comicsViewAllHorizontalFragment"
-        android:name="com.abaferastech.marvelapp.ui.comics.ComicsViewAllHorizontalFragment"
+        android:name="com.abaferastech.marvelapp.ui.comic.comics.ComicsViewAllHorizontalFragment"
         android:label="ComicsViewAllHorizontalFragment" />
-    <fragment
-        android:id="@+id/comicDetailsFragment"
-        android:name="com.abaferastech.marvelapp.ui.comicDetails.ComicDetailsFragment"
-        android:label="ComicDetailsFragment" />
+    <!--    <fragment-->
+    <!--        android:id="@+id/comicDetailsFragment"-->
+    <!--        android:name="com.abaferastech.marvelapp.ui.comicDetails.ComicDetailsFragment"-->
+    <!--        android:label="ComicDetailsFragment" />-->
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.abaferastech.marvelapp.ui.search.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="Search" />
     <fragment
         android:id="@+id/charactersFragment"
         android:name="com.abaferastech.marvelapp.ui.characters.CharactersFragment"
-        android:label="CharactersFragment" />
+        android:label="Characters" />
     <fragment
         android:id="@+id/seriesViewAllFragment"
         android:name="com.abaferastech.marvelapp.ui.seriesViewAll.SeriesViewAllFragment"
-        android:label="SeriesViewAllFragment" />
+        android:label="Series" />
+    <fragment
+        android:id="@+id/comicsGridFragment"
+        android:name="com.abaferastech.marvelapp.ui.comic.comicsGrid.ComicsGridFragment"
+        android:label="Comics" />
 </navigation>

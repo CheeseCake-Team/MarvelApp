@@ -29,7 +29,7 @@
 //    override fun getItemViewType(position: Int): Int {
 //        return when (items[position]) {
 //            is DataItem.TabItem -> TAG_ITEM
-//            is DataItem.HeaderDetailsItem -> HEADER_ITEM
+//            is DataIComicsViewAllFragmenttem.HeaderDetailsItem -> HEADER_ITEM
 //            else -> {
 //                10
 //            }

@@ -21,10 +21,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
         setSupportActionBar(binding.toolbar)
+
         val navHostFragment = supportFragmentManager
             .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val controller = navHostFragment.navController
+
         binding.bottomNavigationBar.setupWithNavController(controller)
+
         SharedPreferencesServicesImpl
             .initSharedPreferences(applicationContext)
 

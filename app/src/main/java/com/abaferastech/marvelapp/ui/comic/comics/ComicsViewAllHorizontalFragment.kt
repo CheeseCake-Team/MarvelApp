@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.ui.comics
+package com.abaferastech.marvelapp.ui.comic.comics
 
 import android.os.Bundle
 import android.util.Log
