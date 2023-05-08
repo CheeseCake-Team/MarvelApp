@@ -10,7 +10,7 @@ import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.characters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.home.ComicAdapter
 import com.abaferastech.marvelapp.ui.home.SeriesAdapter
-import com.bumptech.glide.Glide
+ import com.bumptech.glide.Glide
 
 @BindingAdapter(value = ["app:imageUrl"])
 fun imageUrl (view: ImageView, thumbnail: Thumbnail?){
@@ -70,6 +70,10 @@ fun setAdapter(view: RecyclerView, dataItem: DataItem) {
             dataItem.tag.ResourcesData,
             dataItem.interactionListener
         )
+//        is DataItem.SeriesViewTagItem -> SeriesViewAllAdapter(
+//            dataItem.tag.ResourcesData,
+//            dataItem.interactionListener
+//        )
         else -> TODO()
     }
 }

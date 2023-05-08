@@ -9,8 +9,7 @@ import com.abaferastech.marvelapp.data.model.DataItem
 import com.abaferastech.marvelapp.databinding.FragmentHomeBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
-    NavigationInteractionListener {
+class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),NavigationInteractionListener{
     override val layoutIdFragment: Int
         get() = R.layout.fragment_home
     override val viewModelClass: Class<HomeViewModel>
@@ -24,7 +23,19 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             val adapter = HomeAdapter(it as List<DataItem>, this)
             binding.recyclerViewHome.adapter = adapter
         }
+        viewModel.isCharacterClicked.observe(viewLifecycleOwner){isClicked ->
+            if(isClicked){
+                val selectedCharacter = viewModel.selectedCharacterID.value
+                val action = selectedCharacter?.let {
+                    HomeFragmentDirections.actionHomeFragmentToCharacterFragment(
+                        it
+                    )
+                }
+                action?.let { findNavController().navigate(it) }
+                viewModel.resetCharacterClickStatus()
+            }
 
+        }
     }
 
     override fun onNavigate(dataItem: DataItem) {
@@ -43,7 +54,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
                 val action = HomeFragmentDirections.actionHomeFragmentToSeriesViewAllFragment()
                 findNavController().navigate(action)
             }
-
             else -> {}
         }
     }

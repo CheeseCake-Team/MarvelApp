@@ -33,6 +33,15 @@
     <!--        android:id="@+id/characterDetailsFragment"-->
     <!--        android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsFragment"-->
     <!--        android:label="CharacterDetailsFragment" />-->
+        tools:layout="@layout/fragment_character" >
+        <argument
+            android:name="chatacterId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/characterDetailsFragment"
+        android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsFragment"
+        android:label="CharacterDetailsFragment" />
     <fragment
         android:id="@+id/comicsViewAllHorizontalFragment"
         android:name="com.abaferastech.marvelapp.ui.comic.comics.ComicsViewAllHorizontalFragment"

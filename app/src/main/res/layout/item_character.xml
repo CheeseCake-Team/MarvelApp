@@ -8,11 +8,15 @@
         <variable
             name="item"
             type="com.abaferastech.marvelapp.data.model.Characters" />
+        <variable
+            name="listener"
+            type="com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:onClick="@{()->listener.onClickCharacter(item)}"
         android:padding="@dimen/space_4dp">
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -21,6 +25,7 @@
             android:layout_height="@dimen/character_image_view_dimens"
             app:imageUrl="@{item.thumbnail}"
             android:scaleType="centerCrop"
+
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearance="@style/CircleImageView"

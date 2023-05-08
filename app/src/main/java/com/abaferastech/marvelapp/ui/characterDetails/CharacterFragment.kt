@@ -3,6 +3,7 @@ package com.abaferastech.marvelapp.ui.characterDetails
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentCharacterBinding
@@ -13,22 +14,23 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding,CharacterViewMod
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
     private lateinit var adapter: CharacterFragmentPageAdapter
+
     override val layoutIdFragment: Int
         get() = R.layout.fragment_character
     override val viewModelClass: Class<CharacterViewModel>
         get() = CharacterViewModel::class.java
 
-    val characterId = 1009545
+    private val args: CharacterFragmentArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getSingleCharacter(characterId)
+        viewModel.getSingleCharacter(args.chatacterId)
         init()
     }
 
     private fun init() {
         tabLayout = binding.tabLayout
         viewPager = binding.viewPager
-        adapter = CharacterFragmentPageAdapter(requireActivity().supportFragmentManager,lifecycle,characterId)
+        adapter = CharacterFragmentPageAdapter(requireActivity().supportFragmentManager,lifecycle,args.chatacterId)
         tabLayout.apply {
             addTab(tabLayout.newTab().setText("All Comics"))
             addTab(tabLayout.newTab().setText("Details"))
