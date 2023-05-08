@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.ui.comics
+package com.abaferastech.marvelapp.ui.comic.comics
 
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.Comics

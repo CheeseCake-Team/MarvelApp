@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.ui.comicDetails
+package com.abaferastech.marvelapp.ui.comic.comicDetails
 //
 //import androidx.databinding.BindingAdapter
 //import androidx.viewpager2.widget.ViewPager2

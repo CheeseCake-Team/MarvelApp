@@ -49,7 +49,7 @@
             android:drawablePadding="@dimen/space_16dp"
             android:elevation="6dp"
             android:focusableInTouchMode="true"
-            android:hint="thor"
+            android:hint="Type Here"
             android:imeOptions="actionGo"
             android:inputType="text"
             android:maxLines="1"
