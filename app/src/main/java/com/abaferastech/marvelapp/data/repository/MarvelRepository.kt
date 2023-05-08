@@ -26,12 +26,10 @@ class MarvelRepository {
         return wrapWithState { MarvelAPI.apiService.searchInComics(query) }
     }
     fun getSingleCharacter(characterId: Int): Single<State<MarvelResponse<Characters>>> {
-        // Log.i("characterssssssssssssssssss", "getSingleCharacter: ${MarvelAPI.apiService.getSingleCharacter(creatorId)}")
         return wrapWithState { MarvelAPI.apiService.getSingleCharacter(characterId) }
     }
 
     fun getEventsById(eventsId: Int): Single<State<MarvelResponse<Events>>> {
-         Log.i("characterssssssssssssssssss", "events: ${MarvelAPI.apiService.getEventsById(eventsId).subscribe{t-> t.isSuccessful.toString()}}")
         return wrapWithState { MarvelAPI.apiService.getEventsById(eventsId) }
     }
 
@@ -42,6 +40,12 @@ class MarvelRepository {
 
     fun getAllCharacters(): Single<State<MarvelResponse<Characters>>> {
         return wrapWithState { MarvelAPI.apiService.getAllCharacters() }
+    }
+    fun getCharacterEvents(characterId: Int): Single<State<MarvelResponse<Events>>> {
+        return wrapWithState { MarvelAPI.apiService.getCharacterEvents(characterId) }
+    }
+   fun getCharacterComics(characterId: Int): Single<State<MarvelResponse<Comics>>> {
+        return wrapWithState { MarvelAPI.apiService.getCharacterComics(characterId) }
     }
 
     fun getAllSeries(): Single<State<MarvelResponse<Series>>> {

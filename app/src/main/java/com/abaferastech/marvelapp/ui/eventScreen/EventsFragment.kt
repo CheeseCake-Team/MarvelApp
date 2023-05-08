@@ -3,17 +3,12 @@ package com.abaferastech.marvelapp.ui.eventScreen
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.model.Events
 import com.abaferastech.marvelapp.databinding.FragmentEventsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import java.util.Objects
 
 
-class EventsFragment(private val id: Int? = null) :
+class EventsFragment :
     BaseFragment<FragmentEventsBinding, EventsViewModel>() {
 
     override val layoutIdFragment: Int
@@ -24,9 +19,13 @@ class EventsFragment(private val id: Int? = null) :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val characterId = arguments?.getInt(CHARACTER_ID)
 
-        if (id != null) {
-            viewModel.getEventsById(id)
+        if (characterId != null) {
+            Log.d("TAG", "onViewCreated: there is id $characterId")
+            viewModel.getEventsById(characterId)
+        } else {
+            viewModel.getMarvelEvents()
         }
 
 
@@ -34,5 +33,14 @@ class EventsFragment(private val id: Int? = null) :
         binding.recyclerViewEvents.adapter = adapter
     }
 
+    companion object {
+        private const val CHARACTER_ID = "character_id"
+        @JvmStatic
+        fun newInstance(id: Int) = EventsFragment().apply {
+            arguments = Bundle().apply {
+                putInt(CHARACTER_ID, id)
+            }
+        }
+    }
 
 }

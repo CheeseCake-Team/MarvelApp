@@ -1,5 +1,6 @@
 package com.abaferastech.marvelapp.ui.characterDetails
 
+import android.util.Log
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
@@ -17,9 +18,9 @@ class CharacterFragmentPageAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return if (position == 0)
-
-            ComicsViewAllHorizontalFragment(id)
-        else
-            EventsFragment(id)
+            ComicsViewAllHorizontalFragment.newInstance(id)
+        else {
+            EventsFragment.newInstance(id)
+        }
     }
 }
