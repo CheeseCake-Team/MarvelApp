@@ -20,24 +20,26 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding,CharacterViewMod
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //val id = 1011334
+        val id = 1009525
+        viewModel.getSingleCharacter(id)
         init()
-        initTapLayout()
-        initViewPager()
-
     }
 
-    fun init() {
+    private fun init() {
         tabLayout = binding.tabLayout
         viewPager = binding.viewPager
-        adapter = CharacterFragmentPageAdapter(requireActivity().supportFragmentManager,lifecycle)
+        adapter = CharacterFragmentPageAdapter(requireActivity().supportFragmentManager,lifecycle,id)
         tabLayout.apply {
             addTab(tabLayout.newTab().setText("All Comics"))
             addTab(tabLayout.newTab().setText("Details"))
         }
         viewPager.adapter = adapter
+        initTapLayout()
+        initViewPager()
     }
 
-    fun initTapLayout() {
+    private fun initTapLayout() {
         tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 if (tab != null) {
@@ -52,7 +54,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding,CharacterViewMod
         })
     }
 
-    fun initViewPager() {
+    private fun initViewPager() {
         viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback(){
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)

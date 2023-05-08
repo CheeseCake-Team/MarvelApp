@@ -17,7 +17,7 @@ class EventsViewModel : BaseViewModel() {
     val events: LiveData<List<Events>> get() = _events
 
     init {
-        getMarvelEvents()
+     //   getMarvelEvents()
     }
 
     private fun getMarvelEvents() {
@@ -25,10 +25,15 @@ class EventsViewModel : BaseViewModel() {
             .subscribe(::onSuccess, ::onError)
             .addTo(compositeDisposable)
     }
+    fun getEventsById(eventsId:Int) {
+        repository.getEventsById(eventsId)
+            .subscribe(::onSuccess, ::onError)
+            .addTo(compositeDisposable)
+    }
 
     private fun onSuccess(state: State<MarvelResponse<Events>>) {
         when (state) {
-            is State.Error -> TODO()
+            is State.Error -> Log.i("wEVevWVWVFWEewfFEWWfFFea", "error: ")
             State.Loading -> TODO()
             is State.Success -> {
                 Log.i("Ekko",state.toData()?.data?.results.toString())

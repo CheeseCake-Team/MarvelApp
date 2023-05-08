@@ -1,5 +1,6 @@
 package com.abaferastech.marvelapp.data.repository
 
+import android.util.Log
 import com.abaferastech.marvelapp.data.model.*
 import com.abaferastech.marvelapp.data.model.response.MarvelResponse
 import com.abaferastech.marvelapp.data.model.state.State
@@ -24,7 +25,15 @@ class MarvelRepository {
     fun searchInComics(query: String): Single<State<MarvelResponse<Comics>>> {
         return wrapWithState { MarvelAPI.apiService.searchInComics(query) }
     }
+    fun getSingleCharacter(characterId: Int): Single<State<MarvelResponse<Characters>>> {
+        // Log.i("characterssssssssssssssssss", "getSingleCharacter: ${MarvelAPI.apiService.getSingleCharacter(creatorId)}")
+        return wrapWithState { MarvelAPI.apiService.getSingleCharacter(characterId) }
+    }
 
+    fun getEventsById(eventsId: Int): Single<State<MarvelResponse<Events>>> {
+         Log.i("characterssssssssssssssssss", "events: ${MarvelAPI.apiService.getEventsById(eventsId).subscribe{t-> t.isSuccessful.toString()}}")
+        return wrapWithState { MarvelAPI.apiService.getEventsById(eventsId) }
+    }
 
 
     fun getAllEvents(): Single<State<MarvelResponse<Events>>> {

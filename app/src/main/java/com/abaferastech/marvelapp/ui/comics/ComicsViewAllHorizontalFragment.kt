@@ -6,7 +6,7 @@ import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentComicsViewAllHorizontalBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 
-class ComicsViewAllHorizontalFragment(val comicId: Int? = null) :
+class ComicsViewAllHorizontalFragment(val id: Int? = null) :
     BaseFragment<FragmentComicsViewAllHorizontalBinding, ComicsViewModel>() {
 
     override val layoutIdFragment: Int
