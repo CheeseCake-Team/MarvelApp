@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.local.SharedPreferencesServicesImpl
 import com.abaferastech.marvelapp.databinding.FragmentCharacterBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
@@ -21,7 +20,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding,CharacterViewMod
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         //val id = 1011334
-        val id = 1009525
+        val id = 1009664
         viewModel.getSingleCharacter(id)
         init()
     }
