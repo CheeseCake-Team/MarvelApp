@@ -10,16 +10,6 @@ class SeriesAdapter(items: List<Series>, listener: SeriesInteractionListener) :
     BaseAdapter<Series>(items, listener) {
     override val layoutID = R.layout.item_series
 
-    override fun bindItemViewHolder(
-        holder: BaseViewHolder,
-        item: Series,
-        listener: BaseInteractionListener?
-    ) {
-        (holder.binding as ItemSeriesBinding).apply {
-            series = item
-            this.listener = listener as SeriesInteractionListener
-        }
-    }
 }
 
 interface SeriesInteractionListener : BaseInteractionListener {

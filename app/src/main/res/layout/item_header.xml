@@ -6,12 +6,13 @@
     <data>
 
         <variable
-            name="listener"
+            name="item"
             type="com.abaferastech.marvelapp.data.model.Characters" />
 
         <variable
-            name="character"
+            name="listener"
             type="com.abaferastech.marvelapp.data.model.Characters" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -25,7 +26,7 @@
             android:contentDescription="@string/an_image_for_an_important_character"
             android:foreground="@drawable/header_gradient"
             android:scaleType="fitXY"
-            app:imageUrl="@{character.thumbnail}"
+            app:imageUrl="@{item.thumbnail}"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
 
@@ -38,7 +39,7 @@
             android:fontFamily="@font/bangers"
             android:textAlignment="center"
             android:layout_marginBottom="@dimen/space_32dp"
-            android:text="@{character.name}"
+            android:text="@{item.name}"
             android:textAppearance="@style/TextAppearance.Material3.DisplaySmall"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

@@ -19,16 +19,7 @@ fun imageUrl (view: ImageView, thumbnail: Thumbnail?){
         .into(view)
 }
 
-//@BindingAdapter(value = ["app:items"])
-//fun <T> setRecyclerViewItems(view: RecyclerView, items: List<T>?) {
-//    items?.let {
-//        when (view.adapter) {
-//            is EventAdapter -> {
-//                (view.adapter as EventAdapter).setItems(items as List<Events>)
-//            }
-//        }
-//    }
-//}
+
 
 @BindingAdapter(value = ["app:items"])
 fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {

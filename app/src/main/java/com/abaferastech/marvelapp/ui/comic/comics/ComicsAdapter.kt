@@ -10,13 +10,6 @@ class ComicsAdapter(items: List<Comics>, listener: ComicsInteractionListener) :
     BaseAdapter<Comics>(items, listener) {
     override val layoutID = R.layout.item_comic_horizontal
 
-    override fun bindItemViewHolder(
-        holder: BaseViewHolder,
-        item: Comics,
-        listener: BaseInteractionListener?
-    ) {
-        (holder.binding as ItemComicHorizontalBinding).comicsHorizontal = item
-    }
 }
 
 interface ComicsInteractionListener : BaseInteractionListener {
