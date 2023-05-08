@@ -4,12 +4,71 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+        <variable
+            name="viewModel"
+            type="com.abaferastech.marvelapp.ui.comicDetails.ComicDetailsViewModel" />
 
     </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_comics_details"
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/fragment_character_details_xml_constraintlayout_scene">
+
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/image_view_comic_image2"
+            android:layout_width="match_parent"
+            android:layout_height="480dp"
+            android:foreground="@drawable/header_details_gradient"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{viewModel.comics.thumbnail}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@color/material_dynamic_tertiary70" />
+
+        <TextView
+            android:id="@+id/text_comic_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="32dp"
+            android:textSize="24sp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:text="@{viewModel.comics.title}"
+            tools:text="TextView" />
+
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_comic_title"
+            app:tabGravity="fill"
+            app:tabIndicatorAnimationMode="linear"
+            app:tabIndicatorGravity="bottom"
+            app:tabMode="scrollable"
+            app:tabTextColor="@color/design_default_color_on_primary" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tab_layout">
+
+        </androidx.viewpager2.widget.ViewPager2>
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
 </layout>
