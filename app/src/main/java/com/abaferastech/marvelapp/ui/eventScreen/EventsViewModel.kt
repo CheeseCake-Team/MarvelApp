@@ -17,7 +17,7 @@ class EventsViewModel : BaseViewModel() {
     val events: LiveData<List<Events>> get() = _events
 
     init {
-     //   getMarvelEvents()
+        getMarvelEvents()
     }
 
     private fun getMarvelEvents() {

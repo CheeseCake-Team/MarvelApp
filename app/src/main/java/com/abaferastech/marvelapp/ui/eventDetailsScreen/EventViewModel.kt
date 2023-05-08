@@ -6,16 +6,17 @@ import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.Comics
 import com.abaferastech.marvelapp.data.model.response.MarvelResponse
 import com.abaferastech.marvelapp.data.model.state.State
+import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 
 class EventViewModel : BaseViewModel() {
-
+    private val repository = MarvelRepository()
     private val _comics = MutableLiveData<List<Comics>>()
     val comics: LiveData<List<Comics>> get() = _comics
 
 
-    private fun getEventComics(eventId : Int) {
+    fun getEventComics(eventId: Int) {
         repository.getEventComics(eventId)
             .subscribe(::onSuccess, ::onError)
             .addTo(compositeDisposable)
