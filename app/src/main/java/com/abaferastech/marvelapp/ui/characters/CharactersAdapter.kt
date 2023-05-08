@@ -6,6 +6,9 @@ import com.abaferastech.marvelapp.databinding.ItemCharacterBinding
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 
+interface CharactersInteractionListener: BaseInteractionListener {
+    fun onClickCharacter(character: Characters)
+}
 class CharactersAdapter(items: List<Characters>, listener: CharactersInteractionListener) :
     BaseAdapter<Characters>(items, listener) {
     override val layoutID: Int

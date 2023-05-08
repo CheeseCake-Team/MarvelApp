@@ -9,11 +9,10 @@ import com.abaferastech.marvelapp.data.model.state.State
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
-import com.abaferastech.marvelapp.ui.seriesViewAll.SeriesViewAllInteractionListener
-import io.reactivex.rxjava3.core.Observable
+import com.abaferastech.marvelapp.ui.home.ComicsInteractionListener
 import io.reactivex.rxjava3.kotlin.addTo
 
-class HomeViewModel : BaseViewModel(),ComicsInteractionListener, CharactersInteractionListener,SeriesInteractionListener {
+class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,SeriesInteractionListener {
     private val repository = MarvelRepository()
 
     private val _homeData = MutableLiveData<List<DataItem>?>()
@@ -64,11 +63,12 @@ class HomeViewModel : BaseViewModel(),ComicsInteractionListener, CharactersInter
         TODO("Not yet implemented")
     }
 
-    override fun onClickComics(comics: Comics) {
+
+    override fun onClickSeries(series: Series) {
         TODO("Not yet implemented")
     }
 
-    override fun onClickSeries(series: Series) {
+    override fun onClickComics(comics: Comics) {
         TODO("Not yet implemented")
     }
 
