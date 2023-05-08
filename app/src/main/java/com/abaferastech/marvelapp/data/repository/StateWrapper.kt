@@ -7,7 +7,6 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Response
 
-
 fun <T> wrapWithState(function: () -> Single<Response<T>>): Single<State<T>> {
     return function().map {
         if (it.isSuccessful) {
