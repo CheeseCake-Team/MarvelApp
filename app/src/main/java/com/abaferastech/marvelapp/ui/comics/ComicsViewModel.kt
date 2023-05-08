@@ -16,12 +16,14 @@ class ComicsViewModel: BaseViewModel() {
         private val _comics = MutableLiveData<List<Comics>>()
         val comics: LiveData<List<Comics>> get() = _comics
 
-        init {
-            getMarvelComics()
-        }
 
-        private fun getMarvelComics() {
+        fun getMarvelComics() {
             repository.getAllComics()
+                .subscribe(::onSuccess, ::onError)
+                .addTo(compositeDisposable)
+        }
+        fun getCharacterComics(characterId:Int) {
+            repository.getCharacterComics(characterId)
                 .subscribe(::onSuccess, ::onError)
                 .addTo(compositeDisposable)
         }

@@ -6,7 +6,7 @@ import com.abaferastech.marvelapp.databinding.ItemViewAllCharactersBinding
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 
-class ViewAllCharactersAdapter(items: List<Characters>, listener: CharactersInteractionListener) :
+class ViewAllCharactersAdapter(items: List<Characters>, listener: CharacterInteractionListener) :
     BaseAdapter<Characters>(items, listener) {
     override val layoutID: Int
         get() = R.layout.item_view_all_characters
@@ -19,8 +19,4 @@ class ViewAllCharactersAdapter(items: List<Characters>, listener: CharactersInte
         (holder.binding as ItemViewAllCharactersBinding).item = item
     }
 
-}
-
-interface CharactersInteractionListener : BaseInteractionListener {
-    fun onClickCharacter(character: Characters)
 }

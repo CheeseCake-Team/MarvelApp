@@ -16,17 +16,13 @@ class EventsViewModel : BaseViewModel() {
     private val _events = MutableLiveData<List<Events>>()
     val events: LiveData<List<Events>> get() = _events
 
-    init {
-     //   getMarvelEvents()
-    }
-
-    private fun getMarvelEvents() {
+    fun getMarvelEvents() {
         repository.getAllEvents()
             .subscribe(::onSuccess, ::onError)
             .addTo(compositeDisposable)
     }
     fun getEventsById(eventsId:Int) {
-        repository.getEventsById(eventsId)
+        repository.getCharacterEvents(eventsId)
             .subscribe(::onSuccess, ::onError)
             .addTo(compositeDisposable)
     }
