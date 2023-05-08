@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.app.AppCompatActivity
@@ -39,7 +40,7 @@ class EventsFragment :
             override fun onEventClick(event: Events) {
                 event.id.let {
                     val action =
-                        EventsFragmentDirections.actionEventsFragmentToEventFragment2(event.id!!)
+                        EventsFragmentDirections.actionEventsFragmentToEventFragment(event.id!!)
                     findNavController().navigate(action)
                 }
             }

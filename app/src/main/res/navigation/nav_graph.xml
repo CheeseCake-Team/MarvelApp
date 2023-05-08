@@ -26,7 +26,11 @@
     <fragment
         android:id="@+id/eventsFragment"
         android:name="com.abaferastech.marvelapp.ui.eventScreen.EventsFragment"
-        android:label="Events" />
+        android:label="Events" >
+        <action
+            android:id="@+id/action_eventsFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
+    </fragment>
     <fragment
         android:id="@+id/characterFragment"
         android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterFragment"
@@ -64,4 +68,12 @@
         android:id="@+id/comicsGridFragment"
         android:name="com.abaferastech.marvelapp.ui.comic.comicsGrid.ComicsGridFragment"
         android:label="Comics" />
+    <fragment
+        android:id="@+id/eventFragment"
+        android:name="com.abaferastech.marvelapp.ui.eventDetailsScreen.EventFragment"
+        android:label="EventFragment" >
+        <argument
+            android:name="eventId"
+            app:argType="integer" />
+    </fragment>
 </navigation>
