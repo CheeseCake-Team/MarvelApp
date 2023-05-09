@@ -1,8 +1,7 @@
-package com.abaferastech.marvelapp.ui.home
+package com.abaferastech.marvelapp.ui.home.adapters
 
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.model.Series
-import com.abaferastech.marvelapp.databinding.ItemSeriesBinding
+import com.abaferastech.marvelapp.data.model.result.Series
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 

@@ -3,56 +3,40 @@ package com.abaferastech.marvelapp.ui.eventDetailsScreen
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.model.Comics
-import com.abaferastech.marvelapp.data.model.Events
-import com.abaferastech.marvelapp.data.model.response.MarvelResponse
-import com.abaferastech.marvelapp.data.model.state.State
+import com.abaferastech.marvelapp.data.model.result.Comics
+import com.abaferastech.marvelapp.data.model.result.Events
+import com.abaferastech.marvelapp.data.model.response.MarvelBaseResponse
+import com.abaferastech.marvelapp.data.model.uimodel.UIState
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 
 class EventViewModel : BaseViewModel() {
     private val repository = MarvelRepository()
-    private val _comics = MutableLiveData<List<Comics>>()
-    val comics: LiveData<List<Comics>> get() = _comics
-    private val _event = MutableLiveData<Events>()
-    val event: LiveData<Events> get() = _event
+
+    private val _comics = MutableLiveData<UIState<List<Comics>>>()
+    val comics: LiveData<UIState<List<Comics>>> get() = _comics
+
+    private val _event = MutableLiveData<UIState<Events>>()
+    val event: LiveData<UIState<Events>> get() = _event
 
 
     fun getEventComics(eventId: Int) {
         repository.getEventComics(eventId)
-            .subscribe(::onSuccess, ::onError)
-            .addTo(compositeDisposable)
+            .applySchedulersAndSubscribe(_comics::postValue,::onComicsError)
     }
 
-    fun getEventsById(eventsId:Int) {
-        repository.getEventsById(eventsId)
-            .subscribe(::onEventSuccess, ::onError)
-            .addTo(compositeDisposable)
+    fun getSingleEvent(eventsId:Int) {
+        repository.getSingleEvent(eventsId)
+            .applySchedulersAndSubscribe(_event::postValue,::onEventError)
+
     }
 
-    private fun onEventSuccess(state: State<MarvelResponse<Events>>) {
-        when (state) {
-            is State.Error -> TODO()
-            State.Loading -> TODO()
-            is State.Success -> {
-                _event.postValue(state.toData()?.data?.results?.first())
-            }
-        }
+    private fun onEventError(errorMessage: Throwable) {
+        _event.postValue(UIState.Error(errorMessage.message.toString()))
+    }
+    private fun onComicsError(errorMessage: Throwable) {
+        _comics.postValue(UIState.Error(errorMessage.message.toString()))
     }
 
-    private fun onSuccess(state: State<MarvelResponse<Comics>>) {
-
-        when (state) {
-            is State.Error -> TODO()
-            State.Loading -> TODO()
-            is State.Success -> {
-                _comics.postValue(state.toData()?.data?.results)
-            }
-        }
-    }
-
-    private fun onError(e: Throwable) {
-        Log.e("MarvelAPI", "getEventComics() - Error: ${e.message}")
-    }
 }

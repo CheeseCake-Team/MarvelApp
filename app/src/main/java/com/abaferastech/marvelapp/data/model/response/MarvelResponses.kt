@@ -2,7 +2,7 @@ package com.abaferastech.marvelapp.data.model.response
 
 import com.google.gson.annotations.SerializedName
 
-data class MarvelResponse<T>(
+data class MarvelBaseResponse<T>(
     @SerializedName("code") val code: Int,
     @SerializedName("status") val status: String,
     @SerializedName("copyright") val copyright: String,

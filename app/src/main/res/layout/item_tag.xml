@@ -7,11 +7,11 @@
 
         <variable
             name="dataItem"
-            type="com.abaferastech.marvelapp.data.model.DataItem" />
+            type="com.abaferastech.marvelapp.data.model.uimodel.DataItem" />
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.ui.home.NavigationInteractionListener" />
+            type="com.abaferastech.marvelapp.ui.home.adapters.NavigationInteractionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

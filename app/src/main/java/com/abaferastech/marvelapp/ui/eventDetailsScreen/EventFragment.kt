@@ -1,7 +1,6 @@
 package com.abaferastech.marvelapp.ui.eventDetailsScreen
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -24,7 +23,7 @@ class EventFragment : BaseFragment<FragmentEventBinding,EventViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getEventsById(args.eventId)
+        viewModel.getSingleEvent(args.eventId)
         viewModel.getEventComics(args.eventId)
         viewModel.comics.observe(viewLifecycleOwner, Observer {
             val adapter = ComicsAdapter(it, object : ComicsInteractionListener {})

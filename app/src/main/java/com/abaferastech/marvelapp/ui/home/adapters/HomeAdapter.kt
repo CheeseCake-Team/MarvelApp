@@ -1,10 +1,10 @@
-package com.abaferastech.marvelapp.ui.home
+package com.abaferastech.marvelapp.ui.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.abaferastech.marvelapp.data.model.DataItem
+import com.abaferastech.marvelapp.data.model.uimodel.DataItem
 import com.abaferastech.marvelapp.databinding.ItemHeaderViewPagerBinding
 import com.abaferastech.marvelapp.databinding.ItemTagBinding
 import com.abaferastech.marvelapp.ui.base.BaseAdapter

@@ -8,7 +8,7 @@
 
         <variable
             name="item"
-            type="com.abaferastech.marvelapp.data.model.Events"/>
+            type="com.abaferastech.marvelapp.data.model.result.Events"/>
 
         <variable
             name="listener"

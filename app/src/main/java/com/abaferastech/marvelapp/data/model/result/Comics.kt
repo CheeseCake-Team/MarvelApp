@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.data.model
+package com.abaferastech.marvelapp.data.model.result
 
 
 import com.abaferastech.marvelapp.data.model.response.*

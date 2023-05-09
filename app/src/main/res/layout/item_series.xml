@@ -7,11 +7,11 @@
 
         <variable
             name="item"
-            type="com.abaferastech.marvelapp.data.model.Series" />
+            type="com.abaferastech.marvelapp.data.model.result.Series" />
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.ui.home.SeriesInteractionListener" />
+            type="com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

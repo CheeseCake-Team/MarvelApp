@@ -4,12 +4,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.abaferastech.marvelapp.data.model.DataItem
+import com.abaferastech.marvelapp.data.model.uimodel.DataItem
 import com.abaferastech.marvelapp.data.model.response.Thumbnail
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.characters.CharactersAdapter
-import com.abaferastech.marvelapp.ui.home.ComicAdapter
-import com.abaferastech.marvelapp.ui.home.SeriesAdapter
+import com.abaferastech.marvelapp.ui.home.adapters.ComicAdapter
+import com.abaferastech.marvelapp.ui.home.adapters.SeriesAdapter
  import com.bumptech.glide.Glide
 
 @BindingAdapter(value = ["app:imageUrl"])

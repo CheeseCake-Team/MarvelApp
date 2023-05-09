@@ -1,10 +1,12 @@
-package com.abaferastech.marvelapp.data.model
+package com.abaferastech.marvelapp.data.model.uimodel
 
+import com.abaferastech.marvelapp.data.model.result.Characters
+import com.abaferastech.marvelapp.data.model.result.Comics
+import com.abaferastech.marvelapp.data.model.result.Series
 import com.abaferastech.marvelapp.ui.characterDetails.CharacterFragment
 import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
-import com.abaferastech.marvelapp.ui.home.ComicsInteractionListener
-import com.abaferastech.marvelapp.ui.home.SeriesInteractionListener
-import com.abaferastech.marvelapp.ui.seriesViewAll.SeriesViewAllInteractionListener
+import com.abaferastech.marvelapp.ui.home.adapters.ComicsInteractionListener
+import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
 
 sealed class DataItem() {
 

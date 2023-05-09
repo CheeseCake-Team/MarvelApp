@@ -1,14 +1,6 @@
 package com.abaferastech.marvelapp.ui.comic.comics
 
 
-import android.widget.ImageView
-import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.abaferastech.marvelapp.data.model.Comics
-import com.abaferastech.marvelapp.data.model.Events
-import com.abaferastech.marvelapp.ui.eventScreen.EventAdapter
-import com.bumptech.glide.Glide
-
 //@BindingAdapter("app:imageUrl")
 //fun imageUrl(imageView: ImageView, path: String?){
 //    path.let {
