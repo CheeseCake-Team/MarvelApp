@@ -15,13 +15,6 @@ class CharactersAdapter(items: List<Characters>, val charactersInteractionListen
     override val layoutID: Int
         get() = R.layout.item_character
 
-    override fun bindItemViewHolder(
-        holder: BaseViewHolder,
-        item: Characters,
-        listener: BaseInteractionListener?,
-    ) {
-        (holder.binding as ItemCharacterBinding).item = item
-        (holder.binding ).listener = charactersInteractionListener
-    }
+
 
 }

@@ -11,12 +11,5 @@ class ViewAllCharactersAdapter(items: List<Characters>, listener: CharactersInte
     override val layoutID: Int
         get() = R.layout.item_view_all_characters
 
-    override fun bindItemViewHolder(
-        holder: BaseViewHolder,
-        item: Characters,
-        listener: BaseInteractionListener?,
-    ) {
-        (holder.binding as ItemViewAllCharactersBinding).item = item
-    }
 
 }

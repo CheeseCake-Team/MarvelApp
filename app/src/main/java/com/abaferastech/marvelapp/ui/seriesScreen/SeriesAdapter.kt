@@ -12,13 +12,7 @@ class SeriesAdapter(items: List<Series>, listener: SeriesInteractionListener) :
     override val layoutID: Int
         get() = R.layout.item_series
 
-    override fun bindItemViewHolder(
-        holder: BaseViewHolder,
-        item: Series,
-        listener: BaseInteractionListener?
-    ) {
-        (holder.binding as ItemSeriesBinding).series = item
-    }
+
 }
 
 interface SeriesInteractionListener : BaseInteractionListener {

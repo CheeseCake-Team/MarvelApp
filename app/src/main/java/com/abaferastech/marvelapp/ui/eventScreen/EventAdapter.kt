@@ -13,18 +13,6 @@ class EventAdapter(items: List<Events>, listener: EventsInteractionListener) :
     override val layoutID: Int
         get() = R.layout.item_events
 
-    override fun bindItemViewHolder(
-        holder: BaseViewHolder,
-        item: Events,
-        listener: BaseInteractionListener?
-    ) {
-        (holder.binding as ItemEventsBinding).apply {
-            this.item = item
-            this.listener = listener as EventsInteractionListener
-        }
-    }
-
-
 }
 
 interface EventsInteractionListener : BaseInteractionListener {

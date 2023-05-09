@@ -6,8 +6,13 @@
     <data>
 
         <variable
-            name="comics_horizontal"
+            name="item"
             type="com.abaferastech.marvelapp.data.model.Comics" />
+
+        <variable
+            name="listener"
+            type="com.abaferastech.marvelapp.ui.comic.comics.ComicsInteractionListener" />
+
     </data>
 
 
@@ -15,9 +20,7 @@
         style="@style/Widget.Material3.CardView.Filled"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/space_4dp"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="@dimen/space_4dp">
+        android:layout_margin="@dimen/space_4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -26,8 +29,9 @@
             <ImageView
                 android:id="@+id/image_view_comic_image"
                 android:layout_width="120dp"
-                android:layout_height="180dp"
-                app:imageUrl="@{comics_horizontal.thumbnail}"
+                android:layout_height="160dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{item.thumbnail}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -39,10 +43,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
-                android:ellipsize="marquee"
-                android:fontFamily="@font/bangers"
+                android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{comics_horizontal.title.toString()}"
+                android:text="@{item.title.toString()}"
                 app:layout_constraintBottom_toTopOf="@+id/text_view_comic_issue_number"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/image_view_comic_image"
@@ -52,7 +55,8 @@
                 android:id="@+id/text_view_comic_issue_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{comics_horizontal.issueNumber.toString()}"
+                android:maxLines="1"
+                android:text="@{@string/issue(item.issueNumber.toString())}"
                 app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image"
                 app:layout_constraintStart_toStartOf="@+id/text_view_comic_name"
                 app:layout_constraintTop_toTopOf="@+id/image_view_comic_image"
@@ -63,7 +67,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="@{comics_horizontal.issueNumber.toString()}"
+                android:maxLines="1"
+                android:text="@{item.modified.substring(0,10)}"
                 app:layout_constraintStart_toStartOf="@+id/text_view_comic_issue_number"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_comic_issue_number"
                 tools:text="Sep, 13 2021" />

@@ -6,8 +6,12 @@
     <data>
 
         <variable
-            name="comic"
+            name="item"
             type="com.abaferastech.marvelapp.data.model.Comics" />
+
+        <variable
+            name="listener"
+            type="com.abaferastech.marvelapp.ui.home.ComicsInteractionListener" />
 
     </data>
 
@@ -23,7 +27,7 @@
             android:foreground="@drawable/header_gradient"
             android:scaleType="fitXY"
             android:src="@drawable/ic_launcher_background"
-            app:imageUrl="@{comic.thumbnail}"
+            app:imageUrl="@{item.thumbnail}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -42,7 +46,7 @@
             app:layout_constraintEnd_toEndOf="@+id/image_view_comic_image2"
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@+id/image_view_comic_image2"
-            app:text="@{comic.title}" />
+            app:text="@{item.title}" />
 
         <TextView
             android:id="@+id/textView4"
@@ -59,7 +63,7 @@
             app:layout_constraintHorizontal_bias="0"
             app:layout_constraintStart_toStartOf="@+id/textView3"
             app:layout_constraintTop_toBottomOf="@+id/textView3"
-            app:text="@{comic.description}" />
+            app:text="@{item.description}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

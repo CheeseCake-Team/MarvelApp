@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_16dp"
         android:layout_marginVertical="@dimen/space_8dp"
-        app:cardCornerRadius="@dimen/space_4dp"
+        app:cardCornerRadius="@dimen/space_16dp"
         style="@style/Widget.Material3.CardView.Elevated"
         >
 

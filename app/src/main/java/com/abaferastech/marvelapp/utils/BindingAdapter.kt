@@ -16,26 +16,10 @@ import com.abaferastech.marvelapp.ui.home.SeriesAdapter
 fun imageUrl (view: ImageView, thumbnail: Thumbnail?){
     Glide.with(view)
         .load("${thumbnail?.path}.${thumbnail?.extension}")
-        .fitCenter()
         .into(view)
 }
 
-@BindingAdapter("app:imageUrl")
-fun imageUrl(imageView: ImageView, path: String?){
-    path.let {
-        Glide.with(imageView.context).load(path).into(imageView)
-    }
-}
-//@BindingAdapter(value = ["app:items"])
-//fun <T> setRecyclerViewItems(view: RecyclerView, items: List<T>?) {
-//    items?.let {
-//        when (view.adapter) {
-//            is EventAdapter -> {
-//                (view.adapter as EventAdapter).setItems(items as List<Events>)
-//            }
-//        }
-//    }
-//}
+
 
 @BindingAdapter(value = ["app:items"])
 fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {

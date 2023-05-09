@@ -6,12 +6,12 @@
     <data>
 
         <variable
-            name="comics"
+            name="item"
             type="com.abaferastech.marvelapp.data.model.Comics" />
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.ui.home.ComicsInteractionListener" />
+            type="com.abaferastech.marvelapp.ui.comic.comicsGrid.ComicsInteractionListener" />
     </data>
 
 
@@ -32,7 +32,7 @@
                 android:layout_width="160dp"
                 android:layout_height="220dp"
                 android:scaleType="fitXY"
-                app:imageUrl="@{comics.thumbnail}"
+                app:imageUrl="@{item.thumbnail}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -46,7 +46,7 @@
                 android:ellipsize="marquee"
                 android:fontFamily="@font/bangers"
                 android:maxLines="1"
-                android:text="@{comics.title}"
+                android:text="@{item.title}"
                 app:layout_constraintEnd_toEndOf="@+id/image_view_comic_image"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/image_view_comic_image"
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:fontFamily="sans-serif"
-                android:text="@{`Issue #`+comics.issueNumber.toString()}"
+                android:text="@{`Issue #`+item.issueNumber.toString()}"
                 app:layout_constraintStart_toStartOf="@+id/image_view_comic_image"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_comic_name"
                 tools:text="Issue #13" />
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="sans-serif"
-                android:text="@{comics.modified.toString().substring(0,10)}"
+                android:text="@{item.modified.toString().substring(0,10)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/image_view_comic_image"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_comic_issue_number"
