@@ -13,4 +13,6 @@
     <string name="favorite">Favorite</string>
     <string name="event">Event</string>
     <string name="filter_button">Filter Button</string>
+    <string name="series_name">Series Name</string>
+    <string name="series_description">Series Description</string>
 </resources>

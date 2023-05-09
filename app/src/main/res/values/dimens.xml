@@ -16,4 +16,5 @@
     <dimen name="space_32dp">32dp</dimen>
     <dimen name="elevation_1">1dp</dimen>
     <dimen name="characters_image_view_dimens">110dp</dimen>
+    <dimen name="text_size_24">24sp</dimen>
 </resources>
