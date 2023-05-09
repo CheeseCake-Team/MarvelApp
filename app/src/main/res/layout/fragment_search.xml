@@ -22,7 +22,6 @@
             android:clipToPadding="false"
             android:padding="12dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/fragment_comics_view_all_horizontal"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_text_input_layout" />
 
