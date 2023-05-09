@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.data.model.uimodel
+package com.abaferastech.marvelapp.ui.model
 
 import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.data.model.result.Comics

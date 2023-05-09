@@ -26,7 +26,7 @@ class EventFragment : BaseFragment<FragmentEventBinding,EventViewModel>() {
         viewModel.getSingleEvent(args.eventId)
         viewModel.getEventComics(args.eventId)
         viewModel.comics.observe(viewLifecycleOwner, Observer {
-            val adapter = ComicsAdapter(it, object : ComicsInteractionListener {})
+            val adapter = ComicsAdapter(it.toData()!!, object : ComicsInteractionListener {})
             binding.recyclerViewEventComics.adapter = adapter
         })
     }

@@ -25,11 +25,10 @@ class MarvelInterceptor : Interceptor {
 
         val newUrl = originalRequestUrl.newBuilder()
             .scheme(HTTPS_SCHEME)
-            .addQueryParameter(ORDER_BY, "-modified")
             .addQueryParameter(TIME_STAMP, timeStamp)
             .addQueryParameter(API_KEY, BuildConfig.lKey)
             .addQueryParameter(HASH, hash)
-            .addQueryParameter(LIMIT, "45")
+            .addQueryParameter(LIMIT, "20")
             .build()
 
         val newRequest = originalRequest
@@ -45,6 +44,5 @@ class MarvelInterceptor : Interceptor {
         private const val HASH = "hash"
         private const val HTTPS_SCHEME = "https"
         private const val LIMIT = "limit"
-        private const val ORDER_BY = "orderBy"
     }
 }

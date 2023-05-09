@@ -1,26 +1,27 @@
 package com.abaferastech.marvelapp.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.model.result.Series
-import com.abaferastech.marvelapp.data.model.uimodel.DataItem
-import com.abaferastech.marvelapp.data.model.uimodel.Tag
-import com.abaferastech.marvelapp.data.model.uimodel.UIState
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.ComicsInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
+import com.abaferastech.marvelapp.ui.model.DataItem
+import com.abaferastech.marvelapp.ui.model.Tag
+import com.abaferastech.marvelapp.ui.model.UIState
 
 class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,
     SeriesInteractionListener {
     private val repository = MarvelRepository()
 
     private val _homeData = MediatorLiveData<List<DataItem>>()
-    val homeData: LiveData<List<DataItem>> get() = _homeData
+    val homeData: MediatorLiveData<List<DataItem>> get() = _homeData
 
     private val _characters = MutableLiveData<UIState<List<Characters>>>()
     private val _comics = MutableLiveData<UIState<List<Comics>>>()
@@ -39,11 +40,8 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         _homeData.addSource(_comics) { updateHomeData() }
         _homeData.addSource(_series) { updateHomeData() }
 
-        repository.getAllCharacters()
-            .applySchedulersAndSubscribe(_characters::postValue)
-
+        repository.getAllCharacters().applySchedulersAndSubscribe(_characters::postValue)
         repository.getAllComics().applySchedulersAndSubscribe(_comics::postValue)
-
         repository.getAllSeries().applySchedulersAndSubscribe(_series::postValue)
 
     }
@@ -53,6 +51,10 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         val characters = _characters.value?.toData() ?: emptyList()
         val comics = _comics.value?.toData() ?: emptyList()
         val series = _series.value?.toData() ?: emptyList()
+
+        Log.d("TAG", "characters updateHomeData: $characters")
+        Log.d("TAG", "comics updateHomeData: $comics")
+        Log.d("TAG", "series updateHomeData: $series")
 
         val data = listOf(
             DataItem.HeaderItem(characters.shuffled().take(3), 0),
@@ -72,23 +74,9 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         _homeData.removeSource(_series)
     }
 
-
-    private fun onCharactersError(errorMessage: Throwable) {
-        _characters.postValue(UIState.Error(errorMessage.message.toString()))
-    }
-
-    private fun onComicsError(errorMessage: Throwable) {
-        _comics.postValue(UIState.Error(errorMessage.message.toString()))
-    }
-
-    private fun onSeriesError(errorMessage: Throwable) {
-        _series.postValue(UIState.Error(errorMessage.message.toString()))
-    }
-
     override fun onClickCharacter(character: Characters) {
         _isCharacterClicked.postValue(true)
         _selectedCharacterID.postValue(character.id!!)
-
     }
 
 

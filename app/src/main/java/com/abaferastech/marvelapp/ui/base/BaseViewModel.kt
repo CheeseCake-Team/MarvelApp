@@ -1,7 +1,7 @@
 package com.abaferastech.marvelapp.ui.base
 
 import androidx.lifecycle.ViewModel
-import com.abaferastech.marvelapp.data.model.uimodel.UIState
+import com.abaferastech.marvelapp.ui.model.UIState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable

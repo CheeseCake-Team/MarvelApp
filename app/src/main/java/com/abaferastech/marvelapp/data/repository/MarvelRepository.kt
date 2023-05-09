@@ -1,8 +1,9 @@
 package com.abaferastech.marvelapp.data.repository
 
+import android.util.Log
 import com.abaferastech.marvelapp.data.model.response.MarvelBaseResponse
 import com.abaferastech.marvelapp.data.model.result.*
-import com.abaferastech.marvelapp.data.model.uimodel.UIState
+import com.abaferastech.marvelapp.ui.model.UIState
 import com.abaferastech.marvelapp.data.network.MarvelAPI
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
@@ -145,7 +146,8 @@ class MarvelRepository {
     }
 
 
-    private fun <T> wrapWithState(function: () -> Single<Response<MarvelBaseResponse<T>>>): Single<UIState<List<T>>> {
+    private fun <T> wrapWithState(function: () -> Single<Response<MarvelBaseResponse<T>>>):
+            Single<UIState<List<T>>> {
         return function().map {
             if (it.isSuccessful) {
                 UIState.Success(it.body()?.data?.results)

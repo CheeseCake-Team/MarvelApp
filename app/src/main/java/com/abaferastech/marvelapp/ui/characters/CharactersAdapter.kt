@@ -8,12 +8,8 @@ import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 interface CharactersInteractionListener: BaseInteractionListener {
     fun onClickCharacter(character: Characters)
 }
-class CharactersAdapter(items: List<Characters>, val charactersInteractionListener: CharactersInteractionListener) :
+class CharactersAdapter(items: List<Characters>, charactersInteractionListener: CharactersInteractionListener) :
     BaseAdapter<Characters>(items, charactersInteractionListener) {
-
     override val layoutID: Int
         get() = R.layout.item_character
-
-
-
 }

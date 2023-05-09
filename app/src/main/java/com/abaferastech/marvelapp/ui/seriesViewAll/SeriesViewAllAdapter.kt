@@ -8,7 +8,6 @@ import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 class SeriesViewAllAdapter (items: List<Series>, listener: SeriesViewAllInteractionListener) :
     BaseAdapter<Series>(items, listener) {
     override val layoutID = R.layout.items_series_view_all
-
 }
 
 interface SeriesViewAllInteractionListener : BaseInteractionListener {

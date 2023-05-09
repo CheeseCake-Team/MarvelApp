@@ -7,7 +7,7 @@
 
         <variable
             name="dataItem"
-            type="com.abaferastech.marvelapp.data.model.uimodel.DataItem" />
+            type="com.abaferastech.marvelapp.ui.model.DataItem" />
 
         <variable
             name="listener"

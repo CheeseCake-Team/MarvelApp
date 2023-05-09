@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.data.model.uimodel
+package com.abaferastech.marvelapp.ui.model
 
 data class Tag<T>(
     val title: String,

@@ -1,15 +1,12 @@
 package com.abaferastech.marvelapp.ui.eventDetailsScreen
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.model.result.Events
-import com.abaferastech.marvelapp.data.model.response.MarvelBaseResponse
-import com.abaferastech.marvelapp.data.model.uimodel.UIState
+import com.abaferastech.marvelapp.ui.model.UIState
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
-import io.reactivex.rxjava3.kotlin.addTo
 
 class EventViewModel : BaseViewModel() {
     private val repository = MarvelRepository()
@@ -23,20 +20,13 @@ class EventViewModel : BaseViewModel() {
 
     fun getEventComics(eventId: Int) {
         repository.getEventComics(eventId)
-            .applySchedulersAndSubscribe(_comics::postValue,::onComicsError)
+            .applySchedulersAndSubscribe(_comics::postValue)
     }
 
     fun getSingleEvent(eventsId:Int) {
         repository.getSingleEvent(eventsId)
-            .applySchedulersAndSubscribe(_event::postValue,::onEventError)
+            .applySchedulersAndSubscribe(_event::postValue)
 
-    }
-
-    private fun onEventError(errorMessage: Throwable) {
-        _event.postValue(UIState.Error(errorMessage.message.toString()))
-    }
-    private fun onComicsError(errorMessage: Throwable) {
-        _comics.postValue(UIState.Error(errorMessage.message.toString()))
     }
 
 }

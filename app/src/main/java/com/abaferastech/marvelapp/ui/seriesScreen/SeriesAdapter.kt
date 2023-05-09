@@ -9,8 +9,6 @@ class SeriesAdapter(items: List<Series>, listener: SeriesInteractionListener) :
     BaseAdapter<Series>(items, listener) {
     override val layoutID: Int
         get() = R.layout.item_series
-
-
 }
 
 interface SeriesInteractionListener : BaseInteractionListener {
