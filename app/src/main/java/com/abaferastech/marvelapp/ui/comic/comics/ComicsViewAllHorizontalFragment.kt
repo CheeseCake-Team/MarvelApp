@@ -5,6 +5,8 @@ import android.view.View
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentComicsViewAllHorizontalBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
+import com.abaferastech.marvelapp.ui.model.TYPE
+import com.abaferastech.marvelapp.utils.Constants
 
 class ComicsViewAllHorizontalFragment :
     BaseFragment<FragmentComicsViewAllHorizontalBinding, ComicsViewModel>() {
@@ -18,12 +20,16 @@ class ComicsViewAllHorizontalFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val characterId = arguments?.getInt(CHARACTER_ID)
-
-        if (characterId != null) {
-            viewModel.getCharacterComics(characterId)
-        } else {
-            viewModel.getMarvelComics()
+        val type =  arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)
+        when(type){
+            TYPE.COMIC -> TODO()
+            TYPE.SERIES -> TODO()
+            TYPE.CHARACTER -> {
+                val characterId = arguments?.getInt(Constants.CHARACTER_ID)!!
+                viewModel.getCharacterComics(characterId)
+            }
+            TYPE.EVENT -> TODO()
+            else -> viewModel.getMarvelComics()
         }
 
         val adapter = ComicsAdapter(emptyList(), object : ComicsInteractionListener {})
@@ -31,11 +37,19 @@ class ComicsViewAllHorizontalFragment :
     }
 
     companion object {
-        private const val CHARACTER_ID = "character_id"
         @JvmStatic
-        fun newInstance(id: Int) = ComicsViewAllHorizontalFragment().apply {
+        fun newInstance(id: Int,type:TYPE) = ComicsViewAllHorizontalFragment().apply {
             arguments = Bundle().apply {
-                putInt(CHARACTER_ID, id)
+                when (type) {
+                    TYPE.COMIC -> TODO()
+                    TYPE.SERIES -> TODO()
+                    TYPE.CHARACTER -> {
+                        putInt(Constants.CHARACTER_ID, id)
+                        putParcelable(Constants.PUT_TYPE,type)
+                    }
+                    TYPE.EVENT -> TODO()
+                }
+
             }
         }
     }
