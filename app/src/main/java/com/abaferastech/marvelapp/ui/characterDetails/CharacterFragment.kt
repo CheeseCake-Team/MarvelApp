@@ -23,6 +23,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding,CharacterViewMod
     private val args: CharacterFragmentArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.getSingleCharacter(args.chatacterId)
         init()
     }

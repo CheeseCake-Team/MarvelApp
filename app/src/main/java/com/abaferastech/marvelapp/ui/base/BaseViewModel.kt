@@ -13,14 +13,14 @@ abstract class BaseViewModel : ViewModel() {
     protected val compositeDisposable = CompositeDisposable()
 
     protected fun <T : Any> Single<UIState<T>>.applySchedulersAndSubscribe(
-        onPostValue: (UIState<T>) -> Unit,
+        postValue: (UIState<T>) -> Unit,
     ) {
 
         this.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .doOnSubscribe { onPostValue(UIState.Loading) }
-            .doOnError { error -> (onPostValue(UIState.Error(error.message.toString()))) }
-            .subscribe(onPostValue)
+            .doOnSubscribe { postValue(UIState.Loading) }
+            .doOnError { error -> (postValue(UIState.Error(error.message.toString()))) }
+            .subscribe(postValue)
             .addTo(compositeDisposable)
     }
 

@@ -32,15 +32,12 @@ fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
 fun setTagTitle(view: TextView, dataItem: DataItem) {
     view.text = when (dataItem) {
         is DataItem.ComicsTagItem -> {
-            Log.d("TAG", "setTagTitle:${dataItem.tag} ")
             dataItem.tag.title
         }
         is DataItem.CharacterTagItem -> {
-            Log.d("TAG", "setTagTitle:${dataItem.tag} ")
             dataItem.tag.title
         }
         is DataItem.SeriesTagItem -> {
-            Log.d("TAG", "setTagTitle:${dataItem.tag} ")
             dataItem.tag.title
         }
         else ->  ""
