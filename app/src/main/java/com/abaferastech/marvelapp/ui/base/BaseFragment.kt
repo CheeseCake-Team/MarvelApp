@@ -30,7 +30,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel> : Fragment() 
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = DataBindingUtil.inflate<VDB>(inflater, layoutIdFragment, container, false)
+        _binding = DataBindingUtil.inflate(inflater, layoutIdFragment, container, false)
 
         _binding.apply {
             lifecycleOwner = viewLifecycleOwner

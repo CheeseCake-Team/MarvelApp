@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/image_creator"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="16dp" />
+        <Constraint
+            android:id="@+id/text_creator_name"
+            app:layout_constraintEnd_toEndOf="@id/image_creator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="@id/scrollView"
+            app:layout_constraintTop_toBottomOf="@id/image_creator"
+            app:layout_constraintStart_toStartOf="@id/image_creator"
+            android:layout_marginTop="8dp" />
+
+        <Constraint
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/text_creator_name"
+            android:layout_marginTop="8dp" />
+        <Constraint
+            android:id="@+id/view_creator_image_background"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_constraintTop_toTopOf="parent" />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/image_creator"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginBottom="@dimen/space_8dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:layout_marginStart="@dimen/space_16dp"/>
+        <Constraint
+            android:id="@+id/text_creator_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/image_creator"
+            app:layout_constraintStart_toEndOf="@id/image_creator"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:layout_marginStart="@dimen/space_8dp"/>
+
+        <Constraint
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/image_creator"
+            android:layout_marginTop="@dimen/space_16dp" />
+        <Constraint
+            android:id="@+id/view_creator_image_background"
+            android:layout_width="match_parent"
+            android:layout_height="84dp"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+
+    </ConstraintSet>
+
+    <Transition
+        app:constraintSetEnd="@id/end"
+        app:constraintSetStart="@+id/start" >
+        <OnSwipe app:touchAnchorId="@+id/scrollView" />
+    </Transition>
+</MotionScene>

@@ -1,45 +1,43 @@
 package com.abaferastech.marvelapp.ui.comic.comics
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.model.Comics
-import com.abaferastech.marvelapp.data.model.response.MarvelResponse
-import com.abaferastech.marvelapp.data.model.state.State
+import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
-import io.reactivex.rxjava3.kotlin.addTo
+import com.abaferastech.marvelapp.ui.model.UIState
 
-class ComicsViewModel: BaseViewModel() {
-        private val repository = MarvelRepository()
+class ComicsViewModel : BaseViewModel() {
+    private val repository = MarvelRepository()
 
-        private val _comics = MutableLiveData<List<Comics>>()
-        val comics: LiveData<List<Comics>> get() = _comics
+    private val _comics = MutableLiveData<UIState<List<Comics>>>()
+    val comics: LiveData<UIState<List<Comics>>> get() = _comics
+
+    fun getMarvelComics() {
+        repository.getAllComics().applySchedulersAndPostUIStates(_comics::postValue)
+    }
+
+    fun getCharacterComics(characterId: Int) {
+        repository.getCharacterComics(characterId)
+            .applySchedulersAndPostUIStates(_comics::postValue)
+    }
+
+    fun getSeriesComics(seriesId: Int) {
+        repository.getSeriesComics(seriesId)
+            .applySchedulersAndPostUIStates(_comics::postValue)
+    }
 
 
-        fun getMarvelComics() {
-            repository.getAllComics()
-                .subscribe(::onSuccess, ::onError)
-                .addTo(compositeDisposable)
-        }
-        fun getCharacterComics(characterId:Int) {
-            repository.getCharacterComics(characterId)
-                .subscribe(::onSuccess, ::onError)
-                .addTo(compositeDisposable)
-        }
+    fun getCreatorComics(creatorId: Int) {
+        repository.getCreatorComics(creatorId)
+            .applySchedulersAndPostUIStates(_comics::postValue)
+    }
 
-        private fun onSuccess(state: State<MarvelResponse<Comics>>) {
-            when (state) {
-                is State.Error -> TODO()
-                State.Loading -> TODO()
-                is State.Success -> {
-                    Log.i("Mujtaba",state.toData()?.data?.results.toString())
-                    _comics.postValue(state.toData()?.data?.results)
-                }
-            }
-        }
 
-        private fun onError(e: Throwable) {
-            Log.e("MarvelAPI", "getMarvelComics() - Error: ${e.message}")
-        }
+    fun getEventComics(eventId: Int) {
+        repository.getEventComics(eventId)
+            .applySchedulersAndPostUIStates(_comics::postValue)
+    }
+
+
 }

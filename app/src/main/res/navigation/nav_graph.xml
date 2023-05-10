@@ -22,13 +22,10 @@
         <action
             android:id="@+id/action_homeFragment_to_characterFragment"
             app:destination="@id/characterFragment" />
-        <action
-            android:id="@+id/action_homeFragment_to_comicDetailsFragment"
-            app:destination="@id/comicDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventsFragment"
-        android:name="com.abaferastech.marvelapp.ui.eventScreen.EventsFragment"
+        android:name="com.abaferastech.marvelapp.ui.events.EventsFragment"
         android:label="Events" >
         <action
             android:id="@+id/action_eventsFragment_to_eventFragment"
@@ -53,7 +50,7 @@
         android:label="ComicsViewAllHorizontalFragment" />
     <!--    <fragment-->
     <!--        android:id="@+id/comicDetailsFragment"-->
-    <!--        android:name="com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsFragment"-->
+    <!--        android:name="com.abaferastech.marvelapp.ui.comicDetails.ComicDetailsFragment"-->
     <!--        android:label="ComicDetailsFragment" />-->
     <fragment
         android:id="@+id/searchFragment"
@@ -88,4 +85,8 @@
             android:name="comicId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/creatorDetailsFragment"
+        android:name="com.abaferastech.marvelapp.ui.creatorsDetails.CreatorDetailsFragment"
+        android:label="CreatorDetailsFragment" />
 </navigation>

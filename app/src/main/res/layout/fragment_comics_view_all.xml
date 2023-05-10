@@ -16,9 +16,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        app:items = "@{viewModel.comics}"
+        app:items = "@{viewModel.comics.toData()}"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
-        tools:listitem="@layout/item_comic" />
+        tools:listitem="@layout/item_comic_grid" />
 
 </layout>
