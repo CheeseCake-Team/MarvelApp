@@ -2,12 +2,15 @@ package com.abaferastech.marvelapp.ui.events
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.fragment.findNavController
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.findNavController
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.result.Events
 import com.abaferastech.marvelapp.databinding.FragmentEventsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
+import com.abaferastech.marvelapp.ui.model.TYPE
+import com.abaferastech.marvelapp.utils.Constants.PUT_TYPE
+import com.abaferastech.marvelapp.utils.Constants.TYPE_ID
 
 
 class EventsFragment :
@@ -23,13 +26,14 @@ class EventsFragment :
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 
-        val characterId = arguments?.getInt(CHARACTER_ID)
-
-        if (characterId != null) {
-            viewModel.getCharacterEvents(characterId)
-        } else {
-            viewModel.getMarvelEvents()
+        val typeID = arguments?.getInt(TYPE_ID)
+        when (arguments?.getParcelable<TYPE>(PUT_TYPE)) {
+            TYPE.COMIC -> viewModel.getComicEvents(typeID!!)
+            TYPE.SERIES ->  viewModel.getSeriesEvents(typeID!!)
+            TYPE.CHARACTER -> viewModel.getCharacterEvents(typeID!!)
+            else -> viewModel.getMarvelEvents()
         }
+
 
         val adapter = EventAdapter(emptyList(), object : EventsInteractionListener {
             override fun onEventClick(event: Events) {
@@ -44,11 +48,12 @@ class EventsFragment :
     }
 
     companion object {
-        private const val CHARACTER_ID = "character_id"
+
         @JvmStatic
-        fun newInstance(id: Int) = EventsFragment().apply {
+        fun newInstance(id: Int, type: TYPE) = EventsFragment().apply {
             arguments = Bundle().apply {
-                putInt(CHARACTER_ID, id)
+                putInt(TYPE_ID, id)
+                putParcelable(PUT_TYPE, type)
             }
         }
     }

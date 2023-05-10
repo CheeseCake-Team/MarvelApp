@@ -22,4 +22,19 @@ class CharactersViewModel : BaseViewModel() {
             .applySchedulersAndPostUIStates(_characters::postValue)
     }
 
+    fun getEventCharacter(characterId: Int) {
+        repository.getEventCharacters(characterId)
+            .applySchedulersAndPostUIStates(_characters::postValue)
+    }
+
+    fun getCharacterComics(characterId: Int) {
+        repository.getComicCharacters(characterId)
+            .applySchedulersAndPostUIStates(_characters::postValue)
+    }
+    fun getCharacterSeries(characterId: Int) {
+        repository.getSeriesCharacters(characterId)
+            .applySchedulersAndPostUIStates(_characters::postValue)
+    }
+
+
 }

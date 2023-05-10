@@ -12,6 +12,8 @@ import retrofit2.http.Query
 interface MarvelApiService {
     @GET("events/{eventId}/comics")
     fun getEventComics(@Path("eventId") eventId: Int) : Single<Response<MarvelBaseResponse<Comics>>>
+    @GET("events/{eventId}/characters")
+    fun getEventCharacters(@Path("eventId") eventId: Int) : Single<Response<MarvelBaseResponse<Characters>>>
 
     @GET("events")
     fun getAllEvents(): Single<Response<MarvelBaseResponse<Events>>>

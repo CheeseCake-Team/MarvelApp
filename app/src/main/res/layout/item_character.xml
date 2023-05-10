@@ -8,6 +8,7 @@
         <variable
             name="item"
             type="com.abaferastech.marvelapp.data.model.result.Characters" />
+
         <variable
             name="listener"
             type="com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener" />

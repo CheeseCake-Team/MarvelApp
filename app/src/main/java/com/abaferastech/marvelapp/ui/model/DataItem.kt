@@ -3,7 +3,7 @@ package com.abaferastech.marvelapp.ui.model
 import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.model.result.Series
-import com.abaferastech.marvelapp.ui.characterDetails.CharacterFragment
+import com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsFragment
 import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.ComicsInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
@@ -39,7 +39,7 @@ sealed class DataItem() {
     ) : DataItem()
 
     data class TabItem(
-        val items: CharacterFragment,
+        val items: CharacterDetailsFragment,
         val rank: Int,
     ) : DataItem()
 }

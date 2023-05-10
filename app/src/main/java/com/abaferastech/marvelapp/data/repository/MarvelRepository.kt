@@ -1,6 +1,5 @@
 package com.abaferastech.marvelapp.data.repository
 
-import android.util.Log
 import com.abaferastech.marvelapp.data.model.response.MarvelBaseResponse
 import com.abaferastech.marvelapp.data.model.result.*
 import com.abaferastech.marvelapp.ui.model.UIState
@@ -86,6 +85,9 @@ class MarvelRepository {
 
     fun getSeriesCharacters(seriesId: Int): Single<UIState<List<Characters>>> {
         return wrapWithState { MarvelAPI.apiService.getSeriesCharacters(seriesId) }
+    }
+    fun getEventCharacters(eventId: Int): Single<UIState<List<Characters>>> {
+        return wrapWithState { MarvelAPI.apiService.getEventCharacters(eventId) }
     }
 
 

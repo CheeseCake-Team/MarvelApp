@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/characterFragment"
-        android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterFragment"
+        android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsFragment"
         android:label="Character"
         tools:layout="@layout/fragment_character">
         <argument
