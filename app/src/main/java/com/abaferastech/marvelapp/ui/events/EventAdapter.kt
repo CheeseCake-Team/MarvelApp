@@ -1,9 +1,7 @@
-package com.abaferastech.marvelapp.ui.eventScreen
+package com.abaferastech.marvelapp.ui.events
 
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.model.Events
-import com.abaferastech.marvelapp.databinding.FragmentEventsBinding
-import com.abaferastech.marvelapp.databinding.ItemEventsBinding
+import com.abaferastech.marvelapp.data.model.result.Events
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 

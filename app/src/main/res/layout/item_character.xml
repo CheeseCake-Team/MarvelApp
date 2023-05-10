@@ -7,7 +7,8 @@
 
         <variable
             name="item"
-            type="com.abaferastech.marvelapp.data.model.Characters" />
+            type="com.abaferastech.marvelapp.data.model.result.Characters" />
+
         <variable
             name="listener"
             type="com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener" />
@@ -16,7 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:onClick="@{()->listener.onClickCharacter(item)}"
+        app:onClickCharacter="@{item.id}"
         android:padding="@dimen/space_4dp">
 
         <com.google.android.material.imageview.ShapeableImageView

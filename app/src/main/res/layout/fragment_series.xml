@@ -17,7 +17,7 @@
         android:layout_height="match_parent"
         android:clipToPadding="false"
         android:paddingVertical="12dp"
-        app:items="@{viewModel.series}"
+        app:items="@{viewModel.series.toData()}"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="2"
         tools:listitem="@layout/item_series" />

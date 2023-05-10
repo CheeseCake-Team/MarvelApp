@@ -9,13 +9,13 @@ import retrofit2.converter.gson.GsonConverterFactory
 object MarvelAPI {
     private const val BASE_URL = "http://gateway.marvel.com/v1/public/"
 
-    private val interceptor = HttpLoggingInterceptor().apply {
+    private val loggingInterceptor = HttpLoggingInterceptor().apply {
         setLevel(HttpLoggingInterceptor.Level.BODY)
     }
 
     private val client = OkHttpClient
         .Builder()
-        .addInterceptor(interceptor)
+        .addInterceptor(loggingInterceptor)
         .addInterceptor(MarvelInterceptor())
         .build()
 

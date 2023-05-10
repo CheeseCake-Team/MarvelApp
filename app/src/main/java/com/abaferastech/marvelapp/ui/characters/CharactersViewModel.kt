@@ -1,45 +1,40 @@
 package com.abaferastech.marvelapp.ui.characters
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.model.Characters
-import com.abaferastech.marvelapp.data.model.response.MarvelResponse
-import com.abaferastech.marvelapp.data.model.state.State
+import com.abaferastech.marvelapp.data.model.result.Characters
+import com.abaferastech.marvelapp.ui.model.UIState
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
-import io.reactivex.rxjava3.kotlin.addTo
 
 class CharactersViewModel : BaseViewModel() {
     private val repository = MarvelRepository()
 
+
+    private val _characters = MutableLiveData<UIState<List<Characters>>>()
+    val characters: LiveData<UIState<List<Characters>>> get() = _characters
+
     init {
         getAllCharacters()
     }
-
-    private val _characters = MutableLiveData<List<Characters>>()
-
-
-    val characters: LiveData<List<Characters>> get() = _characters
-
     private fun getAllCharacters() {
         repository.getAllCharacters()
-            .subscribe(::onSuccess, ::onError)
-            .addTo(compositeDisposable)
+            .applySchedulersAndPostUIStates(_characters::postValue)
     }
 
-    private fun onSuccess(state: State<MarvelResponse<Characters>>) {
-        when (state) {
-            is State.Error -> TODO()
-            State.Loading -> TODO()
-            is State.Success -> {
-                _characters.postValue(state.toData()?.data?.results)
-            }
-        }
+    fun getEventCharacter(characterId: Int) {
+        repository.getEventCharacters(characterId)
+            .applySchedulersAndPostUIStates(_characters::postValue)
     }
 
-    private fun onError(e: Throwable) {
-        Log.e("MarvelAPI", "getMarvelEvents() - Error: ${e.message}")
+    fun getCharacterComics(characterId: Int) {
+        repository.getComicCharacters(characterId)
+            .applySchedulersAndPostUIStates(_characters::postValue)
     }
+    fun getCharacterSeries(characterId: Int) {
+        repository.getSeriesCharacters(characterId)
+            .applySchedulersAndPostUIStates(_characters::postValue)
+    }
+
 
 }

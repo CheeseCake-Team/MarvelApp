@@ -3,12 +3,12 @@
 //import android.os.Bundle
 //import android.view.View
 //import com.abaferastech.marvelapp.R
-//import com.abaferastech.marvelapp.data.model.DataItem
+//import com.abaferastech.marvelapp.data.model.uimodel.DataItem
 //import com.abaferastech.marvelapp.databinding.FragmentComicDetailsBinding
 //import com.abaferastech.marvelapp.ui.base.BaseFragment
 //import com.abaferastech.marvelapp.ui.characterDetails.CharacterFragment
 //import com.abaferastech.marvelapp.ui.comics.ComicsViewModel
-//import com.abaferastech.marvelapp.ui.home.NavigationInteractionListener
+//import com.abaferastech.marvelapp.ui.home.adapters.NavigationInteractionListener
 //
 //class ComicDetailsFragment :
 //    BaseFragment<FragmentComicDetailsBinding, ComicsViewModel>(),NavigationInteractionListener {

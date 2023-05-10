@@ -1,7 +1,6 @@
 package com.abaferastech.marvelapp.ui.characterDetails
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
@@ -10,20 +9,22 @@ import com.abaferastech.marvelapp.databinding.FragmentCharacterBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayout
 
-class CharacterFragment : BaseFragment<FragmentCharacterBinding,CharacterViewModel>() {
+class CharacterDetailsFragment : BaseFragment<FragmentCharacterBinding,CharacterDetailsViewModel>() {
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
     private lateinit var adapter: CharacterFragmentPageAdapter
 
     override val layoutIdFragment: Int
         get() = R.layout.fragment_character
-    override val viewModelClass: Class<CharacterViewModel>
-        get() = CharacterViewModel::class.java
+    override val viewModelClass: Class<CharacterDetailsViewModel>
+        get() = CharacterDetailsViewModel::class.java
 
-    private val args: CharacterFragmentArgs by navArgs()
+    private val args: CharacterDetailsFragmentArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         viewModel.getSingleCharacter(args.chatacterId)
+
         init()
     }
 
