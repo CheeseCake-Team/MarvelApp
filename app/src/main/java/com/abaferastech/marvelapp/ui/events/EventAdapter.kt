@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.ui.eventScreen
+package com.abaferastech.marvelapp.ui.events
 
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.result.Events

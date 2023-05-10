@@ -28,7 +28,6 @@ class MarvelInterceptor : Interceptor {
             .addQueryParameter(TIME_STAMP, timeStamp)
             .addQueryParameter(API_KEY, BuildConfig.lKey)
             .addQueryParameter(HASH, hash)
-            .addQueryParameter(LIMIT, "20")
             .build()
 
         val newRequest = originalRequest
@@ -43,6 +42,5 @@ class MarvelInterceptor : Interceptor {
         private const val API_KEY = "apikey"
         private const val HASH = "hash"
         private const val HTTPS_SCHEME = "https"
-        private const val LIMIT = "limit"
     }
 }

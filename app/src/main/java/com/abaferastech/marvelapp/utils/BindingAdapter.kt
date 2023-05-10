@@ -23,10 +23,9 @@ fun imageUrl (view: ImageView, thumbnail: Thumbnail?){
 
 
 @BindingAdapter(value = ["app:items"])
-fun <T> setRecyclerItems(view: RecyclerView, items: List<T>) {
-    (view.adapter as BaseAdapter<T>).setItems(items)
+fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
+    (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
 }
-
 
 
 @BindingAdapter("app:tagTitle")

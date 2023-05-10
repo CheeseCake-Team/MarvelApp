@@ -12,7 +12,7 @@
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.ui.eventScreen.EventsInteractionListener"/>
+            type="com.abaferastech.marvelapp.ui.events.EventsInteractionListener"/>
 
     </data>
 

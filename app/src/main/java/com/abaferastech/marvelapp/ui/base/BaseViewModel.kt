@@ -17,9 +17,10 @@ abstract class BaseViewModel : ViewModel() {
     ) {
 
         this.subscribeOn(Schedulers.io())
-            .doOnSubscribe { onPostValue(UIState.Loading) }
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(onPostValue) { onPostValue(UIState.Error(it.message.toString())) }
+            .doOnSubscribe { onPostValue(UIState.Loading) }
+            .doOnError { error -> (onPostValue(UIState.Error(error.message.toString()))) }
+            .subscribe(onPostValue)
             .addTo(compositeDisposable)
     }
 

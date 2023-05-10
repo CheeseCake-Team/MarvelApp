@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.ui.eventScreen
+package com.abaferastech.marvelapp.ui.events
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

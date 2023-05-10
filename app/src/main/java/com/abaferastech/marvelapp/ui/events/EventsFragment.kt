@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.ui.eventScreen
+package com.abaferastech.marvelapp.ui.events
 
 import android.os.Bundle
 import android.view.View
