@@ -5,11 +5,11 @@ import com.abaferastech.marvelapp.data.model.response.*
 import com.google.gson.annotations.SerializedName
 
 data class Events(
-    @SerializedName("stories") val stories: MarvelEntity<StoryItem>?,
-    @SerializedName("creators") val creators: MarvelEntity<CreatorItem>?,
-    @SerializedName("characters") val characters: MarvelEntity<ResponseItem>?,
-    @SerializedName("comics") val comics: MarvelEntity<ResponseItem>?,
-    @SerializedName("series") val series: MarvelEntity<ResponseItem>?,
+    @SerializedName("stories") val stories: MarvelResults<StoryItem>?,
+    @SerializedName("creators") val creators: MarvelResults<CreatorItem>?,
+    @SerializedName("characters") val characters: MarvelResults<ResponseItem>?,
+    @SerializedName("comics") val comics: MarvelResults<ResponseItem>?,
+    @SerializedName("series") val series: MarvelResults<ResponseItem>?,
 
     @SerializedName("description") val description: String?,
     @SerializedName("end") val end: String?,
