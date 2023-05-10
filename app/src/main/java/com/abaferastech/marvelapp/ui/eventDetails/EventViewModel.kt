@@ -20,12 +20,12 @@ class EventViewModel : BaseViewModel() {
 
     fun getEventComics(eventId: Int) {
         repository.getEventComics(eventId)
-            .applySchedulersAndSubscribe(_comics::postValue)
+            .applySchedulersAndPostUIStates(_comics::postValue)
     }
 
     fun getSingleEvent(eventsId:Int) {
         repository.getSingleEvent(eventsId)
-            .applySchedulersAndSubscribe(_event::postValue)
+            .applySchedulersAndPostUIStates(_event::postValue)
 
     }
 

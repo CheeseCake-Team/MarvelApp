@@ -27,19 +27,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             binding.recyclerViewHome.adapter = adapter
         }
 
-        viewModel.isCharacterClicked.observe(viewLifecycleOwner){ isClicked ->
-
-            if(isClicked){
-                val selectedCharacter = viewModel.selectedCharacterID.value
-
-                val action = selectedCharacter?.let {
-                    HomeFragmentDirections.actionHomeFragmentToCharacterFragment(it)
-                }
-                action?.let { findNavController().navigate(it) }
-
-                viewModel.resetCharacterClickStatus()
-            }
-        }
+//        viewModel.isCharacterClicked.observe(viewLifecycleOwner){ isClicked ->
+//
+//            if(isClicked){
+//                val selectedCharacter = viewModel.selectedCharacterID.value
+//
+//                val action = selectedCharacter?.let {
+//                    HomeFragmentDirections.actionHomeFragmentToCharacterFragment(it)
+//                }
+//                action = HomeFragmentDirections.actionHomeFragmentToCharacterFragment(id)
+//                findNavController().navigate(id)
+//                action?.let { findNavController().navigate(it) }
+//
+//                viewModel.resetCharacterClickStatus()
+//            }
+//        }
     }
 
     override fun onNavigate(dataItem: DataItem) {

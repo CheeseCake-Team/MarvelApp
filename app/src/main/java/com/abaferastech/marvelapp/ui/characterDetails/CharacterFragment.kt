@@ -25,6 +25,7 @@ class CharacterFragment : BaseFragment<FragmentCharacterBinding,CharacterViewMod
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getSingleCharacter(args.chatacterId)
+
         init()
     }
 

@@ -12,7 +12,7 @@ abstract class BaseViewModel : ViewModel() {
 
     protected val compositeDisposable = CompositeDisposable()
 
-    protected fun <T : Any> Single<UIState<T>>.applySchedulersAndSubscribe(
+    protected fun <T : Any> Single<UIState<T>>.applySchedulersAndPostUIStates(
         postValue: (UIState<T>) -> Unit,
     ) {
 

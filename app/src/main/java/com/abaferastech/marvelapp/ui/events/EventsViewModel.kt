@@ -3,28 +3,37 @@ package com.abaferastech.marvelapp.ui.events
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.result.Events
-import com.abaferastech.marvelapp.ui.model.UIState
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
+import com.abaferastech.marvelapp.ui.model.UIState
 
 class EventsViewModel : BaseViewModel() {
     private val repository = MarvelRepository()
 
     private val _events = MutableLiveData<UIState<List<Events>>>()
     val events: LiveData<UIState<List<Events>>> get() = _events
-    
-    private val _characterEvent = MutableLiveData<UIState<List<Events>>>()
-    val characterEvent: LiveData<UIState<List<Events>>> get() = _characterEvent
+
+//    private val _characterEvents = MutableLiveData<UIState<List<Events>>>()
+//    private val _comicEvents = MutableLiveData<UIState<List<Events>>>()
+//    private val _seriesEvents = MutableLiveData<UIState<List<Events>>>()
 
 
     fun getMarvelEvents() {
         repository.getAllEvents()
-            .applySchedulersAndSubscribe(_events::postValue)
+            .applySchedulersAndPostUIStates(_events::postValue)
     }
 
-    fun getEventsById(eventsId: Int) {
-        repository.getCharacterEvents(eventsId)
-            .applySchedulersAndSubscribe(_characterEvent::postValue)
+    fun getCharacterEvents(characterId: Int) {
+        repository.getCharacterEvents(characterId)
+            .applySchedulersAndPostUIStates(_events::postValue)
     }
 
+    fun getComicEvents(comicsId: Int) {
+        repository.getComicEvents(comicsId)
+            .applySchedulersAndPostUIStates(_events::postValue)
+    }
+    fun getSeriesEvents(seriesId: Int) {
+        repository.getSeriesEvents(seriesId)
+            .applySchedulersAndPostUIStates(_events::postValue)
+    }
 }

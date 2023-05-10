@@ -36,6 +36,9 @@ interface MarvelApiService {
     @GET("characters/{characterId}/comics")
     fun getCharacterComics(@Path("characterId") seriesId: Int): Single<Response<MarvelBaseResponse<Comics>>>
 
+    @GET("characters/{characterId}/series")
+    fun getCharacterSeries(@Path("characterId") seriesId: Int): Single<Response<MarvelBaseResponse<Series>>>
+
     @GET("series")
     fun getAllSeries(): Single<Response<MarvelBaseResponse<Series>>>
 
@@ -104,24 +107,6 @@ interface MarvelApiService {
 
     @GET("stories")
     fun getAllStories(): Single<Response<MarvelBaseResponse<Stories>>>
-
-    @GET("stories/{storyId}")
-    fun getSingleStory(@Path("storyId") storyId: Int): Single<Response<MarvelBaseResponse<Stories>>>
-
-    @GET("stories/{storyId}/events")
-    fun getStoryEvents(@Path("storyId") storyId: Int): Single<Response<MarvelBaseResponse<Events>>>
-
-    @GET("stories/{storyId}/characters")
-    fun getStoryCharacters(@Path("storyId") storyId: Int): Single<Response<MarvelBaseResponse<Characters>>>
-
-    @GET("stories/{storyId}/comics")
-    fun getStoryComics(@Path("storyId") storyId: Int): Single<Response<MarvelBaseResponse<Comics>>>
-
-    @GET("stories/{storyId}/creators")
-    fun getStoryCreators(@Path("storyId") storyId: Int): Single<Response<MarvelBaseResponse<Creators>>>
-
-    @GET("stories/{storyId}/series")
-    fun getStorySeries(@Path("storyId") storyId: Int): Single<Response<MarvelBaseResponse<Series>>>
 
 }
 

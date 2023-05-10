@@ -40,9 +40,9 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         _homeData.addSource(_comics) { updateHomeData() }
         _homeData.addSource(_series) { updateHomeData() }
 
-        repository.getAllCharacters().applySchedulersAndSubscribe(_characters::postValue)
-        repository.getAllComics().applySchedulersAndSubscribe(_comics::postValue)
-        repository.getAllSeries().applySchedulersAndSubscribe(_series::postValue)
+        repository.getAllCharacters().applySchedulersAndPostUIStates(_characters::postValue)
+        repository.getAllComics().applySchedulersAndPostUIStates(_comics::postValue)
+        repository.getAllSeries().applySchedulersAndPostUIStates(_series::postValue)
 
     }
 

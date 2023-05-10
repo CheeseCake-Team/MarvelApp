@@ -19,7 +19,7 @@ class CharactersViewModel : BaseViewModel() {
     }
     private fun getAllCharacters() {
         repository.getAllCharacters()
-            .applySchedulersAndSubscribe(_characters::postValue)
+            .applySchedulersAndPostUIStates(_characters::postValue)
     }
 
 }

@@ -26,7 +26,7 @@ class EventsFragment :
         val characterId = arguments?.getInt(CHARACTER_ID)
 
         if (characterId != null) {
-            viewModel.getEventsById(characterId)
+            viewModel.getCharacterEvents(characterId)
         } else {
             viewModel.getMarvelEvents()
         }

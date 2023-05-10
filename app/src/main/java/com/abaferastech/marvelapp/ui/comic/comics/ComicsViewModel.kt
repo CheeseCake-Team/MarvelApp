@@ -13,17 +13,17 @@ class ComicsViewModel : BaseViewModel() {
     private val _comics = MutableLiveData<UIState<List<Comics>>>()
     val comics: LiveData<UIState<List<Comics>>> get() = _comics
 
-    private val _characterComics = MutableLiveData<UIState<List<Comics>>>()
-    val characterComics: LiveData<UIState<List<Comics>>> get() = _characterComics
+//    private val _characterComics = MutableLiveData<UIState<List<Comics>>>()
+//    val characterComics: LiveData<UIState<List<Comics>>> get() = _characterComics
 
 
     fun getMarvelComics() {
-        repository.getAllComics().applySchedulersAndSubscribe(_comics::postValue)
+        repository.getAllComics().applySchedulersAndPostUIStates(_comics::postValue)
     }
 
     fun getCharacterComics(characterId: Int) {
         repository.getCharacterComics(characterId)
-            .applySchedulersAndSubscribe(_characterComics::postValue)
+            .applySchedulersAndPostUIStates(_comics::postValue)
     }
 
 

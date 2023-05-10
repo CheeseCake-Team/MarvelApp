@@ -18,7 +18,7 @@ class SeriesViewModel : BaseViewModel() {
     }
     private fun getMarvelSeries() {
         repository.getAllSeries()
-            .applySchedulersAndSubscribe(_series::postValue)
+            .applySchedulersAndPostUIStates(_series::postValue)
     }
 
 }
