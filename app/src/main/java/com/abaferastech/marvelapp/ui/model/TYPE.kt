@@ -5,5 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 enum class TYPE: Parcelable {
-    COMIC,SERIES,CHARACTER,EVENT
+    COMIC,SERIES,CHARACTER,EVENT,CREATOR
 }

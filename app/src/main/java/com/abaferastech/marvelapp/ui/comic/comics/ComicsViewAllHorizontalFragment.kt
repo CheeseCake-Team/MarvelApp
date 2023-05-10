@@ -23,10 +23,10 @@ class ComicsViewAllHorizontalFragment :
 
         val typeID = arguments?.getInt(TYPE_ID)!!
         when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
-            TYPE.COMIC -> TODO()
-            TYPE.SERIES -> TODO()
+            TYPE.SERIES -> viewModel.getSeriesComics(typeID)
             TYPE.CHARACTER -> viewModel.getCharacterComics(typeID)
-            TYPE.EVENT -> TODO()
+            TYPE.EVENT -> viewModel.getEventComics(typeID)
+            TYPE.CREATOR -> viewModel.getEventComics(typeID)
             else -> viewModel.getMarvelComics()
         }
 
