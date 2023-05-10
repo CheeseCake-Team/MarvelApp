@@ -21,12 +21,12 @@ class ComicsViewAllHorizontalFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val typeID = arguments?.getInt(TYPE_ID)!!
+        val typeID = arguments?.getInt(TYPE_ID)
         when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
-            TYPE.SERIES -> viewModel.getSeriesComics(typeID)
-            TYPE.CHARACTER -> viewModel.getCharacterComics(typeID)
-            TYPE.EVENT -> viewModel.getEventComics(typeID)
-            TYPE.CREATOR -> viewModel.getEventComics(typeID)
+            TYPE.SERIES -> viewModel.getSeriesComics(typeID!!)
+            TYPE.CHARACTER -> viewModel.getCharacterComics(typeID!!)
+            TYPE.EVENT -> viewModel.getEventComics(typeID!!)
+            TYPE.CREATOR -> viewModel.getEventComics(typeID!!)
             else -> viewModel.getMarvelComics()
         }
 

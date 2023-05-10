@@ -26,11 +26,11 @@ class EventsFragment :
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 
-        val typeID = arguments?.getInt(TYPE_ID)!!
+        val typeID = arguments?.getInt(TYPE_ID)
         when (arguments?.getParcelable<TYPE>(PUT_TYPE)) {
-            TYPE.COMIC -> viewModel.getComicEvents(typeID)
-            TYPE.SERIES ->  viewModel.getSeriesEvents(typeID)
-            TYPE.CHARACTER -> viewModel.getCharacterEvents(typeID)
+            TYPE.COMIC -> viewModel.getComicEvents(typeID!!)
+            TYPE.SERIES ->  viewModel.getSeriesEvents(typeID!!)
+            TYPE.CHARACTER -> viewModel.getCharacterEvents(typeID!!)
             else -> viewModel.getMarvelEvents()
         }
 
