@@ -55,13 +55,7 @@ class EventsFragment :
         fun newInstance(id: Int, type: TYPE) = EventsFragment().apply {
             arguments = Bundle().apply {
                 putInt(TYPE_ID, id)
-                when (type) {
-                    TYPE.COMIC -> TODO()
-                    TYPE.SERIES -> TODO()
-                    TYPE.CHARACTER -> putParcelable(PUT_TYPE, type)
-                    TYPE.EVENT -> TODO()
-                }
-
+                putParcelable(PUT_TYPE, type)
             }
         }
     }

@@ -39,16 +39,7 @@ class ComicsViewAllHorizontalFragment :
         fun newInstance(id: Int, type: TYPE) = ComicsViewAllHorizontalFragment().apply {
             arguments = Bundle().apply {
                 putInt(TYPE_ID, id)
-                when (type) {
-                    TYPE.COMIC -> TODO()
-                    TYPE.SERIES -> TODO()
-                    TYPE.CHARACTER -> {
-
-                        putParcelable(Constants.PUT_TYPE, type)
-                    }
-                    TYPE.EVENT -> TODO()
-                }
-
+                putParcelable(Constants.PUT_TYPE, type)
             }
         }
     }
