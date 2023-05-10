@@ -4,9 +4,9 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.result.Comics
-import com.abaferastech.marvelapp.ui.model.UIState
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
+import com.abaferastech.marvelapp.ui.model.UIState
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.addTo
 import java.util.concurrent.TimeUnit
@@ -17,6 +17,7 @@ class SearchViewModel : BaseViewModel() {
     val searchQuery = MutableLiveData("")
 
     private var _searchResult = MutableLiveData<List<Comics>>()
+
     val searchResult: LiveData<List<Comics>> get() = _searchResult
 
     fun search(searchQuery: String) {
