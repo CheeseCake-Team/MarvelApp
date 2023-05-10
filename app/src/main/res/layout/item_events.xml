@@ -12,7 +12,7 @@
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.ui.base.BaseInteractionListener"/>
+            type="com.abaferastech.marvelapp.ui.eventScreen.EventsInteractionListener"/>
 
     </data>
 
@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/space_16dp"
         android:layout_marginVertical="@dimen/space_8dp"
-        app:cardCornerRadius="@dimen/space_4dp"
+        app:cardCornerRadius="@dimen/space_16dp"
         style="@style/Widget.Material3.CardView.Elevated"
         >
 
@@ -36,6 +36,7 @@
                 android:layout_height="@dimen/event_image_view_height"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{item.thumbnail}"
+                android:onClick="@{() -> listener.onEventClick(item)}"
                 android:foreground="@drawable/gradiant"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

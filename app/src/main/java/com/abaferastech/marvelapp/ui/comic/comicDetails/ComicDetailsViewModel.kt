@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.ui.comicDetails
+package com.abaferastech.marvelapp.ui.comic.comicDetails
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -11,13 +11,11 @@ import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 
+
 class ComicDetailsViewModel: BaseViewModel() {
-
     private val repository = MarvelRepository()
-
-
     private val _comics = MutableLiveData<Comics>()
-    val comics: LiveData<Comics> get() = _comics
+    val comics: LiveData<Comics> = _comics
 
 
     fun getSingleComic(comicId: Int) {
@@ -25,20 +23,20 @@ class ComicDetailsViewModel: BaseViewModel() {
             .subscribe(::onSuccess, ::onError)
             .addTo(compositeDisposable)
     }
+
     private fun onSuccess(state: State<MarvelResponse<Comics>>) {
         when (state) {
-            is State.Error -> Log.i("cha ra ter er or", "onError:${state} ")
-            State.Loading ->" TODO()"
+            is State.Error -> Log.i("COMIC_ERROR", "onError:${state} ")
+            State.Loading -> {} //TODO
             is State.Success -> {
                 state.toData()?.data?.results.toString()
+                Log.i("COMIC_SUCCESS", "${ state.toData()?.data?.results.toString()} ")
                 _comics.postValue(state.toData()?.data?.results?.first())
             }
         }
     }
 
     private fun onError(e: Throwable) {
-        Log.e("MarvelAPI", "getMarvelCharacters() - Error: ${e.message}")
+        Log.e("COMIC_ON_ERROR", "getSingleComic(): ->>> ${e.message}")
     }
-
-
 }

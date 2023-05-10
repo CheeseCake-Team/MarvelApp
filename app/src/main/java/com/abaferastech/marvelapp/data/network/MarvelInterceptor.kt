@@ -17,11 +17,10 @@ class MarvelInterceptor : Interceptor {
 
         val newUrl = originalRequestUrl.newBuilder()
             .scheme("https")
-            .addQueryParameter("orderBy", "-modified")
             .addQueryParameter("ts", timeStamp)
             .addQueryParameter("apikey", BuildConfig.lKey)
             .addQueryParameter("hash", generateHash(timeStamp))
-            .addQueryParameter("limit", "45")
+            .addQueryParameter("limit", "20")
             .build()
 
         val newRequest = originalRequest

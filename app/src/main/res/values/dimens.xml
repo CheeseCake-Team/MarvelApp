@@ -9,7 +9,7 @@
     <dimen name="space_6dp">6dp</dimen>
     <dimen name="space_8dp">8dp</dimen>
     <dimen name="space_16dp">16dp</dimen>
-    <dimen name="event_image_view_height">200dp</dimen>
+    <dimen name="event_image_view_height">180dp</dimen>
     <dimen name="header_image_view_height">450dp</dimen>
     <dimen name="series_card_view_width">160dp</dimen>
     <dimen name="series_image_view_height">220dp</dimen>

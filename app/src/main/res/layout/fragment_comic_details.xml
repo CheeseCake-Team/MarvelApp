@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.comicDetails.ComicDetailsViewModel" />
+            type="com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsViewModel" />
 
     </data>
 

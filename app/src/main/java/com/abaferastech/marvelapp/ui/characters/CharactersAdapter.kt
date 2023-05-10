@@ -9,17 +9,12 @@ import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 interface CharactersInteractionListener: BaseInteractionListener {
     fun onClickCharacter(character: Characters)
 }
-class CharactersAdapter(items: List<Characters>, listener: CharactersInteractionListener) :
-    BaseAdapter<Characters>(items, listener) {
+class CharactersAdapter(items: List<Characters>, val charactersInteractionListener: CharactersInteractionListener) :
+    BaseAdapter<Characters>(items, charactersInteractionListener) {
+
     override val layoutID: Int
         get() = R.layout.item_character
 
-    override fun bindItemViewHolder(
-        holder: BaseViewHolder,
-        item: Characters,
-        listener: BaseInteractionListener?,
-    ) {
-        (holder.binding as ItemCharacterBinding).item = item
-    }
+
 
 }

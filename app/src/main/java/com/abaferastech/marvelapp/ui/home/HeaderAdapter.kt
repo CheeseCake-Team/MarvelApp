@@ -11,11 +11,4 @@ class HeaderAdapter(items: List<Characters>):
     override val layoutID: Int
         get() = R.layout.item_header
 
-    override fun bindItemViewHolder(
-        holder: BaseViewHolder,
-        item: Characters,
-        listener: BaseInteractionListener?
-    ) {
-        (holder.binding as ItemHeaderBinding).character = item
-    }
 }

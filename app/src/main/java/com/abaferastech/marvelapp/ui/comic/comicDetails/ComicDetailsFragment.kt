@@ -1,14 +1,11 @@
-package com.abaferastech.marvelapp.ui.comicDetails
+package com.abaferastech.marvelapp.ui.comic.comicDetails
 
 import android.os.Bundle
 import android.view.View
 import androidx.viewpager2.widget.ViewPager2
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.model.DataItem
 import com.abaferastech.marvelapp.databinding.FragmentComicDetailsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.characterDetails.CharacterFragmentPageAdapter
-import com.abaferastech.marvelapp.ui.home.NavigationInteractionListener
 import com.google.android.material.tabs.TabLayout
 
 class ComicDetailsFragment :

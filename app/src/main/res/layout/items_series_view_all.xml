@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="series"
+            name="item"
             type="com.abaferastech.marvelapp.data.model.Series" />
 
         <variable
@@ -31,7 +31,7 @@
                 android:layout_width="160dp"
                 android:layout_height="220dp"
                 android:scaleType="fitXY"
-                app:imageUrl="@{series.thumbnail}"
+                app:imageUrl="@{item.thumbnail}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -44,7 +44,7 @@
                 android:ellipsize="marquee"
                 android:fontFamily="@font/bangers"
                 android:maxLines="1"
-                android:text="@{series.title}"
+                android:text="@{item.title}"
                 app:layout_constraintEnd_toEndOf="@+id/image_view_series_image"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/image_view_series_image"
@@ -56,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="@{Integer.toString(series.startYear)}"
+                android:text="@{Integer.toString(item.startYear)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/text_view_series_name"
                 app:layout_constraintHorizontal_bias="0.0"

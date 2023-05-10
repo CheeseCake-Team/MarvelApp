@@ -1,6 +1,7 @@
 package com.abaferastech.marvelapp.ui.home
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.*
@@ -9,7 +10,6 @@ import com.abaferastech.marvelapp.data.model.state.State
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
-import com.abaferastech.marvelapp.ui.home.ComicsInteractionListener
 import io.reactivex.rxjava3.kotlin.addTo
 
 class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,SeriesInteractionListener {
@@ -17,6 +17,23 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
 
     private val _homeData = MutableLiveData<List<DataItem>?>()
     val homeData: LiveData<List<DataItem>?> get() = _homeData
+
+
+    private val _isCharacterClicked = MutableLiveData<Boolean>()
+    val isCharacterClicked: LiveData<Boolean> get() = _isCharacterClicked
+
+
+    private val _selectedCharacterID = MutableLiveData<Int>()
+    val selectedCharacterID: LiveData<Int> get() = _selectedCharacterID
+
+
+
+    private val _isComicClicked = MutableLiveData<Boolean>()
+    val isComicClicked: LiveData<Boolean> get() = _isComicClicked
+    private val _selectedComicId = MutableLiveData<Int>()
+    val selectedComicId: LiveData<Int> get() = _selectedComicId
+
+
 
     init {
         repository.getHomeData()
@@ -49,7 +66,7 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
                 _homeData.postValue(data)
             }
             else -> {
-                // handle error cases
+
             }
         }
     }
@@ -60,19 +77,25 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     }
 
     override fun onClickCharacter(character: Characters) {
-        TODO("Not yet implemented")
+        _isCharacterClicked.postValue(true)
+        _selectedCharacterID.postValue(character.id!!)
+
     }
 
 
     override fun onClickSeries(series: Series) {
-        TODO("Not yet implemented")
+        //TODO("Not yet implemented")
     }
 
     override fun onClickComics(comics: Comics) {
-        TODO("Not yet implemented")
+        _isComicClicked.postValue(true)
+        _selectedComicId.postValue(comics.id!!)
+    }
+    fun resetCharacterClickStatus() {
+        _isCharacterClicked.value = false
+    }
+    fun resetComicClickStatus() {
+        _isComicClicked.value = false
     }
 
-//    override fun onClickSeries(series: Series) {
-//        TODO("Not yet implemented")
-//    }
 }

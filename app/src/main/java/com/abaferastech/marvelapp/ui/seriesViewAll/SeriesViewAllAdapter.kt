@@ -10,13 +10,6 @@ class SeriesViewAllAdapter (items: List<Series>, listener: SeriesViewAllInteract
     BaseAdapter<Series>(items, listener) {
     override val layoutID = R.layout.items_series_view_all
 
-    override fun bindItemViewHolder(
-        holder: BaseViewHolder,
-        item: Series,
-        listener: BaseInteractionListener?
-    ) {
-        (holder.binding as ItemsSeriesViewAllBinding).series = item
-    }
 }
 
 interface SeriesViewAllInteractionListener : BaseInteractionListener {

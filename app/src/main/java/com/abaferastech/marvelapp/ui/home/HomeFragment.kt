@@ -2,6 +2,7 @@ package com.abaferastech.marvelapp.ui.home
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.DataItem
@@ -16,9 +17,33 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),Navigati
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+
         viewModel.homeData.observe(viewLifecycleOwner) {
             val adapter = HomeAdapter(it as List<DataItem>, this)
             binding.recyclerViewHome.adapter = adapter
+        }
+
+        viewModel.isCharacterClicked.observe(viewLifecycleOwner){isClicked ->
+            if(isClicked){
+                val selectedCharacter = viewModel.selectedCharacterID.value
+                val action = selectedCharacter?.let {
+                    HomeFragmentDirections.actionHomeFragmentToCharacterFragment(it)
+                }
+                action?.let { findNavController().navigate(it) }
+                viewModel.resetCharacterClickStatus()
+            }
+        }
+
+        viewModel.isComicClicked.observe(viewLifecycleOwner){isClicked ->
+            if (isClicked){
+                val selectedComic = viewModel.selectedComicId.value
+                val action = selectedComic?.let {
+                    HomeFragmentDirections.actionHomeFragmentToComicDetailsFragment(it)
+                }
+                action?.let { findNavController().navigate(it) }
+                viewModel.resetComicClickStatus()
+            }
         }
     }
 
@@ -28,8 +53,12 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),Navigati
                 val action = HomeFragmentDirections.actionHomeFragmentToCharactersFragment()
                 findNavController().navigate(action)
             }
-            is DataItem.ComicsTagItem -> TODO()
-            is DataItem.HeaderItem -> TODO()
+
+            is DataItem.ComicsTagItem -> {
+                val action = HomeFragmentDirections.actionHomeFragmentToComicsGridFragment()
+                findNavController().navigate(action)
+            }
+
             is DataItem.SeriesTagItem -> {
                 val action = HomeFragmentDirections.actionHomeFragmentToSeriesViewAllFragment()
                 findNavController().navigate(action)

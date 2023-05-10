@@ -6,6 +6,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.abaferastech.marvelapp.BR
+
 
 interface BaseInteractionListener
 
@@ -16,7 +18,6 @@ abstract class BaseAdapter<T>(
 
     abstract val layoutID: Int
 
-    abstract fun bindItemViewHolder(holder: BaseViewHolder, item: T, listener: BaseInteractionListener?)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return ItemViewHolder(
@@ -31,7 +32,14 @@ abstract class BaseAdapter<T>(
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         val currentItem = items[position]
-        bindItemViewHolder(holder, currentItem, listener)
+        when (holder) {
+            is ItemViewHolder -> {
+                holder.binding.apply {
+                    setVariable(BR.item, currentItem)
+                    setVariable(BR.listener, listener)
+                }
+            }
+        }
     }
 
     fun setItems(newItems: List<T>) {
@@ -44,7 +52,8 @@ abstract class BaseAdapter<T>(
 
     fun getItems() = items
 
-    abstract class BaseViewHolder(val binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root)
+    abstract class BaseViewHolder(val binding: ViewDataBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     class ItemViewHolder(binding: ViewDataBinding) : BaseViewHolder(binding)
 
