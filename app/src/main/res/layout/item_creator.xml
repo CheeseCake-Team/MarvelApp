@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <variable
+            name="item"
+            type="com.abaferastech.marvelapp.data.model.result.Creators" />
 
     </data>
 
@@ -17,9 +20,11 @@
             android:layout_width="@dimen/character_image_view_dimens"
             android:layout_height="@dimen/character_image_view_dimens"
             android:scaleType="centerCrop"
+            app:imageUrl="@{item.thumbnail}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearance="@style/CircleImageView"
+            tools:src="@drawable/placeholder"
             tools:ignore="MissingConstraints" />
 
         <TextView
@@ -29,8 +34,10 @@
             android:layout_marginTop="@dimen/space_4dp"
             android:fontFamily="@font/bangers"
             android:textAlignment="center"
+            android:text="@{item.fullName}"
             android:maxLines="1"
             android:ellipsize="end"
+            tools:text="Creator Name"
             app:layout_constraintEnd_toEndOf="@+id/image_view_creators"
             app:layout_constraintStart_toStartOf="@+id/image_view_creators"
             app:layout_constraintTop_toBottomOf="@+id/image_view_creators" />
