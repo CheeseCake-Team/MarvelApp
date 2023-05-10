@@ -7,11 +7,11 @@
 
         <variable
             name="item"
-            type="com.abaferastech.marvelapp.data.model.Characters" />
+            type="com.abaferastech.marvelapp.data.model.result.Characters" />
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.data.model.Characters" />
+            type="com.abaferastech.marvelapp.data.model.result.Characters" />
 
     </data>
 

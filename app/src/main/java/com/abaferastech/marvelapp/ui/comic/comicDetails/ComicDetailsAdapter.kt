@@ -4,12 +4,12 @@
 //import android.view.ViewGroup
 //import androidx.recyclerview.widget.RecyclerView
 //import androidx.viewpager2.widget.ViewPager2
-//import com.abaferastech.marvelapp.data.model.DataItem
+//import com.abaferastech.marvelapp.data.model.uimodel.DataItem
 //import com.abaferastech.marvelapp.databinding.FragmentCharacterBinding
 //import com.abaferastech.marvelapp.databinding.ItemHeaderDetailsBinding
 //import com.abaferastech.marvelapp.ui.base.BaseAdapter
 //import com.abaferastech.marvelapp.ui.characterDetails.CharacterFragmentPageAdapter
-//import com.abaferastech.marvelapp.ui.home.NavigationInteractionListener
+//import com.abaferastech.marvelapp.ui.home.adapters.NavigationInteractionListener
 //import com.google.android.material.tabs.TabLayout
 //
 //private const val HEADER_ITEM = 0

@@ -1,25 +1,20 @@
 package com.abaferastech.marvelapp.ui.search
 
-import android.text.TextWatcher
 import android.util.Log
-import androidx.databinding.Bindable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.model.Comics
-import com.abaferastech.marvelapp.data.model.Events
-import com.abaferastech.marvelapp.data.model.response.MarvelResponse
-import com.abaferastech.marvelapp.data.model.state.State
+import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
+import com.abaferastech.marvelapp.ui.model.UIState
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.kotlin.addTo
 import java.util.concurrent.TimeUnit
 
 class SearchViewModel : BaseViewModel() {
     private val repository = MarvelRepository()
 
-    val searchQuery = MutableLiveData<String>("")
+    val searchQuery = MutableLiveData("")
 
     private var _searchResult = MutableLiveData<List<Comics>>()
 
@@ -39,12 +34,12 @@ class SearchViewModel : BaseViewModel() {
         Log.e("MarvelAPI", "getMarvelEvents() - Error: ${e.message}")
     }
 
-    private fun onSuccess(state: State<MarvelResponse<Comics>>) {
+    private fun onSuccess(state: UIState<List<Comics>>) {
         when (state) {
-            is State.Error -> TODO()
-            State.Loading -> TODO()
-            is State.Success -> {
-                _searchResult.postValue(state.toData()?.data?.results)
+            is UIState.Error -> TODO()
+            UIState.Loading -> TODO()
+            is UIState.Success -> {
+                _searchResult.postValue(state.toData())
             }
         }
     }

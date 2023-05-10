@@ -40,8 +40,8 @@
 
     <style name="CustomSearchBar" parent="Widget.Material3.SearchBar">
         <item name="android:background">@drawable/search_bar_background</item>
-        <item name="android:drawableTint">@color/md_theme_onSurfaceVariant</item>
-        <item name="hintTextColor">@color/md_theme_onSurface</item>
-        <item name="android:textColor">@color/md_theme_onSurfaceVariant</item>
+        <item name="android:drawableTint">@color/md_theme_onSurface</item>
+        <item name="android:textColorHint">@color/md_theme_onSurfaceVariant</item>
+        <item name="android:textColor">@color/md_theme_onSurface</item>
     </style>
 </resources>
