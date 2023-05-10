@@ -1,10 +1,10 @@
-package com.abaferastech.marvelapp.ui.home
+package com.abaferastech.marvelapp.ui.home.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.abaferastech.marvelapp.data.model.DataItem
+import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.databinding.ItemHeaderViewPagerBinding
 import com.abaferastech.marvelapp.databinding.ItemTagBinding
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
@@ -20,8 +20,7 @@ interface NavigationInteractionListener {
 class HomeAdapter(
     private val items: List<DataItem>,
     private val navigationListener: NavigationInteractionListener
-) :
-    RecyclerView.Adapter<BaseAdapter.ItemViewHolder>() {
+) : RecyclerView.Adapter<BaseAdapter.ItemViewHolder>() {
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
             is DataItem.HeaderItem -> HEADER_ITEM

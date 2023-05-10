@@ -1,7 +1,6 @@
-package com.abaferastech.marvelapp.ui.eventDetailsScreen
+package com.abaferastech.marvelapp.ui.eventDetails
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -12,7 +11,7 @@ import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsInteractionListener
 
 
-class EventFragment : BaseFragment<FragmentEventBinding,EventViewModel>() {
+class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
 
     private val args: EventFragmentArgs by navArgs()
 
@@ -24,10 +23,11 @@ class EventFragment : BaseFragment<FragmentEventBinding,EventViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getEventsById(args.eventId)
+        viewModel.getSingleEvent(args.eventId)
         viewModel.getEventComics(args.eventId)
         viewModel.comics.observe(viewLifecycleOwner, Observer {
-            val adapter = ComicsAdapter(it, object : ComicsInteractionListener {})
+            val adapter =
+                ComicsAdapter(it.toData() ?: emptyList(), object : ComicsInteractionListener {})
             binding.recyclerViewEventComics.adapter = adapter
         })
     }

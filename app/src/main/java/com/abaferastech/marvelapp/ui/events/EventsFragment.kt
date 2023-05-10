@@ -1,18 +1,13 @@
-package com.abaferastech.marvelapp.ui.eventScreen
+package com.abaferastech.marvelapp.ui.events
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import androidx.appcompat.app.AppCompatActivity
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.model.Events
+import com.abaferastech.marvelapp.data.model.result.Events
 import com.abaferastech.marvelapp.databinding.FragmentEventsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import java.util.Objects
 
 
 class EventsFragment :
@@ -31,7 +26,7 @@ class EventsFragment :
         val characterId = arguments?.getInt(CHARACTER_ID)
 
         if (characterId != null) {
-            viewModel.getEventsById(characterId)
+            viewModel.getCharacterEvents(characterId)
         } else {
             viewModel.getMarvelEvents()
         }

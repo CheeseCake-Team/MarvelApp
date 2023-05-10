@@ -1,12 +1,10 @@
 package com.abaferastech.marvelapp.ui.comic.comics
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentComicsViewAllHorizontalBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.eventScreen.EventsFragment
 
 class ComicsViewAllHorizontalFragment :
     BaseFragment<FragmentComicsViewAllHorizontalBinding, ComicsViewModel>() {

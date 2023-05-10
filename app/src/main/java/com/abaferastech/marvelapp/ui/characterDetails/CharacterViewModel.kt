@@ -1,40 +1,50 @@
 package com.abaferastech.marvelapp.ui.characterDetails
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.model.Characters
-import com.abaferastech.marvelapp.data.model.response.MarvelResponse
-import com.abaferastech.marvelapp.data.model.state.State
+import com.abaferastech.marvelapp.data.model.result.Characters
+import com.abaferastech.marvelapp.data.model.result.Comics
+import com.abaferastech.marvelapp.data.model.result.Events
+import com.abaferastech.marvelapp.data.model.result.Series
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
-import io.reactivex.rxjava3.kotlin.addTo
+import com.abaferastech.marvelapp.ui.model.UIState
 
 class CharacterViewModel : BaseViewModel() {
     private val repository = MarvelRepository()
-    private val _characters = MutableLiveData<Characters>()
-    val characters: LiveData<Characters> = _characters
+
+    private val _character = MutableLiveData<UIState<Characters>>()
+    val character: LiveData<UIState<Characters>> = _character
+
+    private val _characterEvents = MutableLiveData<UIState<List<Events>>>()
+    val characterEvents: LiveData<UIState<List<Events>>> get() = _characterEvents
+
+    private val _characterComics = MutableLiveData<UIState<List<Comics>>>()
+    val characterComics: LiveData<UIState<List<Comics>>> get() = _characterComics
+
+    private val _characterSeries = MutableLiveData<UIState<List<Series>>>()
+    val characterSeries: LiveData<UIState<List<Series>>> get() = _characterSeries
+
 
 
     fun getSingleCharacter(characterId: Int) {
         repository.getSingleCharacter(characterId)
-            .subscribe(::onSuccess, ::onError)
-            .addTo(compositeDisposable)
+            .applySchedulersAndPostUIStates(_character::postValue)
     }
 
-    private fun onSuccess(state: State<MarvelResponse<Characters>>) {
-        when (state) {
-            is State.Error -> Log.i("cha ra ter er or", "onError:${state} ")
-            State.Loading ->" TODO()"
-            is State.Success -> {
-                state.toData()?.data?.results.toString()
-                Log.i("wEVevWVWVFWEewfFEWWfFFea", "${ state.toData()?.data?.results.toString()} ")
-                _characters.postValue(state.toData()?.data?.results?.first())
-            }
-        }
+    fun getCharacterEvents(characterId: Int) {
+        repository.getCharacterEvents(characterId)
+            .applySchedulersAndPostUIStates(_characterEvents::postValue)
     }
 
-    private fun onError(e: Throwable) {
-        Log.e("MarvelAPI", "getMarvelCharacters() - Error: ${e.message}")
+    fun getCharacterComics(characterId: Int) {
+        repository.getCharacterComics(characterId)
+            .applySchedulersAndPostUIStates(_characterComics::postValue)
     }
+    fun getCharacterSeries(characterId: Int) {
+        repository.getCharacterSeries(characterId)
+            .applySchedulersAndPostUIStates(_characterSeries::postValue)
+    }
+
+
 }
