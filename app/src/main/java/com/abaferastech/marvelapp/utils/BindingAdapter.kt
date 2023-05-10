@@ -15,7 +15,8 @@ import com.abaferastech.marvelapp.ui.characters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.home.HomeFragmentDirections
 import com.abaferastech.marvelapp.ui.home.adapters.ComicAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesAdapter
- import com.bumptech.glide.Glide
+import com.abaferastech.marvelapp.ui.model.UIState
+import com.bumptech.glide.Glide
 
 @BindingAdapter(value = ["app:imageUrl"])
 fun imageUrl (view: ImageView, thumbnail: Thumbnail?){
@@ -79,4 +80,10 @@ fun View.setClickCharacter(characterId: Int?) {
         val action = HomeFragmentDirections.actionHomeFragmentToCharacterFragment(characterId!!)
         findNavController().navigate(action)
     }
+}
+
+@BindingAdapter("app:showWhenLoading")
+fun <T> showWhenLoading(view: View, state: UIState<T>?) {
+    if (state is UIState.Loading) view.visibility = View.VISIBLE
+    else view.visibility = View.GONE
 }

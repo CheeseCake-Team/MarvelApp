@@ -9,8 +9,8 @@ import com.abaferastech.marvelapp.data.model.result.Events
 import com.abaferastech.marvelapp.databinding.FragmentEventsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.model.TYPE
-import com.abaferastech.marvelapp.utils.Constants.CHARACTER_ID
 import com.abaferastech.marvelapp.utils.Constants.PUT_TYPE
+import com.abaferastech.marvelapp.utils.Constants.TYPE_ID
 
 
 class EventsFragment :
@@ -26,25 +26,16 @@ class EventsFragment :
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 
-        val type =  arguments?.getParcelable<TYPE>(PUT_TYPE)
-        when(type){
+        val typeID = arguments?.getInt(TYPE_ID)!!
+        when (arguments?.getParcelable<TYPE>(PUT_TYPE)) {
             TYPE.COMIC -> TODO()
             TYPE.SERIES -> TODO()
-            TYPE.CHARACTER -> {
-                val characterId = arguments?.getInt(CHARACTER_ID)!!
-                viewModel.getCharacterEvents(characterId)
-            }
+            TYPE.CHARACTER -> viewModel.getCharacterEvents(typeID)
+
             TYPE.EVENT -> TODO()
             else -> viewModel.getMarvelEvents()
         }
 
-//        val characterId = arguments?.getInt(CHARACTER_ID)
-//
-//        if (characterId != null) {
-//            viewModel.getCharacterEvents(characterId)
-//        } else {
-//            viewModel.getMarvelEvents()
-//        }
 
         val adapter = EventAdapter(emptyList(), object : EventsInteractionListener {
             override fun onEventClick(event: Events) {
@@ -63,13 +54,11 @@ class EventsFragment :
         @JvmStatic
         fun newInstance(id: Int, type: TYPE) = EventsFragment().apply {
             arguments = Bundle().apply {
+                putInt(TYPE_ID, id)
                 when (type) {
                     TYPE.COMIC -> TODO()
                     TYPE.SERIES -> TODO()
-                    TYPE.CHARACTER -> {
-                        putInt(CHARACTER_ID, id)
-                        putParcelable(PUT_TYPE,type)
-                    }
+                    TYPE.CHARACTER -> putParcelable(PUT_TYPE, type)
                     TYPE.EVENT -> TODO()
                 }
 

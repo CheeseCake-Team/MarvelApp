@@ -7,6 +7,7 @@ import com.abaferastech.marvelapp.databinding.FragmentComicsViewAllHorizontalBin
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.utils.Constants
+import com.abaferastech.marvelapp.utils.Constants.TYPE_ID
 
 class ComicsViewAllHorizontalFragment :
     BaseFragment<FragmentComicsViewAllHorizontalBinding, ComicsViewModel>() {
@@ -20,14 +21,11 @@ class ComicsViewAllHorizontalFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val type =  arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)
-        when(type){
+        val typeID = arguments?.getInt(TYPE_ID)!!
+        when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
             TYPE.COMIC -> TODO()
             TYPE.SERIES -> TODO()
-            TYPE.CHARACTER -> {
-                val characterId = arguments?.getInt(Constants.CHARACTER_ID)!!
-                viewModel.getCharacterComics(characterId)
-            }
+            TYPE.CHARACTER -> viewModel.getCharacterComics(typeID)
             TYPE.EVENT -> TODO()
             else -> viewModel.getMarvelComics()
         }
@@ -38,14 +36,15 @@ class ComicsViewAllHorizontalFragment :
 
     companion object {
         @JvmStatic
-        fun newInstance(id: Int,type:TYPE) = ComicsViewAllHorizontalFragment().apply {
+        fun newInstance(id: Int, type: TYPE) = ComicsViewAllHorizontalFragment().apply {
             arguments = Bundle().apply {
+                putInt(TYPE_ID, id)
                 when (type) {
                     TYPE.COMIC -> TODO()
                     TYPE.SERIES -> TODO()
                     TYPE.CHARACTER -> {
-                        putInt(Constants.CHARACTER_ID, id)
-                        putParcelable(Constants.PUT_TYPE,type)
+
+                        putParcelable(Constants.PUT_TYPE, type)
                     }
                     TYPE.EVENT -> TODO()
                 }
