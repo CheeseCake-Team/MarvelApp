@@ -13,7 +13,11 @@ class ComicFragmentPageAdapter(
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun createFragment(position: Int): Fragment {
-        TODO("Not yet implemented")
+        return if (position == 0)
+            ComicsViewAllHorizontalFragment.newInstance(id)
+        else {
+            EventsFragment.newInstance(id)
+        }
     }
 
     override fun getItemCount(): Int {

@@ -1,7 +1,6 @@
 package com.abaferastech.marvelapp.ui.home
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.*
@@ -12,7 +11,7 @@ import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
 import io.reactivex.rxjava3.kotlin.addTo
 
-class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,SeriesInteractionListener {
+class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,SeriesInteractionListener{
     private val repository = MarvelRepository()
 
     private val _homeData = MutableLiveData<List<DataItem>?>()
@@ -91,6 +90,8 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         _isComicClicked.postValue(true)
         _selectedComicId.postValue(comics.id!!)
     }
+
+
     fun resetCharacterClickStatus() {
         _isCharacterClicked.value = false
     }

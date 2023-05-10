@@ -2,10 +2,12 @@ package com.abaferastech.marvelapp.ui.comic.comicDetails
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentComicDetailsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
+import com.abaferastech.marvelapp.ui.characterDetails.CharacterFragmentArgs
 import com.google.android.material.tabs.TabLayout
 
 class ComicDetailsFragment :
@@ -22,19 +24,18 @@ class ComicDetailsFragment :
     private lateinit var viewPager: ViewPager2
     private lateinit var adapter: ComicFragmentPageAdapter
 
-
-    val comicId = 1003
+    private val args: ComicDetailsFragmentArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getSingleComic(comicId)
+        viewModel.getSingleComic(args.comicId)
         init()
     }
 
     private fun init() {
         tabLayout = binding.tabLayout
         viewPager = binding.viewPager
-        adapter = ComicFragmentPageAdapter(requireActivity().supportFragmentManager,lifecycle,comicId)
+        adapter = ComicFragmentPageAdapter(requireActivity().supportFragmentManager,lifecycle,args.comicId)
         tabLayout.apply {
             addTab(tabLayout.newTab().setText("All Comics"))
             addTab(tabLayout.newTab().setText("Details"))
