@@ -24,25 +24,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),Navigati
             binding.recyclerViewHome.adapter = adapter
         }
 
-        viewModel.isCharacterClicked.observe(viewLifecycleOwner){isClicked ->
-            if(isClicked){
-                val selectedCharacter = viewModel.selectedCharacterID.value
-                val action = selectedCharacter?.let {
+        viewModel.selectedCharacterItem.observe(viewLifecycleOwner){sentData ->
+            if(sentData.clicked){
+                val selectedCharacter = viewModel.selectedCharacterItem.value!!.id
+                val action = selectedCharacter.let {
                     HomeFragmentDirections.actionHomeFragmentToCharacterFragment(it)
                 }
-                action?.let { findNavController().navigate(it) }
-                viewModel.resetCharacterClickStatus()
+                action.let { findNavController().navigate(it) }
+                viewModel.resetCharacterDataSent()
             }
         }
 
-        viewModel.isComicClicked.observe(viewLifecycleOwner){isClicked ->
-            if (isClicked){
-                val selectedComic = viewModel.selectedComicId.value
-                val action = selectedComic?.let {
-                    HomeFragmentDirections.actionHomeFragmentToComicDetailsFragment(it)
-                }
-                action?.let { findNavController().navigate(it) }
-                viewModel.resetComicClickStatus()
+        viewModel.selectedComicItem.observe(viewLifecycleOwner){ sentData ->
+            if (sentData.clicked){
+                val selectedComic = viewModel.selectedComicItem.value!!.id
+                val action = selectedComic.let {
+                    HomeFragmentDirections.actionHomeFragmentToComicDetailsFragment(it)}
+                action.let { findNavController().navigate(it) }
+                viewModel.resetComicDataSent()
             }
         }
     }

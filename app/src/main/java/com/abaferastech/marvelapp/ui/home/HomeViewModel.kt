@@ -18,19 +18,13 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     val homeData: LiveData<List<DataItem>?> get() = _homeData
 
 
-    private val _isCharacterClicked = MutableLiveData<Boolean>()
-    val isCharacterClicked: LiveData<Boolean> get() = _isCharacterClicked
 
 
-    private val _selectedCharacterID = MutableLiveData<Int>()
-    val selectedCharacterID: LiveData<Int> get() = _selectedCharacterID
+    private val _selectedCharacterItem = MutableLiveData<SentData>()
+    val selectedCharacterItem: LiveData<SentData> get() = _selectedCharacterItem
 
-
-
-    private val _isComicClicked = MutableLiveData<Boolean>()
-    val isComicClicked: LiveData<Boolean> get() = _isComicClicked
-    private val _selectedComicId = MutableLiveData<Int>()
-    val selectedComicId: LiveData<Int> get() = _selectedComicId
+    private val _selectedComicItem = MutableLiveData<SentData>()
+    val selectedComicItem: LiveData<SentData> get() = _selectedComicItem
 
 
 
@@ -76,9 +70,7 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     }
 
     override fun onClickCharacter(character: Characters) {
-        _isCharacterClicked.postValue(true)
-        _selectedCharacterID.postValue(character.id!!)
-
+        _selectedCharacterItem.postValue(SentData(true,character.id!!))
     }
 
 
@@ -86,17 +78,20 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         //TODO("Not yet implemented")
     }
 
-    override fun onClickComics(comics: Comics) {
-        _isComicClicked.postValue(true)
-        _selectedComicId.postValue(comics.id!!)
+    override fun onClickComics(comicId: Int) {
+        _selectedComicItem.postValue(SentData(true,comicId))
     }
 
 
-    fun resetCharacterClickStatus() {
-        _isCharacterClicked.value = false
+    fun resetCharacterDataSent() {
+        _selectedCharacterItem.value?.clicked = false
     }
-    fun resetComicClickStatus() {
-        _isComicClicked.value = false
+
+    fun resetComicDataSent(){
+        _selectedComicItem.value?.clicked = false
     }
+
+    data class SentData(var clicked: Boolean,val id: Int)
 
 }
+

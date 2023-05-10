@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+<MotionScene
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="urn:oasis:names:tc:xliff:document:1.2"
     xmlns:motion="http://schemas.android.com/apk/res-auto">
 
@@ -7,7 +8,9 @@
         motion:constraintSetEnd="@+id/end"
         motion:constraintSetStart="@id/start"
         motion:duration="1000">
-        <KeyFrameSet></KeyFrameSet>
+        <KeyFrameSet>
+
+        </KeyFrameSet>
         <OnSwipe
             motion:dragDirection="dragUp"
             motion:touchAnchorId="@+id/view_pager" />
@@ -28,14 +31,14 @@
             android:id="@+id/text_character_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             motion:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toTopOf="parent"
-            motion:layout_constraintVertical_bias="1.0"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
+            motion:layout_constraintVertical_bias="1.0">
             <CustomAttribute
                 motion:attributeName="textSize"
                 motion:customDimension="16sp" />
@@ -67,11 +70,11 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:textSize="56sp"
+            motion:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
             motion:layout_constraintEnd_toEndOf="parent"
             motion:layout_constraintStart_toStartOf="parent"
             motion:layout_constraintTop_toTopOf="@+id/image_view_comic_image2"
-            motion:layout_constraintVertical_bias="0.0"
-            motion:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2">
+            motion:layout_constraintVertical_bias="0.0">
             <CustomAttribute
                 motion:attributeName="textSize"
                 motion:customDimension="28sp" />

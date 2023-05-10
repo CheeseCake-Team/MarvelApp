@@ -2,6 +2,7 @@ package com.abaferastech.marvelapp.ui.comic.comicDetails
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.abaferastech.marvelapp.R
@@ -25,17 +26,19 @@ class ComicDetailsFragment :
     private lateinit var adapter: ComicFragmentPageAdapter
 
     private val args: ComicDetailsFragmentArgs by navArgs()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.getSingleComic(args.comicId)
         init()
     }
+
+
 
     private fun init() {
         tabLayout = binding.tabLayout
         viewPager = binding.viewPager
         adapter = ComicFragmentPageAdapter(requireActivity().supportFragmentManager,lifecycle,args.comicId)
+        viewModel.getSingleComic(args.comicId)
         tabLayout.apply {
             addTab(tabLayout.newTab().setText("All Comics"))
             addTab(tabLayout.newTab().setText("Details"))
@@ -48,8 +51,8 @@ class ComicDetailsFragment :
     private fun initTapLayout() {
         tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                if (tab != null) {
-                    viewPager.currentItem = tab.position
+                tab?.let{
+                    viewPager.currentItem = it.position
                 }
             }
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -68,5 +71,8 @@ class ComicDetailsFragment :
             }
         })
     }
+
+
+
 
 }

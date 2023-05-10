@@ -14,7 +14,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutDescription="@xml/fragment_character_details_xml_constraintlayout_scene">
+        app:layoutDescription="@xml/fragment_comics_details_xml_constraintlayout_scene">
 
 
         <androidx.constraintlayout.utils.widget.ImageFilterView

@@ -74,7 +74,7 @@
     <fragment
         android:id="@+id/eventFragment"
         android:name="com.abaferastech.marvelapp.ui.eventDetailsScreen.EventFragment"
-        android:label="EventFragment" >
+        android:label="Event" >
         <argument
             android:name="eventId"
             app:argType="integer" />
@@ -82,7 +82,8 @@
     <fragment
         android:id="@+id/comicDetailsFragment"
         android:name="com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsFragment"
-        android:label="Comic Details" >
+        android:label="Comic Details"
+        tools:layout="@layout/fragment_comic_details">
         <argument
             android:name="comicId"
             app:argType="integer" />
