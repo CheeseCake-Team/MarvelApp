@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.response.MarvelBaseResponse
+import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.model.result.Series
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
@@ -13,28 +14,12 @@ import io.reactivex.rxjava3.kotlin.addTo
 class SeriesDetailsViewModel : BaseViewModel() {
 
     private val repository = MarvelRepository()
-    private val _series = MutableLiveData<Series>()
-    val series: LiveData<Series> get() = _series
+    private val _series = MutableLiveData<UIState<Series>>()
+    val series: LiveData<UIState<Series>> get() = _series
 
-
-    fun getSeriesById(seriesId: Int) {
+    fun getSeriesById(seriesId: Int){
         repository.getSingleSeries(seriesId)
-            .subscribe(::onSuccess, ::onError)
-            .addTo(compositeDisposable)
+            .applySchedulersAndPostUIStates(_series::postValue)
     }
 
-    private fun onSuccess(state: UIState<MarvelBaseResponse<Series>>) {
-        when (state) {
-            is UIState.Error -> TODO()
-            UIState.Loading -> TODO()
-            is UIState.Success -> {
-                state.toData()?.data?.results.toString()
-                _series.postValue(state.toData()?.data?.results?.first())
-            }
-        }
-    }
-
-    private fun onError(e: Throwable) {
-        Log.e("MarvelAPI", "getMarvelCharacters() - Error: ${e.message}")
-    }
 }

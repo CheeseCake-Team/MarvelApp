@@ -7,8 +7,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentSeriesDetailsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.characterDetails.CharacterFragmentArgs
-import com.abaferastech.marvelapp.ui.characterDetails.CharacterFragmentPageAdapter
 import com.google.android.material.tabs.TabLayout
 
 class SeriesDetailsFragment: BaseFragment<FragmentSeriesDetailsBinding,SeriesDetailsViewModel>() {
@@ -34,8 +32,9 @@ class SeriesDetailsFragment: BaseFragment<FragmentSeriesDetailsBinding,SeriesDet
         adapter = SeriesDetailsFragmentPageAdapter(
             requireActivity().supportFragmentManager,lifecycle,15)
         tabLayout.apply {
-            addTab(tabLayout.newTab().setText("All Comics"))
-            addTab(tabLayout.newTab().setText("Details"))
+            addTab(tabLayout.newTab().setText("Comics"))
+            addTab(tabLayout.newTab().setText("Events"))
+            addTab(tabLayout.newTab().setText("Creators"))
         }
         viewPager.adapter = adapter
         initTapLayout()
