@@ -13,9 +13,10 @@
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/fragment_event_scene">
 
 
         <ImageView
@@ -24,6 +25,7 @@
             android:layout_height="400dp"
             android:foreground="@drawable/header_gradient"
             app:imageUrl="@{viewModel.event.toData().thumbnail}"
+            android:scaleType="centerCrop"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,11 +35,13 @@
         <TextView
             android:id="@+id/text_view_title"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:textSize="24sp"
+            android:layout_height="0dp"
+            android:layout_margin="@dimen/space_16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:gravity="bottom|start"
             android:text="@{viewModel.event.toData().title}"
-            tools:text="Mujtaba"
+            android:textAppearance="@style/TextAppearance.Material3.DisplaySmall"
             app:layout_constraintBottom_toBottomOf="@id/image_view_event_thumbnail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -68,7 +72,7 @@
             tools:listitem="@layout/item_comic_horizontal" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 
 
