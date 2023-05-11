@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
     android:label="Comics"
-    app:startDestination="@id/seriesDetailsFragment">
+    app:startDestination="@id/homeFragment">
 
     <fragment
         android:id="@+id/homeFragment"
@@ -76,6 +76,10 @@
             android:name="eventId"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/creatorDetailsFragment"
+        android:name="com.abaferastech.marvelapp.ui.creatorsDetails.CreatorDetailsFragment"
+        android:label="CreatorDetailsFragment" />
     <fragment
         android:id="@+id/seriesDetailsFragment"
         android:name="com.abaferastech.marvelapp.ui.seriesDetails.SeriesDetailsFragment"

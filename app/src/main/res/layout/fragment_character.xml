@@ -9,14 +9,13 @@
             name="viewModel"
             type="com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsViewModel" />
 
-
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/constraintLayout"
+        android:id="@+id/motion_character"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutDescription="@xml/fragment_character_details_xml_constraintlayout_scene">
+        app:layoutDescription="@xml/fragment_character_details_scene">
 
 
         <androidx.constraintlayout.utils.widget.ImageFilterView
@@ -25,73 +24,59 @@
             android:layout_height="350dp"
             android:foreground="@drawable/header_details_gradient"
             android:scaleType="centerCrop"
+            app:altSrc="@color/md_theme_surface"
             app:imageUrl="@{viewModel.character.toData().thumbnail}"
-            app:layout_constraintBottom_toTopOf="@+id/text_character_description"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:src="@color/material_dynamic_tertiary70" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/text_character_name"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="16dp"
-            android:textAppearance="@style/TextAppearance.Material3.DisplaySmall"
-            android:textSize="24sp"
             android:ellipsize="end"
             android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toTopOf="@id/back_button"
             app:layout_constraintVertical_bias="1.0"
             app:text="@{viewModel.character.toData().name}"
             tools:text="TextView" />
 
-        <TextView
-            android:id="@+id/text_character_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/tab_layout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_comic_image2"
-            app:text="@{viewModel.character.toData().description}"
-            tools:text="TextView" />
-
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
+            style="@style/Widget.Material3.TabLayout.Secondary"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toTopOf="@+id/view_pager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_character_description"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_comic_image2"
             app:tabGravity="fill"
-            app:tabIndicatorAnimationMode="linear"
-            app:tabIndicatorGravity="bottom"
-            app:tabMode="scrollable"
-            app:tabTextColor="@color/design_default_color_on_primary" />
+            app:tabMode="scrollable"/>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tab_layout">
 
         </androidx.viewpager2.widget.ViewPager2>
+
+        <Button
+            android:id="@+id/back_button"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="46dp"
+            app:icon="@drawable/ic_back"
+            app:iconTint="@color/md_theme_onSurface"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

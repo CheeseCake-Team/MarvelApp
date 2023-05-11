@@ -13,6 +13,18 @@ class MarvelRepository {
         return wrapWithState { MarvelAPI.apiService.searchInComics(query) }
     }
 
+    fun searchInCharacters(query: String): Single<UIState<List<Characters>>> {
+        return wrapWithState { MarvelAPI.apiService.searchInCharacters(query) }
+    }
+
+    fun searchInEvents(query: String): Single<UIState<List<Events>>> {
+        return wrapWithState { MarvelAPI.apiService.searchInEvents(query) }
+    }
+
+    fun searchInSeries(query: String): Single<UIState<List<Series>>> {
+        return wrapWithState { MarvelAPI.apiService.searchInSeries(query) }
+    }
+
     fun getSingleCharacter(characterId: Int): Single<UIState<Characters>> {
         return wrapWithState { MarvelAPI.apiService.getSingleCharacter(characterId) }.mapListToSingleItem()
     }
@@ -160,6 +172,5 @@ class MarvelRepository {
             }
         }
     }
-
 
 }

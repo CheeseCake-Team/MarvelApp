@@ -15,51 +15,95 @@
         android:layout_height="match_parent"
         tools:context=".ui.search.SearchFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_search"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:clipToPadding="false"
-            android:padding="12dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_text_input_layout" />
-
-        <ImageButton
-            android:layout_width="wrap_content"
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_filter"
-            android:elevation="6.001dp"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:background="@color/search_bar_background_color"
-            app:layout_constraintBottom_toTopOf="@+id/recycler_view_search"
-            app:layout_constraintEnd_toEndOf="@+id/search_text_input_layout"
-            app:layout_constraintTop_toTopOf="@+id/search_text_input_layout"
-            android:contentDescription="@string/filter_button" />
+            android:layout_marginTop="8dp"
+            android:clipToPadding="false"
+            android:padding="@dimen/space_12dp"
+            android:scrollbars="none"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_text_input_layout">
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Comics" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Characters" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Series" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Events" />
+
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
 
         <androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/search_text_input_layout"
             style="@style/CustomSearchBar"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space_16dp"
             android:layout_marginTop="@dimen/space_16dp"
             android:drawableStart="@drawable/ic_search"
             android:drawablePadding="@dimen/space_16dp"
-            android:elevation="6dp"
             android:focusableInTouchMode="true"
             android:hint="Type Here"
-            android:imeOptions="actionGo"
             android:inputType="text"
-            android:maxLines="1"
+            android:maxLength="30"
             android:paddingStart="@dimen/space_16dp"
+            android:paddingEnd="@dimen/space_16dp"
             android:text="@={viewModel.searchQuery}"
-            android:textColor="@color/md_theme_onSurface"
-            android:textColorHint="@color/md_theme_onSurfaceVariant"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="16dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_search"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:clipToPadding="false"
+            android:padding="12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+
+        <Button
+            android:id="@+id/filter_button"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/filter_button"
+            app:icon="@drawable/ic_filter"
+            app:iconTint="@color/md_theme_onSurfaceVariant"
+            app:layout_constraintBottom_toBottomOf="@+id/search_text_input_layout"
+            app:layout_constraintEnd_toEndOf="@+id/search_text_input_layout"
+            app:layout_constraintTop_toTopOf="@+id/search_text_input_layout" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
