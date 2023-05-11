@@ -138,13 +138,6 @@ fun setAdapter(view: RecyclerView, dataItem: DataItem) {
 }
 
 
-@BindingAdapter("onClickCharacter")
-fun View.setClickCharacter(characterId: Int?) {
-    setOnClickListener {
-        val action = HomeFragmentDirections.actionHomeFragmentToCharacterFragment(characterId!!)
-        findNavController().navigate(action)
-    }
-}
 @BindingAdapter("app:showWhenLoading")
 fun <T> showWhenLoading(view: View, uiState: UIState<T>?) {
     if (uiState is UIState.Loading) view.visibility = View.VISIBLE
