@@ -29,7 +29,6 @@ class EventsFragment :
         val typeID = arguments?.getInt(TYPE_ID)
         when (arguments?.getParcelable<TYPE>(PUT_TYPE)) {
             TYPE.COMIC -> viewModel.getComicEvents(typeID!!)
-            TYPE.SERIES ->  viewModel.getSeriesEvents(typeID!!)
             TYPE.CHARACTER -> viewModel.getCharacterEvents(typeID!!)
             else -> viewModel.getMarvelEvents()
         }

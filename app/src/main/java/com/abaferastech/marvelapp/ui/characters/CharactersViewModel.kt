@@ -14,10 +14,8 @@ class CharactersViewModel : BaseViewModel() {
     private val _characters = MutableLiveData<UIState<List<Characters>>>()
     val characters: LiveData<UIState<List<Characters>>> get() = _characters
 
-    init {
-        getAllCharacters()
-    }
-    private fun getAllCharacters() {
+
+    fun getAllCharacters() {
         repository.getAllCharacters()
             .applySchedulersAndPostUIStates(_characters::postValue)
     }

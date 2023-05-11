@@ -2,12 +2,11 @@ package com.abaferastech.marvelapp.ui.characters
 
 import android.os.Bundle
 import android.view.View
-import androidx.navigation.fragment.findNavController
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.databinding.FragmentCharactersBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.events.EventsFragment
+import com.abaferastech.marvelapp.ui.creators.CreatorsFragment
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.utils.Constants
 
@@ -22,10 +21,10 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersVie
 
         val typeID = arguments?.getInt(Constants.TYPE_ID)
         when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
+            TYPE.SERIES -> viewModel.getCharacterSeries(typeID!!)
             TYPE.COMIC -> viewModel.getCharacterComics(typeID!!)
-            TYPE.SERIES ->  viewModel.getCharacterSeries(typeID!!)
-            TYPE.CHARACTER -> viewModel.getEventCharacter(typeID!!)
-            else -> {}
+            TYPE.EVENT -> viewModel.getEventCharacter(typeID!!)
+            else -> viewModel.getAllCharacters()
         }
 
         val adapter = ViewAllCharactersAdapter(emptyList(), object : CharactersInteractionListener {
@@ -36,8 +35,8 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersVie
         binding.recyclerViewCharacters.adapter = adapter
     }
 
-    companion object {
 
+    companion object {
         @JvmStatic
         fun newInstance(id: Int, type: TYPE) = CharactersFragment().apply {
             arguments = Bundle().apply {
