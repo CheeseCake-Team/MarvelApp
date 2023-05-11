@@ -20,8 +20,10 @@ class SeriesFragment : BaseFragment<FragmentSeriesBinding, SeriesViewModel>() {
         super.onViewCreated(view, savedInstanceState)
         val typeID = arguments?.getInt(TYPE_ID)
         when (arguments?.getParcelable<TYPE>(PUT_TYPE)) {
+
             TYPE.COMIC -> viewModel.getComicSeries(typeID!!)
-            else -> {}
+
+            else -> viewModel.getMarvelSeries()
         }
         val adapter = SeriesAdapter(emptyList(), object : SeriesInteractionListener {})
         binding.recyclerViewSeries.adapter = adapter
