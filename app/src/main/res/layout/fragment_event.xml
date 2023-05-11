@@ -69,7 +69,19 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_description"
-            tools:listitem="@layout/item_comic_horizontal" />
+            tools:listitem="@layout/item_comic_horizontal"
+            app:showWhenSuccess="@{viewModel.comics}"/>
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/loading"
+            app:showWhenLoading="@{viewModel.comics}" />
 
 
     </androidx.constraintlayout.motion.widget.MotionLayout>

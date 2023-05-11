@@ -81,9 +81,14 @@ fun View.setClickCharacter(characterId: Int?) {
         findNavController().navigate(action)
     }
 }
-
 @BindingAdapter("app:showWhenLoading")
-fun <T> showWhenLoading(view: View, state: UIState<T>?) {
-    if (state is UIState.Loading) view.visibility = View.VISIBLE
+fun <T> showWhenLoading(view: View, uiState: UIState<T>?) {
+    if (uiState is UIState.Loading) view.visibility = View.VISIBLE
+    else view.visibility = View.GONE
+}
+
+@BindingAdapter("app:showWhenSuccess")
+fun <T> showWhenSuccess(view: View, UiState: UIState<T>?) {
+    if (UiState is UIState.Success) view.visibility = View.VISIBLE
     else view.visibility = View.GONE
 }

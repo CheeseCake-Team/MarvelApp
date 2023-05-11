@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.model.result.Series
@@ -15,6 +16,12 @@ import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
 import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.Tag
 import com.abaferastech.marvelapp.ui.model.UIState
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import java.util.concurrent.TimeUnit
 
 class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,
     SeriesInteractionListener {
@@ -35,15 +42,47 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     val selectedCharacterID: LiveData<Int> get() = _selectedCharacterID
 
 
+
+    private val _allDataState = MutableLiveData<UIState<Any>>()
+    val allDataState: LiveData<UIState<Any>> get() = _allDataState
+    private val disposables = CompositeDisposable()
+
     init {
         _homeData.addSource(_characters) { updateHomeData() }
         _homeData.addSource(_comics) { updateHomeData() }
         _homeData.addSource(_series) { updateHomeData() }
 
-        repository.getAllCharacters().applySchedulersAndPostUIStates(_characters::postValue)
-        repository.getAllComics().applySchedulersAndPostUIStates(_comics::postValue)
-        repository.getAllSeries().applySchedulersAndPostUIStates(_series::postValue)
+        _allDataState.value = UIState.Loading
 
+        repository.getAllCharacters().applySchedulersAndPostUIStates { uiState ->
+            _characters.postValue(uiState)
+            checkLoadingState()
+        }
+        repository.getAllComics().applySchedulersAndPostUIStates { uiState ->
+            _comics.postValue(uiState)
+            checkLoadingState()
+        }
+        repository.getAllSeries().applySchedulersAndPostUIStates { uiState ->
+            _series.postValue(uiState)
+            checkLoadingState()
+        }
+    }
+
+    private fun checkLoadingState() {
+        if (_characters.value !is UIState.Loading &&
+            _comics.value !is UIState.Loading &&
+            _series.value !is UIState.Loading
+        ) {
+            // delay before posting success state to simulate longer loading
+            val delayObservable = Observable.timer(3, TimeUnit.SECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    _allDataState.postValue(UIState.Success(Unit))
+                }
+
+            // add delayObservable to disposables
+            disposables.add(delayObservable)
+        }
     }
 
     private fun updateHomeData() {
@@ -72,6 +111,7 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         _homeData.removeSource(_characters)
         _homeData.removeSource(_comics)
         _homeData.removeSource(_series)
+        disposables.clear()  // clear disposables
     }
 
     override fun onClickCharacter(character: Characters) {
