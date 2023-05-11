@@ -32,8 +32,4 @@ class EventsViewModel : BaseViewModel() {
         repository.getComicEvents(comicsId)
             .applySchedulersAndPostUIStates(_events::postValue)
     }
-    fun getSeriesEvents(seriesId: Int) {
-        repository.getSeriesEvents(seriesId)
-            .applySchedulersAndPostUIStates(_events::postValue)
-    }
 }
