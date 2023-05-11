@@ -11,30 +11,31 @@
             type="com.abaferastech.marvelapp.ui.search.SearchViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.search.SearchFragment">
+        tools:context=".ui.search.SearchFragment"
+        app:layoutDescription="@xml/fragment_search_scene">
 
         <HorizontalScrollView
             android:id="@+id/horizontalScrollView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:clipToPadding="false"
-            android:padding="@dimen/space_12dp"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginEnd="@dimen/space_16dp"
             android:scrollbars="none"
+            android:visibility="gone"
+            app:chipGroupVisibility="@{viewModel.isChipGroupVisible}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_text_input_layout">
 
             <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chip_group"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
                 app:singleLine="true"
-                app:chipGroupVisibility="@{viewModel.isChipGroupVisible}"
+                app:selectionRequired="true"
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
@@ -43,28 +44,28 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:onClick="@{()->viewModel.changeSearchType(TYPE.COMIC)}"
-                    android:text="Comics" />
+                    android:text="@string/comics" />
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{()->viewModel.changeSearchType(TYPE.CHARACTER)}"
-                    android:text="Characters" />
+                    android:text="@string/characters" />
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{()->viewModel.changeSearchType(TYPE.SERIES)}"
-                    android:text="Series" />
+                    android:text="@string/series" />
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:onClick="@{()->viewModel.changeSearchType(TYPE.EVENT)}"
-                    android:text="Events" />
+                    android:text="@string/events" />
 
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
@@ -73,7 +74,7 @@
             android:id="@+id/search_text_input_layout"
             style="@style/CustomSearchBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="56dp"
             android:layout_marginHorizontal="@dimen/space_16dp"
             android:layout_marginTop="@dimen/space_16dp"
             android:drawableStart="@drawable/ic_search"
@@ -92,7 +93,6 @@
             android:id="@+id/recycler_view_search"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
             android:clipToPadding="false"
             android:padding="12dp"
             app:setAdapterByType="@{viewModel.searchType}"
@@ -115,5 +115,5 @@
             app:layout_constraintEnd_toEndOf="@+id/search_text_input_layout"
             app:layout_constraintTop_toTopOf="@+id/search_text_input_layout" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>
