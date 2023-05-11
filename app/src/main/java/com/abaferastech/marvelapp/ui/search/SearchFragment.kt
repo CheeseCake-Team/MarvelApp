@@ -3,7 +3,6 @@ package com.abaferastech.marvelapp.ui.search
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentSearchBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
@@ -18,11 +17,22 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.filterButton.setOnClickListener {
+            if(binding.horizontalScrollView.visibility == View.GONE)
+                binding.horizontalScrollView.visibility = View.VISIBLE
+            else{
+                binding.horizontalScrollView.visibility = View.GONE
+            }
+        }
+
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
-        viewModel.searchQuery.observe(viewLifecycleOwner, Observer {
+        viewModel.searchQuery.observe(viewLifecycleOwner) {
             viewModel.search(it)
-        })
+        }
         val adapter = ComicsAdapter(emptyList(), object : ComicsInteractionListener {})
         binding.recyclerViewSearch.adapter = adapter
     }
+
+
 }

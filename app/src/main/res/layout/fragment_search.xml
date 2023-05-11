@@ -5,6 +5,8 @@
 
     <data>
 
+        <import type="com.abaferastech.marvelapp.ui.model.TYPE"/>
+
         <variable
             name="viewModel"
             type="com.abaferastech.marvelapp.ui.search.SearchViewModel" />
@@ -39,24 +41,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:checked="true"
+                    android:onClick="@{()->viewModel.changeSearchType(TYPE.COMIC)}"
                     android:text="Comics" />
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.changeSearchType(TYPE.CHARACTER)}"
                     android:text="Characters" />
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.changeSearchType(TYPE.SERIES)}"
                     android:text="Series" />
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.changeSearchType(TYPE.EVENT)}"
                     android:text="Events" />
 
             </com.google.android.material.chip.ChipGroup>
@@ -88,7 +94,7 @@
             android:layout_marginTop="8dp"
             android:clipToPadding="false"
             android:padding="12dp"
-            app:items="@{viewModel.searchResult.toData()}"
+            app:items="@{viewModel.searchingResponse.toData()}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />

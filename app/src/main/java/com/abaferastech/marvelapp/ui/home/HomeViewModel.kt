@@ -20,12 +20,19 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     SeriesInteractionListener {
     private val repository = MarvelRepository()
 
-    private val _homeData = MediatorLiveData<List<DataItem>>()
-    val homeData: MediatorLiveData<List<DataItem>> get() = _homeData
+
 
     private val _characters = MutableLiveData<UIState<List<Characters>>>()
     private val _comics = MutableLiveData<UIState<List<Comics>>>()
     private val _series = MutableLiveData<UIState<List<Series>>>()
+
+    private val _homeData = MediatorLiveData<List<DataItem>>()
+        .apply {
+            addSource(_characters) { updateHomeData() }
+            addSource(_comics) { updateHomeData() }
+            addSource(_series) { updateHomeData() }
+        }
+    val homeData: MediatorLiveData<List<DataItem>> get() = _homeData
 
 
     private val _isCharacterClicked = MutableLiveData<Boolean>()
@@ -36,14 +43,9 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
 
 
     init {
-        _homeData.addSource(_characters) { updateHomeData() }
-        _homeData.addSource(_comics) { updateHomeData() }
-        _homeData.addSource(_series) { updateHomeData() }
-
         repository.getAllCharacters().applySchedulersAndPostUIStates(_characters::postValue)
         repository.getAllComics().applySchedulersAndPostUIStates(_comics::postValue)
         repository.getAllSeries().applySchedulersAndPostUIStates(_series::postValue)
-
     }
 
     private fun updateHomeData() {
