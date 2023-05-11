@@ -7,14 +7,36 @@
             android:id="@+id/horizontalScrollView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="@dimen/space_16dp"
             android:scrollbars="none"
-            app:visibilityMode="ignore"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_text_input_layout"/>
+            app:layout_constraintTop_toBottomOf="@+id/search_text_input_layout"
+            app:visibilityMode="ignore" />
+
+        <Constraint
+            android:id="@+id/text_view_search_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_data_found"
+            app:layout_constraintBottom_toBottomOf="@+id/recycler_view_search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibilityMode="ignore" />
+
+        <Constraint
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:visibilityMode="ignore"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
@@ -23,14 +45,14 @@
             android:id="@+id/horizontalScrollView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:clipToPadding="false"
             android:layout_marginStart="@dimen/space_16dp"
             android:layout_marginEnd="@dimen/space_16dp"
+            android:clipToPadding="false"
             android:scrollbars="none"
-            app:visibilityMode="ignore"
             app:layout_constraintBottom_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:visibilityMode="ignore" />
 
         <Constraint
             android:id="@+id/search_text_input_layout"
@@ -47,6 +69,16 @@
             android:paddingEnd="@dimen/space_16dp"
             app:layout_constraintBottom_toTopOf="@+id/horizontalScrollView" />
 
+        <Constraint
+            android:id="@+id/text_view_search_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_data_found"
+            app:layout_constraintBottom_toBottomOf="@+id/recycler_view_search"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:visibilityMode="ignore" />
 
         <Constraint
             android:id="@+id/recycler_view_search"
@@ -57,6 +89,17 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+
+        <Constraint
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:visibilityMode="ignore"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@+id/filter_button"
@@ -70,8 +113,6 @@
             app:layout_constraintBottom_toBottomOf="@+id/search_text_input_layout"
             app:layout_constraintEnd_toEndOf="@+id/search_text_input_layout"
             app:layout_constraintTop_toTopOf="@+id/search_text_input_layout" />
-
-
 
     </ConstraintSet>
 
