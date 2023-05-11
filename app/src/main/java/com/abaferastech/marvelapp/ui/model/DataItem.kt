@@ -8,38 +8,27 @@ import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.ComicsInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
 
-sealed class DataItem() {
+sealed class DataItem(val rank: Int) {
 
     data class ComicsTagItem(
         val tag: Tag<Comics>,
-        val rank: Int,
         val interactionListener: ComicsInteractionListener
-    ) :
-        DataItem()
+    ) : DataItem(2)
 
     data class CharacterTagItem(
-        val tag: Tag<Characters>, val rank: Int,
+        val tag: Tag<Characters>,
         val interactionListener: CharactersInteractionListener
-    ) : DataItem()
+    ) : DataItem(1)
 
     data class SeriesTagItem(
-        val tag: Tag<Series>, val rank: Int,
+        val tag: Tag<Series>,
         val interactionListener: SeriesInteractionListener
-    ) : DataItem()
+    ) : DataItem(3)
 
 
-    data class HeaderItem(
-        val items: List<Characters>,
-        val rank: Int,
-    ) : DataItem()
-
-    data class HeaderDetailsItem(
-        val items: Comics,
-        val rank: Int,
-    ) : DataItem()
-
-    data class TabItem(
-        val items: CharacterDetailsFragment,
-        val rank: Int,
-    ) : DataItem()
+    data class HeaderItem(val items: List<Characters>) : DataItem(0)
 }
+//    data class HeaderDetailsItem(val items: Comics,) : DataItem()
+//
+//    data class TabItem(val items: CharacterDetailsFragment, ) : DataItem()
+

@@ -51,7 +51,7 @@ class CharacterDetailsFragment :
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = "All comics"
-                1 -> tab.text = "Details"
+                1 -> tab.text = "Events"
             }
         }.attach()
 

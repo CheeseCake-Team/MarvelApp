@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.characters.CharactersViewModel" />
+            type="com.abaferastech.marvelapp.ui.seriesScreen.SeriesViewModel" />
+
     </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_view_characters"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/space_12dp"
-        android:clipToPadding="false"
-        app:items="@{viewModel.characters.toData()}"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:spanCount="4"
-        app:showWhenSuccess="@{viewModel.characters}"/>
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_series"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="@dimen/space_12dp"
+            app:items="@{viewModel.series.toData()}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:showWhenSuccess="@{viewModel.series}"
+            tools:listitem="@layout/item_series_horizontal" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="100dp"
@@ -37,8 +37,7 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/loading"
-            app:showWhenLoading="@{viewModel.characters}" />
+            app:showWhenLoading="@{viewModel.series}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

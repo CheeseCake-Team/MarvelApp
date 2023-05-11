@@ -1,9 +1,9 @@
 package com.abaferastech.marvelapp.ui.home
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.model.result.Series
@@ -12,59 +12,82 @@ import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.ComicsInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
-import com.abaferastech.marvelapp.ui.model.DataItem
-import com.abaferastech.marvelapp.ui.model.Tag
-import com.abaferastech.marvelapp.ui.model.UIState
+import com.abaferastech.marvelapp.ui.model.*
 
 class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,
     SeriesInteractionListener {
     private val repository = MarvelRepository()
 
-    private val _homeData = MediatorLiveData<List<DataItem>>()
-    val homeData: MediatorLiveData<List<DataItem>> get() = _homeData
+    private val _homeData = MediatorLiveData<UIState<List<DataItem>>>()
+    val homeData: MediatorLiveData<UIState<List<DataItem>>> get() = _homeData
 
     private val _characters = MutableLiveData<UIState<List<Characters>>>()
     private val _comics = MutableLiveData<UIState<List<Comics>>>()
     private val _series = MutableLiveData<UIState<List<Series>>>()
 
+    val navigationEvent = MutableLiveData<NavigationEvent>()
 
-    private val _isCharacterClicked = MutableLiveData<Boolean>()
-    val isCharacterClicked: LiveData<Boolean> get() = _isCharacterClicked
+    override fun onClickCharacter(character: Characters) {
+        navigationEvent.postValue( NavigationEvent(TYPE.CHARACTER, character.id!!))
+    }
 
-    private val _selectedCharacterID = MutableLiveData<Int>()
-    val selectedCharacterID: LiveData<Int> get() = _selectedCharacterID
+    override fun onClickSeries(series: Series) {
+        navigationEvent.postValue( NavigationEvent(TYPE.SERIES,series.id))
+    }
 
+    override fun onClickComics(comics: Comics) {
+        navigationEvent.postValue( NavigationEvent(TYPE.COMIC, comics.id!!))
+    }
+
+
+    //region
+    val data = mutableListOf<DataItem>()
 
     init {
-        _homeData.addSource(_characters) { updateHomeData() }
-        _homeData.addSource(_comics) { updateHomeData() }
-        _homeData.addSource(_series) { updateHomeData() }
+        _homeData.addSource(_characters) {
+            updateCharacterDataItem()
+            checkAllDataSourcesUpdated()
+        }
+        _homeData.addSource(_comics) {
+            updateComicsDataItem()
+            checkAllDataSourcesUpdated()
+        }
+        _homeData.addSource(_series) {
+            updateSeriesDataItem()
+            checkAllDataSourcesUpdated()
+        }
+
+        _homeData.postValue(UIState.Loading)
 
         repository.getAllCharacters().applySchedulersAndPostUIStates(_characters::postValue)
         repository.getAllComics().applySchedulersAndPostUIStates(_comics::postValue)
         repository.getAllSeries().applySchedulersAndPostUIStates(_series::postValue)
-
     }
 
-    private fun updateHomeData() {
-
-        val characters = _characters.value?.toData() ?: emptyList()
-        val comics = _comics.value?.toData() ?: emptyList()
-        val series = _series.value?.toData() ?: emptyList()
-
-        Log.d("TAG", "characters updateHomeData: $characters")
-        Log.d("TAG", "comics updateHomeData: $comics")
-        Log.d("TAG", "series updateHomeData: $series")
-
-        val data = listOf(
-            DataItem.HeaderItem(characters.shuffled().take(3), 0),
+    private fun updateCharacterDataItem() {
+        val characters = _characters.value?.toData()
+        data.add(DataItem.HeaderItem(characters?.shuffled()?.take(4)!!))
+        data.add(
             DataItem.CharacterTagItem(
-                Tag("CHARACTERS", characters.shuffled()), 1, this
-            ),
-            DataItem.ComicsTagItem(Tag("COMICS", comics.shuffled()), 2, this),
-            DataItem.SeriesTagItem(Tag("SERIES", series.shuffled()), 3, this)
+                Tag("CHARACTERS", characters.shuffled()), this
+            )
         )
-        _homeData.postValue(data)
+    }
+
+    private fun checkAllDataSourcesUpdated() {
+        if (data.size == 4) {
+            _homeData.postValue(UIState.Success(data.sortedBy { it.rank }))
+        }
+    }
+
+    private fun updateComicsDataItem() {
+        val comics = _comics.value?.toData() ?: emptyList()
+        data.add(DataItem.ComicsTagItem(Tag("COMICS", comics.shuffled()), this))
+    }
+
+    private fun updateSeriesDataItem() {
+        val series = _series.value?.toData() ?: emptyList()
+        data.add(DataItem.SeriesTagItem(Tag("SERIES", series.shuffled()), this))
     }
 
     override fun onCleared() {
@@ -74,21 +97,8 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         _homeData.removeSource(_series)
     }
 
-    override fun onClickCharacter(character: Characters) {
-        _isCharacterClicked.postValue(true)
-        _selectedCharacterID.postValue(character.id!!)
-    }
+//endregion
 
 
-    override fun onClickSeries(series: Series) {
-        TODO("Not yet implemented")
-    }
 
-    override fun onClickComics(comics: Comics) {
-        TODO("Not yet implemented")
-    }
-
-    fun resetCharacterClickStatus() {
-        _isCharacterClicked.value = false
-    }
 }
