@@ -25,7 +25,7 @@ interface MarvelApiService {
     fun searchInSeries (@Query("titleStartsWith") searchQuery: String): Single<Response<MarvelBaseResponse<Series>>>
 
     @GET("events")
-    fun searchInEvents (@Query("titleStartsWith") searchQuery: String): Single<Response<MarvelBaseResponse<Events>>>
+    fun searchInEvents (@Query("nameStartsWith") searchQuery: String): Single<Response<MarvelBaseResponse<Events>>>
 
     @GET("characters")
     fun searchInCharacters (@Query("nameStartsWith") searchQuery: String): Single<Response<MarvelBaseResponse<Characters>>>
