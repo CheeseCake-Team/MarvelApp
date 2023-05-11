@@ -25,28 +25,18 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     private val _comics = MutableLiveData<UIState<List<Comics>>>()
     private val _series = MutableLiveData<UIState<List<Series>>>()
 
-    val navigationEvent = MutableLiveData<Event<TYPE>>()
-
-
-
-
-
-    private val _selectedItemID = MutableLiveData<Int>()
-    val selectedItemID: LiveData<Int> get() = _selectedItemID
+    val navigationEvent = MutableLiveData<NavigationEvent>()
 
     override fun onClickCharacter(character: Characters) {
-        _selectedItemID.postValue(character.id!!)
-        navigationEvent.postValue( NavigationEvent(TYPE.CHARACTER))
+        navigationEvent.postValue( NavigationEvent(TYPE.CHARACTER, character.id!!))
     }
 
     override fun onClickSeries(series: Series) {
-        _selectedItemID.postValue(series.id)
-        navigationEvent.postValue( NavigationEvent(TYPE.SERIES))
+        navigationEvent.postValue( NavigationEvent(TYPE.SERIES,series.id))
     }
 
     override fun onClickComics(comics: Comics) {
-        _selectedItemID.postValue(comics.id!!)
-        navigationEvent.postValue( NavigationEvent(TYPE.COMIC))
+        navigationEvent.postValue( NavigationEvent(TYPE.COMIC, comics.id!!))
     }
 
 
