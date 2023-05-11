@@ -22,11 +22,12 @@ class CreatorsFragment : BaseFragment<FragmentCreatorsBinding,CreatorsViewModel>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        val typeID = arguments?.getInt(Constants.TYPE_ID)
-//        when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
-//            TYPE.SERIES -> viewModel.getSeriesCreators(typeID!!)
-//            else -> viewModel.getMarvelCreators()
-//        }
+        val typeID = arguments?.getInt(Constants.TYPE_ID)
+        when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
+            TYPE.SERIES -> viewModel.getSeriesCreators(typeID!!)
+            TYPE.COMIC -> viewModel.getComicCreators(typeID!!)
+            else -> viewModel.getMarvelCreators()
+        }
 
         val adapter = CreatorsAdapter(emptyList(), object : CreatorsInteractionListener {
             override fun onClickCreators(creators: Creators) {

@@ -27,5 +27,9 @@ class CreatorsViewModel: BaseViewModel() {
         repository.getSeriesCreators(seriesId)
             .applySchedulersAndPostUIStates(_creators::postValue)
     }
+    fun getComicCreators(comicId: Int) {
+        repository.getComicCreators(comicId)
+            .applySchedulersAndPostUIStates(_creators::postValue)
+    }
 
 }
