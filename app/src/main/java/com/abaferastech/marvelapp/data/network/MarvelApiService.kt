@@ -14,6 +14,12 @@ interface MarvelApiService {
     @GET("events/{eventId}/comics")
     fun getEventComics(@Path("eventId") eventId: Int) : Single<Response<MarvelResponse<Comics>>>
 
+    @GET("events/{eventId}/characters")
+    fun getEventCharacters(@Path("eventId") eventId: Int): Single<Response<MarvelResponse<Characters>>>
+
+    @GET("events/{eventId}/creators")
+    fun getEventCreators(@Path("eventId") eventId: Int): Single<Response<MarvelResponse<Creators>>>
+
     @GET("events")
     fun getAllEvents(): Single<Response<MarvelResponse<Events>>>
 

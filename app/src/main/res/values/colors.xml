@@ -31,4 +31,5 @@
     <color name="md_theme_outlineVariant">#D7C1C0</color>
     <color name="md_theme_scrim">#000000</color>
     <color name="search_bar_background_color">#E9E7EC</color>
+    <color name="white">#EEEEEE</color>
 </resources>

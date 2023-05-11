@@ -13,29 +13,45 @@
     </data>
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/fragment_event_scene">
 
 
-        <ImageView
+        <androidx.constraintlayout.utils.widget.ImageFilterButton
             android:id="@+id/image_view_event_thumbnail"
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:foreground="@drawable/header_gradient"
+            android:layout_height="350dp"
+            android:foreground="@drawable/header_details_gradient"
             app:imageUrl="@{viewModel.event.thumbnail}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@color/design_default_color_secondary_variant" />
-
-
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="15dp"
+            android:background="@null"
+            android:elevation="8dp"
+            android:minWidth="48dp"
+            android:layout_marginTop="20dp"
+            android:minHeight="48dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@drawable/arrow_back" />
         <TextView
-            android:id="@+id/text_view_title"
+            android:id="@+id/event_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:textSize="24sp"
+            android:ellipsize="end"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginBottom="16dp"
+            android:maxLines="1"
             android:text="@{viewModel.event.title}"
             tools:text="Mujtaba"
             app:layout_constraintBottom_toBottomOf="@id/image_view_event_thumbnail"
@@ -44,31 +60,46 @@
 
 
         <TextView
-            android:id="@+id/text_view_description"
+            android:id="@+id/event_description"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
             android:layout_margin="16dp"
             android:text="@{viewModel.event.description}"
-            tools:text=""
+            tools:text="description"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:maxLines="3"
             app:layout_constraintTop_toBottomOf="@id/image_view_event_thumbnail"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_event_comics"
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/event_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:tabIndicatorGravity="bottom"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/event_view_pager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_description"
+            app:tabTextColor="@color/md_theme_inverseSurface" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/event_view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:clipToPadding="false"
-            android:paddingVertical="12dp"
-            app:items="@{viewModel.comics}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_description"
-            tools:listitem="@layout/item_comic_horizontal" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_tab_layout">
+
+        </androidx.viewpager2.widget.ViewPager2>
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 
 
 
