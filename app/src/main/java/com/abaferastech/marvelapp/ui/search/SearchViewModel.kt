@@ -40,20 +40,24 @@ class SearchViewModel : BaseViewModel() {
                 when (searchType.value) {
                     TYPE.SERIES -> repository.searchInSeries(searchQuery).toObservable()
                         .map {
+                            isLoading.postValue(false)
                             SearchItem.Series(it.toData() as List<Series>)
                         }
 
                     TYPE.CHARACTER -> repository.searchInCharacters(searchQuery).toObservable()
                         .map {
+                            isLoading.postValue(false)
                             SearchItem.Character(it.toData() as List<Characters>)
                         }
 
                     TYPE.EVENT -> repository.searchInEvents(searchQuery).toObservable()
                         .map {
+                            isLoading.postValue(false)
                             SearchItem.Event(it.toData() as List<Events>)
                         }
 
                     else -> repository.searchInComics(searchQuery).toObservable().map {
+                        isLoading.postValue(false)
                         SearchItem.Comic(it.toData() as List<Comics>)
                     }
 
