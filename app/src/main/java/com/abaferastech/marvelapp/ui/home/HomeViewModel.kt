@@ -4,14 +4,22 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.*
-import com.abaferastech.marvelapp.data.model.response.MarvelResponse
-import com.abaferastech.marvelapp.data.model.state.State
+import com.abaferastech.marvelapp.data.model.response.MarvelBaseResponse
+import com.abaferastech.marvelapp.data.model.result.Characters
+import com.abaferastech.marvelapp.data.model.result.Comics
+import com.abaferastech.marvelapp.data.model.result.Series
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
+import com.abaferastech.marvelapp.ui.comic.comics.ComicsInteractionListener
+import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
+import com.abaferastech.marvelapp.ui.model.DataItem
+import com.abaferastech.marvelapp.ui.model.Tag
+import com.abaferastech.marvelapp.ui.model.UIState
 import io.reactivex.rxjava3.kotlin.addTo
 
-class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,SeriesInteractionListener{
+class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,
+    SeriesInteractionListener {
     private val repository = MarvelRepository()
 
     private val _homeData = MutableLiveData<List<DataItem>?>()
@@ -23,8 +31,12 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     private val _selectedCharacterItem = MutableLiveData<SentData>()
     val selectedCharacterItem: LiveData<SentData> get() = _selectedCharacterItem
 
+
     private val _selectedComicItem = MutableLiveData<SentData>()
     val selectedComicItem: LiveData<SentData> get() = _selectedComicItem
+
+
+
 
 
 
@@ -35,15 +47,13 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     }
 
     private fun onSuccessZip(
-        results:Triple<State<MarvelResponse<Characters>>,
-                State<MarvelResponse<Comics>>,
-                State<MarvelResponse<Series>>>,
-
-
+        results:Triple<UIState<MarvelBaseResponse<Characters>>,
+                UIState<MarvelBaseResponse<Comics>>,
+                UIState<MarvelBaseResponse<Series>>>,
 
     ) {
         when {
-            results.first is State.Success && results.second is State.Success && results.third is State.Success -> {
+            results.first is UIState.Success && results.second is UIState.Success && results.third is UIState.Success -> {
                 val characters = results.first.toData()?.data!!.results
                     .filter { it.thumbnail?.path != "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available" }
                 val comics = results.second.toData()?.data!!.results
@@ -78,8 +88,8 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         //TODO("Not yet implemented")
     }
 
-    override fun onClickComics(comicId: Int) {
-        _selectedComicItem.postValue(SentData(true,comicId))
+    override fun onClickComics(comic: Comics) {
+        _selectedComicItem.postValue(SentData(true,comic.id!!))
     }
 
 
