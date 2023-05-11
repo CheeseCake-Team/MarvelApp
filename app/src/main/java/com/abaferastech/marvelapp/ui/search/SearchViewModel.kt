@@ -1,15 +1,15 @@
 package com.abaferastech.marvelapp.ui.search
 
-import android.util.Log
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.data.model.result.Comics
+import com.abaferastech.marvelapp.data.model.result.Events
+import com.abaferastech.marvelapp.data.model.result.Series
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.SearchItem
 import com.abaferastech.marvelapp.ui.model.TYPE
-import com.abaferastech.marvelapp.ui.model.UIState
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
@@ -17,40 +17,41 @@ import java.util.concurrent.TimeUnit
 class SearchViewModel : BaseViewModel() {
     private val repository = MarvelRepository()
 
-
     val searchQuery = MutableLiveData<String>()
-    val searchType = MutableLiveData<TYPE>()
+
+    private val _searchType = MutableLiveData(TYPE.COMIC)
+
+    val searchType: LiveData<TYPE> get() = _searchType
 
     private val searchObserver: PublishSubject<String> = PublishSubject.create()
 
-    private var _searchingResponse = MutableLiveData<UIState<List<Comics>>>()
-    val searchingResponse: LiveData<UIState<List<Comics>>> get() = _searchingResponse
+    private var _searchingResponse = MutableLiveData<SearchItem>()
 
-    val searchResult = MediatorLiveData<SearchItem>().apply {
-        addSource(searchQuery) { search(it) }
-        addSource(searchType) { search(searchQuery.value.toString()) }
-    }
-
+    val searchingResponse: LiveData<SearchItem> get() = _searchingResponse
 
     init {
-        searchType.postValue(TYPE.COMIC)
         searchObserver
             .debounce(2, TimeUnit.SECONDS)
-            .flatMap {
-                Log.i("dfa: ", "query $it")
-                Log.i("dfa: ", "${searchType.value}")
+            .flatMap { searchQuery ->
                 when (searchType.value) {
-                    TYPE.COMIC -> repository.searchInComics(it).toObservable()
-                    TYPE.SERIES -> TODO()
-                    TYPE.CHARACTER -> TODO()
-                    TYPE.EVENT -> TODO()
-                    TYPE.CREATOR -> TODO()
-                    null -> TODO()
+                    TYPE.SERIES -> repository.searchInSeries(searchQuery).toObservable()
+                        .map {
+                            SearchItem.Series(it.toData() as List<Series>)
+                        }
+                    TYPE.CHARACTER -> repository.searchInCharacters(searchQuery).toObservable()
+                        .map {
+                            SearchItem.Character(it.toData() as List<Characters>)
+                        }
+                    TYPE.EVENT -> repository.searchInEvents(searchQuery).toObservable()
+                        .map {
+                            SearchItem.Event(it.toData() as List<Events>)
+                        }
+                    else -> repository.searchInComics(searchQuery).toObservable().map {
+                        SearchItem.Comic(it.toData() as List<Comics>)
+                    }
                 }
-
             }
-//            .distinctUntilChanged()
-            .subscribe(_searchingResponse::postValue, ::onError)
+            .subscribe(_searchingResponse::postValue)
             .addTo(compositeDisposable)
 
     }
@@ -62,11 +63,12 @@ class SearchViewModel : BaseViewModel() {
     }
 
     fun changeSearchType(type: TYPE) {
-        searchType.postValue(type)
+        _searchType.postValue(type)
+        search(searchQuery.value.toString())
     }
 
-    private fun onError(errorMessage: Throwable) {
+    /*private fun onError(errorMessage: Throwable) {
         _searchingResponse.postValue(UIState.Error(errorMessage.message.toString()))
-    }
+    }*/
 
 }
