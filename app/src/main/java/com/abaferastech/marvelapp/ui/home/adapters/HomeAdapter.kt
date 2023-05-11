@@ -8,19 +8,20 @@ import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.databinding.ItemHeaderViewPagerBinding
 import com.abaferastech.marvelapp.databinding.ItemTagBinding
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
+import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 import com.zhpan.indicator.enums.IndicatorStyle
 
 private const val HEADER_ITEM = 0
 private const val TAG_ITEM = 1
 
-interface NavigationInteractionListener {
+interface NavigationInteractionListener: BaseInteractionListener {
     fun onNavigate(dataItem: DataItem)
 }
 
 class HomeAdapter(
     private val items: List<DataItem>,
     private val navigationListener: NavigationInteractionListener
-) : RecyclerView.Adapter<BaseAdapter.ItemViewHolder>() {
+) : BaseAdapter<DataItem>(items,navigationListener){
     override fun getItemViewType(position: Int): Int {
         return when (items[position]) {
             is DataItem.HeaderItem -> HEADER_ITEM
@@ -29,11 +30,13 @@ class HomeAdapter(
     }
 
     override fun getItemCount() = items.size
+    override val layoutID: Int
+        get() = 0
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseAdapter.ItemViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
         return when (viewType) {
             HEADER_ITEM -> {
-                BaseAdapter.ItemViewHolder(
+                ItemViewHolder(
                     ItemHeaderViewPagerBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent, false
@@ -42,7 +45,7 @@ class HomeAdapter(
             }
 
             TAG_ITEM -> {
-                BaseAdapter.ItemViewHolder(
+                ItemViewHolder(
                     ItemTagBinding.inflate(
                         LayoutInflater.from(parent.context),
                         parent, false
@@ -54,7 +57,7 @@ class HomeAdapter(
         }
     }
 
-    override fun onBindViewHolder(holder: BaseAdapter.ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         when (holder.binding) {
             is ItemTagBinding -> {
                 with(holder.binding) {
