@@ -23,7 +23,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 
         viewModel.homeData.observe(viewLifecycleOwner) {
-            val adapter = HomeAdapter(it as List<DataItem>, this)
+            val adapter = it.toData()?.let { it1 -> HomeAdapter(it1, this) }
             binding.recyclerViewHome.adapter = adapter
         }
 
