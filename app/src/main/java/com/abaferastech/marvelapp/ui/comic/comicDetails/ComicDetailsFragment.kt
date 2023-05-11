@@ -57,7 +57,7 @@ class ComicDetailsFragment :
         tabLayout.apply {
             addTab(tabLayout.newTab().setText("Characters"))
             addTab(tabLayout.newTab().setText("Series"))
-            addTab(tabLayout.newTab().setText("Details"))
+            addTab(tabLayout.newTab().setText("Events"))
         }
         viewPager.adapter = adapter
         initTapLayout()
