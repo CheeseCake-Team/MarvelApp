@@ -17,9 +17,14 @@ import java.util.concurrent.TimeUnit
 class SearchViewModel : BaseViewModel() {
     private val repository = MarvelRepository()
 
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> get() = _isLoading
+
     val searchQuery = MutableLiveData<String>()
 
     private val _searchType = MutableLiveData(TYPE.COMIC)
+
+    val isChipGroupVisible = MutableLiveData<Boolean>(false)
 
     val searchType: LiveData<TYPE> get() = _searchType
 
@@ -31,6 +36,9 @@ class SearchViewModel : BaseViewModel() {
 
     init {
         searchObserver
+            .doOnNext{
+                _isLoading.postValue(true)
+            }
             .debounce(2, TimeUnit.SECONDS)
             .flatMap { searchQuery ->
                 when (searchType.value) {
@@ -38,18 +46,24 @@ class SearchViewModel : BaseViewModel() {
                         .map {
                             SearchItem.Series(it.toData() as List<Series>)
                         }
+
                     TYPE.CHARACTER -> repository.searchInCharacters(searchQuery).toObservable()
                         .map {
                             SearchItem.Character(it.toData() as List<Characters>)
                         }
+
                     TYPE.EVENT -> repository.searchInEvents(searchQuery).toObservable()
                         .map {
                             SearchItem.Event(it.toData() as List<Events>)
                         }
+
                     else -> repository.searchInComics(searchQuery).toObservable().map {
                         SearchItem.Comic(it.toData() as List<Comics>)
                     }
+
                 }
+            }.doOnNext {
+                _isLoading.postValue(false)
             }
             .subscribe(_searchingResponse::postValue)
             .addTo(compositeDisposable)
@@ -70,5 +84,10 @@ class SearchViewModel : BaseViewModel() {
     /*private fun onError(errorMessage: Throwable) {
         _searchingResponse.postValue(UIState.Error(errorMessage.message.toString()))
     }*/
+
+    fun toggleChipGroupVisibility() {
+        isChipGroupVisible.value = !(isChipGroupVisible.value ?: false)
+    }
+
 
 }

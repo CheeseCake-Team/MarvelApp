@@ -1,16 +1,16 @@
 package com.abaferastech.marvelapp.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import com.abaferastech.marvelapp.R
+import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.databinding.FragmentHomeBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.home.adapters.HomeAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.NavigationInteractionListener
-import com.abaferastech.marvelapp.ui.model.DataItem
-import com.abaferastech.marvelapp.ui.model.TYPE
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     NavigationInteractionListener {
@@ -24,29 +24,17 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 
         viewModel.homeData.observe(viewLifecycleOwner) {
-            val adapter = it.toData()?.let { it1 -> HomeAdapter(it1, this) }
+            val adapter = HomeAdapter(it as List<DataItem>, this)
             binding.recyclerViewHome.adapter = adapter
         }
 
-        viewModel.navigationEvent.observe(viewLifecycleOwner) { event ->
-            event.getContentIfNotHandled()?.let { destinationTYPE, ->
-//                val selectedItemID = viewModel.selectedItemID.value
-
-                val action = when (destinationTYPE) {
-                    TYPE.COMIC -> TODO()
-                    TYPE.SERIES -> TODO()
-                    TYPE.CHARACTER ->
-                        HomeFragmentDirections.actionHomeFragmentToCharacterFragment(event.destinationID)
-
-                    else -> null
-                }
-
-                action?.let {
-                    findNavController().navigate(it)
-                }
+        viewModel.selectedCharacterID.observe(viewLifecycleOwner) {
+            if (viewModel.isCharacterClicked.value == true) {
+                val action = HomeFragmentDirections.actionHomeFragmentToCharacterFragment(it)
+                findNavController().navigate(action)
+                viewModel.resetCharacterClickStatus()
             }
         }
-
 
     }
 
@@ -69,5 +57,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             else -> {}
         }
     }
+
 
 }

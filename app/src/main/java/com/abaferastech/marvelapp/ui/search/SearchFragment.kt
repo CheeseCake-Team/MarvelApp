@@ -16,13 +16,13 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.filterButton.setOnClickListener {
-            if(binding.horizontalScrollView.visibility == View.GONE)
-                binding.horizontalScrollView.visibility = View.VISIBLE
-            else{
+        /*binding.filterButton.setOnClickListener {
+            if(binding.horizontalScrollView.visibility == View.VISIBLE)
                 binding.horizontalScrollView.visibility = View.GONE
+            else if (binding.horizontalScrollView.visibility == View.GONE){
+                binding.horizontalScrollView.visibility = View.VISIBLE
             }
-        }
+        }*/
 
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
         viewModel.searchQuery.observe(viewLifecycleOwner) {
