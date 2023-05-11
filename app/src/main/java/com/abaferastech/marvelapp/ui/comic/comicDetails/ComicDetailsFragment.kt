@@ -1,14 +1,15 @@
 package com.abaferastech.marvelapp.ui.comic.comicDetails
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.navigation.findNavController
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentComicDetailsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.characterDetails.CharacterFragmentArgs
 import com.google.android.material.tabs.TabLayout
 
 class ComicDetailsFragment :
@@ -27,6 +28,20 @@ class ComicDetailsFragment :
 
     private val args: ComicDetailsFragmentArgs by navArgs()
 
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar.let {
+            it?.hide()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity).supportActionBar.let {
+            it?.show()
+        }
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
@@ -40,7 +55,8 @@ class ComicDetailsFragment :
         adapter = ComicFragmentPageAdapter(requireActivity().supportFragmentManager,lifecycle,args.comicId)
         viewModel.getSingleComic(args.comicId)
         tabLayout.apply {
-            addTab(tabLayout.newTab().setText("All Comics"))
+            addTab(tabLayout.newTab().setText("Characters"))
+            addTab(tabLayout.newTab().setText("Series"))
             addTab(tabLayout.newTab().setText("Details"))
         }
         viewPager.adapter = adapter

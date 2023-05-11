@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeFragment_to_characterFragment"
             app:destination="@id/characterFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_comicDetailsFragment"
+            app:destination="@id/comicDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventsFragment"
@@ -33,11 +36,11 @@
     </fragment>
     <fragment
         android:id="@+id/characterFragment"
-        android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterFragment"
+        android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsFragment"
         android:label="Character"
         tools:layout="@layout/fragment_character">
         <argument
-            android:name="chatacterId"
+            android:name="characterId"
             app:argType="integer" />
     </fragment>
 <!--    <fragment-->

@@ -23,6 +23,7 @@
             android:layout_height="480dp"
             android:foreground="@drawable/header_details_gradient"
             android:scaleType="centerCrop"
+            app:altSrc="@color/md_theme_surface"
             app:imageUrl="@{viewModel.comics.thumbnail}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +37,8 @@
             android:layout_marginHorizontal="16dp"
             android:layout_marginBottom="32dp"
             android:textSize="24sp"
+            android:lines="1"
+            android:maxEms="25"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -68,6 +71,20 @@
             app:layout_constraintTop_toBottomOf="@+id/tab_layout">
 
         </androidx.viewpager2.widget.ViewPager2>
+
+        <Button
+            android:id="@+id/back_button"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="46dp"
+            app:icon="@drawable/ic_back"
+            app:iconTint="@color/md_theme_onSurface"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 

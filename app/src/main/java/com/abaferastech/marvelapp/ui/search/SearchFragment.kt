@@ -5,6 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.abaferastech.marvelapp.R
+import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.databinding.FragmentSearchBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
@@ -24,6 +25,9 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
         })
         viewModel.searchResult.observe(viewLifecycleOwner, Observer {
             val adapter = ComicsAdapter(it, object : ComicsInteractionListener {
+                override fun onClickComics(comic: Comics) {
+                    //TODO("Not yet implemented")
+                }
 
             })
             binding.recyclerViewSearch.adapter = adapter

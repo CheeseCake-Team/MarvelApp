@@ -21,4 +21,9 @@ class SeriesViewModel : BaseViewModel() {
             .applySchedulersAndPostUIStates(_series::postValue)
     }
 
+    fun getComicSeries(characterId: Int) {
+        repository.getComicSeries(characterId)
+            .applySchedulersAndPostUIStates(_series::postValue)
+    }
+
 }

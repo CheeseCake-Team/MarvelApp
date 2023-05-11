@@ -1,6 +1,5 @@
 package com.abaferastech.marvelapp.utils
 
-import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
@@ -9,7 +8,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.data.model.response.Thumbnail
-import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.characters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.home.HomeFragmentDirections

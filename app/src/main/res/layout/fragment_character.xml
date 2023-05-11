@@ -72,6 +72,8 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="46dp"
             app:icon="@drawable/ic_back"
+            android:singleLine="true"
+            android:maxEms="25"
             app:iconTint="@color/md_theme_onSurface"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
             app:layout_constraintStart_toStartOf="parent"
