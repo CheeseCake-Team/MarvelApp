@@ -38,9 +38,18 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     val data = mutableListOf<DataItem>()
 
     init {
-        _homeData.addSource(_characters) { updateCharacterDataItem() }
-        _homeData.addSource(_comics) { updateComicsDataItem() }
-        _homeData.addSource(_series) { updateSeriesDataItem() }
+        _homeData.addSource(_characters) {
+            updateCharacterDataItem()
+            checkAllDataSourcesUpdated()
+        }
+        _homeData.addSource(_comics) {
+            updateComicsDataItem()
+            checkAllDataSourcesUpdated()
+        }
+        _homeData.addSource(_series) {
+            updateSeriesDataItem()
+            checkAllDataSourcesUpdated ()
+        }
 
         _homeData.postValue(UIState.Loading)
 
@@ -57,21 +66,21 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
                 Tag("CHARACTERS", characters.shuffled()), this
             )
         )
-
-        _homeData.postValue(UIState.Success(data.sortedBy { it.rank }))
+    }
+    private fun checkAllDataSourcesUpdated() {
+        if (data.size == 4) {
+            _homeData.postValue(UIState.Success(data.sortedBy { it.rank }))
+        }
     }
 
     private fun updateComicsDataItem() {
         val comics = _comics.value?.toData() ?: emptyList()
         data.add(DataItem.ComicsTagItem(Tag("COMICS", comics.shuffled()), this))
-
-        _homeData.postValue(UIState.Success(data.sortedBy { it.rank }))
     }
 
     private fun updateSeriesDataItem() {
         val series = _series.value?.toData() ?: emptyList()
         data.add(DataItem.SeriesTagItem(Tag("SERIES", series.shuffled()), this))
-        _homeData.postValue(UIState.Success(data.sortedBy { it.rank }))
     }
 
     override fun onCleared() {
