@@ -1,7 +1,7 @@
 package com.abaferastech.marvelapp.utils
 
 import android.view.View
-import android.widget.Button
+import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -25,7 +25,6 @@ import com.abaferastech.marvelapp.ui.model.SearchItem
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.model.UIState
 import com.bumptech.glide.Glide
-import com.google.android.material.chip.ChipGroup
 
 @BindingAdapter(value = ["app:imageUrl"])
 fun imageUrl (view: ImageView, thumbnail: Thumbnail?){
@@ -137,8 +136,8 @@ fun setAdapter(view: RecyclerView, dataItem: DataItem) {
 }
 
 @BindingAdapter("app:chipGroupVisibility")
-fun chipGroupVisibility(chipGroup: ChipGroup, isVisible: Boolean) {
-    chipGroup.visibility = if (isVisible) View.VISIBLE else View.GONE
+fun chipGroupVisibility(horizontalScrollView: HorizontalScrollView, isVisible: Boolean) {
+    horizontalScrollView.visibility = if (isVisible) View.VISIBLE else View.GONE
 }
 
 
