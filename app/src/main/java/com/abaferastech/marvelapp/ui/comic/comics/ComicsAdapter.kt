@@ -12,5 +12,6 @@ class ComicsAdapter(items: List<Comics>, listener: ComicsInteractionListener) :
 }
 
 interface ComicsInteractionListener : BaseInteractionListener {
+    fun onClickComics(comic: Comics)
 }
 

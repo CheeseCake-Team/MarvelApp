@@ -7,59 +7,65 @@
 
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsViewModel" />
+            type="com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsViewModel" />
 
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/motion_character"
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutDescription="@xml/fragment_character_details_scene">
+        app:layoutDescription="@xml/fragment_comics_details_xml_constraintlayout_scene">
 
 
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:id="@+id/image_view_comic_image2"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="480dp"
             android:foreground="@drawable/header_details_gradient"
             android:scaleType="centerCrop"
             app:altSrc="@color/md_theme_surface"
-            app:imageUrl="@{viewModel.character.toData().thumbnail}"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:imageUrl="@{viewModel.comics.toData().thumbnail}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@color/material_dynamic_tertiary70" />
 
         <TextView
-            android:id="@+id/text_character_name"
+            android:id="@+id/text_comic_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="16dp"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_marginBottom="32dp"
+            android:lines="1"
+            android:maxEms="25"
+            android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/back_button"
-            app:layout_constraintVertical_bias="1.0"
-            app:text="@{viewModel.character.toData().name}"
+            app:text="@{viewModel.comics.toData().title}"
             tools:text="TextView" />
+
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tab_layout"
             style="@style/Widget.Material3.TabLayout.Secondary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/view_pager"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_comic_image2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_comic_title"
             app:tabGravity="fill"
-            app:tabMode="scrollable"/>
+            app:tabMode="scrollable" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tab_layout">
 
         </androidx.viewpager2.widget.ViewPager2>
@@ -72,8 +78,6 @@
             android:layout_marginStart="16dp"
             android:layout_marginTop="46dp"
             app:icon="@drawable/ic_back"
-            android:singleLine="true"
-            android:maxEms="25"
             app:iconTint="@color/md_theme_onSurface"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
             app:layout_constraintStart_toStartOf="parent"
@@ -81,4 +85,5 @@
             app:layout_constraintVertical_bias="0.0" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
+
 </layout>

@@ -16,8 +16,13 @@ class SeriesViewModel : BaseViewModel() {
     init {
         getMarvelSeries()
     }
-    private fun getMarvelSeries() {
+    fun getMarvelSeries() {
         repository.getAllSeries()
+            .applySchedulersAndPostUIStates(_series::postValue)
+    }
+
+    fun getComicSeries(characterId: Int) {
+        repository.getComicSeries(characterId)
             .applySchedulersAndPostUIStates(_series::postValue)
     }
 

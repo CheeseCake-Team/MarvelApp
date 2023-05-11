@@ -16,35 +16,51 @@ import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.Tag
 import com.abaferastech.marvelapp.ui.model.UIState
 
-class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,
-    SeriesInteractionListener {
+class HomeViewModel : BaseViewModel(), CharactersInteractionListener,
+    SeriesInteractionListener, ComicsInteractionListener {
+
     private val repository = MarvelRepository()
+
+    private val _homeData = MediatorLiveData<List<DataItem>>()
+    val homeData: MediatorLiveData<List<DataItem>> get() = _homeData
 
     private val _characters = MutableLiveData<UIState<List<Characters>>>()
     private val _comics = MutableLiveData<UIState<List<Comics>>>()
     private val _series = MutableLiveData<UIState<List<Series>>>()
 
-    private val _homeData = MediatorLiveData<List<DataItem>>()
-        .apply {
-            addSource(_characters) { updateHomeData() }
-            addSource(_comics) { updateHomeData() }
-            addSource(_series) { updateHomeData() }
-        }
-    val homeData: MediatorLiveData<List<DataItem>> get() = _homeData
 
 
-    private val _isCharacterClicked = MutableLiveData<Boolean>(false)
-    val isCharacterClicked: LiveData<Boolean> get() = _isCharacterClicked
+    private val _selectedCharacterItem = MutableLiveData<SentData>()
+    val selectedCharacterItem: LiveData<SentData> get() = _selectedCharacterItem
 
-    private val _selectedCharacterID = MutableLiveData<Int>()
-    val selectedCharacterID: LiveData<Int> get() = _selectedCharacterID
 
-    private val _navigated = MutableLiveData<Boolean?>()
+    private val _selectedComicItem = MutableLiveData<SentData>()
+    val selectedComicItem: LiveData<SentData> get() = _selectedComicItem
+
+    private val _selectedSeriesItem = MutableLiveData<SentData>()
+    val selectedSeriesItem: LiveData<SentData> get() = _selectedSeriesItem
+
+
+
+
+
 
     init {
+        _homeData.addSource(_characters) { updateHomeData() }
+        _homeData.addSource(_comics) { updateHomeData() }
+        _homeData.addSource(_series) { updateHomeData() }
+
         repository.getAllCharacters().applySchedulersAndPostUIStates(_characters::postValue)
         repository.getAllComics().applySchedulersAndPostUIStates(_comics::postValue)
         repository.getAllSeries().applySchedulersAndPostUIStates(_series::postValue)
+
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        _homeData.removeSource(_characters)
+        _homeData.removeSource(_comics)
+        _homeData.removeSource(_series)
     }
 
     private fun updateHomeData() {
@@ -60,52 +76,36 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         val data = listOf(
             DataItem.HeaderItem(characters.shuffled().take(3), 0),
             DataItem.CharacterTagItem(
-                Tag("CHARACTERS", characters.shuffled()), 1, this
-            ),
+                Tag("CHARACTERS", characters.shuffled()), 1, this),
             DataItem.ComicsTagItem(Tag("COMICS", comics.shuffled()), 2, this),
             DataItem.SeriesTagItem(Tag("SERIES", series.shuffled()), 3, this)
         )
         _homeData.postValue(data)
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        _homeData.removeSource(_characters)
-        _homeData.removeSource(_comics)
-        _homeData.removeSource(_series)
-    }
 
     override fun onClickCharacter(character: Characters) {
-        if (character.id != null) {
-            _isCharacterClicked.value = true
-            _selectedCharacterID.postValue(character.id!!)
-        }
+        _selectedCharacterItem.postValue(SentData(true,character.id!!))
     }
 
-    /**
-     * Returns the content if it has not been handled, or null if it has already been handled.
-     */
-//    fun <T> LiveData<T>.getContentIfNotHandled(): T? {
-//        val content = this.value
-//        if (content != null) {
-//            this.value = null
-//        }
-//        return content
-//    }
-
-    fun onNavigationHandled() {
-        _navigated.value = null
-    }
 
     override fun onClickSeries(series: Series) {
-        TODO("Not yet implemented")
+        _selectedSeriesItem.postValue(SentData(true,series.id))
     }
 
-    override fun onClickComics(comics: Comics) {
-        TODO("Not yet implemented")
+    override fun onClickComics(comicId: Int) {
+        _selectedComicItem.postValue(SentData(true,comicId))
     }
 
-    fun resetCharacterClickStatus() {
-        _isCharacterClicked.value = false
+    fun resetCharacterDataSent() {
+        _selectedCharacterItem.value?.clicked = false
     }
+
+    fun resetComicDataSent(){
+        _selectedComicItem.value?.clicked = false
+    }
+
+
+    data class SentData(var clicked: Boolean,val id: Int)
 }
+

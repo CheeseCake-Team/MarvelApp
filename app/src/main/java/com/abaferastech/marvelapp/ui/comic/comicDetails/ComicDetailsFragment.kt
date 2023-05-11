@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.ui.characterDetails
+package com.abaferastech.marvelapp.ui.comic.comicDetails
 
 import android.os.Bundle
 import android.view.View
@@ -6,26 +6,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.databinding.FragmentCharacterBinding
+import com.abaferastech.marvelapp.databinding.FragmentComicDetailsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
+import com.abaferastech.marvelapp.ui.characterDetails.CharacterFragmentPageAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
-class CharacterDetailsFragment :
-    BaseFragment<FragmentCharacterBinding, CharacterDetailsViewModel>() {
+class ComicDetailsFragment :
+    BaseFragment<FragmentComicDetailsBinding, ComicDetailsViewModel>() {
 
     override val layoutIdFragment: Int
-        get() = R.layout.fragment_character
-    override val viewModelClass: Class<CharacterDetailsViewModel>
-        get() = CharacterDetailsViewModel::class.java
+        get() = R.layout.fragment_comic_details
 
-    private val args: CharacterDetailsFragmentArgs by navArgs()
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override val viewModelClass: Class<ComicDetailsViewModel>
+        get() = ComicDetailsViewModel::class.java
 
-        viewModel.getSingleCharacter(args.characterId)
-
-        init()
-    }
+    private val args: ComicDetailsFragmentArgs by navArgs()
 
     override fun onResume() {
         super.onResume()
@@ -41,20 +36,28 @@ class CharacterDetailsFragment :
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getSingleComic(args.comicId)
+
+        init()
+    }
+
+
     private fun init() {
-        val adapter = CharacterFragmentPageAdapter(
+        val adapter = ComicFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
-            args.characterId
+            args.comicId
         )
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = "All comics"
-                1 -> tab.text = "Events"
+                0 -> tab.text = "Character"
+                1 -> tab.text = "Creators"
             }
         }.attach()
-
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }

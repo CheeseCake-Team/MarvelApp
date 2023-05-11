@@ -3,6 +3,7 @@ package com.abaferastech.marvelapp.ui.comic.comics
 import android.os.Bundle
 import android.view.View
 import com.abaferastech.marvelapp.R
+import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.databinding.FragmentComicsViewAllHorizontalBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.model.TYPE
@@ -30,7 +31,11 @@ class ComicsViewAllHorizontalFragment :
             else -> viewModel.getMarvelComics()
         }
 
-        val adapter = ComicsAdapter(emptyList(), object : ComicsInteractionListener {})
+        val adapter = ComicsAdapter(emptyList(), object : ComicsInteractionListener {
+            override fun onClickComics(comic: Comics) {
+                //TODO("Not yet implemented")
+            }
+        })
         binding.recyclerViewComics.adapter = adapter
     }
 
