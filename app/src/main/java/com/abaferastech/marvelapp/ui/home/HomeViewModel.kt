@@ -60,7 +60,7 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
 
     private fun updateCharacterDataItem() {
         val characters = _characters.value?.toData()
-        data.add(DataItem.HeaderItem(characters?.shuffled()?.take(3)!!))
+        data.add(DataItem.HeaderItem(characters?.shuffled()?.take(4)!!))
         data.add(
             DataItem.CharacterTagItem(
                 Tag("CHARACTERS", characters.shuffled()), this
