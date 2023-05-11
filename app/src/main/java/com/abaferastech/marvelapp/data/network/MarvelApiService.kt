@@ -19,16 +19,16 @@ interface MarvelApiService {
     fun getAllEvents(): Single<Response<MarvelBaseResponse<Events>>>
 
     @GET("comics")
-    fun searchInComics (@Query("title") searchQuery: String): Single<Response<MarvelBaseResponse<Comics>>>
+    fun searchInComics (@Query("titleStartsWith") searchQuery: String): Single<Response<MarvelBaseResponse<Comics>>>
 
     @GET("series")
-    fun searchInSeries (@Query("title") searchQuery: String): Single<Response<MarvelBaseResponse<Series>>>
+    fun searchInSeries (@Query("titleStartsWith") searchQuery: String): Single<Response<MarvelBaseResponse<Series>>>
 
     @GET("events")
-    fun searchInEvents (@Query("title") searchQuery: String): Single<Response<MarvelBaseResponse<Events>>>
+    fun searchInEvents (@Query("titleStartsWith") searchQuery: String): Single<Response<MarvelBaseResponse<Events>>>
 
     @GET("characters")
-    fun searchInCharacters (@Query("name") searchQuery: String): Single<Response<MarvelBaseResponse<Characters>>>
+    fun searchInCharacters (@Query("nameStartsWith") searchQuery: String): Single<Response<MarvelBaseResponse<Characters>>>
 
     @GET("characters/{characterId}")
     fun getSingleCharacter(@Path("characterId") characterId: Int): Single<Response<MarvelBaseResponse<Characters>>>

@@ -22,11 +22,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
         viewModel.searchQuery.observe(viewLifecycleOwner, Observer {
             viewModel.search(it)
         })
-        viewModel.searchResult.observe(viewLifecycleOwner, Observer {
-            val adapter = ComicsAdapter(it, object : ComicsInteractionListener {
-
-            })
-            binding.recyclerViewSearch.adapter = adapter
-        })
+        val adapter = ComicsAdapter(emptyList(), object : ComicsInteractionListener {})
+        binding.recyclerViewSearch.adapter = adapter
     }
 }

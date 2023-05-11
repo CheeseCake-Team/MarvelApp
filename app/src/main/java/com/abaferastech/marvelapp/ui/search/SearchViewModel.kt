@@ -7,8 +7,8 @@ import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.UIState
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.addTo
+import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 
 class SearchViewModel : BaseViewModel() {
@@ -16,32 +16,31 @@ class SearchViewModel : BaseViewModel() {
 
     val searchQuery = MutableLiveData("")
 
-    private var _searchResult = MutableLiveData<List<Comics>>()
+    private val searchObserver: PublishSubject<String> = PublishSubject.create()
 
-    val searchResult: LiveData<List<Comics>> get() = _searchResult
+    private var _searchResult = MutableLiveData<UIState<List<Comics>>>()
+    val searchResult: LiveData<UIState<List<Comics>>> get() = _searchResult
+
+    init {
+        searchObserver
+            .debounce(2, TimeUnit.SECONDS)
+            .flatMap {
+                Log.i("dfa: ", it)
+                repository.searchInComics(it).toObservable()
+            }
+            .distinctUntilChanged()
+            .subscribe(_searchResult::postValue, ::onError)
+            .addTo(compositeDisposable)
+    }
 
     fun search(searchQuery: String) {
-        Observable.just(searchQuery)
-            .debounce(3000, TimeUnit.MILLISECONDS)
-            .distinctUntilChanged()
-            .flatMap {
-                repository.searchInComics(it).toObservable()
-            }.subscribe(::onSuccess, ::onError)
-            .addTo(compositeDisposable)
+        if (searchQuery != "") {
+            searchObserver.onNext(searchQuery)
+        }
     }
 
     private fun onError(e: Throwable) {
         Log.e("MarvelAPI", "getMarvelEvents() - Error: ${e.message}")
-    }
-
-    private fun onSuccess(state: UIState<List<Comics>>) {
-        when (state) {
-            is UIState.Error -> TODO()
-            UIState.Loading -> TODO()
-            is UIState.Success -> {
-                _searchResult.postValue(state.toData())
-            }
-        }
     }
 
 }
