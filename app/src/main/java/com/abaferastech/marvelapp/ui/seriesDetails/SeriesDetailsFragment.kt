@@ -2,6 +2,7 @@ package com.abaferastech.marvelapp.ui.seriesDetails
 
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.navArgs
 import androidx.viewpager2.widget.ViewPager2
 import com.abaferastech.marvelapp.R
@@ -22,7 +23,7 @@ class SeriesDetailsFragment: BaseFragment<FragmentSeriesDetailsBinding,SeriesDet
 //    private val args: SeriesDetailsFragmentArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getSeriesById(15)
+        viewModel.getSeriesById(19244)
         init()
     }
 
@@ -30,17 +31,30 @@ class SeriesDetailsFragment: BaseFragment<FragmentSeriesDetailsBinding,SeriesDet
         tabLayout = binding.tabLayout
         viewPager = binding.viewPager
         adapter = SeriesDetailsFragmentPageAdapter(
-            requireActivity().supportFragmentManager,lifecycle,15)
+            requireActivity().supportFragmentManager,lifecycle,19244)
         tabLayout.apply {
-            addTab(tabLayout.newTab().setText("Comics"))
-            addTab(tabLayout.newTab().setText("Events"))
+            addTab(tabLayout.newTab().setText("Characters"))
             addTab(tabLayout.newTab().setText("Creators"))
+            addTab(tabLayout.newTab().setText("Comics"))
         }
         viewPager.adapter = adapter
         initTapLayout()
         initViewPager()
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar.let {
+            it?.hide()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity).supportActionBar.let {
+            it?.show()
+        }
+    }
     private fun initTapLayout() {
         tabLayout.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
             override fun onTabSelected(tab: TabLayout.Tab?) {
