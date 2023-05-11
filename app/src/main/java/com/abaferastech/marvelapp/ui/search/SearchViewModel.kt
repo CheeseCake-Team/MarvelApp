@@ -17,6 +17,8 @@ import java.util.concurrent.TimeUnit
 class SearchViewModel : BaseViewModel() {
     private val repository = MarvelRepository()
 
+    val isLoading = MutableLiveData<Boolean>(false)
+
     val searchQuery = MutableLiveData<String>()
 
     private val _searchType = MutableLiveData(TYPE.COMIC)
@@ -40,18 +42,24 @@ class SearchViewModel : BaseViewModel() {
                         .map {
                             SearchItem.Series(it.toData() as List<Series>)
                         }
+
                     TYPE.CHARACTER -> repository.searchInCharacters(searchQuery).toObservable()
                         .map {
                             SearchItem.Character(it.toData() as List<Characters>)
                         }
+
                     TYPE.EVENT -> repository.searchInEvents(searchQuery).toObservable()
                         .map {
                             SearchItem.Event(it.toData() as List<Events>)
                         }
+
                     else -> repository.searchInComics(searchQuery).toObservable().map {
                         SearchItem.Comic(it.toData() as List<Comics>)
                     }
+
                 }
+            }.doOnNext {
+                isLoading.postValue(false)
             }
             .subscribe(_searchingResponse::postValue)
             .addTo(compositeDisposable)
@@ -59,6 +67,7 @@ class SearchViewModel : BaseViewModel() {
     }
 
     fun search(searchQuery: String) {
+        isLoading.postValue(true)
         if (searchQuery != "") {
             searchObserver.onNext(searchQuery)
         }
