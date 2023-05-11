@@ -20,8 +20,6 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     SeriesInteractionListener {
     private val repository = MarvelRepository()
 
-
-
     private val _characters = MutableLiveData<UIState<List<Characters>>>()
     private val _comics = MutableLiveData<UIState<List<Comics>>>()
     private val _series = MutableLiveData<UIState<List<Series>>>()
@@ -35,12 +33,13 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     val homeData: MediatorLiveData<List<DataItem>> get() = _homeData
 
 
-    private val _isCharacterClicked = MutableLiveData<Boolean>()
+    private val _isCharacterClicked = MutableLiveData<Boolean>(false)
     val isCharacterClicked: LiveData<Boolean> get() = _isCharacterClicked
 
     private val _selectedCharacterID = MutableLiveData<Int>()
     val selectedCharacterID: LiveData<Int> get() = _selectedCharacterID
 
+    private val _navigated = MutableLiveData<Boolean?>()
 
     init {
         repository.getAllCharacters().applySchedulersAndPostUIStates(_characters::postValue)
@@ -77,10 +76,26 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     }
 
     override fun onClickCharacter(character: Characters) {
-        _isCharacterClicked.postValue(true)
-        _selectedCharacterID.postValue(character.id!!)
+        if (character.id != null) {
+            _isCharacterClicked.value = true
+            _selectedCharacterID.postValue(character.id!!)
+        }
     }
 
+    /**
+     * Returns the content if it has not been handled, or null if it has already been handled.
+     */
+//    fun <T> LiveData<T>.getContentIfNotHandled(): T? {
+//        val content = this.value
+//        if (content != null) {
+//            this.value = null
+//        }
+//        return content
+//    }
+
+    fun onNavigationHandled() {
+        _navigated.value = null
+    }
 
     override fun onClickSeries(series: Series) {
         TODO("Not yet implemented")

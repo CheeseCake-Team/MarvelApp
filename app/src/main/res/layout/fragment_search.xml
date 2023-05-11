@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="com.abaferastech.marvelapp.ui.model.TYPE"/>
 
         <variable
@@ -25,15 +24,17 @@
             android:clipToPadding="false"
             android:padding="@dimen/space_12dp"
             android:scrollbars="none"
-            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_text_input_layout">
 
             <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chip_group"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 app:singleLine="true"
+                app:chipGroupVisibility="@{viewModel.isChipGroupVisible}"
                 app:singleSelection="true">
 
                 <com.google.android.material.chip.Chip
@@ -106,6 +107,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:onClick="@{() -> viewModel.toggleChipGroupVisibility()}"
             android:contentDescription="@string/filter_button"
             app:icon="@drawable/ic_filter"
             app:iconTint="@color/md_theme_onSurfaceVariant"

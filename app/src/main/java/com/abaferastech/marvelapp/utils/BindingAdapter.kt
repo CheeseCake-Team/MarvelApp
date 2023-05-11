@@ -1,11 +1,10 @@
 package com.abaferastech.marvelapp.utils
 
-import android.util.Log
 import android.view.View
+import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.data.model.response.Thumbnail
@@ -19,7 +18,6 @@ import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsInteractionListener
 import com.abaferastech.marvelapp.ui.events.EventAdapter
 import com.abaferastech.marvelapp.ui.events.EventsInteractionListener
-import com.abaferastech.marvelapp.ui.home.HomeFragmentDirections
 import com.abaferastech.marvelapp.ui.home.adapters.ComicAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
@@ -27,6 +25,7 @@ import com.abaferastech.marvelapp.ui.model.SearchItem
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.model.UIState
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.ChipGroup
 
 @BindingAdapter(value = ["app:imageUrl"])
 fun imageUrl (view: ImageView, thumbnail: Thumbnail?){
@@ -137,14 +136,11 @@ fun setAdapter(view: RecyclerView, dataItem: DataItem) {
     }
 }
 
-
-@BindingAdapter("onClickCharacter")
-fun View.setClickCharacter(characterId: Int?) {
-    setOnClickListener {
-        val action = HomeFragmentDirections.actionHomeFragmentToCharacterFragment(characterId!!)
-        findNavController().navigate(action)
-    }
+@BindingAdapter("app:chipGroupVisibility")
+fun chipGroupVisibility(chipGroup: ChipGroup, isVisible: Boolean) {
+    chipGroup.visibility = if (isVisible) View.VISIBLE else View.GONE
 }
+
 
 @BindingAdapter("app:showWhenLoading")
 fun <T> showWhenLoading(view: View, state: UIState<T>?) {
