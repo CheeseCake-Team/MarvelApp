@@ -17,7 +17,8 @@ import java.util.concurrent.TimeUnit
 class SearchViewModel : BaseViewModel() {
     private val repository = MarvelRepository()
 
-    val isLoading = MutableLiveData<Boolean>(false)
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> get() = _isLoading
 
     val searchQuery = MutableLiveData<String>()
 
@@ -35,6 +36,9 @@ class SearchViewModel : BaseViewModel() {
 
     init {
         searchObserver
+            .doOnNext{
+                _isLoading.postValue(true)
+            }
             .debounce(2, TimeUnit.SECONDS)
             .flatMap { searchQuery ->
                 when (searchType.value) {
@@ -59,7 +63,7 @@ class SearchViewModel : BaseViewModel() {
 
                 }
             }.doOnNext {
-                isLoading.postValue(false)
+                _isLoading.postValue(false)
             }
             .subscribe(_searchingResponse::postValue)
             .addTo(compositeDisposable)
@@ -67,7 +71,6 @@ class SearchViewModel : BaseViewModel() {
     }
 
     fun search(searchQuery: String) {
-        isLoading.postValue(true)
         if (searchQuery != "") {
             searchObserver.onNext(searchQuery)
         }
