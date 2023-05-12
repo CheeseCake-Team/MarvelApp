@@ -49,6 +49,7 @@ class CharacterDetailsFragment :
             when (position) {
                 0 -> tab.text = "All comics"
                 1 -> tab.text = "Events"
+                2 -> tab.text = "Details"
             }
         }.attach()
 
