@@ -20,7 +20,8 @@
         style="@style/Widget.Material3.CardView.Filled"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/space_4dp">
+        android:layout_margin="@dimen/space_4dp"
+        android:onClick="@{() -> listener.onClickComic(item)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

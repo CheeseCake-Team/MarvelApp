@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.events.EventsViewModel"/>
+            type="com.abaferastech.marvelapp.ui.event.events.EventsViewModel"/>
 
     </data>
 
@@ -29,16 +29,13 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/item_events"/>
 
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:lottie_autoPlay="true"
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/loading"
             app:showWhenLoading="@{viewModel.events}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

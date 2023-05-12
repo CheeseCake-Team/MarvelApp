@@ -6,6 +6,9 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 
+Properties properties = new Properties()
+properties.load(project.rootProject.file('keys.properties').newDataInputStream())
+
 android {
     namespace 'com.abaferastech.marvelapp'
     compileSdk 33
@@ -19,10 +22,11 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        Properties properties = new Properties()
-        properties.load(project.rootProject.file('keys.properties').newDataInputStream())
+
         buildConfigField "String", "pKey", "\"${properties.getProperty('pKey')}\""
         buildConfigField "String", "lKey", "\"${properties.getProperty('lKey')}\""
+        buildConfigField "String", "BASE_URL", "\"http://gateway.marvel.com/v1/public/\""
+
     }
 
     buildTypes {

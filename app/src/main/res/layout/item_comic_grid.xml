@@ -11,7 +11,7 @@
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.ui.comic.comicsGrid.ComicsInteractionListener" />
+            type="com.abaferastech.marvelapp.ui.comic.comics.ComicsInteractionListener" />
     </data>
 
 
@@ -20,6 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
+        android:onClick="@{() -> listener.onClickComic(item)}"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="4dp">
 

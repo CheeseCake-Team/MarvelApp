@@ -39,7 +39,12 @@
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             app:layout_constraintBottom_toBottomOf="@+id/image_series"
             app:layout_constraintTop_toTopOf="parent"
+<<<<<<< HEAD
             app:layout_constraintVertical_bias="1.0" />
+=======
+            app:layout_constraintVertical_bias="1.0"
+             />
+>>>>>>> origin/fix/development
 
 
         <com.google.android.material.tabs.TabLayout

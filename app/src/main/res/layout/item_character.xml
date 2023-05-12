@@ -11,7 +11,7 @@
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener" />
+            type="com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -26,7 +26,6 @@
             android:layout_height="@dimen/character_image_view_dimens"
             app:imageUrl="@{item.thumbnail}"
             android:scaleType="centerCrop"
-
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearance="@style/CircleImageView"

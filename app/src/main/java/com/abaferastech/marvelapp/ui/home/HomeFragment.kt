@@ -23,28 +23,21 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 
         viewModel.homeData.observe(viewLifecycleOwner) {
-            val adapter = HomeAdapter(it as List<DataItem>,this@HomeFragment)
+            val adapter = it.toData()?.let { it1 -> HomeAdapter(it1, this) }
             binding.recyclerViewHome.adapter = adapter
         }
 
-        viewModel.selectedCharacterItem.observe(viewLifecycleOwner){sentData ->
-            if(sentData.clicked){
-                val selectedCharacter = viewModel.selectedCharacterItem.value!!.id
-                val action = selectedCharacter.let {
-                    HomeFragmentDirections.actionHomeFragmentToCharacterFragment(it)
+        viewModel.navigationEvents.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { homeEvent ->
+                val action = when (homeEvent) {
+                    is HomeEvent.ClickCharacterEvent ->
+                        HomeFragmentDirections.actionHomeFragmentToCharacterFragment(homeEvent.characterID)
+                    is HomeEvent.ClickComicEvent ->
+                        HomeFragmentDirections.actionHomeFragmentToComicDetailsFragment(homeEvent.comicID)
+                    is HomeEvent.ClickSeriesEvent ->
+                        HomeFragmentDirections.actionHomeFragmentToSeriesDetailsFragment(homeEvent.seriesID)
                 }
-                action.let { findNavController().navigate(it) }
-                viewModel.resetCharacterDataSent()
-            }
-        }
-
-        viewModel.selectedComicItem.observe(viewLifecycleOwner){ sentData ->
-            if (sentData.clicked){
-                val selectedComic = viewModel.selectedComicItem.value!!.id
-                val action = selectedComic.let {
-                    HomeFragmentDirections.actionHomeFragmentToComicDetailsFragment(it)}
-                action.let { findNavController().navigate(it) }
-                viewModel.resetComicDataSent()
+                findNavController().navigate(action)
             }
         }
 
@@ -70,5 +63,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             else -> {}
         }
     }
+
 
 }

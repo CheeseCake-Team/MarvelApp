@@ -1,5 +1,6 @@
 package com.abaferastech.marvelapp.data.network
 
+import com.abaferastech.marvelapp.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -7,7 +8,6 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
 object MarvelAPI {
-    private const val BASE_URL = "http://gateway.marvel.com/v1/public/"
 
     private val loggingInterceptor = HttpLoggingInterceptor().apply {
         setLevel(HttpLoggingInterceptor.Level.BODY)
@@ -21,7 +21,7 @@ object MarvelAPI {
 
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl(BASE_URL)
+        .baseUrl(BuildConfig.BASE_URL)
         .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .client(client)
         .addConverterFactory(GsonConverterFactory.create())

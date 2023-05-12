@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.seriesScreen.SeriesViewModel" />
+            type="com.abaferastech.marvelapp.ui.series.seriesScreen.SeriesViewModel" />
 
     </data>
 

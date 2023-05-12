@@ -3,8 +3,8 @@ package com.abaferastech.marvelapp.ui.model
 import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.model.result.Series
-import com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsFragment
-import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
+import com.abaferastech.marvelapp.ui.character.characterDetails.CharacterDetailsFragment
+import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.ComicsInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
 

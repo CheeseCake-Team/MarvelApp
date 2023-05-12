@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsViewModel" />
+            type="com.abaferastech.marvelapp.ui.character.characterDetails.CharacterDetailsViewModel" />
 
     </data>
 
