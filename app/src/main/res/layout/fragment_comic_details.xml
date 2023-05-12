@@ -15,13 +15,13 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layoutDescription="@xml/fragment_comics_details_xml_constraintlayout_scene">
+        app:layoutDescription="@xml/fragment_comics_details_scene">
 
 
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:id="@+id/image_view_comic_image2"
             android:layout_width="match_parent"
-            android:layout_height="480dp"
+            android:layout_height="@dimen/single_page_image_height"
             android:foreground="@drawable/header_details_gradient"
             android:scaleType="centerCrop"
             app:altSrc="@color/md_theme_surface"
@@ -35,11 +35,11 @@
             android:id="@+id/text_comic_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="32dp"
-            android:lines="1"
-            android:maxEms="25"
-            android:textSize="24sp"
+            android:layout_marginHorizontal="@dimen/space_16dp"
+            android:layout_marginBottom="@dimen/space_16dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -75,8 +75,8 @@
             style="?attr/materialIconButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="46dp"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_54dp"
             app:icon="@drawable/ic_back"
             app:iconTint="@color/md_theme_onSurface"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"

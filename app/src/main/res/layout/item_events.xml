@@ -39,8 +39,7 @@
                 android:onClick="@{() -> listener.onEventClick(item)}"
                 android:foreground="@drawable/gradiant"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:contentDescription="@string/event"
                 tools:srcCompat="@android:mipmap/sym_def_app_icon" />
 
             <TextView
@@ -48,7 +47,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/space_16dp"
-                android:fontFamily="@font/bangers"
                 android:text="@{item.title}"
                 android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
                 android:textColor="#FFFFFF"

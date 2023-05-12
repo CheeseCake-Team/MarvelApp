@@ -19,10 +19,8 @@
         style="@style/Widget.Material3.CardView.Filled"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:onClick="@{() -> listener.onClickComic(item)}"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="4dp">
+        android:layout_margin="@dimen/space_4dp"
+        android:onClick="@{() -> listener.onClickComic(item)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -30,7 +28,7 @@
 
             <ImageView
                 android:id="@+id/image_view_comic_image"
-                android:layout_width="160dp"
+                android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:scaleType="fitXY"
                 app:imageUrl="@{item.thumbnail}"
@@ -43,9 +41,10 @@
                 android:id="@+id/text_view_comic_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/space_8dp"
+                android:layout_marginHorizontal="@dimen/space_8dp"
                 android:ellipsize="marquee"
-                android:fontFamily="@font/bangers"
+                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
                 android:maxLines="1"
                 android:text="@{item.title}"
                 app:layout_constraintEnd_toEndOf="@+id/image_view_comic_image"
@@ -58,10 +57,10 @@
                 android:id="@+id/text_view_comic_issue_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="@dimen/space_8dp"
                 android:fontFamily="sans-serif"
                 android:text="@{`Issue #`+item.issueNumber.toString()}"
-                app:layout_constraintStart_toStartOf="@+id/image_view_comic_image"
+                app:layout_constraintStart_toStartOf="@+id/text_view_comic_name"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_comic_name"
                 tools:text="Issue #13" />
 
@@ -69,11 +68,10 @@
                 android:id="@+id/text_view_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="sans-serif"
+                android:layout_marginVertical="@dimen/space_8dp"
                 android:text="@{item.modified.toString().substring(0,10)}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/image_view_comic_image"
+                app:layout_constraintStart_toStartOf="@+id/text_view_comic_issue_number"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_comic_issue_number"
                 tools:text="Sep, 13 2021" />
 

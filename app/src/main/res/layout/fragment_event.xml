@@ -9,9 +9,7 @@
             name="viewModel"
             type="com.abaferastech.marvelapp.ui.event.eventDetails.EventViewModel"/>
 
-
     </data>
-
 
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"

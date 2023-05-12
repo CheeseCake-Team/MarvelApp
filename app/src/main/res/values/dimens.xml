@@ -20,5 +20,7 @@
     <dimen name="elevation_1">1dp</dimen>
     <dimen name="text_size_24">24sp</dimen>
     <dimen name="single_page_image_height">350dp</dimen>
-    <dimen name="single_page_end_image_height">350dp</dimen>
+    <dimen name="single_page_end_image_height">116dp</dimen>
+    <dimen name="creator_image_width">200dp</dimen>
+    <dimen name="indicator_width">40dp</dimen>
 </resources>

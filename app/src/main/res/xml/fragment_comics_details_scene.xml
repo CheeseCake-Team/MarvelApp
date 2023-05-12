@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app2="urn:oasis:names:tc:xliff:document:1.2">
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Transition
         app:constraintSetEnd="@+id/end"
@@ -16,9 +15,10 @@
             android:id="@+id/text_comic_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginBottom="@dimen/space_16dp"
             app:layout_constraintBottom_toTopOf="@id/tab_layout"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
         <Constraint
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
@@ -31,7 +31,7 @@
         <Constraint
             android:id="@+id/image_view_comic_image2"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="@dimen/single_page_image_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,9 +45,8 @@
             android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="54dp"
-            android:visibility="visible"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_54dp"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -59,7 +58,7 @@
         <Constraint
             android:id="@+id/image_view_comic_image2"
             android:layout_width="match_parent"
-            android:layout_height="116dp"
+            android:layout_height="@dimen/single_page_end_image_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -73,7 +72,7 @@
             android:id="@+id/text_comic_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="@dimen/space_16dp"
             app:layout_constraintBaseline_toBaselineOf="@+id/back_button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@id/back_button"
@@ -92,8 +91,8 @@
             android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginBottom="@dimen/space_8dp"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
