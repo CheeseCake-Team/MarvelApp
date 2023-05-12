@@ -38,7 +38,6 @@ class CreatorsViewModel : BaseViewModel(), CreatorsInteractionListener {
 
     override fun onClickCreators(creators: Creators) {
         navigationEvents.postValue(Event(CreatorEvent.ClickCreatorEvent(creators.id!!)))
-
     }
 
 }
