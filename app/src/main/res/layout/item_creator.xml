@@ -8,10 +8,16 @@
             name="item"
             type="com.abaferastech.marvelapp.data.model.result.Creators" />
 
+        <variable
+            name="listener"
+            type="com.abaferastech.marvelapp.ui.creator.creators.CreatorsInteractionListener" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+        android:onClick="@{()->listener.onClickCreators(item)}"
+
         android:layout_height="wrap_content"
         android:padding="@dimen/space_4dp">
 
