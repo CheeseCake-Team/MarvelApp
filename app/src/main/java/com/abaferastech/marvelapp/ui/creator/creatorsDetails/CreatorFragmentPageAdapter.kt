@@ -18,9 +18,9 @@ class CreatorFragmentPageAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> ComicsViewAllHorizontalFragment.newInstance(id, TYPE.CREATOR)
-            1 -> EventsFragment.newInstance(id, TYPE.CREATOR)
-            else -> CreatorDataFragment.newInstance(id, TYPE.CREATOR)
+            0 -> CreatorDataFragment.newInstance(id, TYPE.CREATOR)
+            1 -> ComicsViewAllHorizontalFragment.newInstance(id, TYPE.CREATOR)
+            else -> EventsFragment.newInstance(id, TYPE.CREATOR)
         }
     }
 }

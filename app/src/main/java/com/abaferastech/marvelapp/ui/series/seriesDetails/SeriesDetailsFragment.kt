@@ -51,10 +51,10 @@ class SeriesDetailsFragment: BaseFragment<FragmentSeriesDetailsBinding, SeriesDe
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = "Characters"
-                1 -> tab.text = "Comics"
+                0 -> tab.text = "Details"
+                1 -> tab.text = "Characters"
                 2 -> tab.text = "Creators"
-                3 -> tab.text = "Details"
+                3 -> tab.text = "Comics"
             }
         }.attach()
         binding.backButton.setOnClickListener {
