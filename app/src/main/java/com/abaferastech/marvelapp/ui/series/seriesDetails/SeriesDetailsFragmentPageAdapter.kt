@@ -17,14 +17,15 @@ class SeriesDetailsFragmentPageAdapter(
     private val id: Int
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {
-        return 3
+        return 4
     }
 
     override fun createFragment(position: Int): Fragment {
-        return when (position){
+        return when (position) {
             0 -> CharactersFragment.newInstance(id, TYPE.SERIES)
-            1 -> CreatorsFragment.newInstance(id, TYPE.SERIES)
-            else -> ComicsViewAllHorizontalFragment.newInstance(id, TYPE.SERIES)
+            1 -> ComicsViewAllHorizontalFragment.newInstance(id, TYPE.SERIES)
+            2 -> CreatorsFragment.newInstance(id, TYPE.SERIES)
+            else -> SeriesDataFragment.newInstance(id, TYPE.SERIES)
         }
 
     }
