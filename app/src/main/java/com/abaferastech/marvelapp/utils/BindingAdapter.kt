@@ -9,24 +9,15 @@ import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.data.model.response.Thumbnail
-import com.abaferastech.marvelapp.data.model.result.Characters
-import com.abaferastech.marvelapp.data.model.result.Comics
-import com.abaferastech.marvelapp.data.model.result.Events
-import com.abaferastech.marvelapp.data.model.result.Series
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.character.characters.CharactersAdapter
-import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
-import com.abaferastech.marvelapp.ui.comic.comics.ComicsInteractionListener
 import com.abaferastech.marvelapp.ui.event.events.EventAdapter
-import com.abaferastech.marvelapp.ui.event.events.EventsInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.ComicAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesAdapter
-import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
+import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.SearchItem
-import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.model.UIState
 import com.bumptech.glide.Glide
 
@@ -61,8 +52,10 @@ fun setSearchRecyclerViewItems(view: RecyclerView, items: SearchItem?) {
             }
 
             is SearchItem.Event -> {
-                val linearLayoutManager = LinearLayoutManager(view.context,
-                    LinearLayoutManager.VERTICAL, false)
+                val linearLayoutManager = LinearLayoutManager(
+                    view.context,
+                    LinearLayoutManager.VERTICAL, false
+                )
                 view.layoutManager = linearLayoutManager
                 (view.adapter as EventAdapter?)?.setItems(items.items)
             }
@@ -74,8 +67,10 @@ fun setSearchRecyclerViewItems(view: RecyclerView, items: SearchItem?) {
             }
 
             is SearchItem.Comic -> {
-                val linearLayoutManager = LinearLayoutManager(view.context,
-                    LinearLayoutManager.VERTICAL, false)
+                val linearLayoutManager = LinearLayoutManager(
+                    view.context,
+                    LinearLayoutManager.VERTICAL, false
+                )
                 view.layoutManager = linearLayoutManager
                 (view.adapter as ComicsAdapter?)?.setItems(items.items)
             }
@@ -101,47 +96,6 @@ fun setEmptyStateTextViewVisibility(
                 is SearchItem.Comic -> if (items.items.isEmpty()) View.VISIBLE else View.INVISIBLE
                 else -> View.INVISIBLE
             }
-    }
-}
-
-@BindingAdapter(value = ["app:setAdapterByType"])
-fun setAdapterByType(view: RecyclerView, type: TYPE?) {
-    type.let {
-        val adapter = when (it) {
-            TYPE.CHARACTER -> {
-                CharactersAdapter(emptyList(), object : CharactersInteractionListener {
-                    override fun onClickCharacter(character: Characters) {
-
-                    }
-                })
-            }
-
-            TYPE.EVENT -> {
-                EventAdapter(emptyList(), object : EventsInteractionListener {
-                    override fun onEventClick(event: Events) {
-
-                    }
-                })
-            }
-
-            TYPE.SERIES -> {
-                SeriesAdapter(emptyList(), object : SeriesInteractionListener {
-                    override fun onClickSeries(series: Series) {
-
-                    }
-                })
-            }
-
-            else -> {
-                ComicsAdapter(emptyList(), object : ComicsInteractionListener {
-                    override fun onClickComic(comic: Comics) {
-                        TODO("Not yet implemented")
-                    }
-
-                })
-            }
-        }
-        view.adapter = adapter
     }
 }
 
@@ -195,7 +149,6 @@ fun setAdapter(view: RecyclerView, dataItem: DataItem) {
 fun chipGroupVisibility(horizontalScrollView: HorizontalScrollView, isVisible: Boolean) {
     horizontalScrollView.visibility = if (isVisible) View.VISIBLE else View.GONE
 }
-
 
 
 @BindingAdapter("app:showWhenLoading")

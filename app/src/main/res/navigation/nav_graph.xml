@@ -63,7 +63,20 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.abaferastech.marvelapp.ui.search.SearchFragment"
-        android:label="Search" />
+        android:label="Search" >
+        <action
+            android:id="@+id/action_searchFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_comicDetailsFragment"
+            app:destination="@id/comicDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_characterFragment"
+            app:destination="@id/characterFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_seriesDetailsFragment"
+            app:destination="@id/seriesDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/charactersFragment"
         android:name="com.abaferastech.marvelapp.ui.character.characters.CharactersFragment"
