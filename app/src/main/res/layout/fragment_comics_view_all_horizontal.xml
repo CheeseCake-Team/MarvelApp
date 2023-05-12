@@ -24,8 +24,7 @@
             app:items = "@{viewModel.comics.toData()}"
             android:padding="@dimen/space_12dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_comic_horizontal"
-            app:showWhenSuccess="@{viewModel.comics}"/>
+            tools:listitem="@layout/item_comic_horizontal"/>
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="100dp"
             android:layout_height="100dp"

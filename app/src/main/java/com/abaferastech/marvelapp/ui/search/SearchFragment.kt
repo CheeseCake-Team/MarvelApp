@@ -23,7 +23,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
         viewModel.searchQuery.observe(viewLifecycleOwner, Observer {
             viewModel.search(it)
         })
-        viewModel.searchResult.observe(viewLifecycleOwner, Observer {
+        /*viewModel.searchResult.observe(viewLifecycleOwner, Observer {
             val adapter = ComicsAdapter(it, object : ComicsInteractionListener {
                 override fun onClickComics(comic: Comics) {
                     //TODO("Not yet implemented")
@@ -31,6 +31,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
 
             })
             binding.recyclerViewSearch.adapter = adapter
-        })
+        })*/
     }
 }

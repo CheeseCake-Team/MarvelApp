@@ -24,8 +24,7 @@
             app:items = "@{viewModel.comics.toData()}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
-            tools:listitem="@layout/item_comic_grid"
-            app:showWhenSuccess="@{viewModel.comics}"/>
+            tools:listitem="@layout/item_comic_grid"/>
 
         <com.airbnb.lottie.LottieAnimationView
 

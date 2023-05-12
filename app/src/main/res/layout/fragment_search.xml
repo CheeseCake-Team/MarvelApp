@@ -26,7 +26,6 @@
             android:layout_marginEnd="@dimen/space_16dp"
             android:scrollbars="none"
             android:visibility="gone"
-            app:chipGroupVisibility="@{viewModel.isChipGroupVisible}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_text_input_layout">
@@ -70,7 +69,7 @@
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
-        <androidx.appcompat.widget.AppCompatEditText
+        <!--<androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/search_text_input_layout"
             style="@style/CustomSearchBar"
             android:layout_width="match_parent"
@@ -87,9 +86,9 @@
             android:paddingEnd="@dimen/space_16dp"
             android:text="@={viewModel.searchQuery}"
             app:layout_constraintTop_toTopOf="parent"
-            tools:layout_editor_absoluteX="16dp" />
+            tools:layout_editor_absoluteX="16dp" />-->
 
-        <androidx.recyclerview.widget.RecyclerView
+        <!--<androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_search"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -100,9 +99,9 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
-            />
+            />-->
 
-        <Button
+        <!--<Button
             android:id="@+id/button_filter"
             style="?attr/materialIconButtonStyle"
             android:layout_width="wrap_content"
@@ -114,9 +113,9 @@
             app:iconTint="@color/md_theme_onSurfaceVariant"
             app:layout_constraintBottom_toBottomOf="@+id/search_text_input_layout"
             app:layout_constraintEnd_toEndOf="@+id/search_text_input_layout"
-            app:layout_constraintTop_toTopOf="@+id/search_text_input_layout" />
+            app:layout_constraintTop_toTopOf="@+id/search_text_input_layout" />-->
 
-        <ProgressBar
+        <!--<ProgressBar
             android:id="@+id/progressBar"
             style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
@@ -126,9 +125,9 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />-->
 
-        <TextView
+        <!--<TextView
             android:id="@+id/text_view_search_result"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -137,7 +136,7 @@
             app:emptyStateTextView="@{viewModel.searchingResponse}"
             app:layout_constraintEnd_toEndOf="@+id/progressBar"
             app:layout_constraintStart_toStartOf="@+id/progressBar"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+            app:layout_constraintTop_toBottomOf="@+id/progressBar" />-->
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

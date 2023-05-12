@@ -74,11 +74,11 @@ class HomeViewModel : BaseViewModel(), CharactersInteractionListener,
         Log.d("TAG", "series updateHomeData: $series")
 
         val data = listOf(
-            DataItem.HeaderItem(characters.shuffled().take(3), 0),
+            DataItem.HeaderItem(characters.shuffled().take(3)),
             DataItem.CharacterTagItem(
-                Tag("CHARACTERS", characters.shuffled()), 1, this),
-            DataItem.ComicsTagItem(Tag("COMICS", comics.shuffled()), 2, this),
-            DataItem.SeriesTagItem(Tag("SERIES", series.shuffled()), 3, this)
+                Tag("CHARACTERS", characters.shuffled()), this),
+            DataItem.ComicsTagItem(Tag("COMICS", comics.shuffled()),  this),
+            DataItem.SeriesTagItem(Tag("SERIES", series.shuffled()),  this)
         )
         _homeData.postValue(data)
     }

@@ -21,8 +21,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:items="@{viewModel.homeData.toData()}"
-            app:showWhenSuccess="@{viewModel.homeData}"/>
+            app:items="@{viewModel.homeData}"/>
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottieAnimationView"
@@ -34,8 +33,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
-            app:lottie_rawRes="@raw/loading"
-            app:showWhenLoading="@{viewModel.homeData}"/>
+            app:lottie_rawRes="@raw/loading"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
