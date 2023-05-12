@@ -5,6 +5,7 @@ import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -35,10 +36,7 @@ fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
 
 @BindingAdapter(value = ["app:showLoading"])
 fun showLoading(view: ProgressBar, isShowing: Boolean) {
-    if (isShowing)
-        view.visibility = View.VISIBLE
-    else
-        view.visibility = View.GONE
+    view.isVisible = isShowing
 }
 
 @BindingAdapter(value = ["app:setSearchRecyclerViewItems"])

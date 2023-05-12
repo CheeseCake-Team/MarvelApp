@@ -25,6 +25,7 @@ class SearchViewModel : BaseViewModel(),
     private val repository = MarvelRepository()
 
     private val _isLoading = MutableLiveData(false)
+
     val isLoading: LiveData<Boolean> get() = _isLoading
 
     val searchQuery = MutableLiveData<String>()
@@ -80,7 +81,6 @@ class SearchViewModel : BaseViewModel(),
             }
             .subscribe(_searchingResponse::postValue)
             .addTo(compositeDisposable)
-
     }
 
     fun search(searchQuery: String) {
@@ -93,10 +93,6 @@ class SearchViewModel : BaseViewModel(),
         _searchType.postValue(type)
         search(searchQuery.value.toString())
     }
-
-    /*private fun onError(errorMessage: Throwable) {
-        _searchingResponse.postValue(UIState.Error(errorMessage.message.toString()))
-    }*/
 
     fun toggleChipGroupVisibility() {
         _isChipGroupVisible.value = !(isChipGroupVisible.value ?: false)
