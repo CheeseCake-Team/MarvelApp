@@ -13,4 +13,9 @@
     <string name="favorite">Favorite</string>
     <string name="event">Event</string>
     <string name="filter_button">Filter Button</string>
+    <string name="comics">Comics</string>
+    <string name="characters">Characters</string>
+    <string name="series">Series</string>
+    <string name="events">Events</string>
+    <string name="no_data_found">No Data Found</string>
 </resources>
