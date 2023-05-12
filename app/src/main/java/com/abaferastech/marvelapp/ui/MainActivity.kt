@@ -10,7 +10,6 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.local.SharedPreferencesServicesImpl
 import com.abaferastech.marvelapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -28,8 +27,7 @@ class MainActivity : AppCompatActivity() {
 
         binding.bottomNavigationBar.setupWithNavController(controller)
 
-        SharedPreferencesServicesImpl
-            .initSharedPreferences(applicationContext)
+
 
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 

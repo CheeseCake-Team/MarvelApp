@@ -30,17 +30,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
 
         viewModel.navigationEvent.observe(viewLifecycleOwner) { event ->
             event.getContentIfNotHandled()?.let { destinationTYPE, ->
-//                val selectedItemID = viewModel.selectedItemID.value
-
                 val action = when (destinationTYPE) {
                     TYPE.COMIC -> TODO()
                     TYPE.SERIES -> TODO()
                     TYPE.CHARACTER ->
                         HomeFragmentDirections.actionHomeFragmentToCharacterFragment(event.destinationID)
-
                     else -> null
                 }
-
                 action?.let {
                     findNavController().navigate(it)
                 }
