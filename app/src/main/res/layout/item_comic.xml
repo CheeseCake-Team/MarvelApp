@@ -20,7 +20,7 @@
         android:layout_width="@dimen/series_card_view_width"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/space_4dp"
-        android:onClick="@{()->listener.onClickComics(item)}"
+        android:onClick="@{()->listener.onClickComics(item.id)}"
         app:cardBackgroundColor="@android:color/transparent"
         app:cardCornerRadius="4dp">
 

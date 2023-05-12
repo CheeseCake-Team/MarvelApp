@@ -8,11 +8,6 @@
         <variable
             name="item"
             type="com.abaferastech.marvelapp.data.model.result.Comics" />
-
-        <variable
-            name="listener"
-            type="com.abaferastech.marvelapp.ui.home.adapters.ComicsInteractionListener" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,7 +52,7 @@
             android:paddingEnd="16dp"
             android:text="TextView"
             android:textColor="@color/md_theme_onBackground"
-            android:textSize="16dp"
+            android:textSize="16sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0"
