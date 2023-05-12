@@ -59,7 +59,7 @@ interface MarvelApiService {
     @GET("series/{seriesId}/events")
     fun getSeriesEvents(@Path("seriesId") characterId: Int): Single<Response<MarvelBaseResponse<Events>>>
 
-    @GET("series/{seriesId}/character")
+    @GET("series/{seriesId}/characters")
     fun getSeriesCharacters(@Path("seriesId") characterId: Int): Single<Response<MarvelBaseResponse<Characters>>>
 
     @GET("series/{seriesId}/comics")

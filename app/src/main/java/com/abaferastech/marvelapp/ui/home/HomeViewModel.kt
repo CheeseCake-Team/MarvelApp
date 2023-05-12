@@ -9,13 +9,14 @@ import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.model.result.Series
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
-import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
+import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.ComicsInteractionListener
+import com.abaferastech.marvelapp.ui.home.adapters.NavigationInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
 import com.abaferastech.marvelapp.ui.model.*
 
 class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,
-    SeriesInteractionListener {
+    SeriesInteractionListener, NavigationInteractionListener {
     private val repository = MarvelRepository()
 
     private val _homeData = MediatorLiveData<UIState<List<DataItem>>>()
@@ -25,19 +26,7 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     private val _comics = MutableLiveData<UIState<List<Comics>>>()
     private val _series = MutableLiveData<UIState<List<Series>>>()
 
-    val navigationEvent = MutableLiveData<NavigationEvent>()
-
-    override fun onClickCharacter(character: Characters) {
-        navigationEvent.postValue( NavigationEvent(TYPE.CHARACTER, character.id!!))
-    }
-
-    override fun onClickSeries(series: Series) {
-        navigationEvent.postValue( NavigationEvent(TYPE.SERIES,series.id))
-    }
-
-    override fun onClickComics(comics: Comics) {
-        navigationEvent.postValue( NavigationEvent(TYPE.COMIC, comics.id!!))
-    }
+    val navigationEvents = MutableLiveData<Event<HomeEvent>>()
 
 
     //region
@@ -68,9 +57,7 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         val characters = _characters.value?.toData()
         data.add(DataItem.HeaderItem(characters?.shuffled()?.take(4)!!))
         data.add(
-            DataItem.CharacterTagItem(
-                Tag("CHARACTERS", characters.shuffled()), this
-            )
+            DataItem.CharacterTagItem(Tag("CHARACTERS", characters.shuffled()), this)
         )
     }
 
@@ -97,8 +84,38 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         _homeData.removeSource(_series)
     }
 
-//endregion
 
+    override fun onClickCharacter(character: Characters) {
+        navigationEvents.postValue(Event(HomeEvent.ClickCharacterEvent(character.id!!)))
+    }
 
+    override fun onClickSeries(series: Series) {
+        navigationEvents.postValue(Event(HomeEvent.ClickSeriesEvent(series.id)))
+    }
+
+    override fun onClickComics(comics: Comics) {
+        navigationEvents.postValue(Event(HomeEvent.ClickComicEvent(comics.id!!)))
+    }
+
+    override fun onNavigate(dataItem: DataItem) {
+//        when (dataItem) {
+//            is DataItem.CharacterTagItem -> {
+//                val action = HomeFragmentDirections.actionHomeFragmentToCharactersFragment()
+//                findNavController().navigate(action)
+//            }
+//
+//            is DataItem.ComicsTagItem -> {
+//                val action = HomeFragmentDirections.actionHomeFragmentToComicsGridFragment()
+//                findNavController().navigate(action)
+//            }
+//
+//            is DataItem.SeriesTagItem -> {
+//                val action = HomeFragmentDirections.actionHomeFragmentToSeriesViewAllFragment()
+//                findNavController().navigate(action)
+//            }
+//            else -> {}
+//        }
+
+    }
 
 }

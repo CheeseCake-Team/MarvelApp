@@ -10,6 +10,7 @@ open class Event<out T>(private val content: T) {
             content
         }
     }
+    fun peekContent(): T = content
 }
 class NavigationEvent(destinationTYPE: TYPE,val destinationID:Int) : Event<TYPE>(destinationTYPE)
 

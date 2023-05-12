@@ -8,9 +8,7 @@ import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 class ComicsAdapter(items: List<Comics>, listener: ComicsInteractionListener) :
     BaseAdapter<Comics>(items, listener) {
     override val layoutID = R.layout.item_comic_horizontal
-
 }
 
-interface ComicsInteractionListener : BaseInteractionListener {
-}
+
 

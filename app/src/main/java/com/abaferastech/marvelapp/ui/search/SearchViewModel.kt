@@ -24,7 +24,7 @@ class SearchViewModel : BaseViewModel() {
 
     private val _searchType = MutableLiveData(TYPE.COMIC)
 
-    val isChipGroupVisible = MutableLiveData<Boolean>(false)
+    //val isChipGroupVisible = MutableLiveData<Boolean>(false)
 
     val searchType: LiveData<TYPE> get() = _searchType
 
@@ -85,9 +85,9 @@ class SearchViewModel : BaseViewModel() {
         _searchingResponse.postValue(UIState.Error(errorMessage.message.toString()))
     }*/
 
-    fun toggleChipGroupVisibility() {
+    /*fun toggleChipGroupVisibility() {
         isChipGroupVisible.value = !(isChipGroupVisible.value ?: false)
-    }
+    }*/
 
 
 }

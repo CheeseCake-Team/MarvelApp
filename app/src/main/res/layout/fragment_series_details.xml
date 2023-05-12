@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.abaferastech.marvelapp.ui.series.seriesDetails.SeriesDetailsViewModel" />
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/fragment_series_details_scene">
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/image_series"
+            android:layout_width="match_parent"
+            android:layout_height="360dp"
+            android:foreground="@drawable/header_details_gradient"
+            android:scaleType="centerCrop"
+            app:altSrc="@color/md_theme_surface"
+            app:imageUrl="@{viewModel.series.toData().thumbnail}"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@color/material_dynamic_tertiary70" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_16dp"
+            android:layout_marginBottom="@dimen/space_16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.series.toData().title}"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            app:layout_constraintBottom_toBottomOf="@+id/image_series"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+             />
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintTop_toBottomOf="@id/image_series"
+            app:tabGravity="fill"
+            app:tabIndicatorAnimationMode="linear"
+            app:tabIndicatorGravity="bottom"
+            app:tabMode="scrollable"
+            app:tabTextColor="@color/design_default_color_on_primary" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tab_layout" />
+
+        <Button
+            android:id="@+id/back_button"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="46dp"
+            app:icon="@drawable/ic_back"
+            app:iconTint="@color/md_theme_onSurface"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</layout>

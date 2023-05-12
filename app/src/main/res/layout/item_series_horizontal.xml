@@ -11,7 +11,7 @@
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.ui.seriesScreen.SeriesInteractionListener" />
+            type="com.abaferastech.marvelapp.ui.series.seriesScreen.SeriesInteractionListener" />
 
     </data>
 

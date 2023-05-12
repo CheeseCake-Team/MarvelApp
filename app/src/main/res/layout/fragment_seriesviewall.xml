@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.seriesViewAll.SeriesViewAllViewModel" />
+            type="com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllViewModel" />
 
     </data>
 
@@ -27,8 +27,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:listitem="@layout/items_series_view_all"
-            app:showWhenSuccess="@{viewModel.seriesViewAll}"/>
+            tools:listitem="@layout/items_series_view_all"/>
 
         <com.airbnb.lottie.LottieAnimationView
             android:layout_width="100dp"

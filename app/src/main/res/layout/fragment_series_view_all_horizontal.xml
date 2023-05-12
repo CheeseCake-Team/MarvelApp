@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.seriesScreen.SeriesViewModel" />
+            type="com.abaferastech.marvelapp.ui.series.seriesScreen.SeriesViewModel" />
 
     </data>
 
@@ -24,7 +24,6 @@
             android:padding="@dimen/space_12dp"
             app:items="@{viewModel.series.toData()}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:showWhenSuccess="@{viewModel.series}"
             tools:listitem="@layout/item_series_horizontal" />
 
         <ProgressBar

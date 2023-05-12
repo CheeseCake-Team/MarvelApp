@@ -1,6 +1,7 @@
 package com.abaferastech.marvelapp.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
@@ -28,18 +29,15 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             binding.recyclerViewHome.adapter = adapter
         }
 
-        viewModel.navigationEvent.observe(viewLifecycleOwner) { event ->
-            event.getContentIfNotHandled()?.let { destinationTYPE, ->
-                val action = when (destinationTYPE) {
-                    TYPE.COMIC -> TODO()
-                    TYPE.SERIES -> TODO()
-                    TYPE.CHARACTER ->
-                        HomeFragmentDirections.actionHomeFragmentToCharacterFragment(event.destinationID)
-                    else -> null
+        viewModel.navigationEvents.observe(viewLifecycleOwner) {
+            it.getContentIfNotHandled()?.let { homeEvent ->
+                val action = when (homeEvent) {
+                    is HomeEvent.ClickCharacterEvent ->
+                        HomeFragmentDirections.actionHomeFragmentToCharacterFragment(homeEvent.characterID)
+                    is HomeEvent.ClickComicEvent -> TODO()
+                    is HomeEvent.ClickSeriesEvent -> TODO()
                 }
-                action?.let {
-                    findNavController().navigate(it)
-                }
+                findNavController().navigate(action)
             }
         }
 
@@ -65,5 +63,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             else -> {}
         }
     }
+
 
 }

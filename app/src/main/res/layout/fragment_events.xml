@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.events.EventsViewModel"/>
+            type="com.abaferastech.marvelapp.ui.event.events.EventsViewModel"/>
 
     </data>
 
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/item_events"
-            />
+            app:showWhenSuccess="@{viewModel.events}"/>
 
         <ProgressBar
             android:layout_width="wrap_content"

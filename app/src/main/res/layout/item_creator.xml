@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="com.abaferastech.marvelapp.data.model.result.Creators" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/space_4dp">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/image_view_creators"
+            android:layout_width="@dimen/character_image_view_dimens"
+            android:layout_height="@dimen/character_image_view_dimens"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{item.thumbnail}"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearance="@style/CircleImageView"
+            tools:src="@drawable/placeholder"
+            tools:ignore="MissingConstraints" />
+
+        <TextView
+            android:id="@+id/text_view_creator_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_4dp"
+            android:fontFamily="@font/bangers"
+            android:textAlignment="center"
+            android:text="@{item.fullName}"
+            android:maxLines="1"
+            android:ellipsize="end"
+            tools:text="Creator Name"
+            app:layout_constraintEnd_toEndOf="@+id/image_view_creators"
+            app:layout_constraintStart_toStartOf="@+id/image_view_creators"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_creators" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

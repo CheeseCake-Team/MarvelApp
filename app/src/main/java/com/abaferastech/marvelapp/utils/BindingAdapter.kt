@@ -12,15 +12,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.data.model.response.Thumbnail
 import com.abaferastech.marvelapp.data.model.result.Characters
+import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.model.result.Events
 import com.abaferastech.marvelapp.data.model.result.Series
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
-import com.abaferastech.marvelapp.ui.characters.CharactersAdapter
-import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
+import com.abaferastech.marvelapp.ui.character.characters.CharactersAdapter
+import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsInteractionListener
-import com.abaferastech.marvelapp.ui.events.EventAdapter
-import com.abaferastech.marvelapp.ui.events.EventsInteractionListener
+import com.abaferastech.marvelapp.ui.event.events.EventAdapter
+import com.abaferastech.marvelapp.ui.event.events.EventsInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.ComicAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
@@ -132,7 +133,12 @@ fun setAdapterByType(view: RecyclerView, type: TYPE?) {
             }
 
             else -> {
-                ComicsAdapter(emptyList(), object : ComicsInteractionListener {})
+                ComicsAdapter(emptyList(), object : ComicsInteractionListener {
+                    override fun onClickComic(comic: Comics) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
             }
         }
         view.adapter = adapter
