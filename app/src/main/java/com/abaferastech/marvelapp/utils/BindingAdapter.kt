@@ -197,6 +197,7 @@ fun chipGroupVisibility(horizontalScrollView: HorizontalScrollView, isVisible: B
 }
 
 
+
 @BindingAdapter("app:showWhenLoading")
 fun <T> showWhenLoading(view: View, uiState: UIState<T>?) {
     if (uiState is UIState.Loading) view.visibility = View.VISIBLE
