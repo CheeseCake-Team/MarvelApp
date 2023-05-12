@@ -1,9 +1,7 @@
 package com.abaferastech.marvelapp.ui.home
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.model.result.Series

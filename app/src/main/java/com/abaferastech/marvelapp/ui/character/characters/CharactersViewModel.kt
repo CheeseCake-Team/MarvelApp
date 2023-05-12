@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.ui.characters
+package com.abaferastech.marvelapp.ui.character.characters
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -6,13 +6,16 @@ import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.ui.model.UIState
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
+import com.abaferastech.marvelapp.ui.model.Event
 
-class CharactersViewModel : BaseViewModel() {
-    private val repository = MarvelRepository()
+class CharactersViewModel : BaseViewModel(), CharactersInteractionListener {
 
+    private val repository  by lazy { MarvelRepository() }
 
     private val _characters = MutableLiveData<UIState<List<Characters>>>()
     val characters: LiveData<UIState<List<Characters>>> get() = _characters
+
+    val navigationEvents = MutableLiveData<Event<CharacterEvent>>()
 
 
     fun getAllCharacters() {

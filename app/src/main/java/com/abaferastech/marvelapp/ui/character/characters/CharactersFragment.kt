@@ -5,13 +5,9 @@ import android.view.View
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.databinding.FragmentCharactersBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.character.characterDetails.CharacterDetailsFragmentDirections
 import com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsFragmentDirections
-import com.abaferastech.marvelapp.ui.comic.comics.ComicEvents
-import com.abaferastech.marvelapp.ui.creator.creatorsDetails.CreatorDetailsFragmentDirections
 import com.abaferastech.marvelapp.ui.event.eventDetails.EventFragmentDirections
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.series.seriesDetails.SeriesDetailsFragmentDirections
@@ -61,8 +57,7 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersVie
                 .actionComicDetailsFragmentToCharacterFragment(event.characterID)
             TYPE.EVENT -> EventFragmentDirections
                 .actionEventFragmentToCharacterFragment(event.characterID)
-            else -> CharactersFragmentDirections
-                .actionCharactersFragmentToCharacterFragment(event.characterID)
+            else -> CharactersFragmentDirections.actionCharactersFragmentToCharacterFragment(event.characterID)
         }
     }
 

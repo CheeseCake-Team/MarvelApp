@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.series.seriesScreen.SeriesViewModel" />
+            type="com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllViewModel" />
 
     </data>
 
@@ -21,7 +21,7 @@
             android:layout_height="0dp"
             android:clipToPadding="false"
             android:paddingVertical="12dp"
-            app:items="@{viewModel.series.toData()}"
+            app:items="@{viewModel.seriesViewAll.toData()}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -40,7 +40,7 @@
             app:lottie_autoPlay="true"
             app:lottie_loop="true"
             app:lottie_rawRes="@raw/loading"
-            app:showWhenLoading="@{viewModel.series}" />
+            app:showWhenLoading="@{viewModel.seriesViewAll}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

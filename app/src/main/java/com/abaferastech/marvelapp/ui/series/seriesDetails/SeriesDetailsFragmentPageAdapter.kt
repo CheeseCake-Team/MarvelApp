@@ -3,13 +3,10 @@ package com.abaferastech.marvelapp.ui.series.seriesDetails
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.abaferastech.marvelapp.data.model.result.Creators
 import com.abaferastech.marvelapp.ui.character.characters.CharactersFragment
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsViewAllHorizontalFragment
 import com.abaferastech.marvelapp.ui.creator.creators.CreatorsFragment
-import com.abaferastech.marvelapp.ui.event.events.EventsFragment
 import com.abaferastech.marvelapp.ui.model.TYPE
-import com.abaferastech.marvelapp.utils.Constants
 
 class SeriesDetailsFragmentPageAdapter(
     fragmentManager: FragmentManager,

@@ -7,7 +7,7 @@ import androidx.navigation.fragment.findNavController
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentCreatorDetailsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.characterDetails.CharacterFragmentPageAdapter
+import com.abaferastech.marvelapp.ui.character.characterDetails.CharacterFragmentPageAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 

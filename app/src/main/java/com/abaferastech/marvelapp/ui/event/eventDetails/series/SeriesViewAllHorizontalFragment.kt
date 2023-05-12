@@ -6,11 +6,7 @@ import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.result.Series
 import com.abaferastech.marvelapp.databinding.FragmentSeriesViewAllHorizontalBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.characters.CharactersFragment
-import com.abaferastech.marvelapp.ui.events.EventsViewModel
-import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
 import com.abaferastech.marvelapp.ui.model.TYPE
-import com.abaferastech.marvelapp.ui.seriesScreen.SeriesFragment
 import com.abaferastech.marvelapp.ui.seriesScreen.SeriesViewModel
 import com.abaferastech.marvelapp.utils.Constants
 

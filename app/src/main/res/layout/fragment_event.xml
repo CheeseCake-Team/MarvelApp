@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.eventDetails.EventViewModel"/>
+            type="com.abaferastech.marvelapp.ui.event.eventDetails.EventViewModel"/>
 
 
     </data>

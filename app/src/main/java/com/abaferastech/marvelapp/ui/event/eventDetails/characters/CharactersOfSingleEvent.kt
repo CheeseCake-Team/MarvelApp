@@ -8,9 +8,8 @@ import com.abaferastech.marvelapp.databinding.CharactersOfSingleEventBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.characters.CharactersFragment
 import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
-import com.abaferastech.marvelapp.ui.characters.CharactersViewModel
+import com.abaferastech.marvelapp.ui.character.characters.CharactersViewModel
 import com.abaferastech.marvelapp.ui.model.TYPE
-import com.abaferastech.marvelapp.ui.seriesScreen.SeriesFragment
 import com.abaferastech.marvelapp.utils.Constants
 
 
