@@ -3,15 +3,15 @@ package com.abaferastech.marvelapp.ui.series.seriesDetails
 import android.os.Bundle
 import android.view.View
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.databinding.FragmentSeriseDataBinding
+import com.abaferastech.marvelapp.databinding.FragmentSeriesDataBinding
+
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDataFragment
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.utils.Constants
 
-class SeriesDataFragment : BaseFragment<FragmentSeriseDataBinding, SeriesDetailsViewModel>() {
+class SeriesDataFragment : BaseFragment<FragmentSeriesDataBinding, SeriesDetailsViewModel>() {
     override val layoutIdFragment: Int
-        get() = R.layout.fragment_series_details
+        get() = R.layout.fragment_series_data
     override val viewModelClass: Class<SeriesDetailsViewModel>
         get() = SeriesDetailsViewModel::class.java
 
