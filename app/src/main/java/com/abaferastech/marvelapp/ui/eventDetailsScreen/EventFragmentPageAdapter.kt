@@ -3,8 +3,10 @@ package com.abaferastech.marvelapp.ui.eventDetailsScreen
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.abaferastech.marvelapp.ui.comic.comics.ComicsViewAllHorizontalFragment
 import com.abaferastech.marvelapp.ui.eventDetailsScreen.creators.CreatorsOfSingleEvent
 import com.abaferastech.marvelapp.ui.eventDetailsScreen.characters.CharactersOfSingleEvent
+import com.abaferastech.marvelapp.ui.eventDetailsScreen.series.SeriesViewAllHorizontalFragment
 
 class EventFragmentPageAdapter (
     fragmentManager: FragmentManager,
@@ -12,13 +14,15 @@ class EventFragmentPageAdapter (
     private val id: Int
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {
-        return 2
+        return 4
     }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
             0 -> CharactersOfSingleEvent.newInstance(id)
-            else ->  CreatorsOfSingleEvent.newInstance(id)
+            1 ->  CreatorsOfSingleEvent.newInstance(id)
+            2 ->  ComicsViewAllHorizontalFragment.newInstance(id)
+            else -> SeriesViewAllHorizontalFragment.newInstance(id)
         }
     }
 }

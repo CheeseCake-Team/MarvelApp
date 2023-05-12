@@ -10,36 +10,44 @@ import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 
-class ComicsViewModel: BaseViewModel() {
-        private val repository = MarvelRepository()
+class ComicsViewModel : BaseViewModel() {
+    private val repository = MarvelRepository()
 
-        private val _comics = MutableLiveData<List<Comics>>()
-        val comics: LiveData<List<Comics>> get() = _comics
+    private val _comics = MutableLiveData<List<Comics>>()
+    val comics: LiveData<List<Comics>> get() = _comics
 
 
-        fun getMarvelComics() {
-            repository.getAllComics()
-                .subscribe(::onSuccess, ::onError)
-                .addTo(compositeDisposable)
-        }
-        fun getCharacterComics(characterId:Int) {
-            repository.getCharacterComics(characterId)
-                .subscribe(::onSuccess, ::onError)
-                .addTo(compositeDisposable)
-        }
+    fun getMarvelComics() {
+        repository.getAllComics()
+            .subscribe(::onSuccess, ::onError)
+            .addTo(compositeDisposable)
+    }
 
-        private fun onSuccess(state: State<MarvelResponse<Comics>>) {
-            when (state) {
-                is State.Error -> TODO()
-                State.Loading -> TODO()
-                is State.Success -> {
-                    Log.i("Mujtaba",state.toData()?.data?.results.toString())
-                    _comics.postValue(state.toData()?.data?.results)
-                }
+    fun getCharacterComics(characterId: Int) {
+        repository.getCharacterComics(characterId)
+            .subscribe(::onSuccess, ::onError)
+            .addTo(compositeDisposable)
+    }
+
+    fun getEventComics(EventId: Int) {
+        repository.getEventComics(EventId)
+            .subscribe(::onSuccess, ::onError)
+            .addTo(compositeDisposable)
+    }
+
+
+    private fun onSuccess(state: State<MarvelResponse<Comics>>) {
+        when (state) {
+            is State.Error -> TODO()
+            State.Loading -> TODO()
+            is State.Success -> {
+                Log.i("Mujtaba", state.toData()?.data?.results.toString())
+                _comics.postValue(state.toData()?.data?.results)
             }
         }
+    }
 
-        private fun onError(e: Throwable) {
-            Log.e("MarvelAPI", "getMarvelComics() - Error: ${e.message}")
-        }
+    private fun onError(e: Throwable) {
+        Log.e("MarvelAPI", "getMarvelComics() - Error: ${e.message}")
+    }
 }

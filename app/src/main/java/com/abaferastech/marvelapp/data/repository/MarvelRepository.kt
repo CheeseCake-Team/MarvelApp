@@ -22,12 +22,17 @@ class MarvelRepository {
         }
     }
 
+    fun getEventSeries(eventId: Int): Single<State<MarvelResponse<Series>>> {
+        return wrapWithState { MarvelAPI.apiService.getEventSeries(eventId) }
+    }
+
     fun searchInComics(query: String): Single<State<MarvelResponse<Comics>>> {
         return wrapWithState { MarvelAPI.apiService.searchInComics(query) }
     }
     fun getSingleCharacter(characterId: Int): Single<State<MarvelResponse<Characters>>> {
         return wrapWithState { MarvelAPI.apiService.getSingleCharacter(characterId) }
     }
+
 
     fun getEventsById(eventsId: Int): Single<State<MarvelResponse<Events>>> {
         return wrapWithState { MarvelAPI.apiService.getEventsById(eventsId) }

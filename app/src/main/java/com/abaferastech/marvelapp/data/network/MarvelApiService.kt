@@ -10,6 +10,8 @@ import retrofit2.http.Query
 
 interface MarvelApiService {
 
+    @GET("events/{eventId}/series")
+    fun getEventSeries(@Path("eventId") eventId: Int) : Single<Response<MarvelResponse<Series>>>
 
     @GET("events/{eventId}/comics")
     fun getEventComics(@Path("eventId") eventId: Int) : Single<Response<MarvelResponse<Comics>>>

@@ -19,12 +19,6 @@ class EventViewModel : BaseViewModel() {
     val event: LiveData<Events> get() = _event
 
 
-    fun getEventComics(eventId: Int) {
-        repository.getEventComics(eventId)
-            .subscribe(::onSuccess, ::onError)
-            .addTo(compositeDisposable)
-    }
-
     fun getEventsById(eventsId:Int) {
         repository.getEventsById(eventsId)
             .subscribe(::onEventSuccess, ::onError)

@@ -26,6 +26,13 @@ class SeriesViewModel : BaseViewModel() {
             .addTo(compositeDisposable)
     }
 
+    fun getSeriesByEventId(eventsId: Int) {
+        repository.getEventSeries(eventsId)
+            .subscribe(::onSuccess, ::OnError)
+            .addTo(compositeDisposable)
+    }
+
+
 
     private fun onSuccess(state: State<MarvelResponse<Series>>) {
         when (state) {

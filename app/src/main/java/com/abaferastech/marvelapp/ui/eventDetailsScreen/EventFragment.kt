@@ -59,6 +59,8 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
         tabLayout.apply {
             addTab(tabLayout.newTab().setText("Characters"))
             addTab(tabLayout.newTab().setText("Creators"))
+            addTab(tabLayout.newTab().setText("All Comics"))
+            addTab(tabLayout.newTab().setText("Series"))
         }
         viewPager.adapter = adapter
         initTapLayout()

@@ -23,6 +23,7 @@ class ComicsViewAllHorizontalFragment :
         val characterId = arguments?.getInt(CHARACTER_ID)
 
         if (characterId != null) {
+            viewModel.getEventComics(characterId)
             viewModel.getCharacterComics(characterId)
         } else {
             viewModel.getMarvelComics()
