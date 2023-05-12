@@ -15,6 +15,7 @@ class SeriesDetailsFragment: BaseFragment<FragmentSeriesDetailsBinding, SeriesDe
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager2
     private lateinit var adapter: SeriesDetailsFragmentPageAdapter
+
     override val layoutIdFragment: Int
         get() = R.layout.fragment_series_details
     override val viewModelClass: Class<SeriesDetailsViewModel>
