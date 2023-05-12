@@ -7,20 +7,20 @@ import com.abaferastech.marvelapp.ui.comic.comics.ComicsViewAllHorizontalFragmen
 import com.abaferastech.marvelapp.ui.event.events.EventsFragment
 import com.abaferastech.marvelapp.ui.model.TYPE
 
-class CreatorFragmentPageAdapter (
+class CreatorFragmentPageAdapter(
     fragmentManager: FragmentManager,
     lifecycle: androidx.lifecycle.Lifecycle,
     private val id: Int
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {
-        return 2
+        return 3
     }
 
     override fun createFragment(position: Int): Fragment {
-        return if (position == 0)
-            ComicsViewAllHorizontalFragment.newInstance(id, TYPE.CREATOR)
-        else {
-            EventsFragment.newInstance(id, TYPE.CREATOR)
+        return when (position) {
+            0 -> ComicsViewAllHorizontalFragment.newInstance(id, TYPE.CREATOR)
+            1 -> EventsFragment.newInstance(id, TYPE.CREATOR)
+            else -> CreatorDataFragment.newInstance(id, TYPE.CREATOR)
         }
     }
 }
