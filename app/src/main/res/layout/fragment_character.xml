@@ -17,11 +17,10 @@
         android:layout_height="match_parent"
         app:layoutDescription="@xml/fragment_character_details_scene">
 
-
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:id="@+id/image_view_comic_image2"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="@dimen/single_page_image_height"
             android:foreground="@drawable/header_details_gradient"
             android:scaleType="centerCrop"
             app:altSrc="@color/md_theme_surface"
@@ -30,16 +29,12 @@
 
         <TextView
             android:id="@+id/text_character_name"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="16dp"
-            android:ellipsize="end"
-            android:maxLines="1"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            android:layout_marginHorizontal="@dimen/space_16dp"
+            android:layout_marginBottom="@dimen/space_16dp"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/back_button"
             app:layout_constraintVertical_bias="1.0"
             app:text="@{viewModel.character.toData().name}"
@@ -53,7 +48,7 @@
             app:layout_constraintBottom_toTopOf="@+id/view_pager"
             app:layout_constraintTop_toBottomOf="@+id/image_view_comic_image2"
             app:tabGravity="fill"
-            app:tabMode="scrollable"/>
+            app:tabMode="scrollable" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/view_pager"
@@ -69,11 +64,10 @@
             style="?attr/materialIconButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="46dp"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_48dp"
             app:icon="@drawable/ic_back"
             android:singleLine="true"
-            android:maxEms="25"
             app:iconTint="@color/md_theme_onSurface"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
             app:layout_constraintStart_toStartOf="parent"
