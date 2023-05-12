@@ -15,9 +15,9 @@ class ComicFragmentPageAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> ComicDataFragment.newInstance(id, TYPE.COMIC)
+            0 -> CharactersFragment.newInstance(id, TYPE.COMIC)
             1 -> CreatorsFragment.newInstance(id, TYPE.COMIC)
-            else -> CharactersFragment.newInstance(id, TYPE.COMIC)
+            else -> ComicDataFragment.newInstance(id, TYPE.COMIC)
         }
 
     }
