@@ -14,11 +14,9 @@ import com.google.android.material.tabs.TabLayoutMediator
 class ComicDetailsFragment :
     BaseFragment<FragmentComicDetailsBinding, ComicDetailsViewModel>() {
 
-    override val layoutIdFragment: Int
-        get() = R.layout.fragment_comic_details
+    override val layoutIdFragment = R.layout.fragment_comic_details
 
-    override val viewModelClass: Class<ComicDetailsViewModel>
-        get() = ComicDetailsViewModel::class.java
+    override val viewModelClass = ComicDetailsViewModel::class.java
 
     private val args: ComicDetailsFragmentArgs by navArgs()
 
@@ -39,7 +37,7 @@ class ComicDetailsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getSingleComic(args.comicId)
+        viewModel.getSingleComic(args.comicID)
 
         init()
     }
@@ -49,7 +47,7 @@ class ComicDetailsFragment :
         val adapter = ComicFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
-            args.comicId
+            args.comicID
         )
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

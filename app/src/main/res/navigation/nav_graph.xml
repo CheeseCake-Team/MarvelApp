@@ -23,11 +23,11 @@
             android:id="@+id/action_homeFragment_to_characterFragment"
             app:destination="@id/characterFragment" />
         <action
-            android:id="@+id/action_homeFragment_to_comicDetailsFragment"
-            app:destination="@id/comicDetailsFragment" />
-        <action
             android:id="@+id/action_homeFragment_to_seriesDetailsFragment"
             app:destination="@id/seriesDetailsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_comicDetailsFragment"
+            app:destination="@id/comicDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/eventsFragment"
@@ -50,14 +50,6 @@
 <!--        android:id="@+id/characterDetailsFragment"-->
 <!--        android:name="com.abaferastech.marvelapp.ui.characterDetails.CharacterDetailsFragment"-->
 <!--        android:label="CharacterDetailsFragment" />-->
-    <fragment
-        android:id="@+id/comicsViewAllHorizontalFragment"
-        android:name="com.abaferastech.marvelapp.ui.comic.comics.ComicsViewAllHorizontalFragment"
-        android:label="ComicsViewAllHorizontalFragment" >
-        <action
-            android:id="@+id/action_comicsViewAllHorizontalFragment_to_comicDetailsFragment"
-            app:destination="@id/comicDetailsFragment" />
-    </fragment>
     <!--    <fragment-->
     <!--        android:id="@+id/comicDetailsFragment"-->
     <!--        android:name="com.abaferastech.marvelapp.ui.comicDetails.ComicDetailsFragment"-->
@@ -99,20 +91,31 @@
             app:argType="integer" />
     </fragment>
     <fragment
-        android:id="@+id/comicDetailsFragment"
-        android:name="com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsFragment"
-        android:label="Comic Details"
-        tools:layout="@layout/fragment_comic_details">
-        <argument
-            android:name="comicId"
-            app:argType="integer" />
-    </fragment>
-    <fragment
         android:id="@+id/creatorDetailsFragment"
         android:name="com.abaferastech.marvelapp.ui.creator.creatorsDetails.CreatorDetailsFragment"
         android:label="CreatorDetailsFragment" />
     <fragment
         android:id="@+id/seriesDetailsFragment"
         android:name="com.abaferastech.marvelapp.ui.series.seriesDetails.SeriesDetailsFragment"
-        android:label="SeriesDetailsFragment" />
+        android:label="SeriesDetailsFragment" >
+        <argument
+            android:name="seriesId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/comicDetailsFragment"
+        android:name="com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsFragment"
+        android:label="ComicDetailsFragment" >
+        <argument
+            android:name="comicID"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/comicsViewAllHorizontalFragment"
+        android:name="com.abaferastech.marvelapp.ui.comic.comics.ComicsViewAllHorizontalFragment"
+        android:label="ComicsViewAllHorizontalFragment" >
+        <action
+            android:id="@+id/action_comicsViewAllHorizontalFragment_to_comicDetailsFragment"
+            app:destination="@id/comicDetailsFragment" />
+    </fragment>
 </navigation>

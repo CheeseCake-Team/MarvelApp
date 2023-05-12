@@ -1,7 +1,6 @@
 package com.abaferastech.marvelapp.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
@@ -11,7 +10,6 @@ import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.home.adapters.HomeAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.NavigationInteractionListener
 import com.abaferastech.marvelapp.ui.model.DataItem
-import com.abaferastech.marvelapp.ui.model.TYPE
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     NavigationInteractionListener {
@@ -34,8 +32,10 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
                 val action = when (homeEvent) {
                     is HomeEvent.ClickCharacterEvent ->
                         HomeFragmentDirections.actionHomeFragmentToCharacterFragment(homeEvent.characterID)
-                    is HomeEvent.ClickComicEvent -> TODO()
-                    is HomeEvent.ClickSeriesEvent -> TODO()
+                    is HomeEvent.ClickComicEvent ->
+                        HomeFragmentDirections.actionHomeFragmentToComicDetailsFragment(homeEvent.comicID)
+                    is HomeEvent.ClickSeriesEvent ->
+                        HomeFragmentDirections.actionHomeFragmentToSeriesDetailsFragment(homeEvent.seriesID)
                 }
                 findNavController().navigate(action)
             }

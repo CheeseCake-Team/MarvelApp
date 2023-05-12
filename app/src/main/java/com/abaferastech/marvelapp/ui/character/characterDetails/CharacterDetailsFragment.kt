@@ -13,10 +13,8 @@ import com.google.android.material.tabs.TabLayoutMediator
 class CharacterDetailsFragment :
     BaseFragment<FragmentCharacterBinding, CharacterDetailsViewModel>() {
 
-    override val layoutIdFragment: Int
-        get() = R.layout.fragment_character
-    override val viewModelClass: Class<CharacterDetailsViewModel>
-        get() = CharacterDetailsViewModel::class.java
+    override val layoutIdFragment = R.layout.fragment_character
+    override val viewModelClass = CharacterDetailsViewModel::class.java
 
     private val args: CharacterDetailsFragmentArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

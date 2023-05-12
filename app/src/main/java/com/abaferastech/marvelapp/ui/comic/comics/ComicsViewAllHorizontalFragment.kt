@@ -14,11 +14,9 @@ import com.abaferastech.marvelapp.utils.Constants.TYPE_ID
 class ComicsViewAllHorizontalFragment :
     BaseFragment<FragmentComicsViewAllHorizontalBinding, ComicsViewModel>() {
 
-    override val layoutIdFragment: Int
-        get() = R.layout.fragment_comics_view_all_horizontal
+    override val layoutIdFragment = R.layout.fragment_comics_view_all_horizontal
 
-    override val viewModelClass: Class<ComicsViewModel>
-        get() = ComicsViewModel::class.java
+    override val viewModelClass = ComicsViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,12 +31,12 @@ class ComicsViewAllHorizontalFragment :
             it.getContentIfNotHandled().let { event ->
                 val action = when (event) {
                     is ComicEvents.ClickComicEvent ->
-                        CharactersFragmentDirections.actionCharactersFragmentToCharacterFragment(
-                            event.comicID
-                        )
+                        ComicsViewAllHorizontalFragmentDirections
+                            .actionComicsViewAllHorizontalFragmentToComicDetailsFragment(event.comicID)
                     null -> null
                 }
                 action?.let { it1 -> findNavController().navigate(it1) }
+
             }
         }
     }

@@ -12,7 +12,8 @@ import io.reactivex.rxjava3.kotlin.addTo
 
 
 class ComicDetailsViewModel : BaseViewModel() {
-    private val repository = MarvelRepository()
+
+    private val repository  by lazy { MarvelRepository() }
 
     private val _comics = MutableLiveData<UIState<Comics>>()
     val comics: LiveData<UIState<Comics>> = _comics

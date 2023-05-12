@@ -9,7 +9,8 @@ import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.UIState
 
 class ComicsViewModel : BaseViewModel(), ComicsInteractionListener {
-    private val repository = MarvelRepository()
+
+    private val repository  by lazy { MarvelRepository() }
 
     private val _comics = MutableLiveData<UIState<List<Comics>>>()
     val comics: LiveData<UIState<List<Comics>>> get() = _comics

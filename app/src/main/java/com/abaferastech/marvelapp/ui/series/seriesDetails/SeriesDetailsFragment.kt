@@ -20,10 +20,10 @@ class SeriesDetailsFragment: BaseFragment<FragmentSeriesDetailsBinding, SeriesDe
     override val viewModelClass: Class<SeriesDetailsViewModel>
         get() = SeriesDetailsViewModel::class.java
 
-//    private val args: SeriesDetailsFragmentArgs by navArgs()
+    private val args: SeriesDetailsFragmentArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getSeriesById(19244)
+        viewModel.getSeriesById(args.seriesId)
         init()
     }
 
@@ -31,7 +31,7 @@ class SeriesDetailsFragment: BaseFragment<FragmentSeriesDetailsBinding, SeriesDe
         tabLayout = binding.tabLayout
         viewPager = binding.viewPager
         adapter = SeriesDetailsFragmentPageAdapter(
-            requireActivity().supportFragmentManager,lifecycle,19244)
+            requireActivity().supportFragmentManager,lifecycle,args.seriesId)
         tabLayout.apply {
             addTab(tabLayout.newTab().setText("Characters"))
             addTab(tabLayout.newTab().setText("Creators"))

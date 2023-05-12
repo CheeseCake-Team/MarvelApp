@@ -8,7 +8,7 @@ import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.UIState
 
 class CharacterDetailsViewModel : BaseViewModel() {
-    private val repository = MarvelRepository()
+    private val repository  by lazy { MarvelRepository() }
 
     private val _character = MutableLiveData<UIState<Characters>>()
     val character: LiveData<UIState<Characters>> = _character

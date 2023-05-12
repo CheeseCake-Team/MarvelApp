@@ -11,10 +11,8 @@ import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.utils.Constants
 
 class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersViewModel>() {
-    override val layoutIdFragment: Int
-        get() = R.layout.fragment_characters
-    override val viewModelClass: Class<CharactersViewModel>
-        get() = CharactersViewModel::class.java
+    override val layoutIdFragment = R.layout.fragment_characters
+    override val viewModelClass = CharactersViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

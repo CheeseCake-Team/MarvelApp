@@ -9,8 +9,8 @@ import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.Event
 
 class CharactersViewModel : BaseViewModel(), CharactersInteractionListener {
-    private val repository = MarvelRepository()
 
+    private val repository  by lazy { MarvelRepository() }
 
     private val _characters = MutableLiveData<UIState<List<Characters>>>()
     val characters: LiveData<UIState<List<Characters>>> get() = _characters
