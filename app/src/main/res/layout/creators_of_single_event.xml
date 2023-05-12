@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.eventScreen.EventsViewModel" />
+            type="com.abaferastech.marvelapp.ui.creators.CreatorsViewModel" />
 
     </data>
 
@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        app:items = "@{viewModel.creators}"
+        app:items = "@{viewModel.creators.toData()}"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_characters_horizontal" />
 

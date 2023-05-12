@@ -73,7 +73,7 @@
         android:label="Comics" />
     <fragment
         android:id="@+id/eventFragment"
-        android:name="com.abaferastech.marvelapp.ui.eventDetailsScreen.EventFragment"
+        android:name="com.abaferastech.marvelapp.ui.eventDetails.EventFragment"
         android:label="Event" >
         <argument
             android:name="eventId"

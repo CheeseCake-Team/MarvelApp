@@ -8,6 +8,7 @@ import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.result.Events
 import com.abaferastech.marvelapp.databinding.FragmentEventsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
+import com.abaferastech.marvelapp.ui.home.HomeFragmentDirections
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.utils.Constants.PUT_TYPE
 import com.abaferastech.marvelapp.utils.Constants.TYPE_ID
@@ -43,6 +44,10 @@ class EventsFragment :
                 }
             }
         })
+
+
+
+
         binding.recyclerViewEvents.adapter = adapter
     }
 

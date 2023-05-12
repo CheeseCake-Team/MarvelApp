@@ -1,12 +1,13 @@
-package com.abaferastech.marvelapp.ui.eventDetailsScreen
+package com.abaferastech.marvelapp.ui.eventDetails
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsViewAllHorizontalFragment
-import com.abaferastech.marvelapp.ui.eventDetailsScreen.creators.CreatorsOfSingleEvent
-import com.abaferastech.marvelapp.ui.eventDetailsScreen.characters.CharactersOfSingleEvent
-import com.abaferastech.marvelapp.ui.eventDetailsScreen.series.SeriesViewAllHorizontalFragment
+import com.abaferastech.marvelapp.ui.eventDetails.creators.CreatorsOfSingleEvent
+import com.abaferastech.marvelapp.ui.eventDetails.characters.CharactersOfSingleEvent
+import com.abaferastech.marvelapp.ui.eventDetails.series.SeriesViewAllHorizontalFragment
+import com.abaferastech.marvelapp.ui.model.TYPE
 
 class EventFragmentPageAdapter (
     fragmentManager: FragmentManager,
@@ -19,10 +20,10 @@ class EventFragmentPageAdapter (
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> CharactersOfSingleEvent.newInstance(id)
+            0 -> CharactersOfSingleEvent.newInstance(id,TYPE.EVENT)
             1 ->  CreatorsOfSingleEvent.newInstance(id)
-            2 ->  ComicsViewAllHorizontalFragment.newInstance(id)
-            else -> SeriesViewAllHorizontalFragment.newInstance(id)
+            2 ->  ComicsViewAllHorizontalFragment.newInstance(id,TYPE.EVENT)
+            else -> SeriesViewAllHorizontalFragment.newInstance(id,TYPE.EVENT)
         }
     }
 }

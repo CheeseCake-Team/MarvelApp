@@ -13,9 +13,6 @@ class EventsViewModel : BaseViewModel() {
     private val _events = MutableLiveData<UIState<List<Events>>>()
     val events: LiveData<UIState<List<Events>>> get() = _events
 
-//    private val _characterEvents = MutableLiveData<UIState<List<Events>>>()
-//    private val _comicEvents = MutableLiveData<UIState<List<Events>>>()
-//    private val _seriesEvents = MutableLiveData<UIState<List<Events>>>()
 
 
     fun getMarvelEvents() {
@@ -30,6 +27,10 @@ class EventsViewModel : BaseViewModel() {
 
     fun getComicEvents(comicsId: Int) {
         repository.getComicEvents(comicsId)
+            .applySchedulersAndPostUIStates(_events::postValue)
+    }
+    fun getSeriesEvents(seriesId: Int) {
+        repository.getSeriesEvents(seriesId)
             .applySchedulersAndPostUIStates(_events::postValue)
     }
 }

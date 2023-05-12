@@ -14,6 +14,8 @@ interface MarvelApiService {
     fun getEventComics(@Path("eventId") eventId: Int) : Single<Response<MarvelBaseResponse<Comics>>>
     @GET("events/{eventId}/characters")
     fun getEventCharacters(@Path("eventId") eventId: Int) : Single<Response<MarvelBaseResponse<Characters>>>
+    @GET("events/{eventId}/series")
+    fun getEventSeries(@Path("eventId") eventId: Int) : Single<Response<MarvelBaseResponse<Series>>>
 
     @GET("events")
     fun getAllEvents(): Single<Response<MarvelBaseResponse<Events>>>
@@ -63,7 +65,7 @@ interface MarvelApiService {
     fun getSeriesCharacters(@Path("seriesId") characterId: Int): Single<Response<MarvelBaseResponse<Characters>>>
 
     @GET("series/{seriesId}/comics")
-    fun getSeriesComics(@Path("seriesId") characterId: Int): Single<Response<MarvelResponse<Comics>>>
+    fun getSeriesComics(@Path("seriesId") characterId: Int): Single<Response<MarvelBaseResponse<Comics>>>
 
     @GET("series/{seriesId}/creators")
     fun getSeriesCreators(@Path("seriesId") characterId: Int): Single<Response<MarvelBaseResponse<Creators>>>
@@ -96,43 +98,43 @@ interface MarvelApiService {
     fun getAllCreators(): Single<Response<MarvelBaseResponse<Creators>>>
 
     @GET("creators/{creatorId}")
-    fun getSingleCreator(@Path("creatorId") creatorId: Int): Single<Response<MarvelResponse<Creators>>>
+    fun getSingleCreator(@Path("creatorId") creatorId: Int): Single<Response<MarvelBaseResponse<Creators>>>
 
     @GET("creators/{creatorId}/events")
-    fun getCreatorEvents(@Path("creatorId") creatorId: Int): Single<Response<MarvelResponse<Events>>>
+    fun getCreatorEvents(@Path("creatorId") creatorId: Int): Single<Response<MarvelBaseResponse<Events>>>
 
     @GET("creators/{creatorId}/characters")
-    fun getCreatorCharacters(@Path("creatorId") creatorId: Int): Single<Response<MarvelResponse<Characters>>>
+    fun getCreatorCharacters(@Path("creatorId") creatorId: Int): Single<Response<MarvelBaseResponse<Characters>>>
 
     @GET("creators/{creatorId}/comics")
-    fun getCreatorComics(@Path("creatorId") creatorId: Int): Single<Response<MarvelResponse<Comics>>>
+    fun getCreatorComics(@Path("creatorId") creatorId: Int): Single<Response<MarvelBaseResponse<Comics>>>
 
     @GET("creators/{creatorId}/series")
-    fun getCreatorSeries(@Path("creatorId") creatorId: Int): Single<Response<MarvelResponse<Series>>>
+    fun getCreatorSeries(@Path("creatorId") creatorId: Int): Single<Response<MarvelBaseResponse<Series>>>
 
     @GET("creators/{creatorId}/stories")
-    fun getCreatorStories(@Path("creatorId") creatorId: Int): Single<Response<MarvelResponse<Stories>>>
+    fun getCreatorStories(@Path("creatorId") creatorId: Int): Single<Response<MarvelBaseResponse<Stories>>>
 
     @GET("stories")
-    fun getAllStories(): Single<Response<MarvelResponse<Stories>>>
+    fun getAllStories(): Single<Response<MarvelBaseResponse<Stories>>>
 
     @GET("stories/{storyId}")
-    fun getSingleStory(@Path("storyId") storyId: Int): Single<Response<MarvelResponse<Stories>>>
+    fun getSingleStory(@Path("storyId") storyId: Int): Single<Response<MarvelBaseResponse<Stories>>>
 
     @GET("stories/{storyId}/events")
-    fun getStoryEvents(@Path("storyId") storyId: Int): Single<Response<MarvelResponse<Events>>>
+    fun getStoryEvents(@Path("storyId") storyId: Int): Single<Response<MarvelBaseResponse<Events>>>
 
     @GET("stories/{storyId}/characters")
-    fun getStoryCharacters(@Path("storyId") storyId: Int): Single<Response<MarvelResponse<Characters>>>
+    fun getStoryCharacters(@Path("storyId") storyId: Int): Single<Response<MarvelBaseResponse<Characters>>>
 
     @GET("stories/{storyId}/comics")
-    fun getStoryComics(@Path("storyId") storyId: Int): Single<Response<MarvelResponse<Comics>>>
+    fun getStoryComics(@Path("storyId") storyId: Int): Single<Response<MarvelBaseResponse<Comics>>>
 
     @GET("stories/{storyId}/creators")
-    fun getStoryCreators(@Path("storyId") storyId: Int): Single<Response<MarvelResponse<Creators>>>
+    fun getStoryCreators(@Path("storyId") storyId: Int): Single<Response<MarvelBaseResponse<Creators>>>
 
     @GET("stories/{storyId}/series")
-    fun getStorySeries(@Path("storyId") storyId: Int): Single<Response<MarvelResponse<Series>>>
+    fun getStorySeries(@Path("storyId") storyId: Int): Single<Response<MarvelBaseResponse<Series>>>
 
 }
 

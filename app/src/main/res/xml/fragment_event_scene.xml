@@ -2,120 +2,95 @@
 <MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <Transition
+        app:constraintSetEnd="@+id/end"
+        app:constraintSetStart="@id/start">
+        <OnSwipe
+            app:dragDirection="dragUp"
+            app:touchAnchorId="@+id/event_view_pager" />
+    </Transition>
+
+
     <ConstraintSet android:id="@+id/start">
         <Constraint
-            android:id="@+id/image_view_event_thumbnail"
-            android:layout_width="match_parent"
-            android:layout_height="400dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <Constraint
-            android:id="@+id/text_view_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@id/image_view_event_thumbnail"
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="54dp"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_event_thumbnail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp">
-            <CustomAttribute
-                app:attributeName="textSize"
-                app:customDimension="16sp" />
-        </Constraint>
-<<<<<<< HEAD
-=======
+            app:layout_constraintVertical_bias="0.0" />
         <Constraint
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/event_view_pager"
+            android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/event_description" />
+            app:layout_constraintTop_toBottomOf="@+id/image_view_event_thumbnail" />
         <Constraint
             android:id="@+id/image_view_event_thumbnail"
             android:layout_width="match_parent"
             android:layout_height="350dp"
-            android:foreground="@drawable/header_details_gradient"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
-        <CustomAttribute
-            app:attributeName="roundPercent"
-            app:customFloatValue="0.0"
-            />
+            <CustomAttribute
+                app:attributeName="crossfade"
+                app:customFloatValue="0" />
         </Constraint>
 
 
->>>>>>> task/event_taps
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
         <Constraint
             android:id="@+id/image_view_event_thumbnail"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Constraint
-            android:id="@+id/text_character_name"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_margin="@dimen/space_16dp"
-            android:gravity="bottom|left"
-            app:layout_constraintBottom_toBottomOf="@+id/image_view_event_thumbnail"
-            app:layout_constraintEnd_toEndOf="@+id/image_view_event_thumbnail"
-            app:layout_constraintHorizontal_bias="0.0"
+            android:layout_height="116dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/image_view_event_thumbnail"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent">
 
+            <CustomAttribute
+                app:attributeName="crossfade"
+                app:customFloatValue="1" />
+        </Constraint>
         <Constraint
-            android:id="@+id/text_view_description"
+            android:id="@+id/event_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_16dp"
-            android:visibility="gone"
+            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@id/backButton"
+            app:layout_constraintTop_toTopOf="@+id/backButton" />
+        <Constraint
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/image_view_event_thumbnail" />
-
         <Constraint
-            android:id="@+id/recycler_view_event_comics"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:padding="12dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_description"
-            android:layout_marginTop="8dp" />
-
-        <Constraint
-            android:id="@+id/text_view_title"
-            app:layout_constraintBottom_toBottomOf="@id/image_view_event_thumbnail"
-            android:layout_width="0dp"
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_event_thumbnail"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0">
+            app:layout_constraintVertical_bias="1.0" />
 
-        </Constraint>
+w
+
+
     </ConstraintSet>
-
-    <Transition
-        app:constraintSetEnd="@id/end"
-        app:constraintSetStart="@+id/start">
-        <OnSwipe
-            app:dragDirection="dragUp"
-            app:touchAnchorId="@+id/recycler_view_event_comics" />
-    </Transition>
 </MotionScene>
+

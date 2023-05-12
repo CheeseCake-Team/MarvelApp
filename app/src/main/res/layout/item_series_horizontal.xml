@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-<<<<<<< HEAD
 
         <variable
             name="item"
@@ -12,13 +11,8 @@
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.ui.seriesScreen.SeriesInteractionListener" />
+            type="com.abaferastech.marvelapp.ui.eventDetails.series.SeriesInteractionListen" />
 
-=======
-            <variable
-            name="series_horizontal"
-            type="com.abaferastech.marvelapp.data.model.Series" />
->>>>>>> task/event_taps
     </data>
 
 
@@ -35,14 +29,9 @@
             <ImageView
                 android:id="@+id/image_view_series_image"
                 android:layout_width="120dp"
-<<<<<<< HEAD
-                android:layout_height="160dp"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{item.thumbnail}"
-=======
                 android:layout_height="180dp"
-                app:imageUrl="@{series_horizontal.thumbnail}"
->>>>>>> task/event_taps
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
