@@ -10,5 +10,3 @@ class SeriesViewAllAdapter (items: List<Series>, listener: SeriesViewAllInteract
     override val layoutID = R.layout.items_series_view_all
 }
 
-interface SeriesViewAllInteractionListener : BaseInteractionListener {
-}

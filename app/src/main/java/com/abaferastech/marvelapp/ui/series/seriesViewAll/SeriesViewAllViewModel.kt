@@ -6,12 +6,17 @@ import com.abaferastech.marvelapp.data.model.result.Series
 import com.abaferastech.marvelapp.ui.model.UIState
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
+import com.abaferastech.marvelapp.ui.comic.comics.ComicEvents
+import com.abaferastech.marvelapp.ui.model.Event
 
-class SeriesViewAllViewModel : BaseViewModel () {
+class SeriesViewAllViewModel : BaseViewModel (),SeriesViewAllInteractionListener {
     private val repository = MarvelRepository()
 
     private val _seriesViewAll = MutableLiveData<UIState<List<Series>>>()
     val seriesViewAll: LiveData<UIState<List<Series>>> get() = _seriesViewAll
+
+    val navigationEvents = MutableLiveData<Event<SeriesEvents>>()
+
 
     init {
         getMarvelSeriesViewAll()
@@ -20,5 +25,9 @@ class SeriesViewAllViewModel : BaseViewModel () {
     private fun getMarvelSeriesViewAll() {
         repository.getAllSeries()
             .applySchedulersAndPostUIStates(_seriesViewAll::postValue)
+    }
+
+    override fun onClickSeries(series: Series) {
+        navigationEvents.postValue(Event(SeriesEvents.ClickSeriesEvent(series.id)))
     }
 }
