@@ -8,7 +8,6 @@ import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentComicsViewAllBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.comic.comics.ComicEvents
-import com.abaferastech.marvelapp.ui.comic.comics.ComicsViewAllHorizontalFragmentDirections
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsViewModel
 
 

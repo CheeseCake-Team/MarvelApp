@@ -6,10 +6,6 @@ import androidx.navigation.fragment.findNavController
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentSeriesviewallBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.comic.comics.ComicEvents
-import com.abaferastech.marvelapp.ui.comic.comics.ComicsViewAllHorizontalFragmentDirections
-import com.abaferastech.marvelapp.ui.series.seriesScreen.SeriesAdapter
-import com.abaferastech.marvelapp.ui.series.seriesScreen.SeriesInteractionListener
 
 class SeriesViewAllFragment : BaseFragment<FragmentSeriesviewallBinding, SeriesViewAllViewModel>() {
     override val layoutIdFragment = R.layout.fragment_seriesviewall

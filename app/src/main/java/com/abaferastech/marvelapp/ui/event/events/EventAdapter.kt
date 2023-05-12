@@ -13,8 +13,3 @@ class EventAdapter(items: List<Events>, listener: EventsInteractionListener) :
 
 }
 
-interface EventsInteractionListener : BaseInteractionListener {
-
-    fun onEventClick(event: Events)
-
-}
