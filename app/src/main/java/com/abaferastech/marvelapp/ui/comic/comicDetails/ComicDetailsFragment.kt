@@ -8,7 +8,6 @@ import androidx.navigation.fragment.navArgs
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentComicDetailsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.character.characterDetails.CharacterFragmentPageAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ComicDetailsFragment :
@@ -52,8 +51,9 @@ class ComicDetailsFragment :
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = "Character"
+                0 -> tab.text = "Details"
                 1 -> tab.text = "Creators"
+                2 -> tab.text = "Character"
             }
         }.attach()
         binding.backButton.setOnClickListener {

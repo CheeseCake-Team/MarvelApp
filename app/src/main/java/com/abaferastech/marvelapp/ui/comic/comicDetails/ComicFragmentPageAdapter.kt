@@ -14,15 +14,16 @@ class ComicFragmentPageAdapter(
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
     override fun createFragment(position: Int): Fragment {
-        return if (position == 0)
-            CharactersFragment.newInstance(id,TYPE.COMIC)
-        else {
-            CreatorsFragment.newInstance(id,TYPE.COMIC)
+        return when (position) {
+            0 -> ComicDataFragment.newInstance(id, TYPE.COMIC)
+            1 -> CreatorsFragment.newInstance(id, TYPE.COMIC)
+            else -> CharactersFragment.newInstance(id, TYPE.COMIC)
         }
+
     }
 
     override fun getItemCount(): Int {
-        return 2
+        return 3
     }
 
 }
