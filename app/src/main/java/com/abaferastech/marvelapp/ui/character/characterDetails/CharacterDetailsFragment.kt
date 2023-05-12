@@ -23,7 +23,6 @@ class CharacterDetailsFragment :
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getSingleCharacter(args.characterId)
-
         init()
     }
 

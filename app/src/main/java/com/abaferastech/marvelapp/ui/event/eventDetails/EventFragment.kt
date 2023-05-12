@@ -10,7 +10,6 @@ import com.abaferastech.marvelapp.databinding.FragmentEventBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsInteractionListener
-import com.abaferastech.marvelapp.ui.eventDetailsScreen.EventFragmentArgs
 
 
 class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
