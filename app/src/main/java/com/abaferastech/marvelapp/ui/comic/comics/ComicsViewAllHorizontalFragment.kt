@@ -1,14 +1,12 @@
 package com.abaferastech.marvelapp.ui.comic.comics
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.databinding.FragmentComicsViewAllHorizontalBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.model.TYPE
-import com.abaferastech.marvelapp.utils.Constants
-import com.abaferastech.marvelapp.utils.Constants.TYPE_ID
+import com.abaferastech.marvelapp.ui.eventScreen.EventsFragment
 
 class ComicsViewAllHorizontalFragment :
     BaseFragment<FragmentComicsViewAllHorizontalBinding, ComicsViewModel>() {
@@ -22,29 +20,25 @@ class ComicsViewAllHorizontalFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val typeID = arguments?.getInt(TYPE_ID)
-        when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
-            TYPE.SERIES -> viewModel.getSeriesComics(typeID!!)
-            TYPE.CHARACTER -> viewModel.getCharacterComics(typeID!!)
-            TYPE.EVENT -> viewModel.getEventComics(typeID!!)
-            TYPE.CREATOR -> viewModel.getEventComics(typeID!!)
-            else -> viewModel.getMarvelComics()
+        val characterId = arguments?.getInt(CHARACTER_ID)
+
+        if (characterId != null) {
+            viewModel.getEventComics(characterId)
+            viewModel.getCharacterComics(characterId)
+        } else {
+            viewModel.getMarvelComics()
         }
 
-        val adapter = ComicsAdapter(emptyList(), object : ComicsInteractionListener {
-            override fun onClickComics(comic: Comics) {
-                //TODO("Not yet implemented")
-            }
-        })
+        val adapter = ComicsAdapter(emptyList(), object : ComicsInteractionListener {})
         binding.recyclerViewComics.adapter = adapter
     }
 
     companion object {
+        private const val CHARACTER_ID = "character_id"
         @JvmStatic
-        fun newInstance(id: Int, type: TYPE) = ComicsViewAllHorizontalFragment().apply {
+        fun newInstance(id: Int) = ComicsViewAllHorizontalFragment().apply {
             arguments = Bundle().apply {
-                putInt(TYPE_ID, id)
-                putParcelable(Constants.PUT_TYPE, type)
+                putInt(CHARACTER_ID, id)
             }
         }
     }

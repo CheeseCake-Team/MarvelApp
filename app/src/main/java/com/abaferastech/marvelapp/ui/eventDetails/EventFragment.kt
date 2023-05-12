@@ -1,19 +1,18 @@
-package com.abaferastech.marvelapp.ui.eventDetails
+package com.abaferastech.marvelapp.ui.eventDetailsScreen
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.databinding.FragmentEventBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsInteractionListener
-import com.abaferastech.marvelapp.ui.eventDetailsScreen.EventFragmentArgs
 
 
-class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
+class EventFragment : BaseFragment<FragmentEventBinding,EventViewModel>() {
 
     private val args: EventFragmentArgs by navArgs()
 

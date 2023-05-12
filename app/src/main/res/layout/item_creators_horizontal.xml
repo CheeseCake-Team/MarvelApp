@@ -4,21 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-<<<<<<< HEAD
 
         <variable
             name="item"
-            type="com.abaferastech.marvelapp.data.model.result.Series" />
-
-        <variable
-            name="listener"
-            type="com.abaferastech.marvelapp.ui.seriesScreen.SeriesInteractionListener" />
-
-=======
-            <variable
-            name="series_horizontal"
-            type="com.abaferastech.marvelapp.data.model.Series" />
->>>>>>> task/event_taps
+            type="com.abaferastech.marvelapp.data.model.Creators" />
     </data>
 
 
@@ -33,45 +22,31 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/image_view_series_image"
+                android:id="@+id/image_view_Creator_image"
                 android:layout_width="120dp"
-<<<<<<< HEAD
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
                 app:imageUrl="@{item.thumbnail}"
-=======
-                android:layout_height="180dp"
-                app:imageUrl="@{series_horizontal.thumbnail}"
->>>>>>> task/event_taps
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@color/material_dynamic_tertiary70" />
 
             <TextView
-                android:id="@+id/text_view_series_name"
+                android:id="@+id/text_view_Creator_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginBottom="8dp"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="@{item.title.toString()}"
-                app:layout_constraintBottom_toTopOf="@+id/text_view_series_issue_number"
+                android:text="@{item.firstName.toString() }"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_date"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/image_view_series_image"
+                app:layout_constraintStart_toEndOf="@+id/image_view_Creator_image"
                 tools:text="The amazing spider-man" />
 
-            <TextView
-                android:id="@+id/text_view_series_issue_number"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:text="@{Integer.toString(item.startYear)}"
-                app:layout_constraintBottom_toBottomOf="@+id/image_view_series_image"
-                app:layout_constraintStart_toStartOf="@+id/text_view_series_name"
-                app:layout_constraintTop_toTopOf="@+id/image_view_series_image"
-                tools:text="Issue #13" />
+
 
             <TextView
                 android:id="@+id/text_view_date"
@@ -80,8 +55,8 @@
                 android:layout_marginTop="8dp"
                 android:maxLines="1"
                 android:text="@{item.modified.substring(0,10)}"
-                app:layout_constraintStart_toStartOf="@+id/text_view_series_issue_number"
-                app:layout_constraintTop_toBottomOf="@+id/text_view_series_issue_number"
+                app:layout_constraintStart_toStartOf="@+id/text_view_Creator_name"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_Creator_name"
                 tools:text="Sep, 13 2021" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

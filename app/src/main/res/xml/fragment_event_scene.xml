@@ -25,6 +25,34 @@
                 app:attributeName="textSize"
                 app:customDimension="16sp" />
         </Constraint>
+<<<<<<< HEAD
+=======
+        <Constraint
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/event_view_pager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/event_description" />
+        <Constraint
+            android:id="@+id/image_view_event_thumbnail"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:foreground="@drawable/header_details_gradient"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+        <CustomAttribute
+            app:attributeName="roundPercent"
+            app:customFloatValue="0.0"
+            />
+        </Constraint>
+
+
+>>>>>>> task/event_taps
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
