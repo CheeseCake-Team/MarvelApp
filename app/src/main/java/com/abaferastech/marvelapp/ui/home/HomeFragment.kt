@@ -63,6 +63,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             else -> {}
         }
     }
+    override fun onResume() {
+        super.onResume()
+        if (viewModel.stateInitialized()) {
+            binding.recyclerViewHome.layoutManager?.onRestoreInstanceState(
+                viewModel.restoreRecyclerViewState()
+            )
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.recyclerViewHome.layoutManager?.onSaveInstanceState()
+            ?.let { viewModel.saveRecyclerViewState(it) }
+    }
 
 
 }
