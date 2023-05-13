@@ -3,13 +3,16 @@ package com.abaferastech.marvelapp.ui.event.events
 import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
 import com.abaferastech.marvelapp.data.model.result.Events
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
+import com.abaferastech.marvelapp.ui.character.characterDetails.CharacterDetailsFragmentArgs
+import com.abaferastech.marvelapp.ui.event.eventDetails.EventFragmentArgs
 import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.UIState
 
-class EventsViewModel : BaseViewModel(), EventsInteractionListener {
+class EventsViewModel() : BaseViewModel(), EventsInteractionListener {
     private val repository by lazy { MarvelRepository() }
 
     val navigationEvents = MutableLiveData<Event<EvenEvents>>()

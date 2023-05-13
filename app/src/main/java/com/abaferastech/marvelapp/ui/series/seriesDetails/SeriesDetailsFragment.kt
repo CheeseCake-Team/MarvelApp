@@ -17,8 +17,6 @@ class SeriesDetailsFragment : BaseFragment<FragmentSeriesDetailsBinding, SeriesD
     override val viewModelClass: Class<SeriesDetailsViewModel>
         get() = SeriesDetailsViewModel::class.java
 
-    private val args: SeriesDetailsFragmentArgs by navArgs()
-
     override fun onResume() {
         super.onResume()
         (activity as AppCompatActivity).supportActionBar.let {
@@ -35,7 +33,7 @@ class SeriesDetailsFragment : BaseFragment<FragmentSeriesDetailsBinding, SeriesD
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getSeriesById(args.seriesId)
+        viewModel.getSeriesById()
 
         init()
     }
@@ -44,7 +42,7 @@ class SeriesDetailsFragment : BaseFragment<FragmentSeriesDetailsBinding, SeriesD
         val adapter = SeriesDetailsFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
-            args.seriesId
+            viewModel.seriesArgs.seriesId
         )
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

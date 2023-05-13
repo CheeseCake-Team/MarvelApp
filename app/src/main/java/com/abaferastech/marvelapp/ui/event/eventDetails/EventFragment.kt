@@ -12,7 +12,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 
 class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
-    private val args: EventFragmentArgs by navArgs()
 
     override val layoutIdFragment = R.layout.fragment_event
 
@@ -20,7 +19,7 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getSingleEvent(args.eventId)
+        viewModel.getSingleEvent()
         init()
     }
 
@@ -42,7 +41,7 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
         val adapter = EventFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
-            args.eventId
+            viewModel.eventArgs.eventId
         )
         binding.eventViewPager.adapter = adapter
         TabLayoutMediator(binding.eventTabLayout, binding.eventViewPager) { tab, position ->

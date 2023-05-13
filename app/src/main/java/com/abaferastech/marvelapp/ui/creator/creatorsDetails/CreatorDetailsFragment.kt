@@ -17,12 +17,12 @@ class CreatorDetailsFragment :
     override val layoutIdFragment = R.layout.fragment_creator_details
     override val viewModelClass = CreatorDetailsViewModel::class.java
 
-    private val args: CreatorDetailsFragmentArgs by navArgs()
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getMarvelCreator(args.creatorId)
+        viewModel.getMarvelCreator()
         init()
 
     }
@@ -46,7 +46,7 @@ class CreatorDetailsFragment :
         val adapter = CreatorFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
-            args.creatorId
+            viewModel.creatorArgs.creatorId
         )
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

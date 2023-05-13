@@ -21,7 +21,9 @@
             app:destination="@id/comicsGridFragment" />
         <action
             android:id="@+id/action_homeFragment_to_characterFragment"
-            app:destination="@id/characterFragment" />
+            app:destination="@id/characterFragment"
+            app:popUpTo="@id/homeFragment"
+            app:popUpToInclusive="false" />
         <action
             android:id="@+id/action_homeFragment_to_seriesDetailsFragment"
             app:destination="@id/seriesDetailsFragment" />
@@ -44,7 +46,8 @@
         tools:layout="@layout/fragment_character">
         <argument
             android:name="characterId"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="1" />
         <action
             android:id="@+id/action_characterFragment_to_comicDetailsFragment"
             app:destination="@id/comicDetailsFragment" />
@@ -107,7 +110,8 @@
         android:label="Event" >
         <argument
             android:name="eventId"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="1" />
         <action
             android:id="@+id/action_eventFragment_to_comicDetailsFragment"
             app:destination="@id/comicDetailsFragment" />
@@ -127,7 +131,8 @@
         android:label="CreatorDetailsFragment" >
         <argument
             android:name="creatorId"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="1" />
         <action
             android:id="@+id/action_creatorDetailsFragment_to_comicDetailsFragment"
             app:destination="@id/comicDetailsFragment" />
@@ -147,7 +152,8 @@
         android:label="SeriesDetailsFragment" >
         <argument
             android:name="seriesId"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="1" />
         <action
             android:id="@+id/action_seriesDetailsFragment_to_creatorDetailsFragment"
             app:destination="@id/creatorDetailsFragment" />
@@ -164,7 +170,8 @@
         android:label="ComicDetailsFragment" >
         <argument
             android:name="comicID"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="1" />
         <action
             android:id="@+id/action_comicDetailsFragment_to_characterFragment"
             app:destination="@id/characterFragment" />

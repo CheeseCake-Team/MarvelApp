@@ -17,8 +17,6 @@ class ComicDetailsFragment :
 
     override val viewModelClass = ComicDetailsViewModel::class.java
 
-    private val args: ComicDetailsFragmentArgs by navArgs()
-
     override fun onResume() {
         super.onResume()
         (activity as AppCompatActivity).supportActionBar.let {
@@ -36,7 +34,7 @@ class ComicDetailsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getSingleComic(args.comicID)
+        viewModel.getSingleComic()
 
         init()
     }
@@ -60,7 +58,7 @@ class ComicDetailsFragment :
         val adapter = ComicFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
-            args.comicID
+            viewModel.comicArgs.comicID
         )
         binding.viewPager.adapter = adapter
     }

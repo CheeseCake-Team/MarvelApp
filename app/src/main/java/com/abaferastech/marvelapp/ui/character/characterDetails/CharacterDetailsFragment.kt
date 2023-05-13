@@ -16,11 +16,10 @@ class CharacterDetailsFragment :
     override val layoutIdFragment = R.layout.fragment_character
     override val viewModelClass = CharacterDetailsViewModel::class.java
 
-    private val args: CharacterDetailsFragmentArgs by navArgs()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getSingleCharacter(args.characterId)
+        viewModel.getSingleCharacter()
         init()
     }
 
@@ -42,7 +41,7 @@ class CharacterDetailsFragment :
         val adapter = CharacterFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
-            args.characterId
+            viewModel.characterArgs.characterId
         )
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
