@@ -18,13 +18,16 @@
         <androidx.recyclerview.widget.RecyclerView
             android:paddingVertical="@dimen/space_12dp"
             android:id="@+id/recycler_view_events"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:clipToPadding="false"
             app:items="@{viewModel.events.toData()}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_events"
-            app:showWhenSuccess="@{viewModel.events}"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:listitem="@layout/item_events"/>
 
         <ProgressBar
             android:layout_width="wrap_content"

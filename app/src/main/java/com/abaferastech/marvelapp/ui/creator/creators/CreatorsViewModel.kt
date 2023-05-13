@@ -9,7 +9,7 @@ import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.UIState
 
 class CreatorsViewModel : BaseViewModel(), CreatorsInteractionListener {
-    private val repository = MarvelRepository()
+    private val repository by lazy { MarvelRepository() }
 
     private val _creators = MutableLiveData<UIState<List<Creators>>>()
     val creators: LiveData<UIState<List<Creators>>> get() = _creators

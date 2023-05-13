@@ -5,17 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.result.Events
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
-import com.abaferastech.marvelapp.ui.comic.comics.ComicEvents
 import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.UIState
 
-class EventsViewModel : BaseViewModel(),EventsInteractionListener {
-    private val repository = MarvelRepository()
+class EventsViewModel : BaseViewModel(), EventsInteractionListener {
+    private val repository by lazy { MarvelRepository() }
+
+    val navigationEvents = MutableLiveData<Event<EvenEvents>>()
 
     private val _events = MutableLiveData<UIState<List<Events>>>()
     val events: LiveData<UIState<List<Events>>> get() = _events
-
-    val navigationEvents = MutableLiveData<Event<EvenEvents>>()
 
     fun getMarvelEvents() {
         repository.getAllEvents()
@@ -24,6 +23,11 @@ class EventsViewModel : BaseViewModel(),EventsInteractionListener {
 
     fun getCharacterEvents(characterId: Int) {
         repository.getCharacterEvents(characterId)
+            .applySchedulersAndPostUIStates(_events::postValue)
+    }
+
+    fun getCreatorEvents(creatorId: Int) {
+        repository.getCreatorEvents(creatorId)
             .applySchedulersAndPostUIStates(_events::postValue)
     }
 

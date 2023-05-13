@@ -119,6 +119,9 @@ class MarvelRepository {
     fun getComicSeries(comicsId: Int): Single<UIState<List<Series>>> {
         return wrapWithState { MarvelAPI.apiService.getComicSeries(comicsId) }
     }
+   fun getEventSeries(comicsId: Int): Single<UIState<List<Series>>> {
+        return wrapWithState { MarvelAPI.apiService.getEventSeries(comicsId) }
+    }
 
     fun getComicCreators(comicsId: Int): Single<UIState<List<Creators>>> {
         return wrapWithState { MarvelAPI.apiService.getComicCreators(comicsId) }

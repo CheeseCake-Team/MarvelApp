@@ -9,19 +9,10 @@ import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 
 class EventViewModel : BaseViewModel() {
-    private val repository = MarvelRepository()
-
-    private val _comics = MutableLiveData<UIState<List<Comics>>>()
-    val comics: LiveData<UIState<List<Comics>>> get() = _comics
+    private val repository by lazy { MarvelRepository() }
 
     private val _event = MutableLiveData<UIState<Events>>()
     val event: LiveData<UIState<Events>> get() = _event
-
-
-    fun getEventComics(eventId: Int) {
-        repository.getEventComics(eventId)
-            .applySchedulersAndPostUIStates(_comics::postValue)
-    }
 
     fun getSingleEvent(eventsId:Int) {
         repository.getSingleEvent(eventsId)

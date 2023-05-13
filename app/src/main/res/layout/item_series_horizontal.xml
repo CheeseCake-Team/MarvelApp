@@ -11,7 +11,7 @@
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.ui.series.seriesScreen.SeriesInteractionListener" />
+            type="com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllInteractionListener" />
 
     </data>
 
@@ -19,6 +19,7 @@
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.Material3.CardView.Filled"
         android:layout_width="match_parent"
+        android:onClick="@{()->listener.onClickSeries(item)}"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/space_4dp">
 

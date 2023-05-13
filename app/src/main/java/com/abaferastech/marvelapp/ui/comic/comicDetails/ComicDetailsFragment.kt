@@ -8,7 +8,6 @@ import androidx.navigation.fragment.navArgs
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentComicDetailsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.character.characterDetails.CharacterFragmentPageAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class ComicDetailsFragment :
@@ -44,12 +43,7 @@ class ComicDetailsFragment :
 
 
     private fun init() {
-        val adapter = ComicFragmentPageAdapter(
-            requireActivity().supportFragmentManager,
-            lifecycle,
-            args.comicID
-        )
-        binding.viewPager.adapter = adapter
+        setupPageAdapter()
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = "Character"
@@ -59,5 +53,14 @@ class ComicDetailsFragment :
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    private fun setupPageAdapter() {
+        val adapter = ComicFragmentPageAdapter(
+            requireActivity().supportFragmentManager,
+            lifecycle,
+            args.comicID
+        )
+        binding.viewPager.adapter = adapter
     }
 }

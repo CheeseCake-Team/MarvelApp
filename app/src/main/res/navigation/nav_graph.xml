@@ -114,6 +114,12 @@
         <action
             android:id="@+id/action_eventFragment_to_characterFragment"
             app:destination="@id/characterFragment" />
+        <action
+            android:id="@+id/action_eventFragment_to_creatorDetailsFragment"
+            app:destination="@id/creatorDetailsFragment" />
+        <action
+            android:id="@+id/action_eventFragment_to_seriesDetailsFragment"
+            app:destination="@id/seriesDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/creatorDetailsFragment"
@@ -128,6 +134,12 @@
         <action
             android:id="@+id/action_creatorDetailsFragment_to_characterFragment"
             app:destination="@id/characterFragment" />
+        <action
+            android:id="@+id/action_creatorDetailsFragment_to_eventFragment"
+            app:destination="@id/eventFragment" />
+        <action
+            android:id="@+id/action_creatorDetailsFragment_to_seriesDetailsFragment2"
+            app:destination="@id/seriesDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/seriesDetailsFragment"

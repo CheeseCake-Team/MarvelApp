@@ -17,7 +17,7 @@ class SeriesViewAllFragment : BaseFragment<FragmentSeriesviewallBinding, SeriesV
         super.onViewCreated(view, savedInstanceState)
 
         addAdapter()
-        addComicEvents()
+        addSeriesEvents()
     }
 
     private fun addAdapter() {
@@ -26,7 +26,7 @@ class SeriesViewAllFragment : BaseFragment<FragmentSeriesviewallBinding, SeriesV
     }
 
 
-    private fun addComicEvents() {
+    private fun addSeriesEvents() {
 
         val clickSeriesEventObserver = EventObserver<SeriesEvents> { event ->
             handleSeriesEvent(event)

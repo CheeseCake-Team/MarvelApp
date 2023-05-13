@@ -9,6 +9,7 @@ import com.abaferastech.marvelapp.databinding.FragmentComicsViewAllBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.comic.comics.ComicEvents
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsViewModel
+import com.abaferastech.marvelapp.ui.model.EventObserver
 
 
 class ComicsGridFragment : BaseFragment<FragmentComicsViewAllBinding, ComicsViewModel>() {
@@ -27,19 +28,24 @@ class ComicsGridFragment : BaseFragment<FragmentComicsViewAllBinding, ComicsView
     }
 
     private fun addComicEvents() {
-        viewModel.navigationEvents.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled().let { event ->
-                val action = when (event) {
-                    is ComicEvents.ClickComicEvent ->
-                        ComicsGridFragmentDirections
-                            .actionComicsGridFragmentToComicDetailsFragment(event.comicID)
-                    null -> null
-                }
-                action?.let { it1 -> findNavController().navigate(it1) }
 
-            }
+        val clickComicEventObserver = EventObserver<ComicEvents> { event ->
+            handleComicEvent(event)
         }
+
+        viewModel.navigationEvents.observe(viewLifecycleOwner, clickComicEventObserver)
     }
+
+    private fun handleComicEvent(event: ComicEvents?) {
+        val action = when (event) {
+            is ComicEvents.ClickComicEvent ->
+                ComicsGridFragmentDirections
+                    .actionComicsGridFragmentToComicDetailsFragment(event.comicID)
+            null -> null
+        }
+        action?.let { it1 -> findNavController().navigate(it1) }
+    }
+
     private fun setupComicsAdapter() {
         val adapter = ComicsGridAdapter(emptyList(), viewModel)
         binding.recyclerViewComics.adapter = adapter

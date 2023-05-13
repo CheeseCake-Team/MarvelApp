@@ -8,6 +8,7 @@ import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentCreatorsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsFragmentDirections
+import com.abaferastech.marvelapp.ui.event.eventDetails.EventFragmentDirections
 import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.series.seriesDetails.SeriesDetailsFragmentDirections
@@ -65,9 +66,10 @@ class CreatorsFragment : BaseFragment<FragmentCreatorsBinding, CreatorsViewModel
         return when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
             TYPE.SERIES -> SeriesDetailsFragmentDirections
                 .actionSeriesDetailsFragmentToCreatorDetailsFragment(event.creatorID)
-            TYPE.COMIC -> ComicDetailsFragmentDirections.actionComicDetailsFragmentToCreatorDetailsFragment(
-                event.creatorID
-            )
+            TYPE.COMIC -> ComicDetailsFragmentDirections
+                .actionComicDetailsFragmentToCreatorDetailsFragment(event.creatorID)
+            TYPE.EVENT -> EventFragmentDirections
+                .actionEventFragmentToCreatorDetailsFragment(event.creatorID)
             else -> null
         }
     }
