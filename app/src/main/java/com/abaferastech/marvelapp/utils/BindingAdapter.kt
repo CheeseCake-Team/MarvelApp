@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.response.Thumbnail
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.character.characters.CharactersAdapter
@@ -20,11 +21,23 @@ import com.abaferastech.marvelapp.ui.model.SearchItem
 import com.abaferastech.marvelapp.ui.model.UIState
 import com.bumptech.glide.Glide
 
-@BindingAdapter(value = ["app:imageUrl"])
-fun imageUrl(view: ImageView, thumbnail: Thumbnail?) {
-    Glide.with(view).load("${thumbnail?.path}.${thumbnail?.extension}").into(view)
-}
 
+@BindingAdapter("app:imageUrl")
+fun ImageView.setImageFromUrl(thumbnail: Thumbnail?) {
+    thumbnail?.path?.let { path ->
+        val imageUrl = if (path.contains("image_not_available")) {
+            R.drawable.no_image
+        } else {
+            "${thumbnail?.path}.${thumbnail?.extension}"
+        }
+        Glide.with(this)
+            .load(imageUrl)
+            .placeholder(R.drawable.no_image)
+            .error(R.drawable.no_image)
+            .centerCrop()
+            .into(this)
+    }
+}
 @BindingAdapter(value = ["app:items"])
 fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
     (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
@@ -123,3 +136,4 @@ fun <T> showWhenSuccess(view: View, UiState: UIState<T>?) {
     if (UiState is UIState.Success) view.visibility = View.VISIBLE
     else view.visibility = View.GONE
 }
+
