@@ -8,7 +8,6 @@ import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentHomeBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.home.adapters.HomeAdapter
-import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.EventObserver
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
@@ -45,12 +44,13 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 HomeFragmentDirections.actionHomeFragmentToSeriesDetailsFragment(homeEvent.seriesID)
             is HomeEvent.ClickAllCharacterEvent ->
                 HomeFragmentDirections.actionHomeFragmentToCharactersFragment()
-            is HomeEvent.ClickAllComicEvent ->  HomeFragmentDirections.actionHomeFragmentToComicsGridFragment()
-            is HomeEvent.ClickAllSeriesEvent -> HomeFragmentDirections.actionHomeFragmentToSeriesViewAllFragment()
+            is HomeEvent.ClickAllComicEvent -> HomeFragmentDirections
+                .actionHomeFragmentToComicsGridFragment()
+            is HomeEvent.ClickAllSeriesEvent -> HomeFragmentDirections
+                .actionHomeFragmentToSeriesViewAllFragment()
         }
         findNavController().navigate(action)
     }
-
 
 
 }

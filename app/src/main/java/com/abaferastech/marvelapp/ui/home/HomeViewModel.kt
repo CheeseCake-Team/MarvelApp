@@ -130,8 +130,12 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
 
     }
 
-    override fun onNavigate(id: String) {
-        TODO("Not yet implemented")
+    override fun onNavigate(title: String) {
+        when (title) {
+            "CHARACTERS" -> navigationEvents.postValue(Event(HomeEvent.ClickAllCharacterEvent))
+            "COMICS" -> navigationEvents.postValue(Event(HomeEvent.ClickAllComicEvent))
+            "SERIES" -> navigationEvents.postValue(Event(HomeEvent.ClickAllSeriesEvent))
+        }
     }
 
 }

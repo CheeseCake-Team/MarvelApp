@@ -5,8 +5,8 @@ sealed class HomeEvent {
     data class ClickComicEvent(val comicID: Int) : HomeEvent()
     data class ClickSeriesEvent(val seriesID: Int) : HomeEvent()
 
-    data class ClickAllSeriesEvent(val seriesID: Int) : HomeEvent()
-    data class ClickAllComicEvent(val seriesID: Int) : HomeEvent()
-    data class ClickAllCharacterEvent(val seriesID: Int) : HomeEvent()
+    object ClickAllSeriesEvent : HomeEvent()
+    object ClickAllComicEvent : HomeEvent()
+    object ClickAllCharacterEvent : HomeEvent()
 
 }
