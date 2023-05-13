@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         val controller = navHostFragment.navController
 
         binding.bottomNavigationBar.setupWithNavController(controller)
-      //  NavigationUI.setupWithNavController(binding.bottomNavigationBar, controller, true)
+        NavigationUI.setupWithNavController(binding.bottomNavigationBar, controller, false)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
