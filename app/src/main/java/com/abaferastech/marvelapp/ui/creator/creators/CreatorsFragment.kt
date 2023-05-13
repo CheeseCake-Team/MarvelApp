@@ -7,8 +7,8 @@ import androidx.navigation.fragment.findNavController
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentCreatorsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.character.characterDetails.CharacterDetailsFragmentDirections
 import com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsFragmentDirections
+import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.series.seriesDetails.SeriesDetailsFragmentDirections
 import com.abaferastech.marvelapp.utils.Constants
@@ -45,17 +45,19 @@ class CreatorsFragment : BaseFragment<FragmentCreatorsBinding, CreatorsViewModel
     }
 
     private fun addComicEvents() {
-        viewModel.navigationEvents.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled().let { event ->
-                val action = when (event) {
-                    is CreatorEvent.ClickCreatorEvent ->
-                        navDirections(event)
-                    null -> null
-                }
-                action?.let { it1 -> findNavController().navigate(it1) }
-
-            }
+        val clickCreatorEventObserver = EventObserver<CreatorEvent> { event ->
+            handleCreatorEvent(event)
         }
+        viewModel.navigationEvents.observe(viewLifecycleOwner, clickCreatorEventObserver)
+    }
+
+    private fun handleCreatorEvent(event: CreatorEvent?) {
+        val action = when (event) {
+            is CreatorEvent.ClickCreatorEvent ->
+                navDirections(event)
+            null -> null
+        }
+        action?.let { it1 -> findNavController().navigate(it1) }
     }
 
     private fun navDirections(event: CreatorEvent.ClickCreatorEvent): NavDirections? {
@@ -63,7 +65,9 @@ class CreatorsFragment : BaseFragment<FragmentCreatorsBinding, CreatorsViewModel
         return when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
             TYPE.SERIES -> SeriesDetailsFragmentDirections
                 .actionSeriesDetailsFragmentToCreatorDetailsFragment(event.creatorID)
-            TYPE.COMIC -> ComicDetailsFragmentDirections.actionComicDetailsFragmentToCreatorDetailsFragment(event.creatorID)
+            TYPE.COMIC -> ComicDetailsFragmentDirections.actionComicDetailsFragmentToCreatorDetailsFragment(
+                event.creatorID
+            )
             else -> null
         }
     }
