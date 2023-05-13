@@ -11,7 +11,7 @@
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.ui.series.seriesScreen.SeriesInteractionListener" />
+            type="com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllInteractionListener" />
 
     </data>
 
@@ -31,6 +31,7 @@
                 android:layout_width="120dp"
                 android:layout_height="160dp"
                 android:scaleType="centerCrop"
+                android:contentDescription="@string/image_of_the_series"
                 app:imageUrl="@{item.thumbnail}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
