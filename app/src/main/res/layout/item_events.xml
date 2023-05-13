@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.abaferastech.marvelapp.data.model.result.Events"/>
+
+        <variable
+            name="listener"
+            type="com.abaferastech.marvelapp.ui.event.events.EventsInteractionListener"/>
+
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/space_16dp"
+        android:layout_marginVertical="@dimen/space_8dp"
+        app:cardCornerRadius="@dimen/space_16dp"
+        style="@style/Widget.Material3.CardView.Elevated"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/event_image_view_height"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{item.thumbnail}"
+                android:onClick="@{() -> listener.onEventClick(item)}"
+                android:foreground="@drawable/gradiant"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/event"
+                tools:srcCompat="@android:mipmap/sym_def_app_icon" />
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/space_16dp"
+                android:text="@{item.title}"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                android:textColor="#FFFFFF"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Event" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</layout>
+

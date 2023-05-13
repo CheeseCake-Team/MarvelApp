@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsViewModel" />
+    </data>
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.comic.comicDetails.ComicDataFragment">
+
+        <TextView
+            android:id="@+id/text_view_comic_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:text='@{"Title: " + viewModel.comics.toData().title}'
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_comic_issue_number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_16dp"
+            android:layout_marginTop="16dp"
+            android:text='@{"Issue: " + viewModel.comics.toData().issueNumber}'
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_comic_title" />
+
+        <TextView
+            android:id="@+id/text_view_comic_modified"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:text='@{"Date: " + viewModel.comics.toData().modified.split("T")[0]}'
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_comic_issue_number" />
+
+        <TextView
+            android:id="@+id/text_view_comic_prices"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:text='@{"Price: " + viewModel.comics.toData().prices[0].price.toString()}'
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_comic_modified" />
+
+        <TextView
+            android:id="@+id/text_view_comic_page_count"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:text='@{"pageCount: " + viewModel.comics.toData().pageCount.toString()}'
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_comic_prices" />
+
+        <TextView
+            android:id="@+id/text_view_comic_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:text='@{"Description: " + viewModel.comics.toData().description}'
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_comic_page_count" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
+</layout>

@@ -4,31 +4,38 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.databinding.DataBindingUtil
+import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
-import androidx.viewbinding.ViewBinding
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.abaferastech.marvelapp.BR
 
-abstract class BaseFragment<VB : ViewBinding> : Fragment() {
+abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel> : Fragment() {
 
-    abstract val bindingInflater: (LayoutInflater) -> VB
+    abstract val layoutIdFragment: Int
+    abstract val viewModelClass: Class<VM>
 
-    private var _binding: VB? = null
+    protected val viewModel: VM by lazy {
+        ViewModelProvider(this)[viewModelClass]
+    }
 
-    protected val binding: VB
-        get() = _binding as VB
+    private lateinit var _binding: VDB
 
+    protected val binding: VDB
+        get() = _binding
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        _binding = bindingInflater(layoutInflater)
-        return _binding!!.root
-    }
+    ): View? {
+        _binding = DataBindingUtil.inflate(inflater, layoutIdFragment, container, false)
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+        _binding.apply {
+            lifecycleOwner = viewLifecycleOwner
+            setVariable(BR.viewModel,viewModel)
+            return root
+        }
     }
-
 }

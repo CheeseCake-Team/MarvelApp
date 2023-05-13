@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.abaferastech.marvelapp.ui.model.TYPE"/>
+
+        <variable
+            name="viewModel"
+            type="com.abaferastech.marvelapp.ui.search.SearchViewModel" />
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.search.SearchFragment"
+        app:layoutDescription="@xml/fragment_search_scene">
+
+        <HorizontalScrollView
+            android:id="@+id/horizontalScrollView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8dp"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:scrollbars="none"
+            android:visibility="gone"
+            app:chipGroupVisibility="@{viewModel.isChipGroupVisible()}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/search_text_input_layout">
+
+            <com.google.android.material.chip.ChipGroup
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:singleLine="true"
+                app:selectionRequired="true"
+                app:singleSelection="true">
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:onClick="@{()->viewModel.changeSearchType(TYPE.COMIC)}"
+                    android:text="@string/comics" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.changeSearchType(TYPE.CHARACTER)}"
+                    android:text="@string/characters" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.changeSearchType(TYPE.SERIES)}"
+                    android:text="@string/series" />
+
+                <com.google.android.material.chip.Chip
+                    style="@style/Widget.Material3.Chip.Filter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="@{()->viewModel.changeSearchType(TYPE.EVENT)}"
+                    android:text="@string/events" />
+
+            </com.google.android.material.chip.ChipGroup>
+        </HorizontalScrollView>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/search_text_input_layout"
+            style="@style/CustomSearchBar"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginHorizontal="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:drawableStart="@drawable/ic_search"
+            android:drawablePadding="@dimen/space_16dp"
+            android:focusableInTouchMode="true"
+            android:hint="@string/type_here"
+            android:inputType="text"
+            android:maxLength="30"
+            android:paddingStart="@dimen/space_16dp"
+            android:paddingEnd="@dimen/space_16dp"
+            android:text="@={viewModel.searchQuery}"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_search"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:clipToPadding="false"
+            android:padding="@dimen/space_12dp"
+            app:setSearchRecyclerViewItems="@{viewModel.searchingResponse}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
+            />
+
+        <Button
+            android:id="@+id/button_filter"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/space_8dp"
+            android:onClick="@{() -> viewModel.toggleChipGroupVisibility()}"
+            android:contentDescription="@string/filter_button"
+            app:icon="@drawable/ic_filter"
+            app:iconTint="@color/md_theme_onSurfaceVariant"
+            app:layout_constraintBottom_toBottomOf="@+id/search_text_input_layout"
+            app:layout_constraintEnd_toEndOf="@+id/search_text_input_layout"
+            app:layout_constraintTop_toTopOf="@+id/search_text_input_layout" />
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            app:showLoading="@{viewModel.isLoading()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/text_view_search_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_8dp"
+            android:text="@string/no_data_found"
+            app:emptyStateTextView="@{viewModel.searchingResponse}"
+            app:layout_constraintEnd_toEndOf="@+id/progressBar"
+            app:layout_constraintStart_toStartOf="@+id/progressBar"
+            app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+</layout>

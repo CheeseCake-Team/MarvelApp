@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.abaferastech.marvelapp.ui.creator.creators.CreatorsViewModel" />
+    </data>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view_creators"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:items = "@{viewModel.creators.toData()}"
+        android:padding="@dimen/space_12dp"
+        android:clipToPadding="false"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="4" />
+
+
+</layout>

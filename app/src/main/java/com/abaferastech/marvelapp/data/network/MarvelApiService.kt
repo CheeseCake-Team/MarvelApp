@@ -1,131 +1,124 @@
 package com.abaferastech.marvelapp.data.network
 
-import com.abaferastech.marvelapp.data.models.Character
-import com.abaferastech.marvelapp.data.models.Comic
-import com.abaferastech.marvelapp.data.models.Creator
-import com.abaferastech.marvelapp.data.models.Data
-import com.abaferastech.marvelapp.data.models.Event
-import com.abaferastech.marvelapp.data.models.Series
-import com.abaferastech.marvelapp.data.models.Story
-import retrofit2.Call
+import com.abaferastech.marvelapp.data.model.*
+import com.abaferastech.marvelapp.data.model.response.MarvelBaseResponse
+import com.abaferastech.marvelapp.data.model.result.*
+import io.reactivex.rxjava3.core.Single
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface MarvelApiService {
+    @GET("events/{eventId}/comics")
+    fun getEventComics(@Path("eventId") eventId: Int) : Single<Response<MarvelBaseResponse<Comics>>>
+    @GET("events/{eventId}/characters")
+    fun getEventCharacters(@Path("eventId") eventId: Int) : Single<Response<MarvelBaseResponse<Characters>>>
 
-    @GET("/v1/public/characters")
-    fun getCharacters(): Call<Data<Character>>
+    @GET("events")
+    fun getAllEvents(): Single<Response<MarvelBaseResponse<Events>>>
 
-    @GET("/v1/public/characters/{characterId}")
-    fun getCharacterById(@Path("characterId") characterId: Int): Call<Data<Character>>
+    @GET("comics")
+    fun searchInComics (@Query("titleStartsWith") searchQuery: String): Single<Response<MarvelBaseResponse<Comics>>>
 
-    @GET("/v1/public/characters/{characterId}/comics")
-    fun getComicsByCharacterId(@Path("characterId") characterId: Int): Call<Data<Comic>>
+    @GET("series")
+    fun searchInSeries (@Query("titleStartsWith") searchQuery: String): Single<Response<MarvelBaseResponse<Series>>>
 
-    @GET("/v1/public/characters/{characterId}/events")
-    fun getEventsByCharacterId(@Path("characterId") characterId: Int): Call<Data<Event>>
+    @GET("events")
+    fun searchInEvents (@Query("nameStartsWith") searchQuery: String): Single<Response<MarvelBaseResponse<Events>>>
 
-    @GET("/v1/public/characters/{characterId}/series")
-    fun getSeriesByCharacterId(@Path("characterId") characterId: Int): Call<Data<Series>>
+    @GET("characters")
+    fun searchInCharacters (@Query("nameStartsWith") searchQuery: String): Single<Response<MarvelBaseResponse<Characters>>>
 
-    @GET("/v1/public/characters/{characterId}/stories")
-    fun getStoriesByCharacterId(@Path("characterId") characterId: Int): Call<Data<Story>>
+    @GET("characters/{characterId}")
+    fun getSingleCharacter(@Path("characterId") characterId: Int): Single<Response<MarvelBaseResponse<Characters>>>
+    @GET("events/{eventsId}")
+    fun getEventsById(@Path("eventsId") eventsId: Int): Single<Response<MarvelBaseResponse<Events>>>
 
-    @GET("/v1/public/comics")
-    fun getComics(): Call<Data<Comic>>
 
-    @GET("/v1/public/comics/{comicId}")
-    fun getComicById(@Path("comicId") comicId: Int): Call<Data<Comic>>
 
-    @GET("/v1/public/comics/{comicId}/characters")
-    fun getCharactersByComicId(@Path("comicId") comicId: Int): Call<Data<Character>>
+    @GET("characters")
+    fun getAllCharacters(): Single<Response<MarvelBaseResponse<Characters>>>
+    @GET("events/{eventsId}/series")
+    fun getEventSeries (@Path("eventsId") eventsId: Int): Single<Response<MarvelBaseResponse<Series>>>
 
-    @GET("/v1/public/comics/{comicId}/creators")
-    fun getCreatorsByComicId(@Path("comicId") comicId: Int): Call<Data<Creator>>
+    @GET("characters/{characterId}/events")
+    fun getCharacterEvents(@Path("characterId") seriesId: Int): Single<Response<MarvelBaseResponse<Events>>>
 
-    @GET("/v1/public/comics/{comicId}/events")
-    fun getEventsByComicId(@Path("comicId") comicId: Int): Call<Data<Event>>
+    @GET("characters/{characterId}/comics")
+    fun getCharacterComics(@Path("characterId") seriesId: Int): Single<Response<MarvelBaseResponse<Comics>>>
 
-    @GET("/v1/public/comics/{comicId}/stories")
-    fun getStoriesByComicId(@Path("comicId") comicId: Int): Call<Data<Story>>
+    @GET("characters/{characterId}/series")
+    fun getCharacterSeries(@Path("characterId") seriesId: Int): Single<Response<MarvelBaseResponse<Series>>>
 
-    @GET("/v1/public/creators")
-    fun getCreators(): Call<Data<Creator>>
+    @GET("series")
+    fun getAllSeries(): Single<Response<MarvelBaseResponse<Series>>>
 
-    @GET("/v1/public/creators/{creatorId}")
-    fun getCreatorById(@Path("creatorId") creatorId: Int): Call<Data<Character>>
+    @GET("series/{seriesId}")
+    fun getSingleSeries(@Path("seriesId") seriesId: Int): Single<Response<MarvelBaseResponse<Series>>>
 
-    @GET("/v1/public/creators/{creatorId}/comics")
-    fun getComicsByCreatorId(@Path("creatorId") creatorId: Int): Call<Data<Comic>>
+    @GET("{fullUrl}")
+    fun getSeriesFullUrl(@Path(value = "fullUrl", encoded = true) fullUrl: String): Single<Response<MarvelBaseResponse<Series>>>
 
-    @GET("/v1/public/creators/{creatorId}/events")
-    fun getEventsByCreatorId(@Path("creatorId") creatorId: Int): Call<Data<Event>>
+    @GET("series/{seriesId}/events")
+    fun getSeriesEvents(@Path("seriesId") characterId: Int): Single<Response<MarvelBaseResponse<Events>>>
 
-    @GET("/v1/public/creators/{creatorId}/series")
-    fun getSeriesByCreatorId(@Path("creatorId") creatorId: Int): Call<Data<Series>>
+    @GET("series/{seriesId}/characters")
+    fun getSeriesCharacters(@Path("seriesId") characterId: Int): Single<Response<MarvelBaseResponse<Characters>>>
 
-    @GET("/v1/public/creators/{creatorId}/stories")
-    fun getStoriesByCreatorId(@Path("creatorId") creatorId: Int): Call<Data<Story>>
-    @GET("/v1/public/events")
-    fun getEvents(): Call<Data<Event>>
+    @GET("series/{seriesId}/comics")
+    fun getSeriesComics(@Path("seriesId") characterId: Int): Single<Response<MarvelBaseResponse<Comics>>>
 
-    @GET("/v1/public/events/{eventId}")
-    fun getEventById(@Path("eventId") eventId: Int): Call<Data<Event>>
+    @GET("series/{seriesId}/creators")
+    fun getSeriesCreators(@Path("seriesId") characterId: Int): Single<Response<MarvelBaseResponse<Creators>>>
 
-    @GET("/v1/public/events/{eventId}/characters")
-    fun getCharactersByEventId(@Path("eventId") eventId: Int): Call<Data<Character>>
+    @GET("series/{seriesId}/stories")
+    fun getSeriesStories(@Path("seriesId") characterId: Int): Single<Response<MarvelBaseResponse<Stories>>>
 
-    @GET("/v1/public/events/{eventId}/comics")
-    fun getComicsByEventId(@Path("eventId") eventId: Int): Call<Data<Comic>>
+    @GET("comics")
+    fun getAllComics(): Single<Response<MarvelBaseResponse<Comics>>>
 
-    @GET("/v1/public/events/{eventId}/creators")
-    fun getCreatorsByEventId(@Path("eventId") eventId: Int): Call<Data<Creator>>
+    @GET("comics/{comicsId}")
+    fun getSingleComic(@Path("comicsId") comicsId: Int): Single<Response<MarvelBaseResponse<Comics>>>
 
-    @GET("/v1/public/events/{eventId}/series")
-    fun getSeriesByEventId(@Path("eventId") eventId: Int): Call<Data<Series>>
+    @GET("comics/{comicsId}/events")
+    fun getComicEvents(@Path("comicsId") comicsId: Int): Single<Response<MarvelBaseResponse<Events>>>
 
-    @GET("/v1/public/events/{eventId}/stories")
-    fun getStoriesByEventId(@Path("eventId") eventId: Int): Call<Data<Story>>
+    @GET("comics/{comicsId}/characters")
+    fun getComicCharacters(@Path("comicsId") comicsId: Int): Single<Response<MarvelBaseResponse<Characters>>>
 
-    @GET("/v1/public/series")
-    fun getSeries(): Call<Data<Series>>
+    @GET("comics/{comicsId}/series")
+    fun getComicSeries(@Path("comicsId") comicsId: Int): Single<Response<MarvelBaseResponse<Series>>>
 
-    @GET("/v1/public/series/{seriesId}")
-    fun getSeriesById(@Path("seriesId") seriesId: Int): Call<Data<Series>>
+    @GET("comics/{comicsId}/creators")
+    fun getComicCreators(@Path("comicsId") comicsId: Int): Single<Response<MarvelBaseResponse<Creators>>>
 
-    @GET("/v1/public/series/{seriesId}/characters")
-    fun getCharactersBySeriesId(@Path("seriesId") seriesId: Int): Call<Data<Character>>
+    @GET("comics/{comicsId}/stories")
+    fun getComicStories(@Path("comicsId") comicsId: Int): Single<Response<MarvelBaseResponse<Stories>>>
 
-    @GET("/v1/public/series/{seriesId}/comics")
-    fun getComicsBySeriesId(@Path("seriesId") seriesId: Int): Call<Data<Comic>>
+    @GET("creators")
+    fun getAllCreators(): Single<Response<MarvelBaseResponse<Creators>>>
 
-    @GET("/v1/public/series/{seriesId}/creators")
-    fun getCreatorsBySeriesId(@Path("seriesId") seriesId: Int): Call<Data<Creator>>
+    @GET("creators/{creatorId}")
+    fun getSingleCreator(@Path("creatorId") creatorId: Int): Single<Response<MarvelBaseResponse<Creators>>>
 
-    @GET("/v1/public/series/{seriesId}/events")
-    fun getEventsBySeriesId(@Path("seriesId") seriesId: Int): Data<Event>
+    @GET("creators/{creatorId}/events")
+    fun getCreatorEvents(@Path("creatorId") creatorId: Int): Single<Response<MarvelBaseResponse<Events>>>
 
-    @GET("/v1/public/series/{seriesId}/stories")
-    fun getStoriesBySeriesId(@Path("seriesId") seriesId: Int): Call<Data<Story>>
+    @GET("creators/{creatorId}/characters")
+    fun getCreatorCharacters(@Path("creatorId") creatorId: Int): Single<Response<MarvelBaseResponse<Characters>>>
 
-    @GET("/v1/public/stories")
-    fun getStories(): Call<Data<Story>>
+    @GET("creators/{creatorId}/comics")
+    fun getCreatorComics(@Path("creatorId") creatorId: Int): Single<Response<MarvelBaseResponse<Comics>>>
 
-    @GET("/v1/public/stories/{storyId}")
-    fun getStoryById(@Path("storyId") storyId: Int): Call<Data<Story>>
+    @GET("creators/{creatorId}/series")
+    fun getCreatorSeries(@Path("creatorId") creatorId: Int): Single<Response<MarvelBaseResponse<Series>>>
 
-    @GET("/v1/public/stories/{storyId}/characters")
-    fun getCharactersByStoryId(@Path("storyId") storyId: Int): Call<Data<Character>>
+    @GET("creators/{creatorId}/stories")
+    fun getCreatorStories(@Path("creatorId") creatorId: Int): Single<Response<MarvelBaseResponse<Stories>>>
 
-    @GET("/v1/public/stories/{storyId}/comics")
-    fun getComicsByStoryId(@Path("storyId") storyId: Int): Call<Data<Comic>>
+    @GET("stories")
+    fun getAllStories(): Single<Response<MarvelBaseResponse<Stories>>>
 
-    @GET("/v1/public/stories/{storyId}/creators")
-    fun getCreatorsByStoryId(@Path("storyId") storyId: Int): Call<Data<Creator>>
-
-    @GET("/v1/public/stories/{storyId}/events")
-    fun getEventsByStoryId(@Path("storyId") storyId: Int): Call<Data<Event>>
-
-    @GET("/v1/public/stories/{storyId}/series")
-    fun getSeriesByStoryId(@Path("storyId") storyId: Int): Call<Data<Series>>
 }
+

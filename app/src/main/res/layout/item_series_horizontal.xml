@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.abaferastech.marvelapp.data.model.result.Series" />
+
+        <variable
+            name="listener"
+            type="com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllInteractionListener" />
+
+    </data>
+
+
+    <com.google.android.material.card.MaterialCardView
+        style="@style/Widget.Material3.CardView.Filled"
+        android:layout_width="match_parent"
+        android:onClick="@{()->listener.onClickSeries(item)}"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/space_4dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image_view_series_image"
+                android:layout_width="120dp"
+                android:layout_height="160dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="@string/image_of_the_series"
+                app:imageUrl="@{item.thumbnail}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@color/material_dynamic_tertiary70" />
+
+            <TextView
+                android:id="@+id/text_view_series_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginBottom="@dimen/space_8dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
+                android:text="@{item.title.toString()}"
+                app:layout_constraintBottom_toTopOf="@+id/text_view_series_issue_number"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/image_view_series_image"
+                tools:text="The amazing spider-man" />
+
+            <TextView
+                android:id="@+id/text_view_series_issue_number"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="@{Integer.toString(item.startYear)}"
+                app:layout_constraintBottom_toBottomOf="@+id/image_view_series_image"
+                app:layout_constraintStart_toStartOf="@+id/text_view_series_name"
+                app:layout_constraintTop_toTopOf="@+id/image_view_series_image"
+                tools:text="Issue #13" />
+
+            <TextView
+                android:id="@+id/text_view_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:maxLines="1"
+                android:text="@{item.modified.substring(0,10)}"
+                app:layout_constraintStart_toStartOf="@+id/text_view_series_issue_number"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_series_issue_number"
+                tools:text="Sep, 13 2021" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>

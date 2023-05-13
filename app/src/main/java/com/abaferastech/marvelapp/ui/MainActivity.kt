@@ -1,26 +1,49 @@
 package com.abaferastech.marvelapp.ui
 
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
-import com.abaferastech.marvelapp.BuildConfig
-import java.security.MessageDigest
-import java.time.Instant
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.databinding.DataBindingUtil
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.NavigationUI
+import androidx.navigation.ui.navigateUp
+import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
+import com.abaferastech.marvelapp.R
+import com.abaferastech.marvelapp.databinding.ActivityMainBinding
 
 
 class MainActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?, persistentState: PersistableBundle?) {
-        super.onCreate(savedInstanceState, persistentState)
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        installSplashScreen()
+        super.onCreate(savedInstanceState)
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
+        setSupportActionBar(binding.toolbar)
+
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
+        val controller = navHostFragment.navController
+
+        binding.bottomNavigationBar.setupWithNavController(controller)
+        NavigationUI.setupWithNavController(binding.bottomNavigationBar, controller, false)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+
+        setSupportActionBar(binding.toolbar)
+
+        appBarConfiguration = AppBarConfiguration(controller.graph)
+        setupActionBarWithNavController(controller, appBarConfiguration)
 
     }
 
 
-    fun generateHash(): String {
-        val timestamp = Instant.now().epochSecond.toString()
-        val privateKey = BuildConfig.pKey
-        val publicKey = BuildConfig.lKey
-        val inputString = timestamp + privateKey + publicKey
-        val md = MessageDigest.getInstance("MD5").digest(inputString.toByteArray())
-        return md.joinToString("") { "%02x".format(it) }
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.fragmentContainerView)
+        return navController.navigateUp(appBarConfiguration)
     }
 }

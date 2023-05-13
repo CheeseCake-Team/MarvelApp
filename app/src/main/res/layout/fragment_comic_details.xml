@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/fragment_comics_details_scene">
+
+
+        <androidx.constraintlayout.utils.widget.ImageFilterView
+            android:id="@+id/image_view_comic_image2"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/single_page_image_height"
+            android:foreground="@drawable/header_details_gradient"
+            android:scaleType="centerCrop"
+            app:altSrc="@color/md_theme_surface"
+            app:imageUrl="@{viewModel.comics.toData().thumbnail}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@color/material_dynamic_tertiary70" />
+
+        <TextView
+            android:id="@+id/text_comic_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_16dp"
+            android:layout_marginBottom="@dimen/space_16dp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:text="@{viewModel.comics.toData().title}"
+            tools:text="TextView" />
+
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_layout"
+            style="@style/Widget.Material3.TabLayout.Secondary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/text_comic_title"
+            app:tabGravity="fill"
+            app:tabMode="scrollable" />
+
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tab_layout">
+
+        </androidx.viewpager2.widget.ViewPager2>
+
+        <Button
+            android:id="@+id/back_button"
+            style="?attr/materialIconButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_54dp"
+            app:icon="@drawable/ic_back"
+            app:iconTint="@color/md_theme_onSurface"
+            app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+</layout>
