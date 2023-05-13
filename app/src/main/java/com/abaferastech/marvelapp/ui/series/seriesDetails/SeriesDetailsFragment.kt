@@ -5,15 +5,12 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.viewpager2.widget.ViewPager2
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentSeriesDetailsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.comic.comicDetails.ComicFragmentPageAdapter
-import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 
-class SeriesDetailsFragment: BaseFragment<FragmentSeriesDetailsBinding, SeriesDetailsViewModel>() {
+class SeriesDetailsFragment : BaseFragment<FragmentSeriesDetailsBinding, SeriesDetailsViewModel>() {
 
     override val layoutIdFragment: Int
         get() = R.layout.fragment_series_details
@@ -35,6 +32,7 @@ class SeriesDetailsFragment: BaseFragment<FragmentSeriesDetailsBinding, SeriesDe
             it?.show()
         }
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getSeriesById(args.seriesId)
@@ -51,10 +49,10 @@ class SeriesDetailsFragment: BaseFragment<FragmentSeriesDetailsBinding, SeriesDe
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = "Details"
-                1 -> tab.text = "Characters"
-                2 -> tab.text = "Creators"
-                3 -> tab.text = "Comics"
+                0 -> tab.text = "Characters"
+                1 -> tab.text = "Creators"
+                2 -> tab.text = "Comics"
+                3 -> tab.text = "Details"
             }
         }.attach()
         binding.backButton.setOnClickListener {

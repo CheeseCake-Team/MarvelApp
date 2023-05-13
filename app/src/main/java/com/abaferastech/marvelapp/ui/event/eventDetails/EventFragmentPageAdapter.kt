@@ -6,8 +6,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.abaferastech.marvelapp.ui.character.characters.CharactersFragment
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsViewAllHorizontalFragment
 import com.abaferastech.marvelapp.ui.creator.creators.CreatorsFragment
-
-import com.abaferastech.marvelapp.ui.series.series.SeriesViewAllHorizontalFragment
 import com.abaferastech.marvelapp.ui.model.TYPE
 
 class EventFragmentPageAdapter(
@@ -19,10 +17,10 @@ class EventFragmentPageAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> EventDataFragment.newInstance(id, TYPE.EVENT)
-            1 -> CharactersFragment.newInstance(id, TYPE.EVENT)
-            2 -> CreatorsFragment.newInstance(id, TYPE.EVENT)
-            else ->  ComicsViewAllHorizontalFragment.newInstance(id, TYPE.EVENT)
+            0 -> CharactersFragment.newInstance(id, TYPE.EVENT)
+            1 -> CreatorsFragment.newInstance(id, TYPE.EVENT)
+            2 -> ComicsViewAllHorizontalFragment.newInstance(id, TYPE.EVENT)
+            else -> EventDataFragment.newInstance(id, TYPE.EVENT)
 
         }
     }

@@ -19,10 +19,10 @@ class SeriesDetailsFragmentPageAdapter(
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> SeriesDataFragment.newInstance(id, TYPE.SERIES)
-            1 -> CharactersFragment.newInstance(id, TYPE.SERIES)
-            2 -> CreatorsFragment.newInstance(id, TYPE.SERIES)
-            else -> ComicsViewAllHorizontalFragment.newInstance(id, TYPE.SERIES)
+            0 -> CharactersFragment.newInstance(id, TYPE.SERIES)
+            1 -> CreatorsFragment.newInstance(id, TYPE.SERIES)
+            2 -> ComicsViewAllHorizontalFragment.newInstance(id, TYPE.SERIES)
+            else -> SeriesDataFragment.newInstance(id, TYPE.SERIES)
         }
 
     }
