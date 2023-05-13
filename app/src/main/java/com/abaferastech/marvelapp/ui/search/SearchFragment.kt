@@ -3,8 +3,9 @@ package com.abaferastech.marvelapp.ui.search
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentSearchBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
@@ -54,11 +55,17 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
     }
 
     private fun setAdapter(it: TYPE?) {
-        binding.recyclerViewSearch.adapter = when (it) {
+        val adapter = when (it) {
             TYPE.CHARACTER -> CharactersAdapter(emptyList(), viewModel)
             TYPE.EVENT -> EventAdapter(emptyList(), viewModel)
             TYPE.SERIES -> SeriesAdapter(emptyList(), viewModel)
             else -> ComicsAdapter(emptyList(), viewModel)
+        }
+        binding.recyclerViewSearch.adapter = adapter
+        binding.recyclerViewSearch.layoutManager = when (it) {
+            TYPE.CHARACTER -> GridLayoutManager(requireContext(), 3)
+            TYPE.SERIES -> GridLayoutManager(requireContext(), 2)
+            else -> LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         }
     }
 

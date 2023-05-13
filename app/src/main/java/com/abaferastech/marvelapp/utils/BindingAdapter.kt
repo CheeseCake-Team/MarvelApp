@@ -7,8 +7,6 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.data.model.response.Thumbnail
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
@@ -24,9 +22,7 @@ import com.bumptech.glide.Glide
 
 @BindingAdapter(value = ["app:imageUrl"])
 fun imageUrl(view: ImageView, thumbnail: Thumbnail?) {
-    Glide.with(view)
-        .load("${thumbnail?.path}.${thumbnail?.extension}")
-        .into(view)
+    Glide.with(view).load("${thumbnail?.path}.${thumbnail?.extension}").into(view)
 }
 
 @BindingAdapter(value = ["app:items"])
@@ -43,57 +39,27 @@ fun showLoading(view: ProgressBar, isShowing: Boolean) {
 fun setSearchRecyclerViewItems(view: RecyclerView, items: SearchItem?) {
     items.let {
         when (items) {
-            is SearchItem.Character -> {
-                val gridLayoutManager = GridLayoutManager(view.context, 3)
-                view.layoutManager = gridLayoutManager
-                (view.adapter as CharactersAdapter?)?.setItems(items.items)
-            }
-
-            is SearchItem.Event -> {
-                val linearLayoutManager = LinearLayoutManager(
-                    view.context,
-                    LinearLayoutManager.VERTICAL, false
-                )
-                view.layoutManager = linearLayoutManager
-                (view.adapter as EventAdapter?)?.setItems(items.items)
-            }
-
-            is SearchItem.Series -> {
-                val gridLayoutManager = GridLayoutManager(view.context, 2)
-                view.layoutManager = gridLayoutManager
-                (view.adapter as SeriesAdapter?)?.setItems(items.items)
-            }
-
-            is SearchItem.Comic -> {
-                val linearLayoutManager = LinearLayoutManager(
-                    view.context,
-                    LinearLayoutManager.VERTICAL, false
-                )
-                view.layoutManager = linearLayoutManager
-                (view.adapter as ComicsAdapter?)?.setItems(items.items)
-            }
-
-            else -> {
-
-            }
+            is SearchItem.Character -> (view.adapter as CharactersAdapter?)?.setItems(items.items)
+            is SearchItem.Event -> (view.adapter as EventAdapter?)?.setItems(items.items)
+            is SearchItem.Series -> (view.adapter as SeriesAdapter?)?.setItems(items.items)
+            is SearchItem.Comic -> (view.adapter as ComicsAdapter?)?.setItems(items.items)
+            else -> {}
         }
     }
 }
 
 @BindingAdapter("emptyStateTextView")
 fun setEmptyStateTextViewVisibility(
-    emptyStateTextView: TextView,
-    items: SearchItem?
+    emptyStateTextView: TextView, items: SearchItem?
 ) {
     items.let {
-        emptyStateTextView.visibility =
-            when (items) {
-                is SearchItem.Character -> if (items.items.isEmpty()) View.VISIBLE else View.INVISIBLE
-                is SearchItem.Event -> if (items.items.isEmpty()) View.VISIBLE else View.INVISIBLE
-                is SearchItem.Series -> if (items.items.isEmpty()) View.VISIBLE else View.INVISIBLE
-                is SearchItem.Comic -> if (items.items.isEmpty()) View.VISIBLE else View.INVISIBLE
-                else -> View.INVISIBLE
-            }
+        emptyStateTextView.visibility = when (items) {
+            is SearchItem.Character -> if (items.items.isEmpty()) View.VISIBLE else View.INVISIBLE
+            is SearchItem.Event -> if (items.items.isEmpty()) View.VISIBLE else View.INVISIBLE
+            is SearchItem.Series -> if (items.items.isEmpty()) View.VISIBLE else View.INVISIBLE
+            is SearchItem.Comic -> if (items.items.isEmpty()) View.VISIBLE else View.INVISIBLE
+            else -> View.INVISIBLE
+        }
     }
 }
 
@@ -122,18 +88,15 @@ fun setTagTitle(view: TextView, dataItem: DataItem) {
 fun setAdapter(view: RecyclerView, dataItem: DataItem) {
     view.adapter = when (dataItem) {
         is DataItem.ComicsTagItem -> ComicAdapter(
-            dataItem.tag.ResourcesData,
-            dataItem.interactionListener
+            dataItem.tag.ResourcesData, dataItem.interactionListener
         )
 
         is DataItem.CharacterTagItem -> CharactersAdapter(
-            dataItem.tag.ResourcesData,
-            dataItem.interactionListener
+            dataItem.tag.ResourcesData, dataItem.interactionListener
         )
 
         is DataItem.SeriesTagItem -> SeriesAdapter(
-            dataItem.tag.ResourcesData,
-            dataItem.interactionListener
+            dataItem.tag.ResourcesData, dataItem.interactionListener
         )
 //        is DataItem.SeriesViewTagItem -> SeriesViewAllAdapter(
 //            dataItem.tag.ResourcesData,
