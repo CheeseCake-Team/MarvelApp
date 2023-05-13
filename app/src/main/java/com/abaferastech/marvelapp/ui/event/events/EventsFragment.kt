@@ -86,4 +86,20 @@ class EventsFragment :
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (viewModel.stateInitialized()) {
+            binding.recyclerViewEvents.layoutManager?.onRestoreInstanceState(
+                viewModel.restoreRecyclerViewState()
+            )
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.recyclerViewEvents.layoutManager?.onSaveInstanceState()
+            ?.let { viewModel.saveRecyclerViewState(it) }
+    }
+
+
 }

@@ -46,9 +46,9 @@ class ComicDetailsFragment :
         setupPageAdapter()
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = "Details"
-                1 -> tab.text = "Character"
-                2 -> tab.text = "Creators"
+                0 -> tab.text = "Character"
+                1 -> tab.text = "Creators"
+                2 -> tab.text = "Details"
             }
         }.attach()
         binding.backButton.setOnClickListener {
