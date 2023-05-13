@@ -1,9 +1,8 @@
 package com.abaferastech.marvelapp.ui.home
 
-import androidx.lifecycle.LiveData
+import android.os.Parcelable
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.model.result.Series
@@ -13,7 +12,10 @@ import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionL
 import com.abaferastech.marvelapp.ui.home.adapters.ComicsInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.NavigationInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
-import com.abaferastech.marvelapp.ui.model.*
+import com.abaferastech.marvelapp.ui.model.DataItem
+import com.abaferastech.marvelapp.ui.model.Event
+import com.abaferastech.marvelapp.ui.model.Tag
+import com.abaferastech.marvelapp.ui.model.UIState
 
 class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,
     SeriesInteractionListener, NavigationInteractionListener {
@@ -29,8 +31,15 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     val navigationEvents = MutableLiveData<Event<HomeEvent>>()
 
 
-    //region
     val data = mutableListOf<DataItem>()
+
+    private lateinit var state: Parcelable
+    fun saveRecyclerViewState(parcelable: Parcelable) {
+        state = parcelable
+    }
+
+    fun restoreRecyclerViewState(): Parcelable = state
+    fun stateInitialized(): Boolean = ::state.isInitialized
 
     init {
         _homeData.addSource(_characters) {
