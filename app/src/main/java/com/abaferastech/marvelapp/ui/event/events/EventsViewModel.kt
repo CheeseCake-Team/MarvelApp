@@ -1,5 +1,6 @@
 package com.abaferastech.marvelapp.ui.event.events
 
+import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.model.result.Events
@@ -39,4 +40,11 @@ class EventsViewModel : BaseViewModel(), EventsInteractionListener {
     override fun onEventClick(event: Events) {
         navigationEvents.postValue(Event(EvenEvents.ClickEventEvents(event.id!!)))
     }
+    private lateinit var state: Parcelable
+    fun saveRecyclerViewState(parcelable: Parcelable) {
+        state = parcelable
+    }
+    fun restoreRecyclerViewState(): Parcelable = state
+    fun stateInitialized(): Boolean = ::state.isInitialized
+
 }

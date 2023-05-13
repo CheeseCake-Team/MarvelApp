@@ -9,6 +9,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
+import androidx.navigation.ui.setupWithNavController
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.ActivityMainBinding
 
@@ -26,7 +27,8 @@ class MainActivity : AppCompatActivity() {
             .findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         val controller = navHostFragment.navController
 
-        NavigationUI.setupWithNavController(binding.bottomNavigationBar, controller, false)
+        binding.bottomNavigationBar.setupWithNavController(controller)
+      //  NavigationUI.setupWithNavController(binding.bottomNavigationBar, controller, true)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
 
