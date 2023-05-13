@@ -14,13 +14,14 @@ class EventFragmentPageAdapter(
     fragmentManager: FragmentManager, lifecycle: androidx.lifecycle.Lifecycle, private val id: Int
 ) : FragmentStateAdapter(fragmentManager, lifecycle) {
     override fun getItemCount(): Int {
-        return 3
+        return 4
     }
 
     override fun createFragment(position: Int): Fragment {
         return when (position) {
-            0 -> CharactersFragment.newInstance(id, TYPE.EVENT)
-            1 -> CreatorsFragment.newInstance(id, TYPE.EVENT)
+            0 -> EventDataFragment.newInstance(id, TYPE.EVENT)
+            1 -> CharactersFragment.newInstance(id, TYPE.EVENT)
+            2 -> CreatorsFragment.newInstance(id, TYPE.EVENT)
             else ->  ComicsViewAllHorizontalFragment.newInstance(id, TYPE.EVENT)
 
         }

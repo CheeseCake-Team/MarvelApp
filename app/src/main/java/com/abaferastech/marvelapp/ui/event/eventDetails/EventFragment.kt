@@ -47,8 +47,9 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
         binding.eventViewPager.adapter = adapter
         TabLayoutMediator(binding.eventTabLayout, binding.eventViewPager) { tab, position ->
             when (position) {
-                0 -> tab.text = "Characters"
-                1 -> tab.text = "Creators"
+                0 -> tab.text = "Details"
+                1 -> tab.text = "Characters"
+                2 -> tab.text = "Creators"
                 else -> tab.text = "Comics"
             }
         }.attach()
