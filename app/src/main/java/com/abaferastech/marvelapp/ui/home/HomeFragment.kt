@@ -10,13 +10,12 @@ import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.home.adapters.HomeAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.NavigationInteractionListener
 import com.abaferastech.marvelapp.ui.model.DataItem
+import com.abaferastech.marvelapp.ui.model.EventObserver
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
     NavigationInteractionListener {
-    override val layoutIdFragment: Int
-        get() = R.layout.fragment_home
-    override val viewModelClass: Class<HomeViewModel>
-        get() = HomeViewModel::class.java
+    override val layoutIdFragment = R.layout.fragment_home
+    override val viewModelClass = HomeViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -27,21 +26,22 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             binding.recyclerViewHome.adapter = adapter
         }
 
-        viewModel.navigationEvents.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled()?.let { homeEvent ->
-                val action = when (homeEvent) {
-                    is HomeEvent.ClickCharacterEvent ->
-                        HomeFragmentDirections.actionHomeFragmentToCharacterFragment(homeEvent.characterID)
-                    is HomeEvent.ClickComicEvent ->
-                        HomeFragmentDirections.actionHomeFragmentToComicDetailsFragment(homeEvent.comicID)
-                    is HomeEvent.ClickSeriesEvent ->
-                        HomeFragmentDirections.actionHomeFragmentToSeriesDetailsFragment(homeEvent.seriesID)
-                }
-                findNavController().navigate(action)
-            }
+        val clickHomeEventObserver = EventObserver<HomeEvent> { event ->
+            handleHomeEvent(event)
         }
+        viewModel.navigationEvents.observe(viewLifecycleOwner,clickHomeEventObserver)
+    }
 
-
+    private fun handleHomeEvent(homeEvent: HomeEvent) {
+        val action = when (homeEvent) {
+            is HomeEvent.ClickCharacterEvent ->
+                HomeFragmentDirections.actionHomeFragmentToCharacterFragment(homeEvent.characterID)
+            is HomeEvent.ClickComicEvent ->
+                HomeFragmentDirections.actionHomeFragmentToComicDetailsFragment(homeEvent.comicID)
+            is HomeEvent.ClickSeriesEvent ->
+                HomeFragmentDirections.actionHomeFragmentToSeriesDetailsFragment(homeEvent.seriesID)
+        }
+        findNavController().navigate(action)
     }
 
     override fun onNavigate(dataItem: DataItem) {

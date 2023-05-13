@@ -10,6 +10,7 @@ import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.character.characterDetails.CharacterDetailsFragmentDirections
 import com.abaferastech.marvelapp.ui.creator.creatorsDetails.CreatorDetailsFragmentDirections
 import com.abaferastech.marvelapp.ui.event.eventDetails.EventFragmentDirections
+import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.series.seriesDetails.SeriesDetailsFragmentDirections
 import com.abaferastech.marvelapp.utils.Constants
@@ -31,16 +32,20 @@ class ComicsViewAllHorizontalFragment :
     }
 
     private fun addComicEvents() {
-        viewModel.navigationEvents.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled().let { event ->
-                val action = when (event) {
-                    is ComicEvents.ClickComicEvent -> navDirections(event)
-                    null -> null
-                }
-                action?.let { it1 -> findNavController().navigate(it1) }
 
-            }
+        val clickComicEventObserver = EventObserver<ComicEvents> { event ->
+            handleComicEvent(event)
         }
+
+        viewModel.navigationEvents.observe(viewLifecycleOwner,clickComicEventObserver)
+    }
+
+    private fun handleComicEvent(event: ComicEvents?) {
+        val action = when (event) {
+            is ComicEvents.ClickComicEvent -> navDirections(event)
+            null -> null
+        }
+        action?.let { it1 -> findNavController().navigate(it1) }
     }
 
     private fun init() {
