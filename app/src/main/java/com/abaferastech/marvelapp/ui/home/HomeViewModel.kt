@@ -37,7 +37,6 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     fun saveRecyclerViewState(parcelable: Parcelable) {
         state = parcelable
     }
-
     fun restoreRecyclerViewState(): Parcelable = state
     fun stateInitialized(): Boolean = ::state.isInitialized
 

@@ -63,7 +63,6 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>(),
             else -> {}
         }
     }
-
     override fun onResume() {
         super.onResume()
         if (viewModel.stateInitialized()) {
