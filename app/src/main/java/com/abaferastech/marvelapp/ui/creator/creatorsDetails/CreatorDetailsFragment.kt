@@ -4,24 +4,27 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentCreatorDetailsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
+import com.abaferastech.marvelapp.ui.character.characterDetails.CharacterDetailsFragmentArgs
+import com.abaferastech.marvelapp.ui.character.characterDetails.CharacterFragmentPageAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 
 class CreatorDetailsFragment :
     BaseFragment<FragmentCreatorDetailsBinding, CreatorDetailsViewModel>() {
 
-    override val layoutIdFragment: Int
-        get() = R.layout.fragment_creator_details
-    override val viewModelClass: Class<CreatorDetailsViewModel>
-        get() = CreatorDetailsViewModel::class.java
+    override val layoutIdFragment = R.layout.fragment_creator_details
+    override val viewModelClass = CreatorDetailsViewModel::class.java
+
+    private val args: CreatorDetailsFragmentArgs by navArgs()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getMarvelCreator(15)
+        viewModel.getMarvelCreator(args.creatorId)
         init()
 
     }
@@ -45,7 +48,7 @@ class CreatorDetailsFragment :
         val adapter = CreatorFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
-            15
+            args.creatorId
         )
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->

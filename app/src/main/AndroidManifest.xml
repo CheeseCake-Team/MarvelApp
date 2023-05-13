@@ -6,6 +6,7 @@
 
     <application
         android:allowBackup="true"
+        android:windowSoftInputMode="adjustPan"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:usesCleartextTraffic="true"
         android:fullBackupContent="@xml/backup_rules"
@@ -17,6 +18,7 @@
         tools:targetApi="31">
         <activity
             android:name=".ui.MainActivity"
+            android:windowSoftInputMode="adjustPan"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

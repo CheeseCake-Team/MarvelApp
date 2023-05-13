@@ -38,9 +38,8 @@
             android:id="@+id/back_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="54dp"
-            android:visibility="visible"
+            android:layout_marginStart="@dimen/space_16dp"
+            android:layout_marginTop="@dimen/space_54dp"
             app:layout_constraintBottom_toBottomOf="@+id/image_series"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -52,7 +51,7 @@
         <Constraint
             android:id="@+id/image_series"
             android:layout_width="match_parent"
-            android:layout_height="116dp"
+            android:layout_height="@dimen/single_page_end_image_height"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">

@@ -43,12 +43,7 @@ class ComicDetailsFragment :
 
 
     private fun init() {
-        val adapter = ComicFragmentPageAdapter(
-            requireActivity().supportFragmentManager,
-            lifecycle,
-            args.comicID
-        )
-        binding.viewPager.adapter = adapter
+        setupPageAdapter()
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
                 0 -> tab.text = "Details"
@@ -59,5 +54,14 @@ class ComicDetailsFragment :
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
+    }
+
+    private fun setupPageAdapter() {
+        val adapter = ComicFragmentPageAdapter(
+            requireActivity().supportFragmentManager,
+            lifecycle,
+            args.comicID
+        )
+        binding.viewPager.adapter = adapter
     }
 }

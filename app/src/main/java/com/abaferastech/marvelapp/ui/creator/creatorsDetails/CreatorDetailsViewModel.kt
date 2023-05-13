@@ -14,6 +14,8 @@ class CreatorDetailsViewModel : BaseViewModel() {
     private val _creator = MutableLiveData<UIState<Creators>>()
     val creator: LiveData<UIState<Creators>> get() = _creator
 
+
+
     fun getMarvelCreator(id: Int) {
         repository.getSingleCreator(id)
             .applySchedulersAndPostUIStates(_creator::postValue)

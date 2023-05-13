@@ -21,29 +21,24 @@
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/image_view_character"
-            android:layout_width="@dimen/characters_image_view_dimens"
-            android:layout_height="@dimen/characters_image_view_dimens"
-            app:imageUrl="@{item.thumbnail}"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/character_image_view_view_all_dimens"
             android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:imageUrl="@{item.thumbnail}"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearance="@style/CircleImageView"
-            tools:src="@drawable/placeholder"
-            tools:ignore="MissingConstraints" />
+            app:shapeAppearance="@style/CircleImageView" />
 
         <TextView
             android:id="@+id/text_view_character_name"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_4dp"
             android:text="@{item.name}"
-            android:fontFamily="@font/bangers"
+            android:maxLines="1"
             android:textAlignment="center"
-            tools:text="Character Name"
-            app:layout_constraintEnd_toEndOf="@+id/image_view_character"
-            app:layout_constraintStart_toStartOf="@+id/image_view_character"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_character" />
+            android:ellipsize="end"
+            app:layout_constraintTop_toBottomOf="@+id/image_view_character"
+            tools:text="Character Name" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

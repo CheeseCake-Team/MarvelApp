@@ -11,16 +11,15 @@
 
         <variable
             name="listener"
-            type="com.abaferastech.marvelapp.ui.series.seriesScreen.SeriesInteractionListener" />
+            type="com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllInteractionListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         style="@style/Widget.Material3.CardView.Filled"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/space_4dp"
-        app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="@dimen/space_4dp">
+        android:onClick="@{() -> listener.onClickSeries(item)}"
+        android:layout_margin="@dimen/space_4dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -28,7 +27,7 @@
 
             <ImageView
                 android:id="@+id/image_view_series_image"
-                android:layout_width="160dp"
+                android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:scaleType="fitXY"
                 app:imageUrl="@{item.thumbnail}"
@@ -44,6 +43,7 @@
                 android:ellipsize="marquee"
                 android:fontFamily="@font/bangers"
                 android:maxLines="1"
+                android:layout_marginHorizontal="@dimen/space_8dp"
                 android:text="@{item.title}"
                 app:layout_constraintEnd_toEndOf="@+id/image_view_series_image"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -55,7 +55,7 @@
                 android:id="@+id/text_view_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
+                android:layout_marginVertical="@dimen/space_8dp"
                 android:text="@{Integer.toString(item.startYear)}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/text_view_series_name"

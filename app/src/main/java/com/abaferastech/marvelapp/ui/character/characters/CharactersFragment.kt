@@ -2,12 +2,16 @@ package com.abaferastech.marvelapp.ui.character.characters
 
 import android.os.Bundle
 import android.view.View
+import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.databinding.FragmentCharactersBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
+import com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsFragmentDirections
+import com.abaferastech.marvelapp.ui.event.eventDetails.EventFragmentDirections
+import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
+import com.abaferastech.marvelapp.ui.series.seriesDetails.SeriesDetailsFragmentDirections
 import com.abaferastech.marvelapp.utils.Constants
 
 class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersViewModel>() {
@@ -17,6 +21,12 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersVie
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        inti()
+        setupCharactersAdapter()
+        addCharactersEvent()
+    }
+
+    private fun inti() {
         val typeID = arguments?.getInt(Constants.TYPE_ID)
         when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
             TYPE.SERIES -> viewModel.getCharacterSeries(typeID!!)
@@ -24,30 +34,38 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersVie
             TYPE.EVENT -> viewModel.getEventCharacter(typeID!!)
             else -> viewModel.getAllCharacters()
         }
-
-        val adapter = CharactersAdapter(emptyList(), object : CharactersInteractionListener {
-            override fun onClickCharacter(character: Characters) {
-
-            }
-        })
-        binding.recyclerViewCharacters.adapter = adapter
-
-        setupCharactersAdapter()
-        addCharactersEvent()
     }
 
     private fun addCharactersEvent() {
-        viewModel.navigationEvents.observe(viewLifecycleOwner) {
-            it.getContentIfNotHandled().let { event ->
-                val action = when (event) {
-                    is CharacterEvent.ClickCharacterEvent ->
-                        CharactersFragmentDirections.actionCharactersFragmentToCharacterFragment(
-                            event.characterID
-                        )
-                    null -> null
-                }
-                action?.let { it1 -> findNavController().navigate(it1) }
-            }
+
+        val clickCharacterEventObserver = EventObserver<CharacterEvent> { event ->
+            handleCharacterEvent(event)
+        }
+
+        viewModel.navigationEvents.observe(viewLifecycleOwner, clickCharacterEventObserver)
+
+    }
+
+    private fun handleCharacterEvent(event: CharacterEvent) {
+        val action = when (event) {
+            is CharacterEvent.ClickCharacterEvent ->
+                navDirections(event)
+        }
+        action?.let { it1 -> findNavController().navigate(it1) }
+
+    }
+
+    private fun navDirections(event: CharacterEvent.ClickCharacterEvent): NavDirections? {
+
+        return when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
+            TYPE.SERIES -> SeriesDetailsFragmentDirections
+                .actionSeriesDetailsFragmentToCharacterFragment(event.characterID)
+            TYPE.COMIC -> ComicDetailsFragmentDirections
+                .actionComicDetailsFragmentToCharacterFragment(event.characterID)
+            TYPE.EVENT -> EventFragmentDirections
+                .actionEventFragmentToCharacterFragment(event.characterID)
+            else -> CharactersFragmentDirections
+                .actionCharactersFragmentToCharacterFragment(event.characterID)
         }
     }
 

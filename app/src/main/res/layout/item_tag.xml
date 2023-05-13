@@ -24,7 +24,6 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_16dp"
             android:layout_marginTop="@dimen/space_16dp"
-            android:fontFamily="@font/bangers"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -51,14 +50,11 @@
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_arrow_forward"
             android:drawableTint="@color/md_theme_onBackground"
-            android:fontFamily="@font/bangers"
             android:onClick="@{() -> listener.onNavigate(dataItem)}"
             android:text="@string/see_all"
             android:textColor="@color/md_theme_onBackground"
-            app:layout_constraintBottom_toBottomOf="@+id/text_view_tag_title"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.6" />
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_view_tag_title"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -61,5 +61,4 @@ class SeriesDetailsFragment: BaseFragment<FragmentSeriesDetailsBinding, SeriesDe
             findNavController().navigateUp()
         }
     }
-
 }
