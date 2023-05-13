@@ -6,10 +6,7 @@ import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 
 class EventAdapter(items: List<Events>, listener: EventsInteractionListener) :
-    BaseAdapter<Events>(items, listener) {
-
-    override val layoutID: Int
-        get() = R.layout.item_events
-
+    BaseAdapter<Events>( listener) {
+    override val layoutId = R.layout.item_events
 }
 

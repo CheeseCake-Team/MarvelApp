@@ -7,7 +7,6 @@ import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 
 
 class CreatorsAdapter(items: List<Creators>, creatorsInteractionListener: CreatorsInteractionListener) :
-    BaseAdapter<Creators>(items, creatorsInteractionListener) {
-    override val layoutID: Int
-        get() = R.layout.item_creator
+    BaseAdapter<Creators>(creatorsInteractionListener) {
+    override val layoutId = R.layout.item_creator
 }

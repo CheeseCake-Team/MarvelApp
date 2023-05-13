@@ -6,7 +6,6 @@ import com.abaferastech.marvelapp.ui.base.BaseAdapter
 
 
 class CharactersAdapter(items: List<Characters>, charactersInteractionListener: CharactersInteractionListener) :
-    BaseAdapter<Characters>(items, charactersInteractionListener) {
-    override val layoutID: Int
-        get() = R.layout.item_character
+    BaseAdapter<Characters>( charactersInteractionListener) {
+    override val layoutId = R.layout.item_character
 }

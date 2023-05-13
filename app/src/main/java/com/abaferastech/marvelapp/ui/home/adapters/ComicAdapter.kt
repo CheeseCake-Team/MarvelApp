@@ -6,8 +6,8 @@ import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 
 class ComicAdapter(items: List<Comics>, listener: ComicsInteractionListener) :
-    BaseAdapter<Comics>(items, listener) {
-    override val layoutID = R.layout.item_comic
+    BaseAdapter<Comics>( listener) {
+    override val layoutId = R.layout.item_comic
 }
 
 interface ComicsInteractionListener : BaseInteractionListener {
