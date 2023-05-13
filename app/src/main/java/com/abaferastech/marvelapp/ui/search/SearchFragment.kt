@@ -56,10 +56,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
 
     private fun setAdapter(it: TYPE?) {
         val adapter = when (it) {
-            TYPE.CHARACTER -> CharactersAdapter(emptyList(), viewModel)
-            TYPE.EVENT -> EventAdapter(emptyList(), viewModel)
-            TYPE.SERIES -> SeriesAdapter(emptyList(), viewModel)
-            else -> ComicsAdapter(emptyList(), viewModel)
+            TYPE.CHARACTER -> CharactersAdapter( viewModel)
+            TYPE.EVENT -> EventAdapter( viewModel)
+            TYPE.SERIES -> SeriesAdapter( viewModel)
+            else -> ComicsAdapter( viewModel)
         }
         binding.recyclerViewSearch.adapter = adapter
         binding.recyclerViewSearch.layoutManager = when (it) {

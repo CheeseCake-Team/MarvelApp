@@ -70,7 +70,7 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersVie
     }
 
     private fun setupCharactersAdapter() {
-        val adapter = CharactersAdapter(emptyList(), viewModel)
+        val adapter = CharactersAdapter(viewModel)
         binding.recyclerViewCharacters.adapter = adapter
     }
 

@@ -62,7 +62,7 @@ class SeriesViewAllHorizontalFragment :
 
 
     private fun setupAdapter() {
-        val adapter = SeriesHorizontalAdapter(emptyList(), viewModel)
+        val adapter = SeriesHorizontalAdapter( viewModel)
         binding.recyclerViewSeries.adapter = adapter
     }
 

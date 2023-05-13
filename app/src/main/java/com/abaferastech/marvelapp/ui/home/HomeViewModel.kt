@@ -1,9 +1,9 @@
 package com.abaferastech.marvelapp.ui.home
 
 import android.os.Parcelable
+import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.model.result.Series
@@ -22,8 +22,8 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     SeriesInteractionListener, NavigationInteractionListener {
     private val repository = MarvelRepository()
 
-    private val _homeData = MediatorLiveData<UIState<List<DataItem>>>()
-    val homeData: MediatorLiveData<UIState<List<DataItem>>> get() = _homeData
+    private val _homeData = MediatorLiveData<List<DataItem>>()
+    val homeData: MediatorLiveData<List<DataItem>> get() = _homeData
 
     private val _characters = MutableLiveData<UIState<List<Characters>>>()
     private val _comics = MutableLiveData<UIState<List<Comics>>>()
@@ -119,32 +119,21 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         navigationEvents.postValue(Event(HomeEvent.ClickComicEvent(comics.id!!)))
     }
 
-    fun onNavigate(dataItem: DataItem) {
-//        when (dataItem) {
-//            is DataItem.CharacterTagItem -> {
-//                val action = HomeFragmentDirections.actionHomeFragmentToCharactersFragment()
-//                findNavController().navigate(action)
-//            }
-//
-//            is DataItem.ComicsTagItem -> {
-//                val action = HomeFragmentDirections.actionHomeFragmentToComicsGridFragment()
-//                findNavController().navigate(action)
-//            }
-//
-//            is DataItem.SeriesTagItem -> {
-//                val action = HomeFragmentDirections.actionHomeFragmentToSeriesViewAllFragment()
-//                findNavController().navigate(action)
-//            }
-//            else -> {}
-//        }
 
-    }
-
-    override fun onNavigate(title: String) {
-        when (title) {
-            "CHARACTERS" -> navigationEvents.postValue(Event(HomeEvent.ClickAllCharacterEvent))
-            "COMICS" -> navigationEvents.postValue(Event(HomeEvent.ClickAllComicEvent))
-            "SERIES" -> navigationEvents.postValue(Event(HomeEvent.ClickAllSeriesEvent))
+    override fun onNavigate(id: String) {
+        when (id) {
+            "CHARACTERS" -> {
+                Log.d("sss", "handleHomeEvent: ")
+                navigationEvents.postValue(Event(HomeEvent.ClickAllCharacterEvent))
+            }
+            "COMICS" -> {
+                Log.d("sss", "handleHomeEvent: ")
+                navigationEvents.postValue(Event(HomeEvent.ClickAllComicEvent))
+            }
+            "SERIES" -> {
+                Log.d("sss", "handleHomeEvent: ")
+                navigationEvents.postValue(Event(HomeEvent.ClickAllSeriesEvent))
+            }
         }
     }
 

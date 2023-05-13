@@ -115,7 +115,6 @@ class HomeAdapter(
             when (item) {
                 is DataItem.ComicsTagItem -> {
                     (holder.binding as ItemTagBinding).recyclerViewTagData.adapter = ComicAdapter(
-                        item.tag.ResourcesData,
                         baselistener as ComicsInteractionListener
                     )
                     holder.binding.tagItem = item.tag
@@ -123,7 +122,7 @@ class HomeAdapter(
                 }
                 is DataItem.SeriesTagItem -> {
                     (holder.binding as ItemTagBinding).recyclerViewTagData.adapter = SeriesAdapter(
-                        item.tag.ResourcesData,
+
                         baselistener as SeriesInteractionListener
                     )
                     holder.binding.tagItem = item.tag
@@ -132,7 +131,6 @@ class HomeAdapter(
                 is DataItem.CharacterTagItem -> {
                     (holder.binding as ItemTagBinding).recyclerViewTagData.adapter =
                         CharactersAdapter(
-                            item.tag.ResourcesData,
                             baselistener as CharactersInteractionListener
                         )
                     holder.binding.tagItem = item.tag

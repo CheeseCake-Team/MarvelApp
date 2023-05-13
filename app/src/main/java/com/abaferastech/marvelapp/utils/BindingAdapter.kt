@@ -97,28 +97,6 @@ fun setTagTitle(view: TextView, dataItem: DataItem) {
     }
 }
 
-@BindingAdapter("app:setAdapter")
-fun setAdapter(view: RecyclerView, dataItem: DataItem) {
-    view.adapter = when (dataItem) {
-        is DataItem.ComicsTagItem -> ComicAdapter(
-            dataItem.tag.ResourcesData, dataItem.interactionListener
-        )
-
-        is DataItem.CharacterTagItem -> CharactersAdapter(
-            dataItem.tag.ResourcesData, dataItem.interactionListener
-        )
-
-        is DataItem.SeriesTagItem -> SeriesAdapter(
-            dataItem.tag.ResourcesData, dataItem.interactionListener
-        )
-//        is DataItem.SeriesViewTagItem -> SeriesViewAllAdapter(
-//            dataItem.tag.ResourcesData,
-//            dataItem.interactionListener
-//        )
-        else -> TODO()
-    }
-}
-
 @BindingAdapter("app:chipGroupVisibility")
 fun chipGroupVisibility(horizontalScrollView: HorizontalScrollView, isVisible: Boolean) {
     horizontalScrollView.visibility = if (isVisible) View.VISIBLE else View.GONE

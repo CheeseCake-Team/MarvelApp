@@ -1,6 +1,7 @@
 package com.abaferastech.marvelapp.ui.home
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
@@ -44,12 +45,20 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 HomeFragmentDirections.actionHomeFragmentToComicDetailsFragment(homeEvent.comicID)
             is HomeEvent.ClickSeriesEvent ->
                 HomeFragmentDirections.actionHomeFragmentToSeriesDetailsFragment(homeEvent.seriesID)
-            is HomeEvent.ClickAllCharacterEvent ->
+            is HomeEvent.ClickAllCharacterEvent -> {
+                Log.d("sss", "handleHomeEvent: ")
                 HomeFragmentDirections.actionHomeFragmentToCharactersFragment()
-            is HomeEvent.ClickAllComicEvent -> HomeFragmentDirections
-                .actionHomeFragmentToComicsGridFragment()
-            is HomeEvent.ClickAllSeriesEvent -> HomeFragmentDirections
-                .actionHomeFragmentToSeriesViewAllFragment()
+            }
+            is HomeEvent.ClickAllComicEvent -> {
+                Log.d("sss", "handleHomeEvent: ")
+                HomeFragmentDirections
+                    .actionHomeFragmentToComicsGridFragment()
+            }
+            is HomeEvent.ClickAllSeriesEvent -> {
+                Log.d("sss", "handleHomeEvent: ")
+                HomeFragmentDirections
+                    .actionHomeFragmentToSeriesViewAllFragment()
+            }
         }
         findNavController().navigate(action)
     }

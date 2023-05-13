@@ -33,7 +33,7 @@ class EventsFragment :
     }
 
     private fun setupAdapter() {
-        val adapter = EventAdapter(emptyList(), viewModel)
+        val adapter = EventAdapter( viewModel)
         binding.recyclerViewEvents.adapter = adapter
     }
 

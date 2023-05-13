@@ -60,7 +60,7 @@ class ComicsViewAllHorizontalFragment :
     }
 
     private fun setupComicAdapter() {
-        val adapter = ComicsAdapter(emptyList(), viewModel)
+        val adapter = ComicsAdapter(viewModel)
         binding.recyclerViewComics.adapter = adapter
     }
 

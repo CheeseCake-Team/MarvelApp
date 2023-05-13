@@ -28,7 +28,7 @@ class CreatorsFragment : BaseFragment<FragmentCreatorsBinding, CreatorsViewModel
     }
 
     private fun setAdapter() {
-        val adapter = CreatorsAdapter(emptyList(), viewModel)
+        val adapter = CreatorsAdapter( viewModel)
         binding.recyclerViewCreators.adapter = adapter
     }
 
