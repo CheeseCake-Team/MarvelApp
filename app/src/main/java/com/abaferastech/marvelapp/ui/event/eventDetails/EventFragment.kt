@@ -49,7 +49,8 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
             when (position) {
                 0 -> tab.text = "Characters"
                 1 -> tab.text = "Creators"
-                else -> tab.text = "Comics"
+                2 -> tab.text = "Comics"
+                3 -> tab.text = "Details"
             }
         }.attach()
 

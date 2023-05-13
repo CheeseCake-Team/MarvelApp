@@ -8,6 +8,8 @@ import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentHomeBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.home.adapters.HomeAdapter
+import com.abaferastech.marvelapp.ui.home.adapters.NavigationInteractionListener
+import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.EventObserver
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
@@ -50,6 +52,23 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
                 .actionHomeFragmentToSeriesViewAllFragment()
         }
         findNavController().navigate(action)
+    }
+
+
+
+    override fun onResume() {
+        super.onResume()
+        if (viewModel.stateInitialized()) {
+            binding.recyclerViewHome.layoutManager?.onRestoreInstanceState(
+                viewModel.restoreRecyclerViewState()
+            )
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.recyclerViewHome.layoutManager?.onSaveInstanceState()
+            ?.let { viewModel.saveRecyclerViewState(it) }
     }
 
 

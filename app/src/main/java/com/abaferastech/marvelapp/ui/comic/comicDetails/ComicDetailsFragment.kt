@@ -48,6 +48,7 @@ class ComicDetailsFragment :
             when (position) {
                 0 -> tab.text = "Character"
                 1 -> tab.text = "Creators"
+                2 -> tab.text = "Details"
             }
         }.attach()
         binding.backButton.setOnClickListener {

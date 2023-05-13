@@ -1,7 +1,9 @@
 package com.abaferastech.marvelapp.ui.home
 
+import android.os.Parcelable
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.data.model.result.Comics
 import com.abaferastech.marvelapp.data.model.result.Series
@@ -20,8 +22,8 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     SeriesInteractionListener, NavigationInteractionListener {
     private val repository = MarvelRepository()
 
-    private val _homeData = MediatorLiveData<List<DataItem>>()
-    val homeData: MediatorLiveData<List<DataItem>> get() = _homeData
+    private val _homeData = MediatorLiveData<UIState<List<DataItem>>>()
+    val homeData: MediatorLiveData<UIState<List<DataItem>>> get() = _homeData
 
     private val _characters = MutableLiveData<UIState<List<Characters>>>()
     private val _comics = MutableLiveData<UIState<List<Comics>>>()
@@ -31,7 +33,15 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
 
     val navigationEvents = MutableLiveData<Event<HomeEvent>>()
 
+
     val data = mutableListOf<DataItem>()
+
+    private lateinit var state: Parcelable
+    fun saveRecyclerViewState(parcelable: Parcelable) {
+        state = parcelable
+    }
+    fun restoreRecyclerViewState(): Parcelable = state
+    fun stateInitialized(): Boolean = ::state.isInitialized
 
 
     init {

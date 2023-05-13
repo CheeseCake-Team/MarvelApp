@@ -43,7 +43,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:roundPercent="1"
-            tools:src="@drawable/placeholder" />
+            />
 
         <TextView
             android:id="@+id/text_creator_name"
