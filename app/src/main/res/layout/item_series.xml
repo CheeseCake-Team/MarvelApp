@@ -38,6 +38,7 @@
             <TextView
                 android:id="@+id/text_view_series_name"
                 android:layout_width="0dp"
+                android:fontFamily="sans-serif"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/space_6dp"
                 android:layout_marginHorizontal="@dimen/space_8dp"
