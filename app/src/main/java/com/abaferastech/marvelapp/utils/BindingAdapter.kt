@@ -111,10 +111,6 @@ fun setAdapter(view: RecyclerView, dataItem: DataItem) {
         is DataItem.SeriesTagItem -> SeriesAdapter(
             dataItem.tag.ResourcesData, dataItem.interactionListener
         )
-//        is DataItem.SeriesViewTagItem -> SeriesViewAllAdapter(
-//            dataItem.tag.ResourcesData,
-//            dataItem.interactionListener
-//        )
         else -> TODO()
     }
 }
