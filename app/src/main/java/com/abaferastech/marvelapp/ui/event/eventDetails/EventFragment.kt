@@ -1,16 +1,13 @@
-package com.abaferastech.marvelapp.ui.eventDetails
+package com.abaferastech.marvelapp.ui.event.eventDetails
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentEventBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
-import com.abaferastech.marvelapp.ui.comic.comics.ComicsInteractionListener
 import com.google.android.material.tabs.TabLayoutMediator
 
 

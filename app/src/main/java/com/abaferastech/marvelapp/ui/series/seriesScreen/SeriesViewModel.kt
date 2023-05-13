@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.ui.seriesScreen
+package com.abaferastech.marvelapp.ui.series.seriesScreen
 
 import android.util.Log
 import androidx.lifecycle.LiveData

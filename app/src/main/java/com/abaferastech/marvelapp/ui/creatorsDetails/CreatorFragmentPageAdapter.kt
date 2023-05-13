@@ -4,7 +4,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsViewAllHorizontalFragment
-import com.abaferastech.marvelapp.ui.events.EventsFragment
+import com.abaferastech.marvelapp.ui.event.events.EventsFragment
 import com.abaferastech.marvelapp.ui.model.TYPE
 
 class CreatorFragmentPageAdapter (

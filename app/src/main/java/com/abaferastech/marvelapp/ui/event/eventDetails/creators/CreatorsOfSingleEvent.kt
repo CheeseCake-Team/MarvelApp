@@ -5,8 +5,8 @@ import android.view.View
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.CreatorsOfSingleEventBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.creators.CreatorsFragment
-import com.abaferastech.marvelapp.ui.creators.CreatorsViewModel
+import com.abaferastech.marvelapp.ui.creator.creators.CreatorsFragment
+import com.abaferastech.marvelapp.ui.creator.creators.CreatorsViewModel
 
 
 class CreatorsOfSingleEvent :

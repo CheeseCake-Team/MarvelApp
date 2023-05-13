@@ -6,8 +6,9 @@ import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.model.result.Characters
 import com.abaferastech.marvelapp.databinding.CharactersOfSingleEventBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.characters.CharactersFragment
-import com.abaferastech.marvelapp.ui.characters.CharactersInteractionListener
+import com.abaferastech.marvelapp.ui.character.characters.CharactersFragment
+import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
+
 import com.abaferastech.marvelapp.ui.character.characters.CharactersViewModel
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.utils.Constants
@@ -31,7 +32,7 @@ class CharactersOfSingleEvent :
         }
 
         val adapter = CharactersOfSingleEventAdapter(emptyList(), object :
-            CharactersInteractionListener{
+            CharactersInteractionListener {
             override fun onClickCharacter(character: Characters) {
 
 

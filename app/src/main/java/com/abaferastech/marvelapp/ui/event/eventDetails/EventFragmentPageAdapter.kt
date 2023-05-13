@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.ui.eventDetails
+package com.abaferastech.marvelapp.ui.event.eventDetails
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -6,7 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsViewAllHorizontalFragment
 import com.abaferastech.marvelapp.ui.eventDetails.creators.CreatorsOfSingleEvent
 import com.abaferastech.marvelapp.ui.eventDetails.characters.CharactersOfSingleEvent
-import com.abaferastech.marvelapp.ui.eventDetails.series.SeriesViewAllHorizontalFragment
+import com.abaferastech.marvelapp.ui.event.eventDetails.series.SeriesViewAllHorizontalFragment
 import com.abaferastech.marvelapp.ui.model.TYPE
 
 class EventFragmentPageAdapter (

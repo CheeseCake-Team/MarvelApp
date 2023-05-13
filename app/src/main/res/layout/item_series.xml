@@ -9,9 +9,9 @@
             name="item"
             type="com.abaferastech.marvelapp.data.model.result.Series" />
 
-<!--        <variable-->
-<!--            name="listener"-->
-<!--            type="com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener" />-->
+                <variable
+                    name="listener"
+                    type="com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -19,9 +19,10 @@
         android:layout_width="@dimen/series_card_view_width"
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
+        android:onClick="@{() -> listener.onClickSeries(item)}"
         app:cardBackgroundColor="@android:color/transparent"
+
         app:cardCornerRadius="@dimen/space_16dp">
-<!--        android:onClick="@{() -> listener.onClickSeries(item)}"-->
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -57,11 +58,11 @@
                 android:id="@+id/text_view_comic_issue_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{item.modified.substring(0,10)}"
-                android:maxLines="1"
+                android:layout_marginTop="@dimen/space_6dp"
                 android:ellipsize="marquee"
                 android:fontFamily="sans-serif"
-                android:layout_marginTop="@dimen/space_6dp"
+                android:maxLines="1"
+                android:text="@{item.modified.substring(0,10)}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_series_name"
                 tools:text="Issue #13" />

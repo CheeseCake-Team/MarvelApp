@@ -91,9 +91,7 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         navigationEvents.postValue(Event(HomeEvent.ClickSeriesEvent(series.id)))
     }
 
-    override fun onClickComics(comics: Comics) {
-        navigationEvents.postValue(Event(HomeEvent.ClickComicEvent(comics.id!!)))
-    }
+
 
     override fun onNavigate(dataItem: DataItem) {
 //        when (dataItem) {
@@ -113,6 +111,11 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
 //            }
 //            else -> {}
 //        }
+
+    }
+
+    override fun onClickComics(comicId: Int) {
+        navigationEvents.postValue(Event(HomeEvent.ClickComicEvent(comicId!!)))
 
     }
 

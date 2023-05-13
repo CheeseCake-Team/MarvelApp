@@ -30,4 +30,17 @@ class SeriesViewAllViewModel : BaseViewModel (),SeriesViewAllInteractionListener
     override fun onClickSeries(series: Series) {
         navigationEvents.postValue(Event(SeriesEvents.ClickSeriesEvent(series.id)))
     }
+    fun getMarvelSeries() {
+        repository.getAllSeries()
+            .applySchedulersAndPostUIStates(_seriesViewAll::postValue)
+    }
+
+    fun getComicSeries(comicId: Int) {
+        repository.getComicSeries(comicId)
+            .applySchedulersAndPostUIStates(_seriesViewAll::postValue)
+    }
+    fun getEventSeries(eventId: Int) {
+        repository.getEventSeries(eventId)
+            .applySchedulersAndPostUIStates(_seriesViewAll::postValue)
+    }
 }
