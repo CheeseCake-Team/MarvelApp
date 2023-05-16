@@ -21,7 +21,7 @@ data class ComicDTO(
     @SerializedName("images") val images: List<Any?>?,
     @SerializedName("isbn") val isbn: String?,
     @SerializedName("issn") val issn: String?,
-    @SerializedName("issueNumber") val issueNumber: Int?,
+    @SerializedName("issueNumber") val issueNumber: Float?,
     @SerializedName("modified") val modified: String?,
     @SerializedName("pageCount") val pageCount: Int?,
     @SerializedName("prices") val prices: List<Price?>?,
