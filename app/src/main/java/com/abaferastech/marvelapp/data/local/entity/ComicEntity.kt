@@ -3,7 +3,7 @@ package com.abaferastech.marvelapp.data.local.entity
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity("comic")
+@Entity("COMIC_TABLE")
 data class ComicEntity(
     @PrimaryKey(false) val id: Int,
     val title: String,
