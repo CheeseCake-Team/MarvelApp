@@ -6,7 +6,7 @@ import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentCreatorDataBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.model.TYPE
-import com.abaferastech.marvelapp.utils.Constants
+import com.abaferastech.marvelapp.utilities.Constants
 
 
 class CreatorDataFragment : BaseFragment<FragmentCreatorDataBinding, CreatorDetailsViewModel>() {

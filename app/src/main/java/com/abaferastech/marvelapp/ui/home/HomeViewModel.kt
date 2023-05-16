@@ -3,9 +3,9 @@ package com.abaferastech.marvelapp.ui.home
 import android.os.Parcelable
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.model.result.Characters
-import com.abaferastech.marvelapp.data.model.result.Comics
-import com.abaferastech.marvelapp.data.model.result.Series
+import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
+import com.abaferastech.marvelapp.data.remote.response.ComicDTO
+import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
@@ -24,9 +24,9 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     private val _homeData = MediatorLiveData<UIState<List<DataItem>>>()
     val homeData: MediatorLiveData<UIState<List<DataItem>>> get() = _homeData
 
-    private val _characters = MutableLiveData<UIState<List<Characters>>>()
-    private val _comics = MutableLiveData<UIState<List<Comics>>>()
-    private val _series = MutableLiveData<UIState<List<Series>>>()
+    private val _characters = MutableLiveData<UIState<List<CharacterDTO>>>()
+    private val _comics = MutableLiveData<UIState<List<ComicDTO>>>()
+    private val _series = MutableLiveData<UIState<List<SeriesDTO>>>()
 
     val navigationEvents = MutableLiveData<Event<HomeEvent>>()
 
@@ -93,15 +93,15 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     }
 
 
-    override fun onClickCharacter(character: Characters) {
+    override fun onClickCharacter(character: CharacterDTO) {
         navigationEvents.postValue(Event(HomeEvent.ClickCharacterEvent(character.id!!)))
     }
 
-    override fun onClickSeries(series: Series) {
+    override fun onClickSeries(series: SeriesDTO) {
         navigationEvents.postValue(Event(HomeEvent.ClickSeriesEvent(series.id)))
     }
 
-    override fun onClickComics(comics: Comics) {
+    override fun onClickComics(comics: ComicDTO) {
         navigationEvents.postValue(Event(HomeEvent.ClickComicEvent(comics.id!!)))
     }
 

@@ -12,7 +12,7 @@ import com.abaferastech.marvelapp.ui.event.eventDetails.EventFragmentDirections
 import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.series.seriesDetails.SeriesDetailsFragmentDirections
-import com.abaferastech.marvelapp.utils.Constants
+import com.abaferastech.marvelapp.utilities.Constants
 
 class CreatorsFragment : BaseFragment<FragmentCreatorsBinding, CreatorsViewModel>() {
     override val layoutIdFragment = R.layout.fragment_creators

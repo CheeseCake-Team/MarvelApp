@@ -1,11 +1,9 @@
-package com.abaferastech.marvelapp.data.model.result
+package com.abaferastech.marvelapp.data.remote.response
 
 
-import com.abaferastech.marvelapp.data.model.response.*
 import com.google.gson.annotations.SerializedName
 
-data class Comics(
-    @SerializedName("stories") val stories: MarvelResults<StoryItem>?,
+data class ComicDTO(
     @SerializedName("creators") val creators: MarvelResults<CreatorItem>?,
     @SerializedName("characters") val characters: MarvelResults<ResponseItem>?,
     @SerializedName("series") val series: MarvelResults<ResponseItem>?,

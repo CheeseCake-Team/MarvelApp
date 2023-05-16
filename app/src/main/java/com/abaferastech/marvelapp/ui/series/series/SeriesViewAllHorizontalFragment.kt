@@ -8,14 +8,13 @@ import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentSeriesViewAllHorizontalBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.creator.creatorsDetails.CreatorDetailsFragmentDirections
-import com.abaferastech.marvelapp.ui.event.eventDetails.EventFragmentDirections
 import com.abaferastech.marvelapp.ui.eventDetails.series.SeriesHorizontalAdapter
 import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesEvents
 import com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllFragmentDirections
 import com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllViewModel
-import com.abaferastech.marvelapp.utils.Constants
+import com.abaferastech.marvelapp.utilities.Constants
 
 class SeriesViewAllHorizontalFragment :
     BaseFragment<FragmentSeriesViewAllHorizontalBinding, SeriesViewAllViewModel>() {

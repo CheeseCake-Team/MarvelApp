@@ -7,7 +7,7 @@ import com.abaferastech.marvelapp.databinding.FragmentSeriesDataBinding
 
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.model.TYPE
-import com.abaferastech.marvelapp.utils.Constants
+import com.abaferastech.marvelapp.utilities.Constants
 
 class SeriesDataFragment : BaseFragment<FragmentSeriesDataBinding, SeriesDetailsViewModel>() {
     override val layoutIdFragment: Int

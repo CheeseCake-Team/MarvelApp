@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.data.network
+package com.abaferastech.marvelapp.data.remote
 
 import com.abaferastech.marvelapp.BuildConfig
 import okhttp3.OkHttpClient
@@ -16,7 +16,7 @@ object MarvelAPI {
     private val client = OkHttpClient
         .Builder()
         .addInterceptor(loggingInterceptor)
-        .addInterceptor(MarvelInterceptor())
+        .addInterceptor(AuthInterceptor(MessageDigest()))
         .build()
 
 

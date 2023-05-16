@@ -2,7 +2,7 @@ package com.abaferastech.marvelapp.ui.comic.comics
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.model.result.Comics
+import com.abaferastech.marvelapp.data.remote.response.ComicDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.Event
@@ -12,8 +12,8 @@ class ComicsViewModel : BaseViewModel(), ComicsInteractionListener {
 
     private val repository  by lazy { MarvelRepository() }
 
-    private val _comics = MutableLiveData<UIState<List<Comics>>>()
-    val comics: LiveData<UIState<List<Comics>>> get() = _comics
+    private val _comics = MutableLiveData<UIState<List<ComicDTO>>>()
+    val comics: LiveData<UIState<List<ComicDTO>>> get() = _comics
 
     val navigationEvents = MutableLiveData<Event<ComicEvents>>()
 
@@ -44,7 +44,7 @@ class ComicsViewModel : BaseViewModel(), ComicsInteractionListener {
             .applySchedulersAndPostUIStates(_comics::postValue)
     }
 
-    override fun onClickComic(comic: Comics) {
+    override fun onClickComic(comic: ComicDTO) {
         navigationEvents.postValue(Event(ComicEvents.ClickComicEvent(comic.id!!)))
     }
 

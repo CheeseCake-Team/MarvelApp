@@ -2,10 +2,10 @@ package com.abaferastech.marvelapp.ui.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.model.result.Characters
-import com.abaferastech.marvelapp.data.model.result.Comics
-import com.abaferastech.marvelapp.data.model.result.Events
-import com.abaferastech.marvelapp.data.model.result.Series
+import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
+import com.abaferastech.marvelapp.data.remote.response.ComicDTO
+import com.abaferastech.marvelapp.data.remote.response.EventDTO
+import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
@@ -58,21 +58,21 @@ class SearchViewModel : BaseViewModel(),
                 when (searchType.value) {
                     TYPE.SERIES -> repository.searchInSeries(searchQuery).toObservable()
                         .map {
-                            SearchItem.Series(it.toData() as List<Series>)
+                            SearchItem.Series(it.toData() as List<SeriesDTO>)
                         }
 
                     TYPE.CHARACTER -> repository.searchInCharacters(searchQuery).toObservable()
                         .map {
-                            SearchItem.Character(it.toData() as List<Characters>)
+                            SearchItem.Character(it.toData() as List<CharacterDTO>)
                         }
 
                     TYPE.EVENT -> repository.searchInEvents(searchQuery).toObservable()
                         .map {
-                            SearchItem.Event(it.toData() as List<Events>)
+                            SearchItem.Event(it.toData() as List<EventDTO>)
                         }
 
                     else -> repository.searchInComics(searchQuery).toObservable().map {
-                        SearchItem.Comic(it.toData() as List<Comics>)
+                        SearchItem.Comic(it.toData() as List<ComicDTO>)
                     }
 
                 }
@@ -98,19 +98,19 @@ class SearchViewModel : BaseViewModel(),
         _isChipGroupVisible.value = !(isChipGroupVisible.value ?: false)
     }
 
-    override fun onClickCharacter(character: Characters) {
+    override fun onClickCharacter(character: CharacterDTO) {
         navigationEvents.postValue(Event(SearchEvents.ClickCharacterEvent(character.id!!)))
     }
 
-    override fun onClickComic(comic: Comics) {
+    override fun onClickComic(comic: ComicDTO) {
         navigationEvents.postValue(Event(SearchEvents.ClickComicEvent(comic.id!!)))
     }
 
-    override fun onEventClick(event: Events) {
+    override fun onEventClick(event: EventDTO) {
         navigationEvents.postValue(Event(SearchEvents.ClickEventEvent(event.id!!)))
     }
 
-    override fun onClickSeries(series: Series) {
+    override fun onClickSeries(series: SeriesDTO) {
         navigationEvents.postValue(Event(SearchEvents.ClickSeriesEvent(series.id)))
     }
 

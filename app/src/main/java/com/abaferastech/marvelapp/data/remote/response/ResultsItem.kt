@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.data.model.response
+package com.abaferastech.marvelapp.data.remote.response
 
 import com.google.gson.annotations.SerializedName
 

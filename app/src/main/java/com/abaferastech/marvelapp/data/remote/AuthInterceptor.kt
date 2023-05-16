@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.data.network
+package com.abaferastech.marvelapp.data.remote
 
 import com.abaferastech.marvelapp.BuildConfig
 import okhttp3.Interceptor
@@ -6,8 +6,7 @@ import okhttp3.Interceptor.Chain
 import okhttp3.Response
 import java.time.Instant
 
-class MarvelInterceptor : Interceptor {
-    private val messageDigest = MessageDigest()
+class AuthInterceptor(private val messageDigest:MessageDigest) : Interceptor {
 
     override fun intercept(chain: Chain): Response {
         val timeStamp = Instant.now().epochSecond.toString()
