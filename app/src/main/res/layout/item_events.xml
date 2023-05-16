@@ -8,7 +8,7 @@
 
         <variable
             name="item"
-            type="com.abaferastech.marvelapp.data.model.result.Events"/>
+            type="com.abaferastech.marvelapp.data.remote.response.EventDTO"/>
 
         <variable
             name="listener"
