@@ -2,7 +2,7 @@ package com.abaferastech.marvelapp.ui.character.characters
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.model.result.Characters
+import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
 import com.abaferastech.marvelapp.ui.model.UIState
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
@@ -12,8 +12,8 @@ class CharactersViewModel : BaseViewModel(), CharactersInteractionListener {
 
     private val repository  by lazy { MarvelRepository() }
 
-    private val _characters = MutableLiveData<UIState<List<Characters>>>()
-    val characters: LiveData<UIState<List<Characters>>> get() = _characters
+    private val _characters = MutableLiveData<UIState<List<CharacterDTO>>>()
+    val characters: LiveData<UIState<List<CharacterDTO>>> get() = _characters
 
     val navigationEvents = MutableLiveData<Event<CharacterEvent>>()
 
@@ -36,7 +36,7 @@ class CharactersViewModel : BaseViewModel(), CharactersInteractionListener {
         repository.getSeriesCharacters(characterId)
             .applySchedulersAndPostUIStates(_characters::postValue)
     }
-    override fun onClickCharacter(character: Characters) {
+    override fun onClickCharacter(character: CharacterDTO) {
         navigationEvents.postValue(Event(CharacterEvent.ClickCharacterEvent(character.id!!)))
     }
 

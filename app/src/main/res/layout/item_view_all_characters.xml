@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.abaferastech.marvelapp.data.model.result.Characters" />
+            type="com.abaferastech.marvelapp.data.remote.response.CharacterDTO" />
 
         <variable
             name="listener"

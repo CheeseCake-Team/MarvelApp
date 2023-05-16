@@ -1,11 +1,9 @@
-package com.abaferastech.marvelapp.data.model.result
+package com.abaferastech.marvelapp.data.remote.response
 
 
-import com.abaferastech.marvelapp.data.model.response.*
 import com.google.gson.annotations.SerializedName
 
-data class Comics(
-    @SerializedName("stories") val stories: MarvelResults<StoryItem>?,
+data class ComicDTO(
     @SerializedName("creators") val creators: MarvelResults<CreatorItem>?,
     @SerializedName("characters") val characters: MarvelResults<ResponseItem>?,
     @SerializedName("series") val series: MarvelResults<ResponseItem>?,
@@ -23,7 +21,7 @@ data class Comics(
     @SerializedName("images") val images: List<Any?>?,
     @SerializedName("isbn") val isbn: String?,
     @SerializedName("issn") val issn: String?,
-    @SerializedName("issueNumber") val issueNumber: Int?,
+    @SerializedName("issueNumber") val issueNumber: Float?,
     @SerializedName("modified") val modified: String?,
     @SerializedName("pageCount") val pageCount: Int?,
     @SerializedName("prices") val prices: List<Price?>?,

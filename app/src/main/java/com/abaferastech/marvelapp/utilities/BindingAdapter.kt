@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.utils
+package com.abaferastech.marvelapp.utilities
 
 import android.view.View
 import android.widget.HorizontalScrollView
@@ -9,7 +9,7 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.model.response.Thumbnail
+import com.abaferastech.marvelapp.data.remote.response.Thumbnail
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.character.characters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter

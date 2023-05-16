@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.utils
+package com.abaferastech.marvelapp.utilities
 
 object Constants {
     const val TYPE_ID = "TYPE_id"

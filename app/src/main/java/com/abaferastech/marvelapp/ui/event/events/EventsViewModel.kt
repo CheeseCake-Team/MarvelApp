@@ -3,12 +3,9 @@ package com.abaferastech.marvelapp.ui.event.events
 import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.SavedStateHandle
-import com.abaferastech.marvelapp.data.model.result.Events
+import com.abaferastech.marvelapp.data.remote.response.EventDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
-import com.abaferastech.marvelapp.ui.character.characterDetails.CharacterDetailsFragmentArgs
-import com.abaferastech.marvelapp.ui.event.eventDetails.EventFragmentArgs
 import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.UIState
 
@@ -17,8 +14,8 @@ class EventsViewModel() : BaseViewModel(), EventsInteractionListener {
 
     val navigationEvents = MutableLiveData<Event<EvenEvents>>()
 
-    private val _events = MutableLiveData<UIState<List<Events>>>()
-    val events: LiveData<UIState<List<Events>>> get() = _events
+    private val _events = MutableLiveData<UIState<List<EventDTO>>>()
+    val events: LiveData<UIState<List<EventDTO>>> get() = _events
 
     fun getMarvelEvents() {
         repository.getAllEvents()
@@ -40,7 +37,7 @@ class EventsViewModel() : BaseViewModel(), EventsInteractionListener {
             .applySchedulersAndPostUIStates(_events::postValue)
     }
 
-    override fun onEventClick(event: Events) {
+    override fun onEventClick(event: EventDTO) {
         navigationEvents.postValue(Event(EvenEvents.ClickEventEvents(event.id!!)))
     }
     private lateinit var state: Parcelable

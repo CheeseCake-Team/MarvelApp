@@ -3,7 +3,7 @@ package com.abaferastech.marvelapp.ui.series.seriesDetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.abaferastech.marvelapp.data.model.result.Series
+import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.UIState
@@ -11,8 +11,8 @@ import com.abaferastech.marvelapp.ui.model.UIState
 class SeriesDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
 
     private val repository = MarvelRepository()
-    private val _series = MutableLiveData<UIState<Series>>()
-    val series: LiveData<UIState<Series>> get() = _series
+    private val _series = MutableLiveData<UIState<SeriesDTO>>()
+    val series: LiveData<UIState<SeriesDTO>> get() = _series
 
     val seriesArgs = state.let {
         SeriesDetailsFragmentArgs.fromSavedStateHandle(it)
