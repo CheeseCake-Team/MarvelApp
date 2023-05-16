@@ -8,7 +8,6 @@ import com.abaferastech.marvelapp.data.remote.response.CreatorDTO
 import com.abaferastech.marvelapp.data.remote.response.EventDTO
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.ui.model.UIState
-import com.abaferastech.marvelapp.data.remote.MarvelAPI
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
