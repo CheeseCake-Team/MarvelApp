@@ -19,4 +19,6 @@
     <string name="events">Events</string>
     <string name="no_data_found">No Data Found</string>
     <string name="type_here">Type Here</string>
+    <string name="search_in">Search in</string>
+    <string name="filter">filter</string>
 </resources>
