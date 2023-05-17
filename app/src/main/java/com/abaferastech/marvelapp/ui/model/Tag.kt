@@ -1,7 +1,7 @@
 package com.abaferastech.marvelapp.ui.model
 
 data class Tag<T>(
-    val id:Int,
     val title: String,
+    val id:Int,
     val ResourcesData: List<T>
 )

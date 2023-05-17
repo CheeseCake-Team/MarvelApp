@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_arrow_forward"
             android:drawableTint="@color/md_theme_onBackground"
-            android:onClick="@{() -> listener.onNavigate(tagItem.title)}"
+            android:onClick="@{() -> listener.onNavigate(tagItem.id)}"
             android:text="@string/see_all"
             android:textColor="@color/md_theme_onBackground"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_view_tag_title"

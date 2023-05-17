@@ -1,7 +1,6 @@
 package com.abaferastech.marvelapp.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
@@ -9,8 +8,6 @@ import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentHomeBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.home.adapters.HomeAdapter
-import com.abaferastech.marvelapp.ui.home.adapters.NavigationInteractionListener
-import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.EventObserver
 
 class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
@@ -41,28 +38,24 @@ class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
         val action = when (homeEvent) {
             is HomeEvent.ClickCharacterEvent ->
                 HomeFragmentDirections.actionHomeFragmentToCharacterFragment(homeEvent.characterID)
+
             is HomeEvent.ClickComicEvent ->
                 HomeFragmentDirections.actionHomeFragmentToComicDetailsFragment(homeEvent.comicID)
+
             is HomeEvent.ClickSeriesEvent ->
                 HomeFragmentDirections.actionHomeFragmentToSeriesDetailsFragment(homeEvent.seriesID)
-            is HomeEvent.ClickAllCharacterEvent -> {
-                Log.d("sss", "handleHomeEvent: ")
+
+            is HomeEvent.ClickAllCharacterEvent ->
                 HomeFragmentDirections.actionHomeFragmentToCharactersFragment()
-            }
-            is HomeEvent.ClickAllComicEvent -> {
-                Log.d("sss", "handleHomeEvent: ")
-                HomeFragmentDirections
-                    .actionHomeFragmentToComicsGridFragment()
-            }
-            is HomeEvent.ClickAllSeriesEvent -> {
-                Log.d("sss", "handleHomeEvent: ")
-                HomeFragmentDirections
-                    .actionHomeFragmentToSeriesViewAllFragment()
-            }
+
+            is HomeEvent.ClickAllComicEvent ->
+                HomeFragmentDirections.actionHomeFragmentToComicsGridFragment()
+
+            is HomeEvent.ClickAllSeriesEvent ->
+                HomeFragmentDirections.actionHomeFragmentToSeriesViewAllFragment()
         }
         findNavController().navigate(action)
     }
-
 
 
     override fun onResume() {

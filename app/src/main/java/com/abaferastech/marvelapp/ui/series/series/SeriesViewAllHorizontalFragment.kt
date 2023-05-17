@@ -14,7 +14,7 @@ import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesEvents
 import com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllFragmentDirections
 import com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllViewModel
-import com.abaferastech.marvelapp.utilities.Constants
+import com.abaferastech.marvelapp.util.Constants
 
 class SeriesViewAllHorizontalFragment :
     BaseFragment<FragmentSeriesViewAllHorizontalBinding, SeriesViewAllViewModel>() {

@@ -1,6 +1,6 @@
 package com.abaferastech.marvelapp.data.repository
 
-import com.abaferastech.marvelapp.data.database.MarvelDatabase
+import com.abaferastech.marvelapp.data.remote.MarvelAPI
 import com.abaferastech.marvelapp.data.remote.response.BaseResponse
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
 import com.abaferastech.marvelapp.data.remote.response.ComicDTO
@@ -8,18 +8,13 @@ import com.abaferastech.marvelapp.data.remote.response.CreatorDTO
 import com.abaferastech.marvelapp.data.remote.response.EventDTO
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.ui.model.UIState
-import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
-import javax.inject.Inject
-import javax.inject.Singleton
 
-@Singleton
-class MarvelRepository @Inject constructor(
-    private val marvelDatabase: MarvelDatabase,
-    private val apiService: MarvelApiService
-) {
+//@Singleton
+class MarvelRepository {
 
+    private val apiService = MarvelAPI.apiService
 
 
     fun searchInComics(query: String): Single<UIState<List<ComicDTO>>> {

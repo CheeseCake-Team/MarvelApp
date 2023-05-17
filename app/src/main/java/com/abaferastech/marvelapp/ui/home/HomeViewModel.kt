@@ -20,45 +20,35 @@ import com.abaferastech.marvelapp.ui.model.UIState
 
 class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,
     SeriesInteractionListener, NavigationInteractionListener {
+
+    private lateinit var state: Parcelable
+
     private val repository = MarvelRepository()
 
-    private val _homeData = MediatorLiveData<List<DataItem>>()
-    val homeData: MediatorLiveData<List<DataItem>> get() = _homeData
+    private val _homeData = MediatorLiveData<UIState<List<DataItem>>>()
+    val homeData = _homeData
 
     private val _characters = MutableLiveData<UIState<List<CharacterDTO>>>()
     private val _comics = MutableLiveData<UIState<List<ComicDTO>>>()
     private val _series = MutableLiveData<UIState<List<SeriesDTO>>>()
+    private val data = mutableListOf<DataItem>()
 
-    val homeUIState = MutableLiveData<UIState<Unit>>()
 
     val navigationEvents = MutableLiveData<Event<HomeEvent>>()
 
 
-    val data = mutableListOf<DataItem>()
-
-    private lateinit var state: Parcelable
-    fun saveRecyclerViewState(parcelable: Parcelable) {
-        state = parcelable
-    }
-    fun restoreRecyclerViewState(): Parcelable = state
-    fun stateInitialized(): Boolean = ::state.isInitialized
-
 
     init {
+        _homeData.postValue(UIState.Loading)
         _homeData.addSource(_characters) {
             updateCharacterDataItem()
-            checkAllDataSourcesUpdated()
         }
         _homeData.addSource(_comics) {
             updateComicsDataItem()
-            checkAllDataSourcesUpdated()
         }
         _homeData.addSource(_series) {
             updateSeriesDataItem()
-            checkAllDataSourcesUpdated()
         }
-
-        homeUIState.postValue(UIState.Loading)
 
         repository.getAllCharacters().applySchedulersAndPostUIStates(_characters::postValue)
         repository.getAllComics().applySchedulersAndPostUIStates(_comics::postValue)
@@ -70,32 +60,49 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
             val characters = _characters.value?.toData()
             data.add(DataItem.HeaderItem(characters?.shuffled()?.take(4)!!))
             data.add(
-                DataItem.CharacterTagItem(Tag(1, "CHARACTERS", characters.shuffled()), this)
+                DataItem.CharacterTagItem(
+                    Tag(
+                        id = 1,
+                        title = "CHARACTERS",
+                        ResourcesData = characters.shuffled()
+                    ), this
+                )
             )
-            homeUIState.postValue(UIState.Success(Unit))
+            _homeData.postValue(UIState.Success(data))
         }
 
     }
 
-    private fun checkAllDataSourcesUpdated() {
-        _homeData.postValue(data)
-//        if (data.size == 4) {
-//        }
-    }
 
     private fun updateComicsDataItem() {
         if (_characters.value is UIState.Success) {
             val comics = _comics.value?.toData() ?: emptyList()
-            data.add(DataItem.ComicsTagItem(Tag(2, "COMICS", comics.shuffled()), this))
-            homeUIState.postValue(UIState.Success(Unit))
+            data.add(
+                DataItem.ComicsTagItem(
+                    Tag(
+                        id = 2,
+                        title = "COMICS",
+                        ResourcesData = comics.shuffled()
+                    ), this
+                )
+            )
+            _homeData.postValue(UIState.Success(data))
         }
     }
 
     private fun updateSeriesDataItem() {
         if (_characters.value is UIState.Success) {
             val series = _series.value?.toData()
-            data.add(DataItem.SeriesTagItem(Tag(3, "SERIES", series?.shuffled()!!), this))
-            homeUIState.postValue(UIState.Success(Unit))
+            data.add(
+                DataItem.SeriesTagItem(
+                    Tag(
+                        id = 3,
+                        title = "SERIES",
+                        ResourcesData = series?.shuffled()!!
+                    ), this
+                )
+            )
+            _homeData.postValue(UIState.Success(data))
         }
     }
 
@@ -120,21 +127,21 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     }
 
 
-    override fun onNavigate(id: String) {
+    override fun onNavigate(id: Int) {
         when (id) {
-            "CHARACTERS" -> {
-                Log.d("sss", "handleHomeEvent: ")
-                navigationEvents.postValue(Event(HomeEvent.ClickAllCharacterEvent))
-            }
-            "COMICS" -> {
-                Log.d("sss", "handleHomeEvent: ")
-                navigationEvents.postValue(Event(HomeEvent.ClickAllComicEvent))
-            }
-            "SERIES" -> {
-                Log.d("sss", "handleHomeEvent: ")
-                navigationEvents.postValue(Event(HomeEvent.ClickAllSeriesEvent))
-            }
+            1 -> navigationEvents.postValue(Event(HomeEvent.ClickAllCharacterEvent))
+            2 -> navigationEvents.postValue(Event(HomeEvent.ClickAllComicEvent))
+            3 -> navigationEvents.postValue(Event(HomeEvent.ClickAllSeriesEvent))
         }
     }
+
+    fun saveRecyclerViewState(parcelable: Parcelable) {
+        state = parcelable
+    }
+
+    fun restoreRecyclerViewState(): Parcelable = state
+    fun stateInitialized(): Boolean = ::state.isInitialized
+
+
 
 }

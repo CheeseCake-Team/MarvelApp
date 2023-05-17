@@ -17,18 +17,23 @@ private const val HEADER_ITEM = 0
 private const val TAG_ITEM = 1
 
 interface NavigationInteractionListener : BaseInteractionListener {
-    fun onNavigate(id: String)
+    fun onNavigate(id: Int)
 }
 
 class HomeAdapter(
     private var homeItems: MutableList<DataItem>,
-    val baselistener: BaseInteractionListener,
-) : BaseAdapter<DataItem>(baselistener) {
+    private val interactionListener: BaseInteractionListener,
+) : BaseAdapter<DataItem>(interactionListener) {
 
     override fun getItemViewType(position: Int): Int {
         return when (homeItems[position]) {
-            is DataItem.HeaderItem -> HEADER_ITEM
-            else -> TAG_ITEM
+            is DataItem.HeaderItem -> {
+                HEADER_ITEM
+            }
+
+            else -> {
+                TAG_ITEM
+            }
         }
     }
 
@@ -45,17 +50,16 @@ class HomeAdapter(
             HEADER_ITEM -> {
                 ItemViewHolder(
                     ItemHeaderViewPagerBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent, false
+                        LayoutInflater.from(parent.context), parent, false
                     )
                 )
             }
 
             TAG_ITEM -> {
+
                 ItemViewHolder(
                     ItemTagBinding.inflate(
-                        LayoutInflater.from(parent.context),
-                        parent, false
+                        LayoutInflater.from(parent.context), parent, false
                     )
                 )
             }
@@ -69,10 +73,13 @@ class HomeAdapter(
             bind(holder as ItemViewHolder, position)
             when (holder.binding) {
                 is ItemTagBinding -> {
+
                     bind(holder, position)
                 }
+
                 is ItemHeaderViewPagerBinding -> {
-                    val adapter = HeaderAdapter((homeItems[position] as DataItem.HeaderItem).items)
+                    val adapter = HeaderAdapter()
+                    adapter.setItems((homeItems[position] as DataItem.HeaderItem).items)
                     holder.binding.apply {
                         viewPagerHeader.adapter = adapter
                         pageIndicatorView.apply {
@@ -85,15 +92,11 @@ class HomeAdapter(
                         viewPagerHeader.registerOnPageChangeCallback(object :
                             ViewPager2.OnPageChangeCallback() {
                             override fun onPageScrolled(
-                                position: Int,
-                                positionOffset: Float,
-                                positionOffsetPixels: Int
+                                position: Int, positionOffset: Float, positionOffsetPixels: Int
                             ) {
                                 super.onPageScrolled(position, positionOffset, positionOffsetPixels)
                                 pageIndicatorView.onPageScrolled(
-                                    position,
-                                    positionOffset,
-                                    positionOffsetPixels
+                                    position, positionOffset, positionOffsetPixels
                                 )
                             }
 
@@ -111,37 +114,83 @@ class HomeAdapter(
 
     private fun bind(holder: ItemViewHolder, position: Int) {
         if (position != -1) {
-            val item = homeItems[position]
-            when (item) {
+            when (val item = homeItems[position]) {
                 is DataItem.ComicsTagItem -> {
-                    (holder.binding as ItemTagBinding).recyclerViewTagData.adapter = ComicAdapter(
-                        baselistener as ComicsInteractionListener
-                    )
-                    holder.binding.tagItem = item.tag
-
+                    with(holder.binding as ItemTagBinding) {
+                        recyclerViewTagData.adapter =
+                            ComicAdapter(interactionListener as ComicsInteractionListener)
+                        tagItem = item.tag
+                        listener = interactionListener as NavigationInteractionListener?
+                    }
                 }
+
                 is DataItem.SeriesTagItem -> {
-                    (holder.binding as ItemTagBinding).recyclerViewTagData.adapter = SeriesAdapter(
-
-                        baselistener as SeriesInteractionListener
-                    )
-                    holder.binding.tagItem = item.tag
-
+                    with(holder.binding as ItemTagBinding) {
+                        recyclerViewTagData.adapter =
+                            SeriesAdapter(interactionListener as SeriesInteractionListener)
+                        tagItem = item.tag
+                        listener = interactionListener as NavigationInteractionListener?
+                    }
                 }
-                is DataItem.CharacterTagItem -> {
-                    (holder.binding as ItemTagBinding).recyclerViewTagData.adapter =
-                        CharactersAdapter(
-                            baselistener as CharactersInteractionListener
-                        )
-                    holder.binding.tagItem = item.tag
 
+                is DataItem.CharacterTagItem -> {
+                    with(holder.binding as ItemTagBinding) {
+                        recyclerViewTagData.adapter =
+                            CharactersAdapter(interactionListener as CharactersInteractionListener)
+                        tagItem = item.tag
+                        listener = interactionListener as NavigationInteractionListener?
+                    }
                 }
 
                 else -> {
                     Log.d("assd", "onNavigate: ")
                 }
             }
-
         }
     }
+
+
+//    private fun bind(holder: ItemViewHolder, position: Int) {
+//        if (position != -1) {
+//            val item = homeItems[position]
+//            when (item) {
+//                is DataItem.ComicsTagItem -> {
+//                    (holder.binding as ItemTagBinding).recyclerViewTagData.adapter = ComicAdapter(
+//                        interactionListener as ComicsInteractionListener
+//                    )
+//                    holder.binding.tagItem = item.tag
+//                    holder.binding.listener = interactionListener as NavigationInteractionListener?
+//
+//
+//                }
+//
+//                is DataItem.SeriesTagItem -> {
+//                    (holder.binding as ItemTagBinding).recyclerViewTagData.adapter = SeriesAdapter(
+//
+//                        interactionListener as SeriesInteractionListener
+//                    )
+//                    holder.binding.tagItem = item.tag
+//                    holder.binding.listener = interactionListener as NavigationInteractionListener?
+//
+//
+//                }
+//
+//                is DataItem.CharacterTagItem -> {
+//                    (holder.binding as ItemTagBinding).recyclerViewTagData.adapter =
+//                        CharactersAdapter(
+//                            interactionListener as CharactersInteractionListener
+//                        )
+//                    holder.binding.tagItem = item.tag
+//                    holder.binding.listener = interactionListener as NavigationInteractionListener?
+//
+//
+//                }
+//
+//                else -> {
+//                    Log.d("assd", "onNavigate: ")
+//                }
+//            }
+//
+//        }
+//    }
 }
