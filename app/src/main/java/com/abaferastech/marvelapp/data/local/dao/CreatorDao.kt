@@ -14,6 +14,9 @@ interface CreatorDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCreator(creator: CreatorEntity): Completable
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCreatorList(series: List<CreatorEntity>):Completable
+
     @Update
     fun updateCreator(creator: CreatorEntity): Completable
 

@@ -14,6 +14,9 @@ interface ComicDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertComic(comic: ComicEntity): Completable
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertComicList(series: List<ComicEntity>):Completable
+
     @Update
     fun updateComic(comic: ComicEntity): Completable
 

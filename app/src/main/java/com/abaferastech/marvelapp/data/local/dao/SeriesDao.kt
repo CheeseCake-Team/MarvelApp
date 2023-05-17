@@ -16,6 +16,9 @@ interface SeriesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSeries(series: SeriesEntity):Completable
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertSeriesList(series: List<SeriesEntity>):Completable
+
     @Update
     fun updateSeries(series: SeriesEntity):Completable
 

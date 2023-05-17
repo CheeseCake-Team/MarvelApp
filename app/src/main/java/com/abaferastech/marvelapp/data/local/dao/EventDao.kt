@@ -15,6 +15,9 @@ interface EventDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(event: EventEntity): Completable
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertEventList(series: List<EventEntity>):Completable
+
     @Update
     fun update(event: EventEntity): Completable
 

@@ -14,6 +14,9 @@ interface CharacterDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCharacter(character: CharacterEntity): Completable
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCharacterList(series: List<CharacterEntity>):Completable
+
     @Update
     fun updateCharacter(character: CharacterEntity): Completable
 
