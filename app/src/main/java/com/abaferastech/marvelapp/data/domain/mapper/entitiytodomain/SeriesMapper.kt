@@ -1,9 +1,8 @@
-package com.abaferastech.marvelapp.data.domain.mapper.todomain
+package com.abaferastech.marvelapp.data.domain.mapper.entitiytodomain
 
 import com.abaferastech.marvelapp.data.domain.mapper.IMapper
 import com.abaferastech.marvelapp.data.domain.models.Series
 import com.abaferastech.marvelapp.data.local.entity.SeriesEntity
-import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 
 class SeriesMapper : IMapper<SeriesEntity, Series> {
     override fun map(input: SeriesEntity): Series {

@@ -1,7 +1,6 @@
-package com.abaferastech.marvelapp.data.domain.mapper.toentity
+package com.abaferastech.marvelapp.data.domain.mapper.dtotoentity
 
 import com.abaferastech.marvelapp.data.domain.mapper.IMapper
-import com.abaferastech.marvelapp.data.domain.models.Series
 import com.abaferastech.marvelapp.data.local.entity.SeriesEntity
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 

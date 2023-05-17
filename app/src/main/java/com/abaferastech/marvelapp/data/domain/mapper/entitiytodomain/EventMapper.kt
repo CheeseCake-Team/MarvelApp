@@ -1,9 +1,8 @@
-package com.abaferastech.marvelapp.data.domain.mapper.todomain
+package com.abaferastech.marvelapp.data.domain.mapper.entitiytodomain
 
 import com.abaferastech.marvelapp.data.domain.mapper.IMapper
 import com.abaferastech.marvelapp.data.domain.models.Event
 import com.abaferastech.marvelapp.data.local.entity.EventEntity
-import com.abaferastech.marvelapp.data.remote.response.EventDTO
 
 class EventMapper: IMapper<EventEntity, Event> {
     override fun map(input: EventEntity): Event {
