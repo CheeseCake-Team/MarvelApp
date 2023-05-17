@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space_16dp"
             android:layout_marginTop="@dimen/space_16dp"
-            android:text='@{"Title: " + viewModel.comics.toData().title}'
+            android:text='@{"Title: " + viewModel.comic.title}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space_16dp"
             android:layout_marginTop="16dp"
-            android:text='@{"Issue: " + viewModel.comics.toData().issueNumber}'
+            android:text='@{"Issue: " + viewModel.comic.issueNumber.toString()}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_comic_title" />
@@ -46,7 +46,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space_16dp"
             android:layout_marginTop="@dimen/space_16dp"
-            android:text='@{"Date: " + viewModel.comics.toData().modified.split("T")[0]}'
+            android:text='@{"Date: " + viewModel.comic.modified.split("T")[0]}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_comic_issue_number" />
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space_16dp"
             android:layout_marginTop="@dimen/space_16dp"
-            android:text='@{"Price: " + viewModel.comics.toData().prices[0].price.toString()}'
+            android:text='@{"Price: " + viewModel.comic.price.toString()}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_comic_modified" />
@@ -68,7 +68,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space_16dp"
             android:layout_marginTop="@dimen/space_16dp"
-            android:text='@{"pageCount: " + viewModel.comics.toData().pageCount.toString()}'
+            android:text='@{"pageCount: " + viewModel.comic.pageCount.toString()}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_comic_prices" />
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space_16dp"
             android:layout_marginTop="@dimen/space_16dp"
-            android:text='@{"Description: " + viewModel.comics.toData().description}'
+            android:text='@{"Description: " + viewModel.comic.description}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_comic_page_count" />

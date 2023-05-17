@@ -17,13 +17,13 @@ class ComicDetailsViewModel @Inject constructor(private val repository: MarvelRe
     BaseViewModel() {
 
 
-    private val _comics = MutableLiveData<Comic>()
-    val comics: LiveData<Comic> = _comics
+    private val _comic = MutableLiveData<Comic>()
+    val comic: LiveData<Comic> = _comic
 
     var comicId = MutableLiveData<Int>()
     private fun getSingleComicById(passedId: Int) {
         repository.getSingleComic(passedId).applySchedulersAndPostUIStates {
-            _comics.postValue(ComicMapper().map(it.toData()!!))
+            _comic.postValue(ComicMapper().map(it.toData()!!))
         }
     }
 

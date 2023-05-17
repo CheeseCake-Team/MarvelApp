@@ -1,7 +1,9 @@
 package com.abaferastech.marvelapp.ui.comic.comicDetails
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentComicDataBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
@@ -14,17 +16,6 @@ class ComicDataFragment : BaseFragment<FragmentComicDataBinding, ComicDetailsVie
         get() = R.layout.fragment_comic_data
     override val viewModelClass: Class<ComicDetailsViewModel>
         get() = ComicDetailsViewModel::class.java
-
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        /*val typeID = arguments?.getInt(Constants.TYPE_ID)
-        viewModel.getSingleComic(typeID!!
-        )*/
-    }
-
-
 
 
     companion object {

@@ -24,7 +24,7 @@
             android:foreground="@drawable/header_details_gradient"
             android:scaleType="centerCrop"
             app:altSrc="@color/md_theme_surface"
-            app:imageUrl="@{viewModel.comics.imageUri}"
+            app:imageUrl="@{viewModel.comic.imageUri}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -42,7 +42,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:text="@{viewModel.comics.title}"
+            app:text="@{viewModel.comic.title}"
             tools:text="TextView" />
 
 
