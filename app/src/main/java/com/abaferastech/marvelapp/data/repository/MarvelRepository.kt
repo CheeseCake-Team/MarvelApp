@@ -1,6 +1,8 @@
 package com.abaferastech.marvelapp.data.repository
 
-import com.abaferastech.marvelapp.data.database.MarvelDatabase
+import com.abaferastech.marvelapp.data.local.database.MarvelDatabase
+import com.abaferastech.marvelapp.data.mapper.entitiytodomain.ComicMapper
+import com.abaferastech.marvelapp.data.domain.models.Comic
 import com.abaferastech.marvelapp.data.remote.response.BaseResponse
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
 import com.abaferastech.marvelapp.data.remote.response.ComicDTO
@@ -19,8 +21,6 @@ class MarvelRepository @Inject constructor(
     private val marvelDatabase: MarvelDatabase,
     private val apiService: MarvelApiService
 ) {
-
-
 
     fun searchInComics(query: String): Single<UIState<List<ComicDTO>>> {
         return wrapWithState { apiService.searchInComics(query) }
@@ -53,6 +53,7 @@ class MarvelRepository @Inject constructor(
     fun getSingleComic(comicsId: Int): Single<UIState<ComicDTO>> {
         return wrapWithState { apiService.getSingleComic(comicsId) }.mapListToSingleItem()
     }
+
 
     fun getSingleCreator(creatorId: Int): Single<UIState<CreatorDTO>> {
         return wrapWithState { apiService.getSingleCreator(creatorId) }.mapListToSingleItem()

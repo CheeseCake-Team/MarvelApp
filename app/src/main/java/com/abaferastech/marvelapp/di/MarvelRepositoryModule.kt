@@ -1,6 +1,6 @@
 package com.abaferastech.marvelapp.di
 
-import com.abaferastech.marvelapp.data.database.MarvelDatabase
+import com.abaferastech.marvelapp.data.local.database.MarvelDatabase
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import dagger.Module

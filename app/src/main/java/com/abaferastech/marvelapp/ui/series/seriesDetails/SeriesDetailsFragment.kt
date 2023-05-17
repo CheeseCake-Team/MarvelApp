@@ -33,12 +33,12 @@ class SeriesDetailsFragment : BaseFragment<FragmentSeriesDetailsBinding, SeriesD
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getSeriesById()
 
-        init()
+        /*viewModel.getSeriesById()
+        init()*/
     }
 
-    private fun init() {
+    /*private fun init() {
         val adapter = SeriesDetailsFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
@@ -56,5 +56,5 @@ class SeriesDetailsFragment : BaseFragment<FragmentSeriesDetailsBinding, SeriesD
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
-    }
+    }*/
 }

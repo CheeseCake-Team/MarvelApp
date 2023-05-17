@@ -19,9 +19,9 @@ class ComicDataFragment : BaseFragment<FragmentComicDataBinding, ComicDetailsVie
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val typeID = arguments?.getInt(Constants.TYPE_ID)
+        /*val typeID = arguments?.getInt(Constants.TYPE_ID)
         viewModel.getSingleComic(typeID!!
-        )
+        )*/
     }
 
 

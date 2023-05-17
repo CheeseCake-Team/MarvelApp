@@ -15,14 +15,16 @@ import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
 import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.SearchItem
 import com.abaferastech.marvelapp.ui.model.TYPE
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class SearchViewModel : BaseViewModel(),
+@HiltViewModel
+class SearchViewModel @Inject constructor(private val repository: MarvelRepository) : BaseViewModel(),
     CharactersInteractionListener, EventsInteractionListener, SeriesInteractionListener,
     ComicsInteractionListener {
-    private val repository = MarvelRepository()
 
     private val _isLoading = MutableLiveData(false)
 

@@ -7,22 +7,27 @@ import com.abaferastech.marvelapp.data.remote.response.ComicDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.UIState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
+@HiltViewModel
+class ComicDetailsViewModel @Inject constructor(private val repository: MarvelRepository) : BaseViewModel() {
 
-class ComicDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
-
-    private val repository  by lazy { MarvelRepository() }
 
     private val _comics = MutableLiveData<UIState<ComicDTO>>()
     val comics: LiveData<UIState<ComicDTO>> = _comics
 
-    val comicArgs = state.let {
-        ComicDetailsFragmentArgs.fromSavedStateHandle(it)
+    private fun test(id: Int){
+        repository.getSingleComicDB(id)
     }
 
-    fun getSingleComic(passedId: Int? = null) {
+    /*val comicArgs = state.let {
+        ComicDetailsFragmentArgs.fromSavedStateHandle(it)
+    }*/
+
+   /* fun getSingleComic(passedId: Int? = null) {
         val comicId = passedId ?: comicArgs.comicID
         repository.getSingleComic(comicId)
             .applySchedulersAndPostUIStates(_comics::postValue)
-    }
+    }*/
 }

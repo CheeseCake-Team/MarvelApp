@@ -22,8 +22,8 @@ class CreatorDetailsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getMarvelCreator()
-        init()
+        /*viewModel.getMarvelCreator()
+        init()*/
 
     }
 
@@ -42,7 +42,7 @@ class CreatorDetailsFragment :
         }
     }
 
-    private fun init() {
+   /* private fun init() {
         val adapter = CreatorFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
@@ -61,5 +61,5 @@ class CreatorDetailsFragment :
             findNavController().navigateUp()
         }
     }
-
+*/
 }

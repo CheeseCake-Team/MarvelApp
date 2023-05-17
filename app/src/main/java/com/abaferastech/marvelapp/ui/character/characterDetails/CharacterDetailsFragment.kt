@@ -20,7 +20,7 @@ class CharacterDetailsFragment :
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getSingleCharacter()
-        init()
+        //init()
     }
 
     override fun onResume() {
@@ -37,7 +37,7 @@ class CharacterDetailsFragment :
         }
     }
 
-    private fun init() {
+    /*private fun init() {
         val adapter = CharacterFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
@@ -55,5 +55,5 @@ class CharacterDetailsFragment :
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
-    }
+    }*/
 }

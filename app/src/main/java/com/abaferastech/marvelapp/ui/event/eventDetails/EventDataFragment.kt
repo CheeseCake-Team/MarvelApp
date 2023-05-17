@@ -19,8 +19,8 @@ class EventDataFragment : BaseFragment<FragmentEventDataBinding, EventViewModel>
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val typeID = arguments?.getInt(Constants.TYPE_ID)
-        viewModel.getSingleEvent(typeID!!)
+        /*val typeID = arguments?.getInt(Constants.TYPE_ID)
+        viewModel.getSingleEvent(typeID!!)*/
     }
 
 

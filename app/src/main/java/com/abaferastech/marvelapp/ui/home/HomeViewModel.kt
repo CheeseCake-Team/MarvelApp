@@ -16,10 +16,12 @@ import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.Tag
 import com.abaferastech.marvelapp.ui.model.UIState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,
+@HiltViewModel
+class HomeViewModel @Inject constructor(private val repository: MarvelRepository) : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,
     SeriesInteractionListener, NavigationInteractionListener {
-    private val repository = MarvelRepository()
 
     private val _homeData = MediatorLiveData<UIState<List<DataItem>>>()
     val homeData: MediatorLiveData<UIState<List<DataItem>>> get() = _homeData

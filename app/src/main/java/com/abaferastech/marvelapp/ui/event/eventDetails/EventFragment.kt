@@ -19,8 +19,8 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getSingleEvent()
-        init()
+        /*viewModel.getSingleEvent()
+        init()*/
     }
 
     override fun onResume() {
@@ -37,7 +37,7 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
         }
     }
 
-    private fun init() {
+    /*private fun init() {
         val adapter = EventFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
@@ -56,5 +56,5 @@ class EventFragment : BaseFragment<FragmentEventBinding, EventViewModel>() {
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
-    }
+    }*/
 }

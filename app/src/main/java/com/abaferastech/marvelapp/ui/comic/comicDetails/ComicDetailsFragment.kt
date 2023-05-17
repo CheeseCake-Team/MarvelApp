@@ -34,13 +34,13 @@ class ComicDetailsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getSingleComic()
+        //viewModel.getSingleComic()
 
-        init()
+        //init()
     }
 
 
-    private fun init() {
+    /*private fun init() {
         setupPageAdapter()
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             when (position) {
@@ -53,13 +53,13 @@ class ComicDetailsFragment :
             findNavController().navigateUp()
         }
     }
-
-    private fun setupPageAdapter() {
+*/
+    /*private fun setupPageAdapter() {
         val adapter = ComicFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
             viewModel.comicArgs.comicID
         )
         binding.viewPager.adapter = adapter
-    }
+    }*/
 }

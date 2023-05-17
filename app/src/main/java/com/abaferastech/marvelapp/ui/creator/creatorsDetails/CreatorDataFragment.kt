@@ -19,8 +19,8 @@ class CreatorDataFragment : BaseFragment<FragmentCreatorDataBinding, CreatorDeta
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val typeID = arguments?.getInt(Constants.TYPE_ID)
-        viewModel.getMarvelCreator(typeID!!)
+        /*val typeID = arguments?.getInt(Constants.TYPE_ID)
+        viewModel.getMarvelCreator(typeID!!)*/
     }
 
 

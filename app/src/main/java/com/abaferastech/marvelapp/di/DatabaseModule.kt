@@ -2,7 +2,7 @@ package com.abaferastech.marvelapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.abaferastech.marvelapp.data.database.MarvelDatabase
+import com.abaferastech.marvelapp.data.local.database.MarvelDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
