@@ -19,6 +19,7 @@ import com.abaferastech.marvelapp.ui.model.TYPE
 class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
     override val layoutIdFragment: Int
         get() = R.layout.fragment_search
+
     override val viewModelClass: Class<SearchViewModel>
         get() = SearchViewModel::class.java
 
@@ -61,13 +62,22 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
             TYPE.SERIES -> SeriesAdapter(emptyList(), viewModel)
             else -> ComicsAdapter(emptyList(), viewModel)
         }
-        binding.recyclerViewSearch.adapter = adapter
-        binding.recyclerViewSearch.layoutManager = when (it) {
+        binding.recyclerViewSearchResult.adapter = adapter
+        /*binding.recyclerViewSearch.layoutManager = when (it) {
             TYPE.CHARACTER -> GridLayoutManager(requireContext(), 3)
             TYPE.SERIES -> GridLayoutManager(requireContext(), 2)
             else -> LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        }
+        }*/
     }
 
+    override fun onStart() {
+        super.onStart()
+        (activity as AppCompatActivity).supportActionBar?.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity).supportActionBar?.show()
+    }
 
 }

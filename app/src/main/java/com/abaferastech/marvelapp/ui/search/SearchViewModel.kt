@@ -15,26 +15,23 @@ import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
 import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.SearchItem
 import com.abaferastech.marvelapp.ui.model.TYPE
+import com.abaferastech.marvelapp.ui.model.UIState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class SearchViewModel : BaseViewModel(),
+@HiltViewModel
+class SearchViewModel @Inject constructor(
+    private val repository: MarvelRepository
+): BaseViewModel(),
     CharactersInteractionListener, EventsInteractionListener, SeriesInteractionListener,
     ComicsInteractionListener {
-    private val repository = MarvelRepository()
-
-    private val _isLoading = MutableLiveData(false)
-
-    val isLoading: LiveData<Boolean> get() = _isLoading
 
     val searchQuery = MutableLiveData<String>()
 
     private val _searchType = MutableLiveData(TYPE.COMIC)
-
-    private val _isChipGroupVisible = MutableLiveData<Boolean>(false)
-
-    val isChipGroupVisible: LiveData<Boolean> get() = _isChipGroupVisible
 
     val searchType: LiveData<TYPE> get() = _searchType
 
@@ -44,43 +41,28 @@ class SearchViewModel : BaseViewModel(),
 
     val searchingResponse: LiveData<SearchItem> get() = _searchingResponse
 
-
     val navigationEvents = MutableLiveData<Event<SearchEvents>>()
-
 
     init {
         searchObserver
-            .doOnNext {
-                _isLoading.postValue(true)
-            }
             .debounce(1, TimeUnit.SECONDS)
             .flatMap { searchQuery ->
                 when (searchType.value) {
                     TYPE.SERIES -> repository.searchInSeries(searchQuery).toObservable()
-                        .map {
-                            SearchItem.Series(it.toData() as List<SeriesDTO>)
-                        }
 
                     TYPE.CHARACTER -> repository.searchInCharacters(searchQuery).toObservable()
-                        .map {
-                            SearchItem.Character(it.toData() as List<CharacterDTO>)
-                        }
 
                     TYPE.EVENT -> repository.searchInEvents(searchQuery).toObservable()
-                        .map {
-                            SearchItem.Event(it.toData() as List<EventDTO>)
-                        }
 
-                    else -> repository.searchInComics(searchQuery).toObservable().map {
-                        SearchItem.Comic(it.toData() as List<ComicDTO>)
-                    }
-
+                    else -> repository.searchInComics(searchQuery).toObservable()
                 }
-            }.doOnNext {
-                _isLoading.postValue(false)
             }
-            .subscribe(_searchingResponse::postValue)
+            .subscribe(::onSuccess)
             .addTo(compositeDisposable)
+    }
+
+    private fun onSuccess(uiState: UIState<List<*>>) {
+
     }
 
     fun search(searchQuery: String) {
@@ -89,13 +71,11 @@ class SearchViewModel : BaseViewModel(),
         }
     }
 
+
+
     fun changeSearchType(type: TYPE) {
         _searchType.postValue(type)
         search(searchQuery.value.toString())
-    }
-
-    fun toggleChipGroupVisibility() {
-        _isChipGroupVisible.value = !(isChipGroupVisible.value ?: false)
     }
 
     override fun onClickCharacter(character: CharacterDTO) {
@@ -113,6 +93,5 @@ class SearchViewModel : BaseViewModel(),
     override fun onClickSeries(series: SeriesDTO) {
         navigationEvents.postValue(Event(SearchEvents.ClickSeriesEvent(series.id)))
     }
-
 
 }
