@@ -1,9 +1,9 @@
-package com.abaferastech.marvelapp.data.local.entity
+package com.abaferastech.marvelapp.data.local.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity("event")
+@Entity("EVENT_TABLE")
 data class EventEntity(
     @PrimaryKey(false) val id: Int,
     val title: String?,

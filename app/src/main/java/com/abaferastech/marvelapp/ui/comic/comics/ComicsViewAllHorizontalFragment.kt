@@ -13,8 +13,8 @@ import com.abaferastech.marvelapp.ui.event.eventDetails.EventFragmentDirections
 import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.series.seriesDetails.SeriesDetailsFragmentDirections
-import com.abaferastech.marvelapp.utilities.Constants
-import com.abaferastech.marvelapp.utilities.Constants.TYPE_ID
+import com.abaferastech.marvelapp.util.Constants
+import com.abaferastech.marvelapp.util.Constants.TYPE_ID
 
 class ComicsViewAllHorizontalFragment :
     BaseFragment<FragmentComicsViewAllHorizontalBinding, ComicsViewModel>() {
@@ -60,7 +60,7 @@ class ComicsViewAllHorizontalFragment :
     }
 
     private fun setupComicAdapter() {
-        val adapter = ComicsAdapter(emptyList(), viewModel)
+        val adapter = ComicsAdapter(viewModel)
         binding.recyclerViewComics.adapter = adapter
     }
 

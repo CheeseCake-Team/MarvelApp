@@ -1,17 +1,12 @@
 package com.abaferastech.marvelapp.utilities
 
-import android.text.Editable
-import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
-import androidx.core.widget.addTextChangedListener
 import androidx.databinding.BindingAdapter
-import androidx.databinding.adapters.SearchViewBindingAdapter.setOnQueryTextListener
 import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.remote.response.Thumbnail
@@ -24,9 +19,7 @@ import com.abaferastech.marvelapp.ui.home.adapters.SeriesAdapter
 import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.SearchItem
 import com.abaferastech.marvelapp.ui.model.UIState
-import com.abaferastech.marvelapp.ui.search.SearchViewModel
 import com.bumptech.glide.Glide
-import com.google.android.material.search.SearchView
 
 
 @BindingAdapter("app:imageUrl")
@@ -45,7 +38,6 @@ fun ImageView.setImageFromUrl(thumbnail: Thumbnail?) {
             .into(this)
     }
 }
-
 @BindingAdapter(value = ["app:items"])
 fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
     (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
@@ -99,25 +91,6 @@ fun setTagTitle(view: TextView, dataItem: DataItem) {
     }
 }
 
-@BindingAdapter("app:setAdapter")
-fun setAdapter(view: RecyclerView, dataItem: DataItem) {
-    view.adapter = when (dataItem) {
-        is DataItem.ComicsTagItem -> ComicAdapter(
-            dataItem.tag.ResourcesData, dataItem.interactionListener
-        )
-
-        is DataItem.CharacterTagItem -> CharactersAdapter(
-            dataItem.tag.ResourcesData, dataItem.interactionListener
-        )
-
-        is DataItem.SeriesTagItem -> SeriesAdapter(
-            dataItem.tag.ResourcesData, dataItem.interactionListener
-        )
-
-        else -> TODO()
-    }
-}
-
 @BindingAdapter("app:chipGroupVisibility")
 fun chipGroupVisibility(horizontalScrollView: HorizontalScrollView, isVisible: Boolean) {
     horizontalScrollView.visibility = if (isVisible) View.VISIBLE else View.GONE
@@ -129,7 +102,6 @@ fun <T> showWhenLoading(view: View, uiState: UIState<T>?) {
     if (uiState is UIState.Loading) view.visibility = View.VISIBLE
     else view.visibility = View.GONE
 }
-
 
 @BindingAdapter("app:showWhenSuccess")
 fun <T> showWhenSuccess(view: View, UiState: UIState<T>?) {

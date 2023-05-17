@@ -1,5 +1,6 @@
 package com.abaferastech.marvelapp.data.repository
 
+import com.abaferastech.marvelapp.data.remote.MarvelAPI
 import com.abaferastech.marvelapp.data.remote.response.BaseResponse
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
 import com.abaferastech.marvelapp.data.remote.response.ComicDTO
@@ -7,145 +8,151 @@ import com.abaferastech.marvelapp.data.remote.response.CreatorDTO
 import com.abaferastech.marvelapp.data.remote.response.EventDTO
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.ui.model.UIState
-import com.abaferastech.marvelapp.data.remote.MarvelAPI
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 
+//@Singleton
 class MarvelRepository {
 
+    private val apiService = MarvelAPI.apiService
+
+
     fun searchInComics(query: String): Single<UIState<List<ComicDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.searchInComics(query) }
+        return wrapWithState { apiService.searchInComics(query) }
     }
 
     fun searchInCharacters(query: String): Single<UIState<List<CharacterDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.searchInCharacters(query) }
+        return wrapWithState { apiService.searchInCharacters(query) }
     }
 
     fun searchInEvents(query: String): Single<UIState<List<EventDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.searchInEvents(query) }
+        return wrapWithState { apiService.searchInEvents(query) }
     }
 
     fun searchInSeries(query: String): Single<UIState<List<SeriesDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.searchInSeries(query) }
+        return wrapWithState { apiService.searchInSeries(query) }
     }
 
     fun getSingleCharacter(characterId: Int): Single<UIState<CharacterDTO>> {
-        return wrapWithState { MarvelAPI.apiService.getSingleCharacter(characterId) }.mapListToSingleItem()
+        return wrapWithState { apiService.getSingleCharacter(characterId) }.mapListToSingleItem()
     }
 
     fun getSingleEvent(eventsId: Int): Single<UIState<EventDTO>> {
-        return wrapWithState { MarvelAPI.apiService.getEventsById(eventsId) }.mapListToSingleItem()
+        return wrapWithState { apiService.getEventsById(eventsId) }.mapListToSingleItem()
     }
 
     fun getSingleSeries(seriesId: Int): Single<UIState<SeriesDTO>> {
-        return wrapWithState { MarvelAPI.apiService.getSingleSeries(seriesId) }.mapListToSingleItem()
+        return wrapWithState { apiService.getSingleSeries(seriesId) }.mapListToSingleItem()
     }
 
     fun getSingleComic(comicsId: Int): Single<UIState<ComicDTO>> {
-        return wrapWithState { MarvelAPI.apiService.getSingleComic(comicsId) }.mapListToSingleItem()
+        return wrapWithState { apiService.getSingleComic(comicsId) }.mapListToSingleItem()
     }
 
     fun getSingleCreator(creatorId: Int): Single<UIState<CreatorDTO>> {
-        return wrapWithState { MarvelAPI.apiService.getSingleCreator(creatorId) }.mapListToSingleItem()
+        return wrapWithState { apiService.getSingleCreator(creatorId) }.mapListToSingleItem()
     }
 
     fun getAllEvents(): Single<UIState<List<EventDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getAllEvents() }
+        return wrapWithState { apiService.getAllEvents() }
     }
 
     fun getAllCharacters(): Single<UIState<List<CharacterDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getAllCharacters() }
+        return wrapWithState { apiService.getAllCharacters() }
     }
 
     fun getAllSeries(): Single<UIState<List<SeriesDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getAllSeries() }
+        return wrapWithState { apiService.getAllSeries() }
     }
 
     fun getAllComics(): Single<UIState<List<ComicDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getAllComics() }
+        return wrapWithState { apiService.getAllComics() }
     }
 
     fun getAllCreators(): Single<UIState<List<CreatorDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getAllCreators() }
+        return wrapWithState { apiService.getAllCreators() }
     }
 
 
     fun getEventComics(eventId: Int): Single<UIState<List<ComicDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getEventComics(eventId) }
+        return wrapWithState { apiService.getEventComics(eventId) }
     }
 
 
     fun getCharacterEvents(characterId: Int): Single<UIState<List<EventDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getCharacterEvents(characterId) }
+        return wrapWithState { apiService.getCharacterEvents(characterId) }
     }
 
     fun getCharacterComics(characterId: Int): Single<UIState<List<ComicDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getCharacterComics(characterId) }
+        return wrapWithState { apiService.getCharacterComics(characterId) }
     }
+
     fun getCharacterSeries(characterId: Int): Single<UIState<List<SeriesDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getCharacterSeries(characterId) }
+        return wrapWithState { apiService.getCharacterSeries(characterId) }
     }
 
 
     fun getSeriesFullUrl(fullUrl: String): Single<UIState<List<SeriesDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getSeriesFullUrl(fullUrl) }
+        return wrapWithState { apiService.getSeriesFullUrl(fullUrl) }
     }
 
     fun getSeriesComics(seriesId: Int): Single<UIState<List<ComicDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getSeriesComics(seriesId) }
+        return wrapWithState { apiService.getSeriesComics(seriesId) }
     }
 
     fun getSeriesEvents(seriesId: Int): Single<UIState<List<EventDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getSeriesEvents(seriesId) }
+        return wrapWithState { apiService.getSeriesEvents(seriesId) }
     }
 
     fun getSeriesCharacters(seriesId: Int): Single<UIState<List<CharacterDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getSeriesCharacters(seriesId) }
+        return wrapWithState { apiService.getSeriesCharacters(seriesId) }
     }
+
     fun getEventCharacters(eventId: Int): Single<UIState<List<CharacterDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getEventCharacters(eventId) }
+        return wrapWithState { apiService.getEventCharacters(eventId) }
     }
 
 
     fun getSeriesCreators(seriesId: Int): Single<UIState<List<CreatorDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getSeriesCreators(seriesId) }
+        return wrapWithState { apiService.getSeriesCreators(seriesId) }
     }
 
 
     fun getComicEvents(comicsId: Int): Single<UIState<List<EventDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getComicEvents(comicsId) }
+        return wrapWithState { apiService.getComicEvents(comicsId) }
     }
 
     fun getComicCharacters(comicsId: Int): Single<UIState<List<CharacterDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getComicCharacters(comicsId) }
+        return wrapWithState { apiService.getComicCharacters(comicsId) }
     }
 
     fun getComicSeries(comicsId: Int): Single<UIState<List<SeriesDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getComicSeries(comicsId) }
+        return wrapWithState { apiService.getComicSeries(comicsId) }
     }
-   fun getEventSeries(comicsId: Int): Single<UIState<List<SeriesDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getEventSeries(comicsId) }
+
+    fun getEventSeries(comicsId: Int): Single<UIState<List<SeriesDTO>>> {
+        return wrapWithState { apiService.getEventSeries(comicsId) }
     }
 
     fun getComicCreators(comicsId: Int): Single<UIState<List<CreatorDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getComicCreators(comicsId) }
+        return wrapWithState { apiService.getComicCreators(comicsId) }
     }
 
 
     fun getCreatorEvents(creatorId: Int): Single<UIState<List<EventDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getCreatorEvents(creatorId) }
+        return wrapWithState { apiService.getCreatorEvents(creatorId) }
     }
 
     fun getCreatorCharacters(creatorId: Int): Single<UIState<List<CharacterDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getCreatorCharacters(creatorId) }
+        return wrapWithState { apiService.getCreatorCharacters(creatorId) }
     }
 
     fun getCreatorComics(creatorId: Int): Single<UIState<List<ComicDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getCreatorComics(creatorId) }
+        return wrapWithState { apiService.getCreatorComics(creatorId) }
     }
 
     fun getCreatorSeries(creatorId: Int): Single<UIState<List<SeriesDTO>>> {
-        return wrapWithState { MarvelAPI.apiService.getCreatorSeries(creatorId) }
+        return wrapWithState { apiService.getCreatorSeries(creatorId) }
     }
 
     private fun <T> wrapWithState(function: () -> Single<Response<BaseResponse<T>>>):
@@ -170,9 +177,11 @@ class MarvelRepository {
                         UIState.Error("No results found.")
                     }
                 }
+
                 is UIState.Error -> {
                     state
                 }
+
                 is UIState.Loading -> {
                     state
                 }

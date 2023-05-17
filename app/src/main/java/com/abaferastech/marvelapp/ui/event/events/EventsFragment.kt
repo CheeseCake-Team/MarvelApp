@@ -12,8 +12,8 @@ import com.abaferastech.marvelapp.ui.character.characterDetails.CharacterDetails
 import com.abaferastech.marvelapp.ui.creator.creatorsDetails.CreatorDetailsFragmentDirections
 import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
-import com.abaferastech.marvelapp.utilities.Constants.PUT_TYPE
-import com.abaferastech.marvelapp.utilities.Constants.TYPE_ID
+import com.abaferastech.marvelapp.util.Constants.PUT_TYPE
+import com.abaferastech.marvelapp.util.Constants.TYPE_ID
 
 
 class EventsFragment :
@@ -33,7 +33,7 @@ class EventsFragment :
     }
 
     private fun setupAdapter() {
-        val adapter = EventAdapter(emptyList(), viewModel)
+        val adapter = EventAdapter( viewModel)
         binding.recyclerViewEvents.adapter = adapter
     }
 

@@ -9,9 +9,7 @@
             name="item"
             type="com.abaferastech.marvelapp.data.remote.response.CharacterDTO" />
 
-        <variable
-            name="listener"
-            type="com.abaferastech.marvelapp.data.remote.response.CharacterDTO" />
+
 
     </data>
 

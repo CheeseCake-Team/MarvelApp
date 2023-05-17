@@ -1,16 +1,16 @@
-package com.abaferastech.marvelapp.data.local.entity
+package com.abaferastech.marvelapp.data.local.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity("comic")
-data class ComicEntity(
+@Entity("SERIES_TABLE")
+data class SeriesEntity(
     @PrimaryKey(false) val id: Int,
     val title: String,
     val description: String?,
-    val issueNumber: Float?,
-    val price: Float?,
-    val pageCount: Int?,
+    val startYear: Int,
+    val endYear: Int,
+    val rating: String?,
     val modified: String?,
     val imageUri: String?
 )

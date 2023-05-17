@@ -1,9 +1,9 @@
-package com.abaferastech.marvelapp.data.local.entity
+package com.abaferastech.marvelapp.data.local.database.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity("creator")
+@Entity("CREATOR_TABLE")
 data class CreatorEntity(
     @PrimaryKey val id: Int?,
     val fullName: String?,

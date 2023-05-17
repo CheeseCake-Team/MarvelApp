@@ -1,6 +1,7 @@
 package com.abaferastech.marvelapp.ui.home
 
 import android.os.Parcelable
+import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
@@ -19,42 +20,35 @@ import com.abaferastech.marvelapp.ui.model.UIState
 
 class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,
     SeriesInteractionListener, NavigationInteractionListener {
+
+    private lateinit var state: Parcelable
+
     private val repository = MarvelRepository()
 
     private val _homeData = MediatorLiveData<UIState<List<DataItem>>>()
-    val homeData: MediatorLiveData<UIState<List<DataItem>>> get() = _homeData
+    val homeData = _homeData
 
     private val _characters = MutableLiveData<UIState<List<CharacterDTO>>>()
     private val _comics = MutableLiveData<UIState<List<ComicDTO>>>()
     private val _series = MutableLiveData<UIState<List<SeriesDTO>>>()
+    private val data = mutableListOf<DataItem>()
+
 
     val navigationEvents = MutableLiveData<Event<HomeEvent>>()
 
 
-    val data = mutableListOf<DataItem>()
-
-    private lateinit var state: Parcelable
-    fun saveRecyclerViewState(parcelable: Parcelable) {
-        state = parcelable
-    }
-    fun restoreRecyclerViewState(): Parcelable = state
-    fun stateInitialized(): Boolean = ::state.isInitialized
 
     init {
+        _homeData.postValue(UIState.Loading)
         _homeData.addSource(_characters) {
             updateCharacterDataItem()
-            checkAllDataSourcesUpdated()
         }
         _homeData.addSource(_comics) {
             updateComicsDataItem()
-            checkAllDataSourcesUpdated()
         }
         _homeData.addSource(_series) {
             updateSeriesDataItem()
-            checkAllDataSourcesUpdated()
         }
-
-        _homeData.postValue(UIState.Loading)
 
         repository.getAllCharacters().applySchedulersAndPostUIStates(_characters::postValue)
         repository.getAllComics().applySchedulersAndPostUIStates(_comics::postValue)
@@ -62,27 +56,54 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     }
 
     private fun updateCharacterDataItem() {
-        val characters = _characters.value?.toData()
-        data.add(DataItem.HeaderItem(characters?.shuffled()?.take(4)!!))
-        data.add(
-            DataItem.CharacterTagItem(Tag("CHARACTERS", characters.shuffled()), this)
-        )
+        if (_characters.value is UIState.Success) {
+            val characters = _characters.value?.toData()
+            data.add(DataItem.HeaderItem(characters?.shuffled()?.take(4)!!))
+            data.add(
+                DataItem.CharacterTagItem(
+                    Tag(
+                        id = 1,
+                        title = "CHARACTERS",
+                        ResourcesData = characters.shuffled()
+                    ), this
+                )
+            )
+            _homeData.postValue(UIState.Success(data))
+        }
+
     }
 
-    private fun checkAllDataSourcesUpdated() {
-        if (data.size == 4) {
-            _homeData.postValue(UIState.Success(data.sortedBy { it.rank }))
+
+    private fun updateComicsDataItem() {
+        if (_characters.value is UIState.Success) {
+            val comics = _comics.value?.toData() ?: emptyList()
+            data.add(
+                DataItem.ComicsTagItem(
+                    Tag(
+                        id = 2,
+                        title = "COMICS",
+                        ResourcesData = comics.shuffled()
+                    ), this
+                )
+            )
+            _homeData.postValue(UIState.Success(data))
         }
     }
 
-    private fun updateComicsDataItem() {
-        val comics = _comics.value?.toData() ?: emptyList()
-        data.add(DataItem.ComicsTagItem(Tag("COMICS", comics.shuffled()), this))
-    }
-
     private fun updateSeriesDataItem() {
-        val series = _series.value?.toData() ?: emptyList()
-        data.add(DataItem.SeriesTagItem(Tag("SERIES", series.shuffled()), this))
+        if (_characters.value is UIState.Success) {
+            val series = _series.value?.toData()
+            data.add(
+                DataItem.SeriesTagItem(
+                    Tag(
+                        id = 3,
+                        title = "SERIES",
+                        ResourcesData = series?.shuffled()!!
+                    ), this
+                )
+            )
+            _homeData.postValue(UIState.Success(data))
+        }
     }
 
     override fun onCleared() {
@@ -105,25 +126,22 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         navigationEvents.postValue(Event(HomeEvent.ClickComicEvent(comics.id!!)))
     }
 
-    override fun onNavigate(dataItem: DataItem) {
-//        when (dataItem) {
-//            is DataItem.CharacterTagItem -> {
-//                val action = HomeFragmentDirections.actionHomeFragmentToCharactersFragment()
-//                findNavController().navigate(action)
-//            }
-//
-//            is DataItem.ComicsTagItem -> {
-//                val action = HomeFragmentDirections.actionHomeFragmentToComicsGridFragment()
-//                findNavController().navigate(action)
-//            }
-//
-//            is DataItem.SeriesTagItem -> {
-//                val action = HomeFragmentDirections.actionHomeFragmentToSeriesViewAllFragment()
-//                findNavController().navigate(action)
-//            }
-//            else -> {}
-//        }
 
+    override fun onNavigate(id: Int) {
+        when (id) {
+            1 -> navigationEvents.postValue(Event(HomeEvent.ClickAllCharacterEvent))
+            2 -> navigationEvents.postValue(Event(HomeEvent.ClickAllComicEvent))
+            3 -> navigationEvents.postValue(Event(HomeEvent.ClickAllSeriesEvent))
+        }
     }
+
+    fun saveRecyclerViewState(parcelable: Parcelable) {
+        state = parcelable
+    }
+
+    fun restoreRecyclerViewState(): Parcelable = state
+    fun stateInitialized(): Boolean = ::state.isInitialized
+
+
 
 }

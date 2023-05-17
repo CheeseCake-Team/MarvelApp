@@ -21,7 +21,7 @@ class SeriesViewAllFragment : BaseFragment<FragmentSeriesviewallBinding, SeriesV
     }
 
     private fun addAdapter() {
-        val adapter = SeriesViewAllAdapter(emptyList(), viewModel)
+        val adapter = SeriesViewAllAdapter( viewModel)
         binding.recyclerViewSeriesViewAll.adapter = adapter
     }
 

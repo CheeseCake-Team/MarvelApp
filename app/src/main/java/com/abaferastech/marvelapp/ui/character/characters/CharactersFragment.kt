@@ -12,7 +12,7 @@ import com.abaferastech.marvelapp.ui.event.eventDetails.EventFragmentDirections
 import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.series.seriesDetails.SeriesDetailsFragmentDirections
-import com.abaferastech.marvelapp.utilities.Constants
+import com.abaferastech.marvelapp.util.Constants
 
 class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersViewModel>() {
     override val layoutIdFragment = R.layout.fragment_characters
@@ -70,7 +70,7 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersVie
     }
 
     private fun setupCharactersAdapter() {
-        val adapter = CharactersAdapter(emptyList(), viewModel)
+        val adapter = CharactersAdapter(viewModel)
         binding.recyclerViewCharacters.adapter = adapter
     }
 
