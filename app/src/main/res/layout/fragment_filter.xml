@@ -31,11 +31,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleSmall"
             android:text="@string/search_in"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/drag_handle" />
 
         <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="@dimen/space_16dp"
@@ -45,6 +47,7 @@
             app:singleSelection="true">
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/comics_chip"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,6 +56,7 @@
                 android:text="@string/comics" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/characters_chip"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,6 +64,7 @@
                 android:text="@string/characters" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/series_chip"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,6 +72,7 @@
                 android:text="@string/series" />
 
             <com.google.android.material.chip.Chip
+                android:id="@+id/events_chip"
                 style="@style/Widget.Material3.Chip.Filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -74,5 +80,6 @@
                 android:text="@string/events" />
 
         </com.google.android.material.chip.ChipGroup>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

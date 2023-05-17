@@ -21,16 +21,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        binding.searchBar.setOnMenuItemClickListener { menuItem ->
-            when(menuItem.itemId) {
-                R.id.filterFragment ->{
-                    findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
-                }
-            }
-            true
-        }
-
         init()
         addEventAndListeners()
     }
@@ -41,12 +31,20 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
 
     private fun addEventAndListeners() {
         binding.searchView.editText.setOnEditorActionListener { v, actionId, event ->
-            binding.searchBar.text = binding.searchBar.text
+            binding.searchBar.text = binding.searchView.text
             binding.searchView.hide()
             viewModel.search(binding.searchView.text.toString())
             false
         }
 
+        binding.searchBar.setOnMenuItemClickListener { menuItem ->
+            when(menuItem.itemId) {
+                R.id.filterFragment ->{
+                    findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
+                }
+            }
+            true
+        }
 
         viewModel.searchType.observe(viewLifecycleOwner) {
             setAdapter(it)
