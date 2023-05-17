@@ -13,7 +13,9 @@ import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.series.seriesDetails.SeriesDetailsFragmentDirections
 import com.abaferastech.marvelapp.utilities.Constants
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersViewModel>() {
     override val layoutIdFragment = R.layout.fragment_characters
     override val viewModelClass = CharactersViewModel::class.java
