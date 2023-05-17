@@ -1,6 +1,7 @@
 package com.abaferastech.marvelapp.ui.home
 
 import android.os.Parcelable
+import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
@@ -21,12 +22,14 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     SeriesInteractionListener, NavigationInteractionListener {
     private val repository = MarvelRepository()
 
-    private val _homeData = MediatorLiveData<UIState<List<DataItem>>>()
-    val homeData: MediatorLiveData<UIState<List<DataItem>>> get() = _homeData
+    private val _homeData = MediatorLiveData<List<DataItem>>()
+    val homeData: MediatorLiveData<List<DataItem>> get() = _homeData
 
     private val _characters = MutableLiveData<UIState<List<CharacterDTO>>>()
     private val _comics = MutableLiveData<UIState<List<ComicDTO>>>()
     private val _series = MutableLiveData<UIState<List<SeriesDTO>>>()
+
+    val homeUIState = MutableLiveData<UIState<Unit>>()
 
     val navigationEvents = MutableLiveData<Event<HomeEvent>>()
 
@@ -39,6 +42,7 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     }
     fun restoreRecyclerViewState(): Parcelable = state
     fun stateInitialized(): Boolean = ::state.isInitialized
+
 
     init {
         _homeData.addSource(_characters) {
@@ -54,7 +58,7 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
             checkAllDataSourcesUpdated()
         }
 
-        _homeData.postValue(UIState.Loading)
+        homeUIState.postValue(UIState.Loading)
 
         repository.getAllCharacters().applySchedulersAndPostUIStates(_characters::postValue)
         repository.getAllComics().applySchedulersAndPostUIStates(_comics::postValue)
@@ -62,27 +66,37 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
     }
 
     private fun updateCharacterDataItem() {
-        val characters = _characters.value?.toData()
-        data.add(DataItem.HeaderItem(characters?.shuffled()?.take(4)!!))
-        data.add(
-            DataItem.CharacterTagItem(Tag("CHARACTERS", characters.shuffled()), this)
-        )
+        if (_characters.value is UIState.Success) {
+            val characters = _characters.value?.toData()
+            data.add(DataItem.HeaderItem(characters?.shuffled()?.take(4)!!))
+            data.add(
+                DataItem.CharacterTagItem(Tag(1, "CHARACTERS", characters.shuffled()), this)
+            )
+            homeUIState.postValue(UIState.Success(Unit))
+        }
+
     }
 
     private fun checkAllDataSourcesUpdated() {
-        if (data.size == 4) {
-            _homeData.postValue(UIState.Success(data.sortedBy { it.rank }))
-        }
+        _homeData.postValue(data)
+//        if (data.size == 4) {
+//        }
     }
 
     private fun updateComicsDataItem() {
-        val comics = _comics.value?.toData() ?: emptyList()
-        data.add(DataItem.ComicsTagItem(Tag("COMICS", comics.shuffled()), this))
+        if (_characters.value is UIState.Success) {
+            val comics = _comics.value?.toData() ?: emptyList()
+            data.add(DataItem.ComicsTagItem(Tag(2, "COMICS", comics.shuffled()), this))
+            homeUIState.postValue(UIState.Success(Unit))
+        }
     }
 
     private fun updateSeriesDataItem() {
-        val series = _series.value?.toData() ?: emptyList()
-        data.add(DataItem.SeriesTagItem(Tag("SERIES", series.shuffled()), this))
+        if (_characters.value is UIState.Success) {
+            val series = _series.value?.toData()
+            data.add(DataItem.SeriesTagItem(Tag(3, "SERIES", series?.shuffled()!!), this))
+            homeUIState.postValue(UIState.Success(Unit))
+        }
     }
 
     override fun onCleared() {
@@ -105,25 +119,22 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
         navigationEvents.postValue(Event(HomeEvent.ClickComicEvent(comics.id!!)))
     }
 
-    override fun onNavigate(dataItem: DataItem) {
-//        when (dataItem) {
-//            is DataItem.CharacterTagItem -> {
-//                val action = HomeFragmentDirections.actionHomeFragmentToCharactersFragment()
-//                findNavController().navigate(action)
-//            }
-//
-//            is DataItem.ComicsTagItem -> {
-//                val action = HomeFragmentDirections.actionHomeFragmentToComicsGridFragment()
-//                findNavController().navigate(action)
-//            }
-//
-//            is DataItem.SeriesTagItem -> {
-//                val action = HomeFragmentDirections.actionHomeFragmentToSeriesViewAllFragment()
-//                findNavController().navigate(action)
-//            }
-//            else -> {}
-//        }
 
+    override fun onNavigate(id: String) {
+        when (id) {
+            "CHARACTERS" -> {
+                Log.d("sss", "handleHomeEvent: ")
+                navigationEvents.postValue(Event(HomeEvent.ClickAllCharacterEvent))
+            }
+            "COMICS" -> {
+                Log.d("sss", "handleHomeEvent: ")
+                navigationEvents.postValue(Event(HomeEvent.ClickAllComicEvent))
+            }
+            "SERIES" -> {
+                Log.d("sss", "handleHomeEvent: ")
+                navigationEvents.postValue(Event(HomeEvent.ClickAllSeriesEvent))
+            }
+        }
     }
 
 }

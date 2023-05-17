@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.utilities
+package com.abaferastech.marvelapp.utils
 
 import android.view.View
 import android.widget.HorizontalScrollView
@@ -9,7 +9,7 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.remote.response.Thumbnail
+import com.abaferastech.marvelapp.data.model.response.Thumbnail
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.character.characters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
@@ -94,24 +94,6 @@ fun setTagTitle(view: TextView, dataItem: DataItem) {
 
         else -> ""
 
-    }
-}
-
-@BindingAdapter("app:setAdapter")
-fun setAdapter(view: RecyclerView, dataItem: DataItem) {
-    view.adapter = when (dataItem) {
-        is DataItem.ComicsTagItem -> ComicAdapter(
-            dataItem.tag.ResourcesData, dataItem.interactionListener
-        )
-
-        is DataItem.CharacterTagItem -> CharactersAdapter(
-            dataItem.tag.ResourcesData, dataItem.interactionListener
-        )
-
-        is DataItem.SeriesTagItem -> SeriesAdapter(
-            dataItem.tag.ResourcesData, dataItem.interactionListener
-        )
-        else -> TODO()
     }
 }
 

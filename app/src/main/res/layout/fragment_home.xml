@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:items="@{viewModel.homeData.toData()}"
-            app:showWhenSuccess="@{viewModel.homeData}"/>
+            app:items="@{viewModel.homeData}"
+            app:showWhenSuccess="@{viewModel.homeUIState}"/>
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -27,7 +27,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenLoading="@{viewModel.homeData}" />
+            app:showWhenLoading="@{viewModel.homeUIState}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

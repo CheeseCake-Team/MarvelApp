@@ -47,7 +47,7 @@ class ComicsGridFragment : BaseFragment<FragmentComicsViewAllBinding, ComicsView
     }
 
     private fun setupComicsAdapter() {
-        val adapter = ComicsGridAdapter(emptyList(), viewModel)
+        val adapter = ComicsGridAdapter( viewModel)
         binding.recyclerViewComics.adapter = adapter
     }
 }
