@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsViewModel" />
@@ -25,7 +24,7 @@
             android:foreground="@drawable/header_details_gradient"
             android:scaleType="centerCrop"
             app:altSrc="@color/md_theme_surface"
-            app:imageUrl="@{viewModel.comics.toData().thumbnail}"
+            app:imageUrl="@{viewModel.comics.imageUri}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +42,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:text="@{viewModel.comics.toData().title}"
+            app:text="@{viewModel.comics.title}"
             tools:text="TextView" />
 
 
