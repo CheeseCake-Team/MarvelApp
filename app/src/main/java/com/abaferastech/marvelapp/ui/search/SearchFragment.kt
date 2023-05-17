@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentSearchBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
@@ -17,19 +15,29 @@ import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
 
 class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
-    override val layoutIdFragment: Int
-        get() = R.layout.fragment_search
-
-    override val viewModelClass: Class<SearchViewModel>
-        get() = SearchViewModel::class.java
+    override val layoutIdFragment = R.layout.fragment_search
+    override val viewModelClass = SearchViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 
-        viewModel.searchQuery.observe(viewLifecycleOwner) {
-            viewModel.search(it)
+        init()
+        addEventAndListeners()
+    }
+
+    private fun init() {
+        (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
+    }
+
+    private fun addEventAndListeners() {
+        binding.searchView.editText.setOnEditorActionListener { v, actionId, event ->
+            binding.searchBar.text = binding.searchBar.text
+            binding.searchView.hide()
+            viewModel.search(binding.searchView.text.toString())
+            false
         }
+
+
         viewModel.searchType.observe(viewLifecycleOwner) {
             setAdapter(it)
         }
@@ -44,12 +52,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
         val action = when (event) {
             is SearchEvents.ClickCharacterEvent -> SearchFragmentDirections
                 .actionSearchFragmentToCharacterFragment(event.characterID)
+
             is SearchEvents.ClickComicEvent -> SearchFragmentDirections
                 .actionSearchFragmentToComicDetailsFragment(event.comicID)
+
             is SearchEvents.ClickEventEvent -> SearchFragmentDirections
                 .actionSearchFragmentToEventFragment(event.eventID)
+
             is SearchEvents.ClickSeriesEvent -> SearchFragmentDirections
                 .actionSearchFragmentToSeriesDetailsFragment(event.seriesID)
+
             null -> null
         }
         action?.let { it1 -> findNavController().navigate(it1) }
@@ -63,11 +75,6 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
             else -> ComicsAdapter(emptyList(), viewModel)
         }
         binding.recyclerViewSearchResult.adapter = adapter
-        /*binding.recyclerViewSearch.layoutManager = when (it) {
-            TYPE.CHARACTER -> GridLayoutManager(requireContext(), 3)
-            TYPE.SERIES -> GridLayoutManager(requireContext(), 2)
-            else -> LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        }*/
     }
 
     override fun onStart() {

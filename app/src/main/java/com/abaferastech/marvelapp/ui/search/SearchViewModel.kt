@@ -1,5 +1,6 @@
 package com.abaferastech.marvelapp.ui.search
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
@@ -16,30 +17,26 @@ import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.SearchItem
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.model.UIState
-import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
-import javax.inject.Inject
 
-@HiltViewModel
-class SearchViewModel @Inject constructor(
-    private val repository: MarvelRepository
-): BaseViewModel(),
+class SearchViewModel : BaseViewModel(),
     CharactersInteractionListener, EventsInteractionListener, SeriesInteractionListener,
     ComicsInteractionListener {
 
-    val searchQuery = MutableLiveData<String>()
+    val repository = MarvelRepository()
+
 
     private val _searchType = MutableLiveData(TYPE.COMIC)
-
     val searchType: LiveData<TYPE> get() = _searchType
+
 
     private val searchObserver: PublishSubject<String> = PublishSubject.create()
 
-    private var _searchingResponse = MutableLiveData<SearchItem>()
+    private var _searchingResponse = MutableLiveData<UIState<SearchItem>>()
+    val searchingResponse = _searchingResponse
 
-    val searchingResponse: LiveData<SearchItem> get() = _searchingResponse
 
     val navigationEvents = MutableLiveData<Event<SearchEvents>>()
 
@@ -47,21 +44,32 @@ class SearchViewModel @Inject constructor(
         searchObserver
             .debounce(1, TimeUnit.SECONDS)
             .flatMap { searchQuery ->
+                _searchingResponse.postValue(UIState.Loading)
                 when (searchType.value) {
                     TYPE.SERIES -> repository.searchInSeries(searchQuery).toObservable()
+                        .map { SearchItem.Series(it.toData() as List<SeriesDTO>) }
 
                     TYPE.CHARACTER -> repository.searchInCharacters(searchQuery).toObservable()
+                        .map { SearchItem.Character(it.toData() as List<CharacterDTO>) }
 
                     TYPE.EVENT -> repository.searchInEvents(searchQuery).toObservable()
+                        .map { SearchItem.Event(it.toData() as List<EventDTO>) }
 
                     else -> repository.searchInComics(searchQuery).toObservable()
+                        .map { SearchItem.Comic(it.toData() as List<ComicDTO>) }
                 }
             }
-            .subscribe(::onSuccess)
+            .subscribe(::onSuccess, ::onError)
             .addTo(compositeDisposable)
     }
 
-    private fun onSuccess(uiState: UIState<List<*>>) {
+    private fun onSuccess(searchItem: SearchItem) {
+
+        _searchingResponse.postValue(UIState.Success(searchItem))
+    }
+
+    private fun onError(throwable: Throwable) {
+        _searchingResponse.postValue(UIState.Error(throwable.message.toString()))
 
     }
 
@@ -72,10 +80,8 @@ class SearchViewModel @Inject constructor(
     }
 
 
-
     fun changeSearchType(type: TYPE) {
         _searchType.postValue(type)
-        search(searchQuery.value.toString())
     }
 
     override fun onClickCharacter(character: CharacterDTO) {
