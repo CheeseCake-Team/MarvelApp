@@ -8,6 +8,7 @@ import androidx.room.Update
 import com.abaferastech.marvelapp.data.local.entity.ComicEntity
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface ComicDao {
@@ -24,8 +25,8 @@ interface ComicDao {
     fun getAllComics(): Observable<List<ComicEntity>>
 
     @Query("SELECT * FROM COMIC_TABLE WHERE title=:title")
-    fun getComicByName(title: String)
+    fun getComicByName(title: String): Single<ComicEntity>
 
     @Query("SELECT * FROM COMIC_TABLE WHERE id=:id")
-    fun getComicById(id: Int)
+    fun getComicById(id: Int): Single<ComicEntity>
 }

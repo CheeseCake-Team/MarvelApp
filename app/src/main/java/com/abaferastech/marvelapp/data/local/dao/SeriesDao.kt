@@ -8,7 +8,7 @@ import androidx.room.Update
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Completable
 import com.abaferastech.marvelapp.data.local.entity.SeriesEntity
-
+import io.reactivex.rxjava3.core.Single
 
 
 @Dao
@@ -26,8 +26,8 @@ interface SeriesDao {
     fun getAllSeries(): Observable<List<SeriesEntity>>
 
     @Query("SELECT * FROM SERIES_TABLE WHERE title=:title")
-    fun getSeriesByName(title: String)
+    fun getSeriesByName(title: String): Single<SeriesEntity>
 
     @Query("SELECT * FROM SERIES_TABLE WHERE id=:id")
-    fun getSeriesById(id: Int)
+    fun getSeriesById(id: Int): Single<SeriesEntity>
 }

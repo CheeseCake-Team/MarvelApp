@@ -8,6 +8,7 @@ import androidx.room.Update
 import com.abaferastech.marvelapp.data.local.entity.CreatorEntity
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface CreatorDao {
@@ -24,9 +25,9 @@ interface CreatorDao {
     fun getAllCreators(): Observable<List<CreatorEntity>>
 
     @Query("SELECT * FROM CREATOR_TABLE WHERE fullName=:fullName")
-    fun getCreatorByName(fullName: String)
+    fun getCreatorByName(fullName: String): Single<CreatorEntity>
 
     @Query("SELECT * FROM CREATOR_TABLE WHERE id=:id")
-    fun getCreatorById(id: Int)
+    fun getCreatorById(id: Int): Single<CreatorEntity>
 }
 

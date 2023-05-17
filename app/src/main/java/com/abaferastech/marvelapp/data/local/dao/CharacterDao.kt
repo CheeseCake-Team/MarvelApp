@@ -8,6 +8,7 @@ import androidx.room.Update
 import com.abaferastech.marvelapp.data.local.entity.CharacterEntity
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface CharacterDao {
@@ -24,8 +25,8 @@ interface CharacterDao {
     fun getAllCharacters(): Observable<List<CharacterEntity>>
 
     @Query("SELECT * FROM CHARACTER_TABLE WHERE name=:name")
-    fun getCharacterByName(name: String)
+    fun getCharacterByName(name: String): Single<CharacterEntity>
 
     @Query("SELECT * FROM CHARACTER_TABLE WHERE id=:id")
-    fun getCharacterById(id: Int)
+    fun getCharacterById(id: Int): Single<CharacterEntity>
 }

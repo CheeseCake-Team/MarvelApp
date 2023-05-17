@@ -8,6 +8,7 @@ import androidx.room.Update
 import com.abaferastech.marvelapp.data.local.entity.EventEntity
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Single
 
 
 @Dao
@@ -25,9 +26,9 @@ interface EventDao {
     fun getAllEvents(): Observable<List<EventEntity>>
 
     @Query("SELECT * FROM EVENT_TABLE WHERE title=:title")
-    fun getEventByName(title: String)
+    fun getEventByName(title: String): Single<EventEntity>
 
     @Query("SELECT * FROM EVENT_TABLE WHERE id=:id")
-    fun getEventById(id: Int)
+    fun getEventById(id: Int): Single<EventEntity>
 }
 
