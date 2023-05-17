@@ -19,4 +19,10 @@ interface CharacterDao {
 
     @Query("SELECT * FROM CHARACTER_TABLE")
     fun getAllCharacters(): Observable<List<CharacterEntity>>
+
+    @Query("SELECT * FROM CHARACTER_TABLE WHERE name=:name")
+    fun getCharacterByName(name: String)
+
+    @Query("SELECT * FROM CHARACTER_TABLE WHERE id=:id")
+    fun getCharacterById(id: Int)
 }

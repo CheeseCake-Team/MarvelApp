@@ -20,5 +20,11 @@ interface EventDao {
 
     @Query("SELECT * FROM EVENT_TABLE")
     fun getAllEvents(): Observable<List<EventEntity>>
+
+    @Query("SELECT * FROM EVENT_TABLE WHERE title=:title")
+    fun getEventByName(title: String)
+
+    @Query("SELECT * FROM EVENT_TABLE WHERE id=:id")
+    fun getEventById(id: Int)
 }
 

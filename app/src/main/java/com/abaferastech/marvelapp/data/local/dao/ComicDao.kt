@@ -19,4 +19,10 @@ interface ComicDao {
 
     @Query("SELECT * FROM COMIC_TABLE")
     fun getAllComics(): Observable<List<ComicEntity>>
+
+    @Query("SELECT * FROM COMIC_TABLE WHERE title=:title")
+    fun getComicByName(title: String)
+
+    @Query("SELECT * FROM COMIC_TABLE WHERE id=:id")
+    fun getComicById(id: Int)
 }

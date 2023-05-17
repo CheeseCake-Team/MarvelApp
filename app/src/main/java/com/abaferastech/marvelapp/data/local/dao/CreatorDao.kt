@@ -19,5 +19,11 @@ interface CreatorDao {
 
     @Query("SELECT * FROM CREATOR_TABLE")
     fun getAllCreators(): Observable<List<CreatorEntity>>
+
+    @Query("SELECT * FROM CREATOR_TABLE WHERE fullName=:fullName")
+    fun getCreatorByName(fullName: String)
+
+    @Query("SELECT * FROM CREATOR_TABLE WHERE id=:id")
+    fun getCreatorById(id: Int)
 }
 

@@ -21,4 +21,10 @@ interface SeriesDao {
 
     @Query("SELECT * FROM SERIES_TABLE")
     fun getAllSeries(): Observable<List<SeriesEntity>>
+
+    @Query("SELECT * FROM SERIES_TABLE WHERE title=:title")
+    fun getSeriesByName(title: String)
+
+    @Query("SELECT * FROM SERIES_TABLE WHERE id=:id")
+    fun getSeriesById(id: Int)
 }
