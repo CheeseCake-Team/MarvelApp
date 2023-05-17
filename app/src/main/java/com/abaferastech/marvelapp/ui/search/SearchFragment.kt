@@ -14,12 +14,22 @@ import com.abaferastech.marvelapp.ui.home.adapters.SeriesAdapter
 import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
 
+
 class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
     override val layoutIdFragment = R.layout.fragment_search
     override val viewModelClass = SearchViewModel::class.java
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.searchBar.setOnMenuItemClickListener { menuItem ->
+            when(menuItem.itemId) {
+                R.id.filterFragment ->{
+                    findNavController().navigate(R.id.action_searchFragment_to_filterFragment)
+                }
+            }
+            true
+        }
 
         init()
         addEventAndListeners()

@@ -41,20 +41,28 @@
             android:padding="@dimen/space_12dp"
             app:items="@{viewModel.searchingResponse.toData().itemsList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_behavior="@string/searchbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fitsSystemWindows="true">
 
-            <com.google.android.material.search.SearchBar
-                android:id="@+id/search_bar"
+            <com.google.android.material.appbar.MaterialToolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fitsSystemWindows="true">
 
-                android:hint="@string/search" />
-        </com.google.android.material.appbar.MaterialToolbar>
+                <com.google.android.material.search.SearchBar
+                    android:id="@+id/search_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:menu="@menu/filter"
+                    android:hint="@string/search" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
 
         <com.google.android.material.search.SearchView
             android:id="@+id/searchView"
