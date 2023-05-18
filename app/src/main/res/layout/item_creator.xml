@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="com.abaferastech.marvelapp.data.remote.response.CreatorDTO" />
+            type="com.abaferastech.marvelapp.domain.models.Creator" />
 
         <variable
             name="listener"
@@ -26,7 +26,7 @@
             android:layout_width="@dimen/character_image_view_dimens"
             android:layout_height="@dimen/character_image_view_dimens"
             android:scaleType="centerCrop"
-            app:imageUrl="@{item.thumbnail}"
+            app:imageUrl="@{item.imageUri}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:shapeAppearance="@style/CircleImageView"
