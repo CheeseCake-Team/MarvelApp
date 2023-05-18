@@ -33,13 +33,13 @@ class CreatorsFragment : BaseFragment<FragmentCreatorsBinding, CreatorsViewModel
     }
 
     private fun init() {
-        val typeID = arguments?.getInt(Constants.TYPE_ID)
+        arguments?.getInt(Constants.TYPE_ID)?.let { viewModel.saveCreatorsId(it) }
         when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
             TYPE.SERIES -> {
-                viewModel.getSeriesCreators(typeID!!)
+                viewModel.getSeriesCreators()
             }
             TYPE.COMIC -> {
-                viewModel.getComicCreators(typeID!!)
+                viewModel.getComicCreators()
             }
             else -> viewModel.getMarvelCreators()
         }
@@ -62,7 +62,6 @@ class CreatorsFragment : BaseFragment<FragmentCreatorsBinding, CreatorsViewModel
     }
 
     private fun navDirections(event: CreatorEvent.ClickCreatorEvent): NavDirections? {
-
         return when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
             TYPE.SERIES -> SeriesDetailsFragmentDirections
                 .actionSeriesDetailsFragmentToCreatorDetailsFragment(event.creatorID)

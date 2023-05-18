@@ -12,7 +12,7 @@
         android:id="@+id/recycler_view_creators"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:items = "@{viewModel.creators.toData()}"
+        app:items = "@{viewModel.creators}"
         android:padding="@dimen/space_12dp"
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
