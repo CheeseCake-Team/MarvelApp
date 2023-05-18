@@ -27,6 +27,8 @@ class MarvelRepository @Inject constructor(
 ) {
 //    private val comicMapper: ComicMapper = ComicMapper()
     private val seriesMapper: SeriesMapper = SeriesMapper()
+    private val characterDomainMapper: CharacterDomainMapper = CharacterDomainMapper()
+
     fun searchInComics(query: String): Single<UIState<List<ComicDTO>>> {
         return wrapResponseWithState { apiService.searchInComics(query) }
     }
@@ -44,8 +46,8 @@ class MarvelRepository @Inject constructor(
     }
 
 
-    fun getSingleCharacter(characterId: Int): Single<UIState<CharacterDTO>> {
-        return wrapResponseWithState { apiService.getSingleCharacter(characterId) }.mapListToSingleItem()
+    fun getSingleCharacter(characterId: Int): Single<UIState<com.abaferastech.marvelapp.domain.models.Character>> {
+        return wrapResponseWithState { apiService.getSingleCharacter(characterId) }.mapUIState(characterDomainMapper::map).mapListToSingleItem()
     }
 
     fun getSingleEvent(eventsId: Int): Single<UIState<EventDTO>> {
@@ -61,9 +63,6 @@ class MarvelRepository @Inject constructor(
 
 
 
-
-
-
     fun getSingleComic(comicsId: Int): Single<UIState<ComicDTO>> {
         return wrapResponseWithState { apiService.getSingleComic(comicsId) }.mapListToSingleItem()
     }
@@ -76,8 +75,10 @@ class MarvelRepository @Inject constructor(
         return wrapResponseWithState { apiService.getAllEvents() }
     }
 
-    fun getAllCharacters(): Single<UIState<List<CharacterDTO>>> {
+    fun getAllCharacters(): Single<UIState<List<Character>>> {
         return wrapResponseWithState { apiService.getAllCharacters() }
+                .mapUIState(characterDomainMapper::map)
+
     }
 
 
@@ -129,12 +130,14 @@ class MarvelRepository @Inject constructor(
         return wrapResponseWithState { apiService.getSeriesEvents(seriesId) }
     }
 
-    fun getSeriesCharacters(seriesId: Int): Single<UIState<List<CharacterDTO>>> {
+    fun getSeriesCharacters(seriesId: Int): Single<UIState<List<Character>>> {
         return wrapResponseWithState { apiService.getSeriesCharacters(seriesId) }
+            .mapUIState(characterDomainMapper::map)
     }
 
-    fun getEventCharacters(eventId: Int): Single<UIState<List<CharacterDTO>>> {
+    fun getEventCharacters(eventId: Int): Single<UIState<List<Character>>> {
         return wrapResponseWithState { apiService.getEventCharacters(eventId) }
+            .mapUIState(characterDomainMapper::map)
     }
 
 
@@ -161,8 +164,9 @@ class MarvelRepository @Inject constructor(
         return wrapResponseWithState { apiService.getComicEvents(comicsId) }
     }
 
-    fun getComicCharacters(comicsId: Int): Single<UIState<List<CharacterDTO>>> {
+    fun getComicCharacters(comicsId: Int): Single<UIState<List<Character>>> {
         return wrapResponseWithState { apiService.getComicCharacters(comicsId) }
+            .mapUIState(characterDomainMapper::map)
     }
 
     fun getComicSeries(comicsId: Int): Single<UIState<List<Series>>> {
@@ -188,8 +192,9 @@ class MarvelRepository @Inject constructor(
         return wrapResponseWithState { apiService.getCreatorEvents(creatorId) }
     }
 
-    fun getCreatorCharacters(creatorId: Int): Single<UIState<List<CharacterDTO>>> {
+    fun getCreatorCharacters(creatorId: Int): Single<UIState<List<Character>>> {
         return wrapResponseWithState { apiService.getCreatorCharacters(creatorId) }
+            .mapUIState(characterDomainMapper::map)
     }
 
     fun getCreatorComics(creatorId: Int): Single<UIState<List<ComicDTO>>> {
@@ -201,23 +206,23 @@ class MarvelRepository @Inject constructor(
             .mapUIState(seriesMapper::map)
     }
 
-    private val characterMapper = CharacterMapper()
-    private val characterDomainMapper = CharacterDomainMapper()
+  //  private val characterMapper = CharacterMapper()
+   // private val characterDomainMapper = CharacterDomainMapper()
 
 
-    fun getCachedCharacter(): List<Character> {
-        return characterDao.getAllCharacters().map { characterDomainMapper.map(it) }
-    }
+    //fun getCachedCharacter(): List<Character> {
+      //  return characterDao.getAllCharacters().map { characterDomainMapper.map(it) }
+    //}
 
-    fun refreshCharacters() {
+  /*  fun refreshCharacters() {
         refreshDatabaseWithWrapResponse(
             { apiService.getAllCharacters() },
-            { list -> list?.map { characterMapper.map(it) } ?: emptyList() },
+            { list -> list?.map { characterDomainMapper.map(it) } ?: emptyList() },
             {
                 characterDao.insertCharacterList(it)
             }
         )
-    }
+    }*/
 
     private fun <I, O> refreshDatabaseWithWrapResponse(
         request: () -> Single<Response<BaseResponse<I>>>,

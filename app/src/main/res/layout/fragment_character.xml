@@ -24,7 +24,7 @@
             android:foreground="@drawable/header_details_gradient"
             android:scaleType="centerCrop"
             app:altSrc="@color/md_theme_surface"
-            app:imageUrl="@{viewModel.character.toData().thumbnail}"
+            app:imageUrl="@{viewModel.character.toData().imageUri}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
