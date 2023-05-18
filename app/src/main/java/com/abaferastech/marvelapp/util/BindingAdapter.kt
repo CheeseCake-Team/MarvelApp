@@ -22,12 +22,12 @@ import com.bumptech.glide.Glide
 
 
 @BindingAdapter("app:imageUrl")
-fun ImageView.setImageFromUrl(thumbnail: Thumbnail?) {
-    thumbnail?.path?.let { path ->
-        val imageUrl = if (path.contains("image_not_available")) {
+fun ImageView.setImageFromUrl(imageUri: String?) {
+    imageUri?.let {
+        val imageUrl = if (it.contains("image_not_available")) {
             R.drawable.no_image
         } else {
-            "${thumbnail?.path}.${thumbnail?.extension}"
+            it
         }
         Glide.with(this)
             .load(imageUrl)
