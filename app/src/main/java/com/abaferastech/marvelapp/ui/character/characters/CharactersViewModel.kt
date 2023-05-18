@@ -2,6 +2,10 @@ package com.abaferastech.marvelapp.ui.character.characters
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import com.abaferastech.marvelapp.data.domain.models.Character
+import com.abaferastech.marvelapp.data.mapper.dtotodomain.CharacterMapper
+import com.abaferastech.marvelapp.data.mapper.dtotodomain.ComicMapper
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
 import com.abaferastech.marvelapp.ui.model.UIState
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
@@ -11,34 +15,54 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class CharactersViewModel @Inject constructor(private val repository: MarvelRepository) : BaseViewModel(), CharactersInteractionListener {
+class CharactersViewModel @Inject constructor(
+    private val repository: MarvelRepository,
+    savedStateHandle: SavedStateHandle
+) : BaseViewModel(savedStateHandle), CharactersInteractionListener {
 
-    private val _characters = MutableLiveData<UIState<List<CharacterDTO>>>()
-    val characters: LiveData<UIState<List<CharacterDTO>>> get() = _characters
+    private val _characters = MutableLiveData<List<Character>>()
+    val characters: LiveData<List<Character>> get() = _characters
 
     val navigationEvents = MutableLiveData<Event<CharacterEvent>>()
 
 
     fun getAllCharacters() {
-        repository.getAllCharacters()
-            .applySchedulersAndPostUIStates(_characters::postValue)
+        repository.getAllCharacters().applySchedulersAndPostUIStates {
+            _characters.postValue(convertDtoToListDomain(it.toData()!!))
+        }
+    }
+
+    private fun convertDtoToListDomain(list: List<CharacterDTO>): MutableList<Character>{
+        val result = mutableListOf<Character>()
+        list.forEach {
+            result.add(CharacterMapper().map(it))
+        }
+        return result
     }
 
     fun getEventCharacter(characterId: Int) {
         repository.getEventCharacters(characterId)
-            .applySchedulersAndPostUIStates(_characters::postValue)
+            .applySchedulersAndPostUIStates {
+                _characters.postValue(convertDtoToListDomain(it.toData()!!))
+            }
     }
 
     fun getCharacterComics(characterId: Int) {
         repository.getComicCharacters(characterId)
-            .applySchedulersAndPostUIStates(_characters::postValue)
+            .applySchedulersAndPostUIStates {
+                _characters.postValue(convertDtoToListDomain(it.toData()!!))
+            }
     }
+
     fun getCharacterSeries(characterId: Int) {
         repository.getSeriesCharacters(characterId)
-            .applySchedulersAndPostUIStates(_characters::postValue)
+            .applySchedulersAndPostUIStates {
+                _characters.postValue(convertDtoToListDomain(it.toData()!!))
+            }
     }
-    override fun onClickCharacter(character: CharacterDTO) {
-        navigationEvents.postValue(Event(CharacterEvent.ClickCharacterEvent(character.id!!)))
+
+    override fun onClickCharacter(character: Character) {
+        navigationEvents.postValue(Event(CharacterEvent.ClickCharacterEvent(character.id)))
     }
 
 }

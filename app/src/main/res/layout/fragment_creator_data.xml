@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_16dp"
                 android:layout_marginTop="@dimen/space_16dp"
-                android:text='@{"fullName: " + viewModel.creator.toData().fullName}'
+                android:text='@{"fullName: " + viewModel.creator.fullName}'
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_16dp"
                 android:layout_marginTop="16dp"
-                android:text='@{"Birthday: " + viewModel.creator.toData().modified.split("T")[0]}'
+                android:text='@{"Birthday: " + viewModel.creator.modified.split("T")[0]}'
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_creator_fullName" />

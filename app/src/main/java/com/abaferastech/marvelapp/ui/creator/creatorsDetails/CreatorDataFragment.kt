@@ -16,14 +16,6 @@ class CreatorDataFragment : BaseFragment<FragmentCreatorDataBinding, CreatorDeta
         get() = CreatorDetailsViewModel::class.java
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        /*val typeID = arguments?.getInt(Constants.TYPE_ID)
-        viewModel.getMarvelCreator(typeID!!)*/
-    }
-
-
     companion object {
         @JvmStatic
         fun newInstance(id: Int, type: TYPE) = CreatorDataFragment().apply {

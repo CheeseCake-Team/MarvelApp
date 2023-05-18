@@ -17,14 +17,15 @@ class CreatorDetailsFragment :
     override val layoutIdFragment = R.layout.fragment_creator_details
     override val viewModelClass = CreatorDetailsViewModel::class.java
 
+    private val passedID: CreatorDetailsFragmentArgs by navArgs()
+
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*viewModel.getMarvelCreator()
-        init()*/
-
+        init()
+        viewModel.saveCreatorId(passedID.creatorId)
     }
 
 
@@ -42,11 +43,11 @@ class CreatorDetailsFragment :
         }
     }
 
-   /* private fun init() {
+    private fun init() {
         val adapter = CreatorFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
-            viewModel.creatorArgs.creatorId
+            passedID.creatorId
         )
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -61,5 +62,4 @@ class CreatorDetailsFragment :
             findNavController().navigateUp()
         }
     }
-*/
 }
