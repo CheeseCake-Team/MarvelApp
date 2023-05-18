@@ -199,6 +199,10 @@ class MarvelRepository @Inject constructor(
     }
 
 
+    fun getSeriesCreators(creatorId: Int): Single<UIState<List<Creator>>> {
+        return wrapResponseWithState { apiService.getSeriesCreators(creatorId) }
+            .mapUIState (creatorMapper::map)
+    }
 
     fun getComicCreators(comicsId: Int): Single<UIState<List<Creator>>> {
         return wrapResponseWithState { apiService.getComicCreators(comicsId) }

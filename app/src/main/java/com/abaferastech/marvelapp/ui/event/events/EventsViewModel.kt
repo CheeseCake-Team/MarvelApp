@@ -3,7 +3,6 @@ package com.abaferastech.marvelapp.ui.event.events
 import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.remote.response.EventDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.EventModel
@@ -40,8 +39,8 @@ class EventsViewModel @Inject constructor(val repository:MarvelRepository) : Bas
             .applySchedulersAndPostUIStates(_events::postValue)
     }
 
-    override fun onEventClick(event: EventDTO) {
-        navigationEvents.postValue(EventModel(EvenEvents.ClickEventEvents(event.id!!)))
+    override fun onEventClick(event: Event) {
+        navigationEvents.postValue(EventModel(EvenEvents.ClickEventEvents(event.id)))
     }
     private lateinit var state: Parcelable
     fun saveRecyclerViewState(parcelable: Parcelable) {

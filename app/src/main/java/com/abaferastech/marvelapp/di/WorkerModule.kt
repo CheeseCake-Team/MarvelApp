@@ -1,5 +1,5 @@
 package com.abaferastech.marvelapp.di
-
+/*
 import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerParameters
@@ -15,12 +15,15 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 object WorkerModule {
 
-    @Provides
+   */
+/* @Provides
     fun provideRefreshWorker(
         @ApplicationContext appContext: Context,
         workerParams: WorkerParameters,
         repository: MarvelRepository
     ): ListenableWorker {
         return RefreshWorker(appContext, workerParams, repository)
-    }
+    }*//*
+
 }
+*/

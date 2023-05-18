@@ -6,7 +6,7 @@ import com.abaferastech.marvelapp.data.remote.response.ComicDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.domain.models.Comic
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
-import com.abaferastech.marvelapp.ui.model.Event
+import com.abaferastech.marvelapp.ui.model.EventModel
 import com.abaferastech.marvelapp.ui.model.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -18,7 +18,7 @@ class ComicsViewModel@Inject constructor(val repository:MarvelRepository) : Base
     private val _comics = MutableLiveData<UIState<List<Comic>>>()
     val comics: LiveData<UIState<List<Comic>>> get() = _comics
 
-    val navigationEvents = MutableLiveData<Event<ComicEvents>>()
+    val navigationEvents = MutableLiveData<EventModel<ComicEvents>>()
 
 
     fun getMarvelComics() {
@@ -48,7 +48,7 @@ class ComicsViewModel@Inject constructor(val repository:MarvelRepository) : Base
     }
 
     override fun onClickComic(comic: Comic) {
-        navigationEvents.postValue(Event(ComicEvents.ClickComicEvent(comic.id!!)))
+        navigationEvents.postValue(EventModel(ComicEvents.ClickComicEvent(comic.id)))
     }
 
 

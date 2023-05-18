@@ -8,13 +8,16 @@ import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
 import com.abaferastech.marvelapp.data.remote.response.ComicDTO
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
+import com.abaferastech.marvelapp.domain.models.Character
+import com.abaferastech.marvelapp.domain.models.Comic
+import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.ComicsInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.NavigationInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
 import com.abaferastech.marvelapp.ui.model.DataItem
-import com.abaferastech.marvelapp.ui.model.Event
+import com.abaferastech.marvelapp.ui.model.EventModel
 import com.abaferastech.marvelapp.ui.model.Tag
 import com.abaferastech.marvelapp.ui.model.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -31,13 +34,13 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
     private val _homeData = MediatorLiveData<UIState<List<DataItem>>>()
     val homeData = _homeData
 
-    private val _characters = MutableLiveData<UIState<List<CharacterDTO>>>()
-    private val _comics = MutableLiveData<UIState<List<ComicDTO>>>()
-    private val _series = MutableLiveData<UIState<List<SeriesDTO>>>()
+    private val _characters = MutableLiveData<UIState<List<Character>>>()
+    private val _comics = MutableLiveData<UIState<List<Comic>>>()
+    private val _series = MutableLiveData<UIState<List<Series>>>()
     private val data = mutableListOf<DataItem>()
 
 
-    val navigationEvents = MutableLiveData<Event<HomeEvent>>()
+    val navigationEvents = MutableLiveData<EventModel<HomeEvent>>()
 
 
     init {
@@ -113,24 +116,24 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
     }
 
 
-    override fun onClickCharacter(character: CharacterDTO) {
-        navigationEvents.postValue(Event(HomeEvent.ClickCharacterEvent(character.id!!)))
+    override fun onClickCharacter(character: Character) {
+        navigationEvents.postValue(EventModel(HomeEvent.ClickCharacterEvent(character.id!!)))
     }
 
-    override fun onClickSeries(series: SeriesDTO) {
-        navigationEvents.postValue(Event(HomeEvent.ClickSeriesEvent(series.id)))
+    override fun onClickSeries(series: Series) {
+        navigationEvents.postValue(EventModel(HomeEvent.ClickSeriesEvent(series.id)))
     }
 
-    override fun onClickComics(comics: ComicDTO) {
-        navigationEvents.postValue(Event(HomeEvent.ClickComicEvent(comics.id!!)))
+    override fun onClickComics(comics: Comic) {
+        navigationEvents.postValue(EventModel(HomeEvent.ClickComicEvent(comics.id!!)))
     }
 
 
     override fun onNavigate(id: Int) {
         when (id) {
-            1 -> navigationEvents.postValue(Event(HomeEvent.ClickAllCharacterEvent))
-            2 -> navigationEvents.postValue(Event(HomeEvent.ClickAllComicEvent))
-            3 -> navigationEvents.postValue(Event(HomeEvent.ClickAllSeriesEvent))
+            1 -> navigationEvents.postValue(EventModel(HomeEvent.ClickAllCharacterEvent))
+            2 -> navigationEvents.postValue(EventModel(HomeEvent.ClickAllComicEvent))
+            3 -> navigationEvents.postValue(EventModel(HomeEvent.ClickAllSeriesEvent))
         }
     }
 
