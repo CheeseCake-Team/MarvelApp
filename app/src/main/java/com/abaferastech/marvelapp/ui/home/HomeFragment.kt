@@ -3,16 +3,19 @@ package com.abaferastech.marvelapp.ui.home
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentHomeBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.home.adapters.HomeAdapter
 import com.abaferastech.marvelapp.ui.model.EventObserver
+import dagger.hilt.android.AndroidEntryPoint
 
-class HomeFragment : BaseFragment<FragmentHomeBinding, HomeViewModel>() {
+@AndroidEntryPoint
+class HomeFragment : BaseFragment<FragmentHomeBinding>() {
     override val layoutIdFragment = R.layout.fragment_home
-    override val viewModelClass = HomeViewModel::class.java
+    override val viewModel: HomeViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

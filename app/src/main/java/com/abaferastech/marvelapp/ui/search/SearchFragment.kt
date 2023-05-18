@@ -3,7 +3,10 @@ package com.abaferastech.marvelapp.ui.search
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentSearchBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
@@ -13,11 +16,12 @@ import com.abaferastech.marvelapp.ui.event.events.EventAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesAdapter
 import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
+import dagger.hilt.android.AndroidEntryPoint
 
-
-class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
+@AndroidEntryPoint
+class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     override val layoutIdFragment = R.layout.fragment_search
-    override val viewModelClass = SearchViewModel::class.java
+    override val viewModel: SearchViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -77,10 +81,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
 
     private fun setAdapter(it: TYPE?) {
         val adapter = when (it) {
-            TYPE.CHARACTER -> CharactersAdapter( viewModel)
-            TYPE.EVENT -> EventAdapter( viewModel)
-            TYPE.SERIES -> SeriesAdapter( viewModel)
-            else -> ComicsAdapter( viewModel)
+            TYPE.CHARACTER -> CharactersAdapter(viewModel)
+            TYPE.EVENT -> EventAdapter(viewModel)
+            TYPE.SERIES -> SeriesAdapter(viewModel)
+            else -> ComicsAdapter(viewModel)
         }
         binding.recyclerViewSearchResult.adapter = adapter
     }

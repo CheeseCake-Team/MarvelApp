@@ -7,9 +7,11 @@ import com.abaferastech.marvelapp.data.remote.response.CreatorDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.UIState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+@HiltViewModel
 
-class CreatorDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
-    private val repository by lazy { MarvelRepository() }
+class CreatorDetailsViewModel @Inject constructor(val repository:MarvelRepository, state: SavedStateHandle) : BaseViewModel() {
 
     private val _creator = MutableLiveData<UIState<CreatorDTO>>()
     val creator: LiveData<UIState<CreatorDTO>> get() = _creator

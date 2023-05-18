@@ -22,7 +22,7 @@ interface CharacterDao {
     fun updateCharacter(character: CharacterEntity): Completable
 
     @Query("SELECT * FROM CHARACTER_TABLE")
-    fun getAllCharacters(): Observable<List<CharacterEntity>>
+    fun getAllCharacters(): List<CharacterEntity>
 
     @Query("SELECT * FROM CHARACTER_TABLE WHERE name=:name")
     fun getCharacterByName(name: String): Single<CharacterEntity>

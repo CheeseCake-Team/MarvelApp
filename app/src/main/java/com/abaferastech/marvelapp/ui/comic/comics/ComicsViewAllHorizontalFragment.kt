@@ -2,6 +2,7 @@ package com.abaferastech.marvelapp.ui.comic.comics
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.abaferastech.marvelapp.R
@@ -15,13 +16,16 @@ import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.series.seriesDetails.SeriesDetailsFragmentDirections
 import com.abaferastech.marvelapp.util.Constants
 import com.abaferastech.marvelapp.util.Constants.TYPE_ID
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 
 class ComicsViewAllHorizontalFragment :
-    BaseFragment<FragmentComicsViewAllHorizontalBinding, ComicsViewModel>() {
+    BaseFragment<FragmentComicsViewAllHorizontalBinding>() {
 
     override val layoutIdFragment = R.layout.fragment_comics_view_all_horizontal
 
-    override val viewModelClass = ComicsViewModel::class.java
+    override val viewModel:ComicsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

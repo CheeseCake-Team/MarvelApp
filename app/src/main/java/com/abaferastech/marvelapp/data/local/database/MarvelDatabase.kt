@@ -13,20 +13,18 @@ import com.abaferastech.marvelapp.data.local.database.entity.ComicEntity
 import com.abaferastech.marvelapp.data.local.database.entity.CreatorEntity
 import com.abaferastech.marvelapp.data.local.database.entity.EventEntity
 import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
+import javax.inject.Inject
 
 @Database(
     entities = [CharacterEntity::class, ComicEntity::class, CreatorEntity::class,
         EventEntity::class, SeriesEntity::class],
-    version = 1
+    version = 2
 )
 
-@TypeConverters(Converters::class)
 abstract class MarvelDatabase : RoomDatabase() {
 
     abstract fun characterDao(): CharacterDao
     abstract fun comicDao(): ComicDao
-    abstract fun creatorDao(): CreatorDao
-    abstract fun eventDao(): EventDao
     abstract fun seriesDao(): SeriesDao
 }
 

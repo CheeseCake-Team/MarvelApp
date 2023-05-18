@@ -3,18 +3,21 @@ package com.abaferastech.marvelapp.ui.character.characterDetails
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentCharacterDataBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.util.Constants
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 
 class CharacterDataFragment :
-    BaseFragment<FragmentCharacterDataBinding, CharacterDetailsViewModel>() {
+    BaseFragment<FragmentCharacterDataBinding>() {
 
     override val layoutIdFragment = R.layout.fragment_character_data
-    override val viewModelClass = CharacterDetailsViewModel::class.java
+    override val viewModel: CharacterDetailsViewModel by viewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

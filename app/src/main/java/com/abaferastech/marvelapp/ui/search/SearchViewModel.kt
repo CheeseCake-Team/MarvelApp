@@ -1,6 +1,5 @@
 package com.abaferastech.marvelapp.ui.search
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
@@ -16,12 +15,15 @@ import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
 import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.SearchItem
 import com.abaferastech.marvelapp.ui.model.TYPE
+import dagger.hilt.android.lifecycle.HiltViewModel
 import com.abaferastech.marvelapp.ui.model.UIState
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+@HiltViewModel
 
-class SearchViewModel : BaseViewModel(),
+class SearchViewModel @Inject constructor(val repository: MarvelRepository) : BaseViewModel(),
     CharactersInteractionListener, EventsInteractionListener, SeriesInteractionListener,
     ComicsInteractionListener {
 
@@ -99,5 +101,6 @@ class SearchViewModel : BaseViewModel(),
     override fun onClickSeries(series: SeriesDTO) {
         navigationEvents.postValue(Event(SearchEvents.ClickSeriesEvent(series.id)))
     }
+
 
 }

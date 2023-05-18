@@ -7,9 +7,11 @@ import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.UIState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class CharacterDetailsViewModel(state: SavedStateHandle) : BaseViewModel() {
-    private val repository by lazy { MarvelRepository() }
+@HiltViewModel
+class CharacterDetailsViewModel @Inject constructor( val repository:MarvelRepository , state: SavedStateHandle) : BaseViewModel() {
 
     val characterArgs = state.let {
         CharacterDetailsFragmentArgs.fromSavedStateHandle(it)
