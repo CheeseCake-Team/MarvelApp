@@ -13,14 +13,25 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ComicDetailsViewModel @Inject constructor(private val repository: MarvelRepository) :
-    BaseViewModel() {
-
+class ComicDetailsViewModel
+    @Inject constructor(private val repository: MarvelRepository,
+                        savedStateHandle: SavedStateHandle) :
+    BaseViewModel(savedStateHandle) {
 
     private val _comic = MutableLiveData<Comic>()
     val comic: LiveData<Comic> = _comic
 
-    var comicId = MutableLiveData<Int>()
+    init {
+        val comicId = getSavedStateValue<Int>("comicId")
+        comicId?.let {
+            getSingleComicById(it)
+        }
+    }
+
+    fun saveComicId(comicId: Int) {
+        setSavedStateValue("comicId", comicId)
+    }
+
     private fun getSingleComicById(passedId: Int) {
         repository.getSingleComic(passedId).applySchedulersAndPostUIStates {
             _comic.postValue(ComicMapper().map(it.toData()!!))

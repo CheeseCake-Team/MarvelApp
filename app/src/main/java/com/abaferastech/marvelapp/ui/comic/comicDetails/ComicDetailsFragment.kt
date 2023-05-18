@@ -19,8 +19,8 @@ class ComicDetailsFragment :
 
     override val layoutIdFragment = R.layout.fragment_comic_details
     override val viewModelClass = ComicDetailsViewModel::class.java
-
     private val passedId: ComicDetailsFragmentArgs by navArgs()
+
 
     override fun onResume() {
         super.onResume()
@@ -36,21 +36,11 @@ class ComicDetailsFragment :
         }
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val v =  super.onCreateView(inflater, container, savedInstanceState)
-        viewModel.comicId.postValue(passedId.comicID)
-        return v
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
+        viewModel.saveComicId(passedId.comicID)
     }
-
 
     private fun init() {
         setupPageAdapter()
