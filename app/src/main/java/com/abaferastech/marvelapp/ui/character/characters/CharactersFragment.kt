@@ -27,11 +27,11 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersVie
     }
 
     private fun inti() {
-        val typeID = arguments?.getInt(Constants.TYPE_ID)
+        viewModel.savePassedCharacterId(arguments?.getInt(Constants.TYPE_ID)!!)
         when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
-            TYPE.SERIES -> viewModel.getCharacterSeries(typeID!!)
-            TYPE.COMIC -> viewModel.getCharacterComics(typeID!!)
-            TYPE.EVENT -> viewModel.getEventCharacter(typeID!!)
+            TYPE.SERIES -> viewModel.getCharacterSeries()
+            TYPE.COMIC -> viewModel.getCharacterComics()
+            TYPE.EVENT -> viewModel.getEventCharacter()
             else -> viewModel.getAllCharacters()
         }
     }

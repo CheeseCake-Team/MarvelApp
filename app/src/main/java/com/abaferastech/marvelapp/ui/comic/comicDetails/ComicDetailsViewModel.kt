@@ -10,6 +10,7 @@ import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,20 +23,26 @@ class ComicDetailsViewModel
     val comic: LiveData<Comic> = _comic
 
     init {
-        val comicId = getSavedStateValue<Int>("comicId")
-        comicId?.let {
-            getSingleComicById(it)
-        }
+        getSingleComicById()
     }
 
     fun saveComicId(comicId: Int) {
         setSavedStateValue("comicId", comicId)
     }
 
-    private fun getSingleComicById(passedId: Int) {
-        repository.getSingleComic(passedId).applySchedulersAndPostUIStates {
-            _comic.postValue(ComicMapper().map(it.toData()!!))
+    private fun getPassedId() = getSavedStateValue<Int>("comicId")
+
+    private fun getSingleComicById() {
+        fetchItem {
+            repository.getSingleComic(getPassedId()!!)
         }
+    }
+
+    private fun fetchItem(getItem: () -> Single<UIState<ComicDTO>>) {
+        getItem()
+            .applySchedulersAndPostUIStates {
+                _comic.postValue(ComicMapper().map(it.toData()!!))
+            }
     }
 
 }
