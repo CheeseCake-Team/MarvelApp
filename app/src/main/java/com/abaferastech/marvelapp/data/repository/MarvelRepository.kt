@@ -39,8 +39,9 @@ class MarvelRepository @Inject constructor(
         return wrapResponseWithState { apiService.searchInEvents(query) }
     }
 
-    fun searchInSeries(query: String): Single<UIState<List<SeriesDTO>>> {
+    fun searchInSeries(query: String): Single<UIState<List<Series>>> {
         return wrapResponseWithState { apiService.searchInSeries(query) }
+            .mapUIState(seriesMapper::map)
     }
 
 
