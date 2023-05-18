@@ -26,11 +26,8 @@ class ComicDetailsViewModel
         getSingleComicById()
     }
 
-    fun saveComicId(comicId: Int) {
-        setSavedStateValue("comicId", comicId)
-    }
-
-    private fun getPassedId() = getSavedStateValue<Int>("comicId")
+    override val key: String
+        get() = "comicDetailsId"
 
     private fun getSingleComicById() {
         fetchItem {

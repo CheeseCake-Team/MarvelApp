@@ -17,6 +17,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 abstract class BaseViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
 
     protected val compositeDisposable = CompositeDisposable()
+    protected abstract val key: String
 
     protected fun <T : Any> getSavedStateValue(key: String): T? {
         return savedStateHandle[key]
@@ -61,6 +62,12 @@ abstract class BaseViewModel(private val savedStateHandle: SavedStateHandle) : V
             .subscribe()
             .addTo(compositeDisposable)
     }
+
+    fun passId(eventId: Int){
+        setSavedStateValue(key,eventId)
+    }
+    protected fun getPassedId() = getSavedStateValue<Int>(key)
+
 
 
     override fun onCleared() {

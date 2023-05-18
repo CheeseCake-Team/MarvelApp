@@ -28,11 +28,9 @@ class ComicsViewModel @Inject constructor(
     val navigationEvents = MutableLiveData<Event<ComicEvents>>()
 
 
-    fun saveComicsId(passedId: Int) {
-        setSavedStateValue("comicsId", passedId)
-    }
+    override val key: String
+        get() = "comicsId"
 
-    private fun getPassedComicsId() = getSavedStateValue<Int>("comicsId")
 
     private fun convertDtoToListDomain(list: List<ComicDTO>): MutableList<Comic> {
         val result = mutableListOf<Comic>()
@@ -50,27 +48,27 @@ class ComicsViewModel @Inject constructor(
 
     fun getCharacterComics() {
         fetchItemsList {
-            repository.getCharacterComics(getPassedComicsId()!!)
+            repository.getCharacterComics(getPassedId()!!)
         }
     }
 
     fun getSeriesComics() {
         fetchItemsList {
-            repository.getSeriesComics(getPassedComicsId()!!)
+            repository.getSeriesComics(getPassedId()!!)
         }
     }
 
 
     fun getCreatorComics() {
         fetchItemsList {
-            repository.getCreatorComics(getPassedComicsId()!!)
+            repository.getCreatorComics(getPassedId()!!)
         }
     }
 
 
     fun getEventComics() {
         fetchItemsList {
-            repository.getEventComics(getPassedComicsId()!!)
+            repository.getEventComics(getPassedId()!!)
         }
     }
 

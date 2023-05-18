@@ -39,7 +39,7 @@ class ComicDetailsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        viewModel.saveComicId(passedId.comicID)
+        viewModel.passId(passedId.comicID)
     }
 
     private fun init() {

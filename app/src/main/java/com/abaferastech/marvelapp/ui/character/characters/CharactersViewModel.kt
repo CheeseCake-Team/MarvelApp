@@ -28,11 +28,8 @@ class CharactersViewModel @Inject constructor(
     val navigationEvents = MutableLiveData<Event<CharacterEvent>>()
 
 
-    fun savePassedCharacterId(passedId: Int) {
-        setSavedStateValue("characterId", passedId)
-    }
-
-    private fun getPassedId() = getSavedStateValue<Int>("characterId")
+    override val key: String
+        get() = "charactersId"
 
     fun getAllCharacters() {
         fetchItemsList {

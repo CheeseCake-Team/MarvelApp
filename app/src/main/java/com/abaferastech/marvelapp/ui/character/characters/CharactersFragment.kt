@@ -27,7 +27,7 @@ class CharactersFragment : BaseFragment<FragmentCharactersBinding, CharactersVie
     }
 
     private fun inti() {
-        viewModel.savePassedCharacterId(arguments?.getInt(Constants.TYPE_ID)!!)
+        viewModel.passId(arguments?.getInt(Constants.TYPE_ID)!!)
         when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
             TYPE.SERIES -> viewModel.getCharacterSeries()
             TYPE.COMIC -> viewModel.getCharacterComics()

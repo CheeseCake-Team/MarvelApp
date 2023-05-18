@@ -28,11 +28,9 @@ class CharacterDetailsViewModel @Inject constructor(
         getSingleCharacter()
     }
 
-    fun saveCharacterId(passedId: Int){
-        setSavedStateValue("characterId",passedId)
-    }
+    override val key: String
+        get() = "characterID"
 
-    private fun getPassedId() = getSavedStateValue<Int>("characterId")
 
     private fun getSingleCharacter() {
         fetchItem {

@@ -10,6 +10,7 @@ import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,24 +23,28 @@ class CreatorDetailsViewModel @Inject constructor(
     val creator: LiveData<Creator> get() = _creator
 
     init {
-        val passedId = getSavedStateValue<Int>("creatorId")
-        passedId?.let {
-            getMarvelCreator(it)
-        }
+        getMarvelCreator()
     }
 
     fun saveCreatorId(passedId: Int){
         setSavedStateValue("creatorId",passedId)
     }
+    private fun getPassedId() = getSavedStateValue<Int>("creatorId")
 
-    private fun getMarvelCreator(passedId: Int) {
-        repository.getSingleCreator(passedId)
-            .applySchedulersAndPostUIStates{
-                _creator.postValue(
-                    CreatorMapper().map(it.toData()!!)
-                )
+    private fun getMarvelCreator() {
+        fetchItem {
+            repository.getSingleCreator(getPassedId()!!)
+        }
+    }
+
+    private fun fetchItem(getItem: () -> Single<UIState<CreatorDTO>>) {
+        getItem()
+            .applySchedulersAndPostUIStates {
+                _creator.postValue(CreatorMapper().map(it.toData()!!))
             }
     }
+
+
 
 }
 

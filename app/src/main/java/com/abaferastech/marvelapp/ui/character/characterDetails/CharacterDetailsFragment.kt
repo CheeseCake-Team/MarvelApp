@@ -21,7 +21,7 @@ class CharacterDetailsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init()
-        viewModel.saveCharacterId(passedId.characterId)
+        viewModel.passId(passedId.characterId)
     }
 
     override fun onResume() {

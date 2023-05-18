@@ -49,7 +49,7 @@ class ComicsViewAllHorizontalFragment :
     }
 
     private fun init() {
-        viewModel.saveComicsId(arguments?.getInt(TYPE_ID)!!)
+        viewModel.passId(arguments?.getInt(TYPE_ID)!!)
         when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
             TYPE.SERIES -> viewModel.getSeriesComics()
             TYPE.CHARACTER -> viewModel.getCharacterComics()
