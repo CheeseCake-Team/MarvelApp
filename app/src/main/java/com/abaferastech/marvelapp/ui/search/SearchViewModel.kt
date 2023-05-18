@@ -15,14 +15,16 @@ import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
 import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.SearchItem
 import com.abaferastech.marvelapp.ui.model.TYPE
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
+@HiltViewModel
 
-class SearchViewModel : BaseViewModel(),
+class SearchViewModel @Inject constructor(val repository: MarvelRepository) : BaseViewModel(),
     CharactersInteractionListener, EventsInteractionListener, SeriesInteractionListener,
     ComicsInteractionListener {
-    private val repository = MarvelRepository()
 
     private val _isLoading = MutableLiveData(false)
 
@@ -49,15 +51,11 @@ class SearchViewModel : BaseViewModel(),
 
 
     init {
-        searchObserver
-            .doOnNext {
+        searchObserver.doOnNext {
                 _isLoading.postValue(true)
-            }
-            .debounce(1, TimeUnit.SECONDS)
-            .flatMap { searchQuery ->
+            }.debounce(1, TimeUnit.SECONDS).flatMap { searchQuery ->
                 when (searchType.value) {
-                    TYPE.SERIES -> repository.searchInSeries(searchQuery).toObservable()
-                        .map {
+                    TYPE.SERIES -> repository.searchInSeries(searchQuery).toObservable().map {
                             SearchItem.Series(it.toData() as List<SeriesDTO>)
                         }
 
@@ -66,8 +64,7 @@ class SearchViewModel : BaseViewModel(),
                             SearchItem.Character(it.toData() as List<CharacterDTO>)
                         }
 
-                    TYPE.EVENT -> repository.searchInEvents(searchQuery).toObservable()
-                        .map {
+                    TYPE.EVENT -> repository.searchInEvents(searchQuery).toObservable().map {
                             SearchItem.Event(it.toData() as List<EventDTO>)
                         }
 
@@ -78,9 +75,7 @@ class SearchViewModel : BaseViewModel(),
                 }
             }.doOnNext {
                 _isLoading.postValue(false)
-            }
-            .subscribe(_searchingResponse::postValue)
-            .addTo(compositeDisposable)
+            }.subscribe(_searchingResponse::postValue).addTo(compositeDisposable)
     }
 
     fun search(searchQuery: String) {

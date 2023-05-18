@@ -8,9 +8,11 @@ import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.UIState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
+@HiltViewModel
 
-class EventsViewModel() : BaseViewModel(), EventsInteractionListener {
-    private val repository by lazy { MarvelRepository() }
+class EventsViewModel @Inject constructor(val repository:MarvelRepository) : BaseViewModel(), EventsInteractionListener {
 
     val navigationEvents = MutableLiveData<Event<EvenEvents>>()
 

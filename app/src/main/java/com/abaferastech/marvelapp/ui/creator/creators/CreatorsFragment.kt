@@ -2,6 +2,7 @@ package com.abaferastech.marvelapp.ui.creator.creators
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.abaferastech.marvelapp.R
@@ -13,10 +14,13 @@ import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.series.seriesDetails.SeriesDetailsFragmentDirections
 import com.abaferastech.marvelapp.util.Constants
+import dagger.hilt.android.AndroidEntryPoint
 
-class CreatorsFragment : BaseFragment<FragmentCreatorsBinding, CreatorsViewModel>() {
+@AndroidEntryPoint
+
+class CreatorsFragment : BaseFragment<FragmentCreatorsBinding>() {
     override val layoutIdFragment = R.layout.fragment_creators
-    override val viewModelClass = CreatorsViewModel::class.java
+    override val viewModel: CreatorsViewModel by viewModels()
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,7 +32,7 @@ class CreatorsFragment : BaseFragment<FragmentCreatorsBinding, CreatorsViewModel
     }
 
     private fun setAdapter() {
-        val adapter = CreatorsAdapter( viewModel)
+        val adapter = CreatorsAdapter(viewModel)
         binding.recyclerViewCreators.adapter = adapter
     }
 
@@ -38,9 +42,11 @@ class CreatorsFragment : BaseFragment<FragmentCreatorsBinding, CreatorsViewModel
             TYPE.SERIES -> {
                 viewModel.getSeriesCreators(typeID!!)
             }
+
             TYPE.COMIC -> {
                 viewModel.getComicCreators(typeID!!)
             }
+
             else -> viewModel.getMarvelCreators()
         }
     }
@@ -56,6 +62,7 @@ class CreatorsFragment : BaseFragment<FragmentCreatorsBinding, CreatorsViewModel
         val action = when (event) {
             is CreatorEvent.ClickCreatorEvent ->
                 navDirections(event)
+
             null -> null
         }
         action?.let { it1 -> findNavController().navigate(it1) }
@@ -66,10 +73,13 @@ class CreatorsFragment : BaseFragment<FragmentCreatorsBinding, CreatorsViewModel
         return when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
             TYPE.SERIES -> SeriesDetailsFragmentDirections
                 .actionSeriesDetailsFragmentToCreatorDetailsFragment(event.creatorID)
+
             TYPE.COMIC -> ComicDetailsFragmentDirections
                 .actionComicDetailsFragmentToCreatorDetailsFragment(event.creatorID)
+
             TYPE.EVENT -> EventFragmentDirections
                 .actionEventFragmentToCreatorDetailsFragment(event.creatorID)
+
             else -> null
         }
     }

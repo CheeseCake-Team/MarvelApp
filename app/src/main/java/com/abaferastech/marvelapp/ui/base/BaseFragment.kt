@@ -8,18 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.abaferastech.marvelapp.BR
 
-abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel> : Fragment() {
+abstract class BaseFragment<VDB : ViewDataBinding> : Fragment() {
 
-    abstract val layoutIdFragment: Int
-    abstract val viewModelClass: Class<VM>
-//    abstract val viewModelFactory: ViewModelProvider.Factory
+    protected abstract val layoutIdFragment: Int
 
-    protected val viewModel: VM by lazy {
-        ViewModelProvider(this)[viewModelClass]
-    }
+    protected abstract val viewModel: ViewModel
 
     private lateinit var _binding: VDB
 
@@ -35,7 +30,7 @@ abstract class BaseFragment<VDB : ViewDataBinding, VM : ViewModel> : Fragment() 
 
         _binding.apply {
             lifecycleOwner = viewLifecycleOwner
-            setVariable(BR.viewModel,viewModel)
+            setVariable(BR.viewModel, viewModel)
             return root
         }
     }

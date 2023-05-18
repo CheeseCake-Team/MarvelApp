@@ -17,13 +17,16 @@ import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.Tag
 import com.abaferastech.marvelapp.ui.model.UIState
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInteractionListener,
-    SeriesInteractionListener, NavigationInteractionListener {
+@HiltViewModel
+class HomeViewModel @Inject constructor(val repository: MarvelRepository) : BaseViewModel(),
+    ComicsInteractionListener, CharactersInteractionListener, SeriesInteractionListener,
+    NavigationInteractionListener {
 
     private lateinit var state: Parcelable
 
-    private val repository = MarvelRepository()
 
     private val _homeData = MediatorLiveData<UIState<List<DataItem>>>()
     val homeData = _homeData
@@ -35,7 +38,6 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
 
 
     val navigationEvents = MutableLiveData<Event<HomeEvent>>()
-
 
 
     init {
@@ -62,9 +64,7 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
             data.add(
                 DataItem.CharacterTagItem(
                     Tag(
-                        id = 1,
-                        title = "CHARACTERS",
-                        ResourcesData = characters.shuffled()
+                        id = 1, title = "CHARACTERS", ResourcesData = characters.shuffled()
                     ), this
                 )
             )
@@ -80,12 +80,12 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
             data.add(
                 DataItem.ComicsTagItem(
                     Tag(
-                        id = 2,
-                        title = "COMICS",
-                        ResourcesData = comics.shuffled()
+                        id = 2, title = "COMICS", ResourcesData = comics.shuffled()
                     ), this
                 )
             )
+            Log.d("TaDa", "updateComicsDataItem: $data")
+
             _homeData.postValue(UIState.Success(data))
         }
     }
@@ -95,15 +95,14 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
             val series = _series.value?.toData()
             data.add(
                 DataItem.SeriesTagItem(
-                    Tag(
-                        id = 3,
-                        title = "SERIES",
-                        ResourcesData = series?.shuffled()!!
-                    ), this
+                    Tag(id = 3, title = "SERIES", ResourcesData = series?.shuffled()!!),
+                    this
                 )
             )
+            Log.d("TaDa", "updateSeriesDataItem: $data")
             _homeData.postValue(UIState.Success(data))
         }
+        Log.d("TaDa", "updateSeriesDataItem: $data")
     }
 
     override fun onCleared() {
@@ -141,7 +140,6 @@ class HomeViewModel : BaseViewModel(), ComicsInteractionListener, CharactersInte
 
     fun restoreRecyclerViewState(): Parcelable = state
     fun stateInitialized(): Boolean = ::state.isInitialized
-
 
 
 }
