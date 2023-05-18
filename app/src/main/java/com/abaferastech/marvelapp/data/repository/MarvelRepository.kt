@@ -7,13 +7,14 @@ import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import com.abaferastech.marvelapp.data.remote.response.BaseResponse
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
 import com.abaferastech.marvelapp.data.remote.response.ComicDTO
-import com.abaferastech.marvelapp.data.remote.response.CreatorDTO
 import com.abaferastech.marvelapp.data.remote.response.EventDTO
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.domain.mapper.CharacterDomainMapper
 import com.abaferastech.marvelapp.domain.mapper.ComicMapper
+import com.abaferastech.marvelapp.domain.mapper.CreatorMapper
 import com.abaferastech.marvelapp.domain.mapper.SeriesMapper
 import com.abaferastech.marvelapp.domain.models.Character
+import com.abaferastech.marvelapp.domain.models.Creator
 import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.model.UIState
 import io.reactivex.rxjava3.core.Single
@@ -27,6 +28,7 @@ class MarvelRepository @Inject constructor(
 ) {
 //    private val comicMapper: ComicMapper = ComicMapper()
     private val seriesMapper: SeriesMapper = SeriesMapper()
+    private val creatorMapper: CreatorMapper = CreatorMapper()
     fun searchInComics(query: String): Single<UIState<List<ComicDTO>>> {
         return wrapResponseWithState { apiService.searchInComics(query) }
     }
@@ -59,8 +61,9 @@ class MarvelRepository @Inject constructor(
         return wrapResponseWithState { apiService.getSingleComic(comicsId) }.mapListToSingleItem()
     }
 
-    fun getSingleCreator(creatorId: Int): Single<UIState<CreatorDTO>> {
-        return wrapResponseWithState { apiService.getSingleCreator(creatorId) }.mapListToSingleItem()
+    fun getSingleCreator(creatorId: Int): Single<UIState<Creator>> {
+        return wrapResponseWithState { apiService.getSingleCreator(creatorId) }
+            .mapUIState(creatorMapper::map).mapListToSingleItem()
     }
 
     fun getAllEvents(): Single<UIState<List<EventDTO>>> {
@@ -77,8 +80,9 @@ class MarvelRepository @Inject constructor(
         return wrapResponseWithState { apiService.getAllComics() }
     }
 
-    fun getAllCreators(): Single<UIState<List<CreatorDTO>>> {
+    fun getAllCreators(): Single<UIState<List<Creator>>> {
         return wrapResponseWithState { apiService.getAllCreators() }
+            .mapUIState(creatorMapper::map)
     }
 
 
@@ -156,8 +160,9 @@ class MarvelRepository @Inject constructor(
         return wrapResponseWithState { apiService.getEventSeries(comicsId) }
     }
 
-    fun getComicCreators(comicsId: Int): Single<UIState<List<CreatorDTO>>> {
+    fun getComicCreators(comicsId: Int): Single<UIState<List<Creator>>> {
         return wrapResponseWithState { apiService.getComicCreators(comicsId) }
+            .mapUIState (creatorMapper::map)
     }
 
     fun getCreatorEvents(creatorId: Int): Single<UIState<List<EventDTO>>> {
