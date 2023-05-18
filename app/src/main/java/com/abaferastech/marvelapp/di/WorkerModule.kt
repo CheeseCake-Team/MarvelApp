@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.work.ListenableWorker
 import androidx.work.WorkerParameters
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
-import com.abaferastech.marvelapp.work.RefreshWorker
+import com.abaferastech.marvelapp.work.RefreshCharactersWorker
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -21,6 +21,6 @@ object WorkerModule {
         workerParams: WorkerParameters,
         repository: MarvelRepository
     ): ListenableWorker {
-        return RefreshWorker(appContext, workerParams, repository)
+        return RefreshCharactersWorker(appContext, workerParams, repository)
     }
 }

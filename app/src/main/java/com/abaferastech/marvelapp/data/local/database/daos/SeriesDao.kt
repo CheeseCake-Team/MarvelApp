@@ -19,11 +19,11 @@ interface SeriesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSeriesList(series: List<SeriesEntity>):Completable
 
+    @Query("SELECT * FROM SERIES_TABLE")
+    fun getAllSeries(): Single<List<SeriesEntity>>
     @Update
     fun updateSeries(series: SeriesEntity):Completable
 
-    @Query("SELECT * FROM SERIES_TABLE")
-    fun getAllSeries(): Observable<List<SeriesEntity>>
 
     @Query("SELECT * FROM SERIES_TABLE WHERE title=:title")
     fun getSeriesByName(title: String): Single<SeriesEntity>

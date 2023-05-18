@@ -8,6 +8,9 @@ import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
 import com.abaferastech.marvelapp.data.remote.response.ComicDTO
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
+import com.abaferastech.marvelapp.domain.models.Character
+import com.abaferastech.marvelapp.domain.models.Comic
+import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.ComicsInteractionListener
@@ -18,6 +21,9 @@ import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.Tag
 import com.abaferastech.marvelapp.ui.model.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.kotlin.addTo
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
@@ -42,6 +48,7 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
 
     init {
         _homeData.postValue(UIState.Loading)
+
         _homeData.addSource(_characters) {
             updateCharacterDataItem()
         }
@@ -51,16 +58,51 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
         _homeData.addSource(_series) {
             updateSeriesDataItem()
         }
+//
+//        repository.refreshCharacters()
+//        repository.refreshComics()
+//        repository.refreshSeries()
+
+
+        repository.getCachedCharacter()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::onsuccess)
+            .addTo(compositeDisposable)
+
+        repository.getCachedSeries()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::onsuccessSeries)
+            .addTo(compositeDisposable)
+
+        repository.getCachedComics()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(::onsuccessComic)
+            .addTo(compositeDisposable)
 
         repository.getAllCharacters().applySchedulersAndPostUIStates(_characters::postValue)
         repository.getAllComics().applySchedulersAndPostUIStates(_comics::postValue)
         repository.getAllSeries().applySchedulersAndPostUIStates(_series::postValue)
     }
 
+    private fun onsuccess(list: List<Character>){
+        Log.d("sasa", "onsuccess Character: $list")
+    }
+
+    private fun onsuccessComic(list: List<Comic>){
+        Log.d("sasa", "onsuccess Comic: $list")
+    }
+
+    private fun onsuccessSeries(list: List<Series>){
+        Log.d("sasa", "onsuccess Series: $list")
+    }
+
     private fun updateCharacterDataItem() {
         if (_characters.value is UIState.Success) {
-            val characters = _characters.value?.toData()
-            data.add(DataItem.HeaderItem(characters?.shuffled()?.take(4)!!))
+            val characters = _characters.value?.toData() ?: emptyList()
+            data.add(DataItem.HeaderItem(characters.shuffled().take(4)))
             data.add(
                 DataItem.CharacterTagItem(
                     Tag(
@@ -84,7 +126,6 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
                     ), this
                 )
             )
-            Log.d("TaDa", "updateComicsDataItem: $data")
 
             _homeData.postValue(UIState.Success(data))
         }
@@ -92,17 +133,15 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
 
     private fun updateSeriesDataItem() {
         if (_characters.value is UIState.Success) {
-            val series = _series.value?.toData()
+            val series = _series.value?.toData() ?: emptyList()
             data.add(
                 DataItem.SeriesTagItem(
-                    Tag(id = 3, title = "SERIES", ResourcesData = series?.shuffled()!!),
+                    Tag(id = 3, title = "SERIES", ResourcesData = series.shuffled()),
                     this
                 )
             )
-            Log.d("TaDa", "updateSeriesDataItem: $data")
             _homeData.postValue(UIState.Success(data))
         }
-        Log.d("TaDa", "updateSeriesDataItem: $data")
     }
 
     override fun onCleared() {
@@ -143,3 +182,4 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
 
 
 }
+

@@ -1,6 +1,7 @@
 package com.abaferastech.marvelapp.di
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Room
 import com.abaferastech.marvelapp.data.local.database.MarvelDatabase
 import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
@@ -25,6 +26,7 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideCharacterDao(marvelDatabase: MarvelDatabase): CharacterDao {
+        Log.d("characterDao", "provideCharacterDao:$marvelDatabase ")
         return marvelDatabase.characterDao()
     }
 

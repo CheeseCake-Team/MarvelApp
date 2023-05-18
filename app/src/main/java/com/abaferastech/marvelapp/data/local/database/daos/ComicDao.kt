@@ -18,11 +18,11 @@ interface ComicDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertComicList(series: List<ComicEntity>):Completable
 
-    @Update
-    fun updateComic(comic: ComicEntity): Completable
 
     @Query("SELECT * FROM COMIC_TABLE")
-    fun getAllComics(): Observable<List<ComicEntity>>
+    fun getAllComics(): Single<List<ComicEntity>>
+    @Update
+    fun updateComic(comic: ComicEntity): Completable
 
     @Query("SELECT * FROM COMIC_TABLE WHERE title=:title")
     fun getComicByName(title: String): Single<ComicEntity>

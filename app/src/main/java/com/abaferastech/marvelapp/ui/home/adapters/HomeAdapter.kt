@@ -117,8 +117,7 @@ class HomeAdapter(
             when (val item = homeItems[position]) {
                 is DataItem.ComicsTagItem -> {
                     with(holder.binding as ItemTagBinding) {
-                        recyclerViewTagData.adapter =
-                            ComicAdapter(interactionListener as ComicsInteractionListener)
+                        recyclerViewTagData.adapter = ComicAdapter(interactionListener as ComicsInteractionListener)
                         tagItem = item.tag
                         listener = interactionListener as NavigationInteractionListener?
                     }
