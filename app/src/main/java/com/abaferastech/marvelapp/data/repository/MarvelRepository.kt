@@ -11,7 +11,7 @@ import com.abaferastech.marvelapp.data.remote.response.CreatorDTO
 import com.abaferastech.marvelapp.data.remote.response.EventDTO
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.domain.mapper.CharacterDomainMapper
-import com.abaferastech.marvelapp.domain.mapper.ComicMapper
+
 import com.abaferastech.marvelapp.domain.mapper.EventMapper
 import com.abaferastech.marvelapp.domain.mapper.SeriesMapper
 import com.abaferastech.marvelapp.domain.models.Character
@@ -219,22 +219,22 @@ class MarvelRepository @Inject constructor(
     }
 
     private val characterMapper = CharacterMapper()
-    private val characterDomainMapper = CharacterDomainMapper()
 
 
-    fun getCachedCharacter(): List<Character> {
-        return characterDao.getAllCharacters().map { characterDomainMapper.map(it) }
-    }
 
-    fun refreshCharacters() {
-        refreshDatabaseWithWrapResponse(
-            { apiService.getAllCharacters() },
-            { list -> list?.map { characterMapper.map(it) } ?: emptyList() },
-            {
-                characterDao.insertCharacterList(it)
-            }
-        )
-    }
+//    fun getCachedCharacter(): List<Character> {
+//        return characterDao.getAllCharacters().map { characterDomainMapper.map(it) }
+//    }
+
+//    fun refreshCharacters() {
+//        refreshDatabaseWithWrapResponse(
+//            { apiService.getAllCharacters() },
+//            { list -> list?.map { characterMapper.map(it) } ?: emptyList() },
+//            {
+//                characterDao.insertCharacterList(it)
+//            }
+//        )
+//    }
 
     private fun <I, O> refreshDatabaseWithWrapResponse(
         request: () -> Single<Response<BaseResponse<I>>>,
