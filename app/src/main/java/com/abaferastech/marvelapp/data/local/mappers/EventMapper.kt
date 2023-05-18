@@ -11,7 +11,8 @@ class EventMapper: IMapper<EventDTO, EventEntity> {
             title = input.title,
             description = input.description,
             modified = input.modified,
-            imageUri = input.thumbnail?.path + input.thumbnail?.extension
+            imageUri = "${input.thumbnail?.path}.${input.thumbnail?.extension}",
+            null
         )
     }
 }

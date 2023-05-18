@@ -2,6 +2,8 @@ package com.abaferastech.marvelapp.data.repository
 
 import com.abaferastech.marvelapp.data.local.database.MarvelDatabase
 import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
+import com.abaferastech.marvelapp.data.local.database.daos.SearchQueryDao
+import com.abaferastech.marvelapp.data.local.database.entity.SearchQueryEntity
 import com.abaferastech.marvelapp.data.local.mappers.CharacterMapper
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import com.abaferastech.marvelapp.data.remote.response.BaseResponse
@@ -13,6 +15,8 @@ import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.domain.mapper.CharacterDomainMapper
 import com.abaferastech.marvelapp.domain.models.Character
 import com.abaferastech.marvelapp.ui.model.UIState
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import javax.inject.Inject
@@ -20,9 +24,29 @@ import javax.inject.Singleton
 
 class MarvelRepository @Inject constructor(
     private val characterDao: CharacterDao,
+    private val searchQueryDao: SearchQueryDao,
     private val apiService: MarvelApiService
 ) {
+
+    fun getAllSearchQueries(): Observable<List<SearchQueryEntity>> {
+        return searchQueryDao.getAllSearchQueries()
+    }
+
+    fun deleteSearchQuery(searchQueryEntity: SearchQueryEntity) {
+        searchQueryDao.delete(searchQueryEntity)
+    }
+
+    fun insertSearchQuery(searchQuery: String) {
+        searchQueryDao.insert(SearchQueryEntity(searchQuery = searchQuery))
+    }
+
+    fun getSearchQueryEntityByQuery(searchQuery: String): SearchQueryEntity =
+        searchQueryDao.getSearchQueryEntityByQuery(searchQuery)
+
+
     fun searchInComics(query: String): Single<UIState<List<ComicDTO>>> {
+        val id = getSearchQueryEntityByQuery(query).id
+
         return wrapResponseWithState { apiService.searchInComics(query) }
     }
 

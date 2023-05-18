@@ -73,14 +73,27 @@
             android:hint="@string/search"
             app:layout_anchor="@id/search_bar">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view_search_history"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:clipToPadding="false"
-                android:padding="@dimen/space_12dp"
-                app:items="@{viewModel.searchingResponse.toData().itemsList}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_16dp"
+                    android:layout_marginStart="@dimen/space_16dp"
+                    android:text="Recent search queries"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_search_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:padding="@dimen/space_12dp"
+                    app:items="@{viewModel.oldSearchQueries}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
 
         </com.google.android.material.search.SearchView>
 

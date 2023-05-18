@@ -14,7 +14,8 @@ class SeriesMapper : IMapper<SeriesDTO, SeriesEntity> {
             endYear = input.endYear,
             rating = input.rating,
             modified = input.modified,
-            imageUri = input.thumbnail?.path + input.thumbnail?.extension
+            imageUri = input.thumbnail?.path + input.thumbnail?.extension,
+            null
         )
     }
 }

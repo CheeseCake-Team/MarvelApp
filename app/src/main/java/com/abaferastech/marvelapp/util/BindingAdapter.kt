@@ -11,10 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.remote.response.Thumbnail
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
-import com.abaferastech.marvelapp.ui.character.characters.CharactersAdapter
+import com.abaferastech.marvelapp.ui.home.adapters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
 import com.abaferastech.marvelapp.ui.event.events.EventAdapter
-import com.abaferastech.marvelapp.ui.home.adapters.ComicAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesAdapter
 import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.SearchItem

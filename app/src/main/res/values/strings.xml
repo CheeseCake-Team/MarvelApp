@@ -21,4 +21,6 @@
     <string name="type_here">Type Here</string>
     <string name="search_in">Search in</string>
     <string name="filter">filter</string>
+    <string name="delete">delete</string>
+    <string name="recent_search_query">recent search query</string>
 </resources>

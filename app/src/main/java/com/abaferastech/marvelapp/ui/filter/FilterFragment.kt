@@ -1,7 +1,6 @@
 package com.abaferastech.marvelapp.ui.filter
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
 class FilterFragment : BottomSheetDialogFragment() {
 
-
-    private val searchViewModel by activityViewModels<SearchViewModel>()
+    private val searchViewModel: SearchViewModel by activityViewModels()
     private lateinit var binding: FragmentFilterBinding
 
     override fun onCreateView(
@@ -22,21 +20,18 @@ class FilterFragment : BottomSheetDialogFragment() {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentFilterBinding.inflate(inflater, container, false)
-        //searchViewModel = ViewModelProvider(this)[SearchViewModel::class.java]
         binding.viewModel = searchViewModel
-        Log.i("state",searchViewModel.toString())
         getFilterChip()
         return binding.root
     }
 
     private fun getFilterChip() {
         when(searchViewModel.searchType.value) {
-            TYPE.SERIES -> binding.seriesChip.isSelected = true
-            TYPE.CHARACTER -> binding.charactersChip.isSelected = true
-            TYPE.EVENT -> binding.eventsChip.isSelected = true
-            else -> binding.comicsChip.isSelected = true
+            TYPE.SERIES -> binding.seriesChip.isChecked = true
+            TYPE.CHARACTER -> binding.charactersChip.isChecked = true
+            TYPE.EVENT -> binding.eventsChip.isChecked = true
+            else -> binding.comicsChip.isChecked = true
         }
-        Log.i("state",searchViewModel.searchType.value.toString())
     }
 
 }

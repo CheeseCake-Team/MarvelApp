@@ -5,6 +5,7 @@ import androidx.room.Room
 import com.abaferastech.marvelapp.data.local.database.MarvelDatabase
 import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
 import com.abaferastech.marvelapp.data.local.database.daos.ComicDao
+import com.abaferastech.marvelapp.data.local.database.daos.SearchQueryDao
 import com.abaferastech.marvelapp.data.local.database.daos.SeriesDao
 import dagger.Module
 import dagger.Provides
@@ -26,6 +27,12 @@ object DatabaseModule {
     @Provides
     fun provideCharacterDao(marvelDatabase: MarvelDatabase): CharacterDao {
         return marvelDatabase.characterDao()
+    }
+
+    @Singleton
+    @Provides
+    fun provideSearchQueryDao(marvelDatabase: MarvelDatabase): SearchQueryDao {
+        return marvelDatabase.searchQueryDoa()
     }
 
     @Singleton

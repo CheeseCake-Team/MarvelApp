@@ -20,18 +20,16 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    @Provides
-    fun provideMarvelRepository() = MarvelRepository()
-
     @Singleton
     @Provides
     fun provideMarvelService(
         okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory
+        gsonConverterFactory: GsonConverterFactory,
+        rxJava3CallAdapterFactory: RxJava3CallAdapterFactory
     ): MarvelApiService {
         val retrofit = Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .addCallAdapterFactory(rxJava3CallAdapterFactory)
             .addConverterFactory(gsonConverterFactory)
             .client(okHttpClient)
             .build()
@@ -69,4 +67,9 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideGson(): GsonConverterFactory = GsonConverterFactory.create()
+
+    @Singleton
+    @Provides
+    fun provideRXJava3CallAdapterFactory(): RxJava3CallAdapterFactory =
+        RxJava3CallAdapterFactory.create()
 }
