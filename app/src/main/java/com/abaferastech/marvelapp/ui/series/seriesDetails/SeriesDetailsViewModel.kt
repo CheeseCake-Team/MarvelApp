@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
+import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -16,8 +17,8 @@ class SeriesDetailsViewModel @Inject constructor(
     state: SavedStateHandle
 ) : BaseViewModel() {
 
-    private val _series = MutableLiveData<UIState<SeriesDTO>>()
-    val series: LiveData<UIState<SeriesDTO>> get() = _series
+    private val _series = MutableLiveData<UIState<List<Series>>>()
+    val series: LiveData<UIState<List<Series>>> get() = _series
 
     val seriesArgs = state.let {
         SeriesDetailsFragmentArgs.fromSavedStateHandle(it)
