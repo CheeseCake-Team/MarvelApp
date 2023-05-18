@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.abaferastech.marvelapp.data.remote.response.ComicDTO" />
+            type="com.abaferastech.marvelapp.domain.models.Comic" />
 
         <variable
             name="listener"
@@ -31,7 +31,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:scaleType="fitXY"
-                app:imageUrl="@{item.thumbnail}"
+                app:imageUrl="@{item.imageUri}"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@color/material_dynamic_tertiary70" />
 
