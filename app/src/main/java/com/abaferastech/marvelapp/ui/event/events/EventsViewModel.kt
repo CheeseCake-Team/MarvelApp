@@ -4,29 +4,32 @@ import android.os.Parcelable
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.abaferastech.marvelapp.data.domain.models.Event
 import com.abaferastech.marvelapp.data.mapper.dtotodomain.EventMapper
 import com.abaferastech.marvelapp.data.remote.response.EventDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
-import com.abaferastech.marvelapp.ui.model.Event
+import com.abaferastech.marvelapp.ui.model.EventHandler
 import com.abaferastech.marvelapp.ui.model.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 @HiltViewModel
-class EventsViewModel @Inject constructor(private val repository: MarvelRepository,
-                                          savedStateHandle: SavedStateHandle
+class EventsViewModel @Inject constructor(
+    private val repository: MarvelRepository,
+    savedStateHandle: SavedStateHandle
 ) : BaseViewModel(savedStateHandle), EventsInteractionListener {
 
-    val navigationEvents = MutableLiveData<Event<EvenEvents>>()
+    val navigationEvents = MutableLiveData<EventHandler<EvenEvents>>()
 
-    private val _events = MutableLiveData<List<com.abaferastech.marvelapp.data.domain.models.Event>>()
-    val events: LiveData<List<com.abaferastech.marvelapp.data.domain.models.Event>> get() = _events
+    private val _events = MutableLiveData<List<Event>>()
+    val events: LiveData<List<Event>> get() = _events
     override val key: String
         get() = "eventsId"
-    private fun convertDtoToListDomain(list: List<EventDTO>): MutableList<com.abaferastech.marvelapp.data.domain.models.Event> {
-        val result = mutableListOf<com.abaferastech.marvelapp.data.domain.models.Event>()
+
+    private fun convertDtoToListDomain(list: List<EventDTO>): MutableList<Event> {
+        val result = mutableListOf<Event>()
         list.forEach {
             result.add(EventMapper().map(it))
         }
@@ -60,12 +63,14 @@ class EventsViewModel @Inject constructor(private val repository: MarvelReposito
     }
 
     override fun onEventClick(event: EventDTO) {
-        navigationEvents.postValue(Event(EvenEvents.ClickEventEvents(event.id!!)))
+        navigationEvents.postValue(EventHandler(EvenEvents.ClickEventEvents(event.id!!)))
     }
+
     private lateinit var state: Parcelable
     fun saveRecyclerViewState(parcelable: Parcelable) {
         state = parcelable
     }
+
     fun restoreRecyclerViewState(): Parcelable = state
     fun stateInitialized(): Boolean = ::state.isInitialized
 

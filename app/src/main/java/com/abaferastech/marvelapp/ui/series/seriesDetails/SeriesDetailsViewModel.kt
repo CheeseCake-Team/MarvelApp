@@ -3,11 +3,13 @@ package com.abaferastech.marvelapp.ui.series.seriesDetails
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.abaferastech.marvelapp.data.domain.models.Comic
+import com.abaferastech.marvelapp.data.domain.models.Series
+import com.abaferastech.marvelapp.data.mapper.dtotodomain.SeriesMapper
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.UIState
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 class SeriesDetailsViewModel
@@ -15,19 +17,26 @@ class SeriesDetailsViewModel
                     savedStateHandle: SavedStateHandle)
     : BaseViewModel(savedStateHandle) {
 
-    private val _comic = MutableLiveData<Comic>()
-    val comic: LiveData<Comic> = _comic
-    override val key: String
-        get() = ""
+    private val _series = MutableLiveData<Series>()
+    val series: LiveData<Series> = _series
 
-    val seriesArgs = state.let {
-        SeriesDetailsFragmentArgs.fromSavedStateHandle(it)
+    override val key: String
+        get() = "seriesId"
+
+    init {
+        getSeriesById()
     }
 
-    fun getSeriesById(passeId: Int? = null){
-        val seriesId = passeId ?: seriesArgs.seriesId
-        repository.getSingleSeries(seriesId)
-            .applySchedulersAndPostUIStates(_series::postValue)
+    private fun getSeriesById(){
+        fetchItem {
+            repository.getSingleSeries(getPassedId()!!)
+        }
+    }
+
+    private fun fetchItem(getItem: () -> Single<UIState<SeriesDTO>>) {
+        getItem().applySchedulersAndPostUIStates {
+            _series.postValue(SeriesMapper().map(it.toData()!!))
+        }
     }
 
 }

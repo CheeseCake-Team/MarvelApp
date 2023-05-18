@@ -15,12 +15,6 @@ class SeriesDataFragment : BaseFragment<FragmentSeriesDataBinding, SeriesDetails
     override val viewModelClass: Class<SeriesDetailsViewModel>
         get() = SeriesDetailsViewModel::class.java
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        /*val typeID = arguments?.getInt(Constants.TYPE_ID)
-        viewModel.getSeriesById(typeID!!)*/
-    }
 
     companion object {
         @JvmStatic

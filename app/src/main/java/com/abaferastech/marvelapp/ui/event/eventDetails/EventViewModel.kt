@@ -17,12 +17,11 @@ import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 @HiltViewModel
-class EventViewModel @Inject constructor(private val repository: MarvelRepository,
-                                         savedStateHandle: SavedStateHandle) : BaseViewModel(savedStateHandle) {
+class EventViewModel @Inject constructor(
+    private val repository: MarvelRepository,
+    savedStateHandle: SavedStateHandle
+) : BaseViewModel(savedStateHandle) {
 
-    /*val eventArgs = state.let {
-        EventFragmentArgs.fromSavedStateHandle(it)
-    }*/
 
     private val _event = MutableLiveData<Event>()
     val event: LiveData<Event> = _event
@@ -33,12 +32,6 @@ class EventViewModel @Inject constructor(private val repository: MarvelRepositor
         getSingleEventById()
     }
 
-    /*fun getSingleEvent(eventsId:Int? = null) {
-        val eventId = eventsId ?: eventArgs.eventId
-        repository.getSingleEvent(eventId)
-            .applySchedulersAndPostUIStates(_event::postValue)
-
-    }*/
 
     private fun getSingleEventById() {
         fetchItem {
@@ -48,8 +41,8 @@ class EventViewModel @Inject constructor(private val repository: MarvelRepositor
 
     private fun fetchItem(getItem: () -> Single<UIState<EventDTO>>) {
         getItem().applySchedulersAndPostUIStates {
-                _event.postValue(EventMapper().map(it.toData()!!))
-            }
+            _event.postValue(EventMapper().map(it.toData()!!))
+        }
     }
 
 }

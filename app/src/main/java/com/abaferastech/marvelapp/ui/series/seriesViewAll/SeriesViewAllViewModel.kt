@@ -2,51 +2,77 @@ package com.abaferastech.marvelapp.ui.series.seriesViewAll
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import com.abaferastech.marvelapp.data.domain.models.Series
+import com.abaferastech.marvelapp.data.mapper.dtotodomain.SeriesMapper
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.ui.model.UIState
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
-import com.abaferastech.marvelapp.ui.model.Event
+import com.abaferastech.marvelapp.ui.model.EventHandler
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 @HiltViewModel
-class SeriesViewAllViewModel @Inject constructor(private val repository: MarvelRepository) : BaseViewModel (),SeriesViewAllInteractionListener {
+class SeriesViewAllViewModel @Inject constructor(
+    private val repository: MarvelRepository,
+    savedStateHandle: SavedStateHandle
+) : BaseViewModel(savedStateHandle), SeriesViewAllInteractionListener {
 
 
-    private val _seriesViewAll = MutableLiveData<UIState<List<SeriesDTO>>>()
-    val seriesViewAll: LiveData<UIState<List<SeriesDTO>>> get() = _seriesViewAll
+    private val _seriesViewAll = MutableLiveData<List<Series>>()
+    val seriesViewAll: LiveData<List<Series>> get() = _seriesViewAll
 
-    val navigationEvents = MutableLiveData<Event<SeriesEvents>>()
+    val navigationEvents = MutableLiveData<EventHandler<SeriesEvents>>()
 
+    override val key: String
+        get() = "seriesViewAllId"
 
     init {
-        getMarvelSeriesViewAll()
+        getMarvelSeries()
     }
 
-    private fun getMarvelSeriesViewAll() {
-        repository.getAllSeries()
-            .applySchedulersAndPostUIStates(_seriesViewAll::postValue)
+
+    private fun getMarvelSeries() {
+        fetchItemsList {
+            repository.getAllSeries()
+        }
     }
 
-    override fun onClickSeries(series: SeriesDTO) {
-        navigationEvents.postValue(Event(SeriesEvents.ClickSeriesEvent(series.id)))
-    }
-    fun getMarvelSeries() {
-        repository.getAllSeries()
-            .applySchedulersAndPostUIStates(_seriesViewAll::postValue)
+    fun getComicSeries() {
+        fetchItemsList {
+            repository.getComicSeries(getPassedId()!!)
+        }
     }
 
-    fun getComicSeries(comicId: Int) {
-        repository.getComicSeries(comicId)
-            .applySchedulersAndPostUIStates(_seriesViewAll::postValue)
+    fun getEventSeries() {
+        fetchItemsList {
+            repository.getEventSeries(getPassedId()!!)
+        }
     }
-    fun getEventSeries(eventId: Int) {
-        repository.getEventSeries(eventId)
-            .applySchedulersAndPostUIStates(_seriesViewAll::postValue)
+
+    fun getCreatorSeries() {
+        fetchItemsList {
+            repository.getCreatorSeries(getPassedId()!!)
+        }
     }
-    fun getCreatorSeries(creatorId: Int) {
-        repository.getCreatorSeries(creatorId)
-            .applySchedulersAndPostUIStates(_seriesViewAll::postValue)
+
+    override fun onClickSeries(series: Series) {
+        navigationEvents.postValue(EventHandler(SeriesEvents.ClickSeriesEvent(series.id)))
+    }
+
+    private fun fetchItemsList(getItemsList: () -> Single<UIState<List<SeriesDTO>>>) {
+        getItemsList()
+            .applySchedulersAndPostUIStates { dtoList ->
+                _seriesViewAll.postValue(convertDtoToListDomain(dtoList.toData()!!))
+            }
+    }
+    private fun convertDtoToListDomain(list: List<SeriesDTO>): MutableList<Series> {
+        val result = mutableListOf<Series>()
+        list.forEach {
+            result.add(SeriesMapper().map(it))
+        }
+        return result
     }
 }
