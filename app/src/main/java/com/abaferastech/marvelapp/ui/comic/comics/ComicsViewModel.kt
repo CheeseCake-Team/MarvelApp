@@ -2,52 +2,87 @@ package com.abaferastech.marvelapp.ui.comic.comics
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.SavedStateHandle
+import com.abaferastech.marvelapp.data.domain.models.Comic
+import com.abaferastech.marvelapp.data.mapper.dtotodomain.ComicMapper
 import com.abaferastech.marvelapp.data.remote.response.ComicDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.core.Single
 import javax.inject.Inject
 
 @HiltViewModel
-class ComicsViewModel @Inject constructor(private val repository: MarvelRepository) : BaseViewModel(), ComicsInteractionListener {
+class ComicsViewModel @Inject constructor(
+    private val repository: MarvelRepository,
+    savedStateHandle: SavedStateHandle
+) :
+    BaseViewModel(savedStateHandle), ComicsInteractionListener {
 
 
-    private val _comics = MutableLiveData<UIState<List<ComicDTO>>>()
-    val comics: LiveData<UIState<List<ComicDTO>>> get() = _comics
+    private val _comics = MutableLiveData<List<Comic>>()
+    val comics: LiveData<List<Comic>> get() = _comics
 
     val navigationEvents = MutableLiveData<Event<ComicEvents>>()
 
 
+    fun saveComicsId(passedId: Int) {
+        setSavedStateValue("comicsId", passedId)
+    }
+
+    private fun getPassedComicsId() = getSavedStateValue<Int>("comicsId")
+
+    private fun convertDtoToListDomain(list: List<ComicDTO>): MutableList<Comic> {
+        val result = mutableListOf<Comic>()
+        list.forEach {
+            result.add(ComicMapper().map(it))
+        }
+        return result
+    }
+
     fun getMarvelComics() {
-        repository.getAllComics().applySchedulersAndPostUIStates(_comics::postValue)
+        fetchItemsList {
+            repository.getAllComics()
+        }
     }
 
-    fun getCharacterComics(characterId: Int) {
-        repository.getCharacterComics(characterId)
-            .applySchedulersAndPostUIStates(_comics::postValue)
+    fun getCharacterComics() {
+        fetchItemsList {
+            repository.getCharacterComics(getPassedComicsId()!!)
+        }
     }
 
-    fun getSeriesComics(seriesId: Int) {
-        repository.getSeriesComics(seriesId)
-            .applySchedulersAndPostUIStates(_comics::postValue)
-    }
-
-
-    fun getCreatorComics(creatorId: Int) {
-        repository.getCreatorComics(creatorId)
-            .applySchedulersAndPostUIStates(_comics::postValue)
+    fun getSeriesComics() {
+        fetchItemsList {
+            repository.getSeriesComics(getPassedComicsId()!!)
+        }
     }
 
 
-    fun getEventComics(eventId: Int) {
-        repository.getEventComics(eventId)
-            .applySchedulersAndPostUIStates(_comics::postValue)
+    fun getCreatorComics() {
+        fetchItemsList {
+            repository.getCreatorComics(getPassedComicsId()!!)
+        }
     }
 
-    override fun onClickComic(comic: ComicDTO) {
-        navigationEvents.postValue(Event(ComicEvents.ClickComicEvent(comic.id!!)))
+
+    fun getEventComics() {
+        fetchItemsList {
+            repository.getEventComics(getPassedComicsId()!!)
+        }
+    }
+
+    override fun onClickComic(comic: Comic) {
+        navigationEvents.postValue(Event(ComicEvents.ClickComicEvent(comic.id)))
+    }
+
+    private fun fetchItemsList(getItemsList: () -> Single<UIState<List<ComicDTO>>>) {
+        getItemsList()
+            .applySchedulersAndPostUIStates { dtoList ->
+                _comics.postValue(convertDtoToListDomain(dtoList.toData()!!))
+            }
     }
 
 

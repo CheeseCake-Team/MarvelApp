@@ -2,6 +2,9 @@ package com.abaferastech.marvelapp.ui.base
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
+import com.abaferastech.marvelapp.data.domain.models.Comic
+import com.abaferastech.marvelapp.data.mapper.dtotodomain.ComicMapper
+import com.abaferastech.marvelapp.data.remote.response.ComicDTO
 import com.abaferastech.marvelapp.ui.model.UIState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable

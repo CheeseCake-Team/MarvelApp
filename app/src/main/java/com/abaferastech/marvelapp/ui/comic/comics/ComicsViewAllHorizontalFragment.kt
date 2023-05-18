@@ -49,12 +49,12 @@ class ComicsViewAllHorizontalFragment :
     }
 
     private fun init() {
-        val typeID = arguments?.getInt(TYPE_ID)
+        viewModel.saveComicsId(arguments?.getInt(TYPE_ID)!!)
         when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
-            TYPE.SERIES -> viewModel.getSeriesComics(typeID!!)
-            TYPE.CHARACTER -> viewModel.getCharacterComics(typeID!!)
-            TYPE.EVENT -> viewModel.getEventComics(typeID!!)
-            TYPE.CREATOR -> viewModel.getCreatorComics(typeID!!)
+            TYPE.SERIES -> viewModel.getSeriesComics()
+            TYPE.CHARACTER -> viewModel.getCharacterComics()
+            TYPE.EVENT -> viewModel.getEventComics()
+            TYPE.CREATOR -> viewModel.getCreatorComics()
             else -> viewModel.getMarvelComics()
         }
     }
