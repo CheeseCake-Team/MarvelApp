@@ -23,7 +23,7 @@
             android:foreground="@drawable/header_details_gradient"
             android:scaleType="centerCrop"
             app:altSrc="@color/md_theme_surface"
-            app:imageUrl="@{viewModel.series.toData().thumbnail}"
+            app:imageUrl="@{viewModel.series.toData().imageUri}"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@color/material_dynamic_tertiary70" />
 

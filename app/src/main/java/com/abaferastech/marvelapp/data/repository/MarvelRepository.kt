@@ -1,5 +1,4 @@
 package com.abaferastech.marvelapp.data.repository
-
 import com.abaferastech.marvelapp.data.local.database.MarvelDatabase
 import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
 import com.abaferastech.marvelapp.data.local.mappers.CharacterMapper
@@ -30,9 +29,12 @@ class MarvelRepository @Inject constructor(
     private val characterDao: CharacterDao,
     private val apiService: MarvelApiService
 ) {
+
     private val comicMapper: ComicDominMapper = ComicDominMapper()
     private val seriesMapper: SeriesMapper = SeriesMapper()
     private val creatorMapper: CreatorMapper = CreatorMapper()
+    private val eventMapper: EventMapper = EventMapper()
+    
     fun searchInComics(query: String): Single<UIState<List<Comic>>> {
         return wrapResponseWithState { apiService.searchInComics(query) }
             .mapUIState(comicMapper::map)
@@ -64,9 +66,9 @@ class MarvelRepository @Inject constructor(
     }
 
 
-    fun getSingleSeries(seriesId: Int): Single<UIState<List<Series>>> {
+    fun getSingleSeries(seriesId: Int): Single<UIState<Series>> {
         return wrapResponseWithState { apiService.getSingleSeries(seriesId) }
-            .mapUIState(seriesMapper::map)
+            .mapUIState(seriesMapper::map).mapListToSingleItem()
 
     }
 

@@ -13,12 +13,12 @@ import javax.inject.Inject
 @HiltViewModel
 
 class SeriesDetailsViewModel @Inject constructor(
-    val repository: MarvelRepository,
+    private val repository: MarvelRepository,
     state: SavedStateHandle
 ) : BaseViewModel() {
 
-    private val _series = MutableLiveData<UIState<List<Series>>>()
-    val series: LiveData<UIState<List<Series>>> get() = _series
+    private val _series = MutableLiveData<UIState<Series>>()
+    val series: LiveData<UIState<Series>> get() = _series
 
     val seriesArgs = state.let {
         SeriesDetailsFragmentArgs.fromSavedStateHandle(it)
