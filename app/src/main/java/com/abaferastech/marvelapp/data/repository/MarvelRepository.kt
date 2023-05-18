@@ -122,23 +122,21 @@ class MarvelRepository @Inject constructor(
 
 
     fun getAllSeries(): Single<UIState<List<Series>>> {
-        return wrapResponseWithState { apiService.getAllSeries()
-        }.map { uiState ->
-            mapUIState(uiState,seriesMapper::map)
-        }
+        return wrapResponseWithState { apiService.getAllSeries() }
+            .mapUIState(seriesMapper::map)
     }
-    fun <T, O> mapUIState(
-        uiState: UIState<List<T>>,
-        mapper: (List<T>) -> List<O>
-    ): UIState<List<O>> {
-        return when (uiState) {
-            is UIState.Success -> {
-                val dataList = uiState.data
-                val transformedList = mapper(dataList!!)
-                UIState.Success(transformedList)
+
+    fun <T, O> Single<UIState<List<T>>>.mapUIState(mapper: (List<T>) -> List<O>): Single<UIState<List<O>>> {
+        return this.map { uiState ->
+            when (uiState) {
+                is UIState.Success -> {
+                    val dataList = uiState.data
+                    val transformedList = mapper(dataList!!)
+                    UIState.Success(transformedList)
+                }
+                is UIState.Error -> uiState as UIState<List<O>>
+                is UIState.Loading -> uiState as UIState<List<O>>
             }
-            is UIState.Error -> uiState as UIState<List<O>>
-            is UIState.Loading -> uiState as UIState<List<O>>
         }
     }
 
