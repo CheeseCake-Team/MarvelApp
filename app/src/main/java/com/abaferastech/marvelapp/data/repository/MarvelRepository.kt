@@ -38,8 +38,9 @@ class MarvelRepository @Inject constructor(
         return wrapResponseWithState { apiService.searchInCharacters(query) }
     }
 
-    fun searchInEvents(query: String): Single<UIState<List<EventDTO>>> {
+    fun searchInEvents(query: String): Single<UIState<List<Event>>> {
         return wrapResponseWithState { apiService.searchInEvents(query) }
+            .mapUIState (eventMapper::map)
     }
 
     fun searchInSeries(query: String): Single<UIState<List<SeriesDTO>>> {
