@@ -6,16 +6,18 @@ import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 
 class SeriesMapper : IMapper<SeriesDTO, Series> {
-    override fun map(input: SeriesDTO): Series {
-        return Series(
-            id = input.id,
-            title = input.title,
-            description = input.description,
-            startYear = input.startYear,
-            endYear = input.endYear,
-            rating = input.rating,
-            modified = input.modified,
-            imageUri = "${input.thumbnail?.path}.${input.thumbnail?.extension}"
-        )
+    override fun map(input: List<SeriesDTO>): List<Series> {
+        return input.map { seriesDTO ->
+            Series(
+                id = seriesDTO.id,
+                title = seriesDTO.title,
+                description = seriesDTO.description,
+                startYear = seriesDTO.startYear,
+                endYear = seriesDTO.endYear,
+                rating = seriesDTO.rating,
+                modified = seriesDTO.modified,
+                imageUri = "${seriesDTO.thumbnail?.path}.${seriesDTO.thumbnail?.extension}"
+            )
+        }
     }
 }

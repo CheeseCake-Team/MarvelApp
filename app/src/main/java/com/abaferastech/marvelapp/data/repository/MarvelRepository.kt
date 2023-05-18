@@ -1,8 +1,10 @@
 package com.abaferastech.marvelapp.data.repository
 
 import com.abaferastech.marvelapp.data.local.database.MarvelDatabase
-import com.abaferastech.marvelapp.data.mapper.entitiytodomain.ComicMapper
+import com.abaferastech.marvelapp.data.mapper.dtotodomain.ComicMapper
 import com.abaferastech.marvelapp.data.domain.models.Comic
+import com.abaferastech.marvelapp.data.domain.models.Series
+import com.abaferastech.marvelapp.data.mapper.dtotodomain.SeriesMapper
 import com.abaferastech.marvelapp.data.remote.response.BaseResponse
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
 import com.abaferastech.marvelapp.data.remote.response.ComicDTO
@@ -21,7 +23,8 @@ class MarvelRepository @Inject constructor(
     private val marvelDatabase: MarvelDatabase,
     private val apiService: MarvelApiService
 ) {
-
+    private val comicMapper: ComicMapper = ComicMapper()
+    private val seriesMapper: SeriesMapper = SeriesMapper()
     fun searchInComics(query: String): Single<UIState<List<ComicDTO>>> {
         return wrapWithState { apiService.searchInComics(query) }
     }
@@ -67,13 +70,39 @@ class MarvelRepository @Inject constructor(
         return wrapWithState { apiService.getAllCharacters() }
     }
 
-    fun getAllSeries(): Single<UIState<List<SeriesDTO>>> {
-        return wrapWithState { apiService.getAllSeries() }
+    fun getAllSeries(): Single<UIState<List<Series>>> {
+        return wrapWithState { apiService.getAllSeries()
+        }.map { uiState ->
+            mapUIState(uiState,seriesMapper::map)
+        }
     }
 
-    fun getAllComics(): Single<UIState<List<ComicDTO>>> {
-        return wrapWithState { apiService.getAllComics() }
+    fun getAllComics(): Single<UIState<List<Comic>>> {
+        return wrapWithState {
+            apiService.getAllComics()
+        }.map { uiState ->
+            mapUIState(uiState, comicMapper::map)
+        }
     }
+
+
+    fun <T, O> mapUIState(
+        uiState: UIState<List<T>>,
+        mapper: (List<T>) -> List<O>
+    ): UIState<List<O>> {
+        return when (uiState) {
+            is UIState.Success -> {
+                val dataList = uiState.data
+                val transformedList = mapper(dataList!!)
+                UIState.Success(transformedList)
+            }
+            is UIState.Error -> uiState as UIState<List<O>>
+            is UIState.Loading -> uiState as UIState<List<O>>
+        }
+    }
+
+
+
 
     fun getAllCreators(): Single<UIState<List<CreatorDTO>>> {
         return wrapWithState { apiService.getAllCreators() }
