@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_16dp"
                 android:layout_marginTop="@dimen/space_16dp"
-                android:text='@{"Title: " + viewModel.series.toData().title}'
+                android:text='@{"Title: " + viewModel.series.title}'
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_16dp"
                 android:layout_marginTop="16dp"
-                android:text='@{"Start Year: " + viewModel.series.toData().startYear}'
+                android:text='@{"Start Year: " + viewModel.series.startYear}'
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_series_title"
@@ -50,7 +50,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_16dp"
                 android:layout_marginTop="@dimen/space_16dp"
-                android:text='@{"End Year: " + viewModel.series.toData().endYear}'
+                android:text='@{"End Year: " + viewModel.series.endYear}'
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_series_start_year"
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_16dp"
                 android:layout_marginTop="@dimen/space_16dp"
-                android:text='@{"Rating: " + viewModel.series.toData().rating}'
+                android:text='@{"Rating: " + viewModel.series.rating}'
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_series_end_year"
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_16dp"
                 android:layout_marginTop="@dimen/space_16dp"
-                android:text='@{"Date: " + viewModel.series.toData().modified.split("T")[0]}'
+                android:text='@{"Date: " + viewModel.series.modified.split("T")[0]}'
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_series_rating"
@@ -86,11 +86,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/space_16dp"
                 android:layout_marginTop="@dimen/space_16dp"
-                android:text='@{"Description: " + viewModel.series.toData().description}'
+                android:text='@{"Description: " + viewModel.series.description}'
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_series_date"
-                tools:text="@string/description"/>
+                tools:text="descerption"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>
 </layout>
