@@ -24,7 +24,7 @@
             android:foreground="@drawable/header_details_gradient"
             android:scaleType="centerCrop"
             app:altSrc="@color/md_theme_surface"
-            app:imageUrl="@{viewModel.character.toData().thumbnail}"
+            app:imageUrl="@{viewModel.character.imageUri}"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
@@ -37,7 +37,7 @@
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
             app:layout_constraintTop_toTopOf="@id/back_button"
             app:layout_constraintVertical_bias="1.0"
-            app:text="@{viewModel.character.toData().name}"
+            app:text="@{viewModel.character.name}"
             tools:text="TextView" />
 
         <com.google.android.material.tabs.TabLayout

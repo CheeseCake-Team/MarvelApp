@@ -18,13 +18,6 @@ class CharacterDataFragment : BaseFragment<FragmentCharacterDataBinding, Charact
         get() = CharacterDetailsViewModel::class.java
 
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        val typeID = arguments?.getInt(Constants.TYPE_ID)
-        viewModel.getSingleCharacter( typeID!! )
-    }
-
     companion object {
         @JvmStatic
         fun newInstance(id: Int, type: TYPE) = CharacterDataFragment().apply {

@@ -16,11 +16,12 @@ class CharacterDetailsFragment :
     override val layoutIdFragment = R.layout.fragment_character
     override val viewModelClass = CharacterDetailsViewModel::class.java
 
+    private val passedId: CharacterDetailsFragmentArgs by navArgs()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel.getSingleCharacter()
-        //init()
+        init()
+        viewModel.saveCharacterId(passedId.characterId)
     }
 
     override fun onResume() {
@@ -37,11 +38,11 @@ class CharacterDetailsFragment :
         }
     }
 
-    /*private fun init() {
+    private fun init() {
         val adapter = CharacterFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
-            viewModel.characterArgs.characterId
+            passedId.characterId
         )
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
@@ -55,5 +56,5 @@ class CharacterDetailsFragment :
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
-    }*/
+    }
 }
