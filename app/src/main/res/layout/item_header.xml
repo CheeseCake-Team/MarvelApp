@@ -7,11 +7,9 @@
 
         <variable
             name="item"
-            type="com.abaferastech.marvelapp.data.remote.response.CharacterDTO" />
+            type="com.abaferastech.marvelapp.domain.models.Character" />
 
-        <variable
-            name="listener"
-            type="com.abaferastech.marvelapp.data.remote.response.CharacterDTO" />
+
 
     </data>
 
@@ -26,7 +24,7 @@
             android:contentDescription="@string/an_image_for_an_important_character"
             android:foreground="@drawable/header_gradient"
             android:scaleType="fitXY"
-            app:imageUrl="@{item.thumbnail}"
+            app:imageUrl="@{item.imageUri}"
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
 

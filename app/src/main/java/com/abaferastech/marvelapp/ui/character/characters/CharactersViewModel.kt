@@ -2,21 +2,22 @@ package com.abaferastech.marvelapp.ui.character.characters
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
 import com.abaferastech.marvelapp.ui.model.UIState
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
+import com.abaferastech.marvelapp.domain.models.Character
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
-import com.abaferastech.marvelapp.ui.model.Event
+import com.abaferastech.marvelapp.ui.model.EventModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-
 @HiltViewModel
-class CharactersViewModel @Inject constructor(private val repository: MarvelRepository) : BaseViewModel(), CharactersInteractionListener {
 
-    private val _characters = MutableLiveData<UIState<List<CharacterDTO>>>()
-    val characters: LiveData<UIState<List<CharacterDTO>>> get() = _characters
+class CharactersViewModel @Inject constructor(val repository:MarvelRepository) : BaseViewModel(), CharactersInteractionListener {
 
-    val navigationEvents = MutableLiveData<Event<CharacterEvent>>()
+
+    private val _characters = MutableLiveData<UIState<List<Character>>>()
+    val characters: LiveData<UIState<List<Character>>> get() = _characters
+
+    val navigationEvents = MutableLiveData<EventModel<CharacterEvent>>()
 
 
     fun getAllCharacters() {
@@ -37,8 +38,8 @@ class CharactersViewModel @Inject constructor(private val repository: MarvelRepo
         repository.getSeriesCharacters(characterId)
             .applySchedulersAndPostUIStates(_characters::postValue)
     }
-    override fun onClickCharacter(character: CharacterDTO) {
-        navigationEvents.postValue(Event(CharacterEvent.ClickCharacterEvent(character.id!!)))
+    override fun onClickCharacter(character: Character) {
+        navigationEvents.postValue(EventModel(CharacterEvent.ClickCharacterEvent(character.id!!)))
     }
 
 }

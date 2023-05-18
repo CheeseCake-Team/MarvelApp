@@ -7,12 +7,16 @@ import com.abaferastech.marvelapp.data.remote.response.ComicDTO
 import com.abaferastech.marvelapp.data.remote.response.EventDTO
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
+import com.abaferastech.marvelapp.domain.models.Character
+import com.abaferastech.marvelapp.domain.models.Comic
+import com.abaferastech.marvelapp.domain.models.Event
+import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsInteractionListener
 import com.abaferastech.marvelapp.ui.event.events.EventsInteractionListener
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
-import com.abaferastech.marvelapp.ui.model.Event
+import com.abaferastech.marvelapp.ui.model.EventModel
 import com.abaferastech.marvelapp.ui.model.SearchItem
 import com.abaferastech.marvelapp.ui.model.TYPE
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -20,9 +24,9 @@ import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
-
 @HiltViewModel
-class SearchViewModel @Inject constructor(private val repository: MarvelRepository) : BaseViewModel(),
+
+class SearchViewModel @Inject constructor(val repository: MarvelRepository) : BaseViewModel(),
     CharactersInteractionListener, EventsInteractionListener, SeriesInteractionListener,
     ComicsInteractionListener {
 
@@ -47,19 +51,15 @@ class SearchViewModel @Inject constructor(private val repository: MarvelReposito
     val searchingResponse: LiveData<SearchItem> get() = _searchingResponse
 
 
-    val navigationEvents = MutableLiveData<Event<SearchEvents>>()
+    val navigationEvents = MutableLiveData<EventModel<SearchEvents>>()
 
 
     init {
-        searchObserver
-            .doOnNext {
+        searchObserver.doOnNext {
                 _isLoading.postValue(true)
-            }
-            .debounce(1, TimeUnit.SECONDS)
-            .flatMap { searchQuery ->
+            }.debounce(1, TimeUnit.SECONDS).flatMap { searchQuery ->
                 when (searchType.value) {
-                    TYPE.SERIES -> repository.searchInSeries(searchQuery).toObservable()
-                        .map {
+                    TYPE.SERIES -> repository.searchInSeries(searchQuery).toObservable().map {
                             SearchItem.Series(it.toData() as List<SeriesDTO>)
                         }
 
@@ -68,8 +68,7 @@ class SearchViewModel @Inject constructor(private val repository: MarvelReposito
                             SearchItem.Character(it.toData() as List<CharacterDTO>)
                         }
 
-                    TYPE.EVENT -> repository.searchInEvents(searchQuery).toObservable()
-                        .map {
+                    TYPE.EVENT -> repository.searchInEvents(searchQuery).toObservable().map {
                             SearchItem.Event(it.toData() as List<EventDTO>)
                         }
 
@@ -80,9 +79,7 @@ class SearchViewModel @Inject constructor(private val repository: MarvelReposito
                 }
             }.doOnNext {
                 _isLoading.postValue(false)
-            }
-            .subscribe(_searchingResponse::postValue)
-            .addTo(compositeDisposable)
+            }.subscribe(_searchingResponse::postValue).addTo(compositeDisposable)
     }
 
     fun search(searchQuery: String) {
@@ -100,20 +97,20 @@ class SearchViewModel @Inject constructor(private val repository: MarvelReposito
         _isChipGroupVisible.value = !(isChipGroupVisible.value ?: false)
     }
 
-    override fun onClickCharacter(character: CharacterDTO) {
-        navigationEvents.postValue(Event(SearchEvents.ClickCharacterEvent(character.id!!)))
+    override fun onClickCharacter(character: Character) {
+        navigationEvents.postValue(EventModel(SearchEvents.ClickCharacterEvent(character.id!!)))
     }
 
-    override fun onClickComic(comic: ComicDTO) {
-        navigationEvents.postValue(Event(SearchEvents.ClickComicEvent(comic.id!!)))
+    override fun onClickComic(comic: Comic) {
+        navigationEvents.postValue(EventModel(SearchEvents.ClickComicEvent(comic.id!!)))
     }
 
-    override fun onEventClick(event: EventDTO) {
-        navigationEvents.postValue(Event(SearchEvents.ClickEventEvent(event.id!!)))
+    override fun onEventClick(event: Event) {
+        navigationEvents.postValue(EventModel(SearchEvents.ClickEventEvent(event.id!!)))
     }
 
-    override fun onClickSeries(series: SeriesDTO) {
-        navigationEvents.postValue(Event(SearchEvents.ClickSeriesEvent(series.id)))
+    override fun onClickSeries(series: Series) {
+        navigationEvents.postValue(EventModel(SearchEvents.ClickSeriesEvent(series.id)))
     }
 
 

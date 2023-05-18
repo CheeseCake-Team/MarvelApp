@@ -3,19 +3,20 @@ package com.abaferastech.marvelapp.ui.series.seriesDetails
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentSeriesDetailsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
-class SeriesDetailsFragment : BaseFragment<FragmentSeriesDetailsBinding, SeriesDetailsViewModel>() {
+@AndroidEntryPoint
 
-    override val layoutIdFragment: Int
-        get() = R.layout.fragment_series_details
-    override val viewModelClass: Class<SeriesDetailsViewModel>
-        get() = SeriesDetailsViewModel::class.java
+class SeriesDetailsFragment : BaseFragment<FragmentSeriesDetailsBinding>() {
+
+    override val layoutIdFragment = R.layout.fragment_series_details
+    override val viewModel: SeriesDetailsViewModel by viewModels()
 
     override fun onResume() {
         super.onResume()
@@ -33,12 +34,12 @@ class SeriesDetailsFragment : BaseFragment<FragmentSeriesDetailsBinding, SeriesD
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        viewModel.getSeriesById()
 
-        /*viewModel.getSeriesById()
-        init()*/
+        init()
     }
 
-    /*private fun init() {
+    private fun init() {
         val adapter = SeriesDetailsFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
@@ -56,5 +57,5 @@ class SeriesDetailsFragment : BaseFragment<FragmentSeriesDetailsBinding, SeriesD
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
-    }*/
+    }
 }

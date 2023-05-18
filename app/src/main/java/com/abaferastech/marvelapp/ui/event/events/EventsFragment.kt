@@ -3,6 +3,7 @@ package com.abaferastech.marvelapp.ui.event.events
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.abaferastech.marvelapp.R
@@ -12,16 +13,18 @@ import com.abaferastech.marvelapp.ui.character.characterDetails.CharacterDetails
 import com.abaferastech.marvelapp.ui.creator.creatorsDetails.CreatorDetailsFragmentDirections
 import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
-import com.abaferastech.marvelapp.utilities.Constants.PUT_TYPE
-import com.abaferastech.marvelapp.utilities.Constants.TYPE_ID
+import com.abaferastech.marvelapp.util.Constants.PUT_TYPE
+import com.abaferastech.marvelapp.util.Constants.TYPE_ID
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 
 class EventsFragment :
-    BaseFragment<FragmentEventsBinding, EventsViewModel>() {
+    BaseFragment<FragmentEventsBinding>() {
 
     override val layoutIdFragment = R.layout.fragment_events
 
-    override val viewModelClass = EventsViewModel::class.java
+    override val viewModel: EventsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -33,7 +36,7 @@ class EventsFragment :
     }
 
     private fun setupAdapter() {
-        val adapter = EventAdapter(emptyList(), viewModel)
+        val adapter = EventAdapter(viewModel)
         binding.recyclerViewEvents.adapter = adapter
     }
 
@@ -69,8 +72,10 @@ class EventsFragment :
         return when (arguments?.getParcelable<TYPE>(PUT_TYPE)) {
             TYPE.CHARACTER -> CharacterDetailsFragmentDirections
                 .actionCharacterFragmentToEventFragment(event.eventID)
+
             TYPE.CREATOR -> CreatorDetailsFragmentDirections
                 .actionCreatorDetailsFragmentToEventFragment(event.eventID)
+
             else -> EventsFragmentDirections
                 .actionEventsFragmentToEventFragment(event.eventID)
         }

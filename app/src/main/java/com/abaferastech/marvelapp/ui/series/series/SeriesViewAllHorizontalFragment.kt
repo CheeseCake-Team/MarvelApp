@@ -2,6 +2,7 @@ package com.abaferastech.marvelapp.ui.series.series
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import com.abaferastech.marvelapp.R
@@ -14,14 +15,17 @@ import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesEvents
 import com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllFragmentDirections
 import com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllViewModel
-import com.abaferastech.marvelapp.utilities.Constants
+import com.abaferastech.marvelapp.util.Constants
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 
 class SeriesViewAllHorizontalFragment :
-    BaseFragment<FragmentSeriesViewAllHorizontalBinding, SeriesViewAllViewModel>() {
+    BaseFragment<FragmentSeriesViewAllHorizontalBinding>() {
 
     override val layoutIdFragment = R.layout.fragment_series_view_all_horizontal
 
-    override val viewModelClass = SeriesViewAllViewModel::class.java
+    override val viewModel: SeriesViewAllViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -44,6 +48,7 @@ class SeriesViewAllHorizontalFragment :
         val action = when (event) {
             is SeriesEvents.ClickSeriesEvent ->
                 navDirections(event)
+
             null -> null
         }
         action?.let { it1 -> findNavController().navigate(it1) }
@@ -54,6 +59,7 @@ class SeriesViewAllHorizontalFragment :
         return when (arguments?.getParcelable<TYPE>(Constants.PUT_TYPE)) {
             TYPE.CREATOR -> CreatorDetailsFragmentDirections
                 .actionCreatorDetailsFragmentToSeriesDetailsFragment2(event.seriesID)
+
             else -> SeriesViewAllFragmentDirections
                 .actionSeriesViewAllFragmentToSeriesDetailsFragment(event.seriesID)
         }
@@ -61,7 +67,7 @@ class SeriesViewAllHorizontalFragment :
 
 
     private fun setupAdapter() {
-        val adapter = SeriesHorizontalAdapter(emptyList(), viewModel)
+        val adapter = SeriesHorizontalAdapter(viewModel)
         binding.recyclerViewSeries.adapter = adapter
     }
 

@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="dataItem"
-            type="com.abaferastech.marvelapp.ui.model.DataItem" />
+            name="tagItem"
+            type="com.abaferastech.marvelapp.ui.model.Tag" />
 
         <variable
             name="listener"
@@ -27,8 +27,8 @@
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tagTitle="@{dataItem}"
-            tools:text="title" />
+            android:text="@{tagItem.title}"
+             />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler_view_tag_data"
@@ -39,7 +39,7 @@
             android:padding="@dimen/space_12dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintTop_toBottomOf="@+id/text_view_tag_title"
-            app:setAdapter="@{dataItem}"
+            app:items="@{tagItem.resourcesData}"
             tools:listitem="@layout/item_comic"
            />
 
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:drawableEnd="@drawable/ic_arrow_forward"
             android:drawableTint="@color/md_theme_onBackground"
-            android:onClick="@{() -> listener.onNavigate(dataItem)}"
+            android:onClick="@{() -> listener.onNavigate(tagItem.id)}"
             android:text="@string/see_all"
             android:textColor="@color/md_theme_onBackground"
             app:layout_constraintBaseline_toBaselineOf="@+id/text_view_tag_title"

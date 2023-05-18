@@ -1,29 +1,35 @@
 package com.abaferastech.marvelapp.ui.creator.creatorsDetails
 
 import android.os.Bundle
+import android.os.Parcel
+import android.os.Parcelable
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentCreatorDetailsBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 
-class CreatorDetailsFragment :
-    BaseFragment<FragmentCreatorDetailsBinding, CreatorDetailsViewModel>() {
+class CreatorDetailsFragment() :
+    BaseFragment<FragmentCreatorDetailsBinding>(), Parcelable {
 
     override val layoutIdFragment = R.layout.fragment_creator_details
-    override val viewModelClass = CreatorDetailsViewModel::class.java
+    override val viewModel: CreatorDetailsViewModel by viewModels()
 
+    constructor(parcel: Parcel) : this() {
+    }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        /*viewModel.getMarvelCreator()
-        init()*/
+        viewModel.getMarvelCreator()
+        init()
 
     }
 
@@ -42,7 +48,7 @@ class CreatorDetailsFragment :
         }
     }
 
-   /* private fun init() {
+    private fun init() {
         val adapter = CreatorFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
@@ -61,5 +67,23 @@ class CreatorDetailsFragment :
             findNavController().navigateUp()
         }
     }
-*/
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<CreatorDetailsFragment> {
+        override fun createFromParcel(parcel: Parcel): CreatorDetailsFragment {
+            return CreatorDetailsFragment(parcel)
+        }
+
+        override fun newArray(size: Int): Array<CreatorDetailsFragment?> {
+            return arrayOfNulls(size)
+        }
+    }
+
 }

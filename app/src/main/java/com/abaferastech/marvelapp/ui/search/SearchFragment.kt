@@ -3,6 +3,7 @@ package com.abaferastech.marvelapp.ui.search
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,12 +16,13 @@ import com.abaferastech.marvelapp.ui.event.events.EventAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesAdapter
 import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
+import dagger.hilt.android.AndroidEntryPoint
 
-class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
-    override val layoutIdFragment: Int
-        get() = R.layout.fragment_search
-    override val viewModelClass: Class<SearchViewModel>
-        get() = SearchViewModel::class.java
+@AndroidEntryPoint
+
+class SearchFragment : BaseFragment<FragmentSearchBinding>() {
+    override val layoutIdFragment = R.layout.fragment_search
+    override val viewModel: SearchViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -43,12 +45,16 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
         val action = when (event) {
             is SearchEvents.ClickCharacterEvent -> SearchFragmentDirections
                 .actionSearchFragmentToCharacterFragment(event.characterID)
+
             is SearchEvents.ClickComicEvent -> SearchFragmentDirections
                 .actionSearchFragmentToComicDetailsFragment(event.comicID)
+
             is SearchEvents.ClickEventEvent -> SearchFragmentDirections
                 .actionSearchFragmentToEventFragment(event.eventID)
+
             is SearchEvents.ClickSeriesEvent -> SearchFragmentDirections
                 .actionSearchFragmentToSeriesDetailsFragment(event.seriesID)
+
             null -> null
         }
         action?.let { it1 -> findNavController().navigate(it1) }
@@ -56,10 +62,10 @@ class SearchFragment : BaseFragment<FragmentSearchBinding, SearchViewModel>() {
 
     private fun setAdapter(it: TYPE?) {
         val adapter = when (it) {
-            TYPE.CHARACTER -> CharactersAdapter(emptyList(), viewModel)
-            TYPE.EVENT -> EventAdapter(emptyList(), viewModel)
-            TYPE.SERIES -> SeriesAdapter(emptyList(), viewModel)
-            else -> ComicsAdapter(emptyList(), viewModel)
+            TYPE.CHARACTER -> CharactersAdapter(viewModel)
+            TYPE.EVENT -> EventAdapter(viewModel)
+            TYPE.SERIES -> SeriesAdapter(viewModel)
+            else -> ComicsAdapter(viewModel)
         }
         binding.recyclerViewSearch.adapter = adapter
         binding.recyclerViewSearch.layoutManager = when (it) {

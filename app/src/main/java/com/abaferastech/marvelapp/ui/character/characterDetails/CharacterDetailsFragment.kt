@@ -3,24 +3,30 @@ package com.abaferastech.marvelapp.ui.character.characterDetails
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentCharacterBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
+import com.abaferastech.marvelapp.ui.home.HomeViewModel
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
 
 class CharacterDetailsFragment :
-    BaseFragment<FragmentCharacterBinding, CharacterDetailsViewModel>() {
+    BaseFragment<FragmentCharacterBinding>() {
 
     override val layoutIdFragment = R.layout.fragment_character
-    override val viewModelClass = CharacterDetailsViewModel::class.java
+    override val viewModel: CharacterDetailsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.getSingleCharacter()
-        //init()
+        init()
     }
 
     override fun onResume() {
@@ -37,7 +43,7 @@ class CharacterDetailsFragment :
         }
     }
 
-    /*private fun init() {
+    private fun init() {
         val adapter = CharacterFragmentPageAdapter(
             requireActivity().supportFragmentManager,
             lifecycle,
@@ -55,5 +61,5 @@ class CharacterDetailsFragment :
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()
         }
-    }*/
+    }
 }

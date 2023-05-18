@@ -1,6 +1,6 @@
 package com.abaferastech.marvelapp.di
 
-import com.abaferastech.marvelapp.data.local.database.MarvelDatabase
+import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import dagger.Module
@@ -16,9 +16,9 @@ object MarvelRepositoryModule {
 
     @Provides
     @Singleton
-    fun provideMarvelRepository(database: MarvelDatabase
-                                ,apiService: MarvelApiService):MarvelRepository
-    {
-        return MarvelRepository(database,apiService)
+    fun provideMarvelRepository(characterDao: CharacterDao, apiService: MarvelApiService)
+            : MarvelRepository {
+        return MarvelRepository(characterDao, apiService)
     }
+
 }
