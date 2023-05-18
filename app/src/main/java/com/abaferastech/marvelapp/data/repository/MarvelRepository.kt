@@ -43,6 +43,7 @@ class MarvelRepository @Inject constructor(
         return wrapResponseWithState { apiService.searchInSeries(query) }
     }
 
+
     fun getSingleCharacter(characterId: Int): Single<UIState<CharacterDTO>> {
         return wrapResponseWithState { apiService.getSingleCharacter(characterId) }.mapListToSingleItem()
     }
@@ -51,9 +52,17 @@ class MarvelRepository @Inject constructor(
         return wrapResponseWithState { apiService.getEventsById(eventsId) }.mapListToSingleItem()
     }
 
-    fun getSingleSeries(seriesId: Int): Single<UIState<SeriesDTO>> {
-        return wrapResponseWithState { apiService.getSingleSeries(seriesId) }.mapListToSingleItem()
+
+    fun getSingleSeries(seriesId: Int): Single<UIState<List<Series>>> {
+        return wrapResponseWithState { apiService.getSingleSeries(seriesId) }
+            .mapUIState(seriesMapper::map)
+
     }
+
+
+
+
+
 
     fun getSingleComic(comicsId: Int): Single<UIState<ComicDTO>> {
         return wrapResponseWithState { apiService.getSingleComic(comicsId) }.mapListToSingleItem()
@@ -95,14 +104,22 @@ class MarvelRepository @Inject constructor(
         return wrapResponseWithState { apiService.getCharacterComics(characterId) }
     }
 
-    fun getCharacterSeries(characterId: Int): Single<UIState<List<SeriesDTO>>> {
+    fun getCharacterSeries(characterId: Int): Single<UIState<List<Series>>> {
         return wrapResponseWithState { apiService.getCharacterSeries(characterId) }
+            .mapUIState(seriesMapper::map)
     }
 
 
-    fun getSeriesFullUrl(fullUrl: String): Single<UIState<List<SeriesDTO>>> {
+
+
+
+    fun getSeriesFullUrl(fullUrl: String): Single<UIState<List<Series>>> {
         return wrapResponseWithState { apiService.getSeriesFullUrl(fullUrl) }
+            .mapUIState(seriesMapper::map)
     }
+
+
+
 
     fun getSeriesComics(seriesId: Int): Single<UIState<List<ComicDTO>>> {
         return wrapResponseWithState { apiService.getSeriesComics(seriesId) }
@@ -148,13 +165,20 @@ class MarvelRepository @Inject constructor(
         return wrapResponseWithState { apiService.getComicCharacters(comicsId) }
     }
 
-    fun getComicSeries(comicsId: Int): Single<UIState<List<SeriesDTO>>> {
+    fun getComicSeries(comicsId: Int): Single<UIState<List<Series>>> {
         return wrapResponseWithState { apiService.getComicSeries(comicsId) }
+            .mapUIState(seriesMapper::map)
     }
 
-    fun getEventSeries(comicsId: Int): Single<UIState<List<SeriesDTO>>> {
+
+
+
+    fun getEventSeries(comicsId: Int): Single<UIState<List<Series>>> {
         return wrapResponseWithState { apiService.getEventSeries(comicsId) }
+            .mapUIState(seriesMapper::map)
     }
+
+
 
     fun getComicCreators(comicsId: Int): Single<UIState<List<CreatorDTO>>> {
         return wrapResponseWithState { apiService.getComicCreators(comicsId) }
@@ -172,8 +196,9 @@ class MarvelRepository @Inject constructor(
         return wrapResponseWithState { apiService.getCreatorComics(creatorId) }
     }
 
-    fun getCreatorSeries(creatorId: Int): Single<UIState<List<SeriesDTO>>> {
+    fun getCreatorSeries(creatorId: Int): Single<UIState<List<Series>>> {
         return wrapResponseWithState { apiService.getCreatorSeries(creatorId) }
+            .mapUIState(seriesMapper::map)
     }
 
     private val characterMapper = CharacterMapper()
