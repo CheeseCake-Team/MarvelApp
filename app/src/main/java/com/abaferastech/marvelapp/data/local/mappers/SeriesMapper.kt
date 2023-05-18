@@ -4,7 +4,7 @@ import com.abaferastech.marvelapp.domain.mapper.IMapper
 import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 
-class SeriesMapper : IMapper<SeriesDTO, SeriesEntity> {
+class SeriesMapper : IMapper<List<SeriesDTO>, List<SeriesEntity>> {
     override fun map(input: List<SeriesDTO>): List<SeriesEntity> {
         return input.map { SeriesDTO ->
             SeriesEntity(
