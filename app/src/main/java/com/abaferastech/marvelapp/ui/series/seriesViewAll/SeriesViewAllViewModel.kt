@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
+import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.UIState
@@ -15,8 +16,8 @@ import javax.inject.Inject
 class SeriesViewAllViewModel @Inject constructor(val repository: MarvelRepository) :
     BaseViewModel(), SeriesViewAllInteractionListener {
 
-    private val _seriesViewAll = MutableLiveData<UIState<List<SeriesDTO>>>()
-    val seriesViewAll: LiveData<UIState<List<SeriesDTO>>> get() = _seriesViewAll
+    private val _seriesViewAll = MutableLiveData<UIState<List<Series>>>()
+    val seriesViewAll: LiveData<UIState<List<Series>>> get() = _seriesViewAll
 
     val navigationEvents = MutableLiveData<Event<SeriesEvents>>()
 
