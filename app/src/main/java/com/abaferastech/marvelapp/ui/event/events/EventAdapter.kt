@@ -6,7 +6,7 @@ import com.abaferastech.marvelapp.domain.models.Event
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 
 class EventAdapter(listener: EventsInteractionListener) :
-    BaseAdapter<EventDTO>(listener) {
+    BaseAdapter<Event>(listener) {
     override val layoutId = R.layout.item_events
 }
 

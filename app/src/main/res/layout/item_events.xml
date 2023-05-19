@@ -8,7 +8,7 @@
 
         <variable
             name="item"
-            type="com.abaferastech.marvelapp.data.remote.response.EventDTO"/>
+            type="com.abaferastech.marvelapp.domain.models.Event"/>
 
         <variable
             name="listener"
@@ -35,10 +35,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/event_image_view_height"
                 android:scaleType="centerCrop"
-                app:imageUrl="@{item.thumbnail}"
+                app:imageUrl="@{item.imageUri}"
                 android:onClick="@{() -> listener.onEventClick(item)}"
                 android:foreground="@drawable/gradiant"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
                 android:contentDescription="@string/event"
                 tools:srcCompat="@android:mipmap/sym_def_app_icon" />
 

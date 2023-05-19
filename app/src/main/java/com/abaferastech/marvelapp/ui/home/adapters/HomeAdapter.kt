@@ -8,7 +8,6 @@ import com.abaferastech.marvelapp.databinding.ItemHeaderViewPagerBinding
 import com.abaferastech.marvelapp.databinding.ItemTagBinding
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
-import com.abaferastech.marvelapp.ui.character.characters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.model.DataItem
 import com.zhpan.indicator.enums.IndicatorStyle

@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="com.abaferastech.marvelapp.data.remote.response.SeriesDTO" />
+            type="com.abaferastech.marvelapp.domain.models.Series" />
 
         <variable
             name="listener"
@@ -30,7 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="220dp"
                 android:scaleType="fitXY"
-                app:imageUrl="@{item.thumbnail}"
+                app:imageUrl="@{item.imageUri}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"

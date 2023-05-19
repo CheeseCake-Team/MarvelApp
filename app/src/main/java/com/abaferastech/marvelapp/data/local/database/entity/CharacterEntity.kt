@@ -1,7 +1,9 @@
 package com.abaferastech.marvelapp.data.local.database.entity
 
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
+import androidx.room.util.TableInfo
 
 @Entity("CHARACTER_TABLE")
 data class CharacterEntity(

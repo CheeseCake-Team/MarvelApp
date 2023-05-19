@@ -6,33 +6,40 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.abaferastech.marvelapp.data.local.database.entity.CharacterEntity
 import com.abaferastech.marvelapp.data.local.database.entity.ComicEntity
+import com.abaferastech.marvelapp.data.local.database.entity.EventEntity
 import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.core.Observable
+
 
 @Dao
 interface MarvelDao {
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertCharacterList(series: List<CharacterEntity>): Completable
+
 
     @Query("SELECT * FROM CHARACTER_TABLE")
-    fun getCharacters(): Single<List<CharacterEntity>>
+    fun getAllCharacters(): List<CharacterEntity>
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertComicList(series: List<ComicEntity>): Completable
+
+    @Query("SELECT * FROM COMIC_TABLE")
+    fun getAllComics(): Observable<List<ComicEntity>>
+
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertEventList(series: List<EventEntity>): Completable
+
+    @Query("SELECT * FROM EVENT_TABLE")
+    fun getAllEvents(): Observable<List<EventEntity>>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertSeriesList(series: List<SeriesEntity>): Completable
 
 
     @Query("SELECT * FROM SERIES_TABLE")
-    fun getSeries(): Single<List<SeriesEntity>>
-
-
-    @Query("SELECT * FROM COMIC_TABLE")
-    fun getComics(): Single<List<ComicEntity>>
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCharacters(series: List<CharacterEntity>): Completable
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertComics(series: List<ComicEntity>): Completable
-
-
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertSeries(series: List<SeriesEntity>): Completable
-
+    fun getAllSeries(): Observable<List<SeriesEntity>>
 
 }
