@@ -12,7 +12,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 @HiltViewModel
 
-class ComicsViewModel@Inject constructor(val repository:MarvelRepository) : BaseViewModel(), ComicsInteractionListener {
+class ComicsViewModel @Inject constructor( val repository:MarvelRepository) : BaseViewModel(), ComicsInteractionListener {
 
 
     private val _comics = MutableLiveData<UIState<List<Comic>>>()
