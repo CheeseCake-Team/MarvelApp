@@ -93,12 +93,14 @@
             app:lottie_rawRes="@raw/lottie_error"
             app:showWhenError="@{viewModel.series}" />
 
+
         <Button
             android:id="@+id/button_refresh"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:text="@string/refresh"
             android:layout_marginTop="@dimen/space_16dp"
+            android:onClick="@{()->viewModel.refresh()}"
             app:layout_constraintEnd_toEndOf="@+id/lottie_error"
             app:layout_constraintStart_toStartOf="@+id/lottie_error"
             app:layout_constraintTop_toBottomOf="@+id/lottie_error"
