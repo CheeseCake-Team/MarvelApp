@@ -19,4 +19,5 @@
     <string name="events">Events</string>
     <string name="no_data_found">No Data Found</string>
     <string name="type_here">Type Here</string>
+    <string name="refresh">Refresh</string>
 </resources>
