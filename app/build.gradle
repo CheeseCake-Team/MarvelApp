@@ -89,6 +89,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
 
     implementation "com.github.bumptech.glide:glide:4.15.1"
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
     implementation 'com.airbnb.android:lottie:6.0.0'
 
 
@@ -133,8 +134,6 @@ dependencies {
 
     def work_version = "2.8.1"
     implementation "androidx.work:work-runtime-ktx:$work_version"
-    // Kotlin + coroutines
-    implementation "androidx.work:work-runtime-ktx:$work_version"
     // optional - RxJava2 support
     implementation "androidx.work:work-rxjava2:$work_version"
     // optional - GCMNetworkManager support
@@ -143,6 +142,11 @@ dependencies {
     androidTestImplementation "androidx.work:work-testing:$work_version"
     // optional - Multiprocess support
     implementation "androidx.work:work-multiprocess:$work_version"
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+    implementation 'androidx.hilt:hilt-work:1.0.0'
+    kapt 'androidx.hilt:hilt-compiler:1.0.0'
+    implementation "androidx.startup:startup-runtime:1.1.1"
 }
 
 kapt {

@@ -4,6 +4,9 @@ import android.os.Parcelable
 import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
 import com.abaferastech.marvelapp.data.remote.response.ComicDTO
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
@@ -20,14 +23,18 @@ import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.Tag
 import com.abaferastech.marvelapp.ui.model.UIState
+import com.abaferastech.marvelapp.work.HomeUpdaterWorker
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
+import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
+
 @HiltViewModel
-class HomeViewModel @Inject constructor(val repository: MarvelRepository) : BaseViewModel(),
+class HomeViewModel @Inject constructor(val repository: MarvelRepository,
+private val workManager: WorkManager) : BaseViewModel(),
     ComicsInteractionListener, CharactersInteractionListener, SeriesInteractionListener,
     NavigationInteractionListener {
 
@@ -46,7 +53,7 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
     val navigationEvents = MutableLiveData<Event<HomeEvent>>()
 
 
-    init {
+    private fun addSources(){
         _homeData.postValue(UIState.Loading)
 
         _homeData.addSource(_characters) {
@@ -58,12 +65,25 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
         _homeData.addSource(_series) {
             updateSeriesDataItem()
         }
-//
-//        repository.refreshCharacters()
-//        repository.refreshComics()
-//        repository.refreshSeries()
+    }
 
+    private fun initWorker(){
+        val workRequest = PeriodicWorkRequestBuilder<HomeUpdaterWorker>(
+            200,
+            TimeUnit.MILLISECONDS
+        )
+            .addTag(HomeUpdaterWorker.WORK_TAG)
+            .build()
 
+        workManager.enqueueUniquePeriodicWork(
+                HomeUpdaterWorker.WORK_TAG,
+                ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE,
+                workRequest
+            )
+    }
+
+    init {
+        addSources()
         repository.getCachedCharacter()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
@@ -82,6 +102,12 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
             .subscribe(::onsuccessComic)
             .addTo(compositeDisposable)
 
+
+        requestRepoData()
+        initWorker()
+    }
+
+    fun requestRepoData(){
         repository.getAllCharacters().applySchedulersAndPostUIStates(_characters::postValue)
         repository.getAllComics().applySchedulersAndPostUIStates(_comics::postValue)
         repository.getAllSeries().applySchedulersAndPostUIStates(_series::postValue)
