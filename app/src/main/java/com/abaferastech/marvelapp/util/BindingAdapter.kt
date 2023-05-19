@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.remote.response.Thumbnail
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.character.characters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
@@ -113,4 +112,13 @@ fun <T> showWhenSuccess(view: View, UiState: UIState<T>?) {
     if (UiState is UIState.Success) view.visibility = View.VISIBLE
     else view.visibility = View.GONE
 }
+
+//@BindingAdapter("app:iconCheckedState")
+//fun setIconCheckedState(checkBox: CheckBox,isClicked: MutableLiveData<Boolean>) {
+//    if (!(checkBox.isChecked) && isClicked.value != null) {
+//        isClicked.postValue(false)
+//    } else {
+//        isClicked.postValue(true)
+//    }
+//}
 

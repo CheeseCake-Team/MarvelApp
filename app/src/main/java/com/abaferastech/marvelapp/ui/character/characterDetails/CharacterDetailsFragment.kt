@@ -2,6 +2,8 @@ package com.abaferastech.marvelapp.ui.character.characterDetails
 
 import android.os.Bundle
 import android.view.View
+import android.widget.CheckBox
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
@@ -24,6 +26,24 @@ class CharacterDetailsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.buttonFavourites.setOnClickListener {
+            if ((it as CheckBox).isChecked) {
+                viewModel.isFavouriteClicked.postValue(true)
+            } else {
+                viewModel.isFavouriteClicked.postValue(false)
+            }
+        }
+
+        viewModel.isFavouriteClicked.observe(viewLifecycleOwner) { isClicked ->
+            isClicked?.let {
+                if (it) {
+                    Toast.makeText(requireContext(), "added to room", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(requireContext(), "removed from room", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
 
         viewModel.getSingleCharacter()
         init()

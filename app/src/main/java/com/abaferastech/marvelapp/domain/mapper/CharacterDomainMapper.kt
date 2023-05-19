@@ -7,7 +7,7 @@ import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.domain.models.Series
 
 class CharacterDomainMapper : IMapper<List<CharacterDTO>, List<Character>> {
-    override fun map(input: List<CharacterDTO>):List< Character> {
+    override fun map(input: List<CharacterDTO>):List<Character> {
         return input.map { characterDTO ->
             Character(
             id = characterDTO.id!!,
