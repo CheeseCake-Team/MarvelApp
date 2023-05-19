@@ -1,4 +1,5 @@
 package com.abaferastech.marvelapp.data.repository
+import android.util.Log
 import com.abaferastech.marvelapp.data.local.database.MarvelDatabase
 import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
 import com.abaferastech.marvelapp.data.local.mappers.CharacterMapper
@@ -22,6 +23,7 @@ import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.model.UIState
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
+import java.io.IOException
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -253,16 +255,23 @@ class MarvelRepository @Inject constructor(
 
     private fun <T> wrapResponseWithState(request: () -> Single<Response<BaseResponse<T>>>):
             Single<UIState<List<T>>> {
-        return request().map {
-            if (it.isSuccessful) {
-                UIState.Success(it.body()?.data?.results)
+        return request().map { response ->
+            if (response.isSuccessful) {
+                UIState.Success(response.body()?.data?.results)
             } else {
-                UIState.Error(it.message())
+                UIState.Error(response.message())
+            }
+        }.onErrorReturn { t ->
+            Log.e("mujtaba", "1", )
+            if (t is IOException) {
+                UIState.Error("Network error. Please check your internet connection.")
+            } else {
+                UIState.Error("An unexpected error occurred.")
             }
         }
     }
 
-    private fun <T> Single<UIState<List<T>>>.mapListToSingleItem(): Single<UIState<T>> {
+        private fun <T> Single<UIState<List<T>>>.mapListToSingleItem(): Single<UIState<T>> {
         return this.map { state ->
             when (state) {
                 is UIState.Success -> {
