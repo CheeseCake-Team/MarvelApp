@@ -37,11 +37,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space_16dp"
             android:layout_marginBottom="@dimen/space_16dp"
-            android:maxLines="1"
             android:ellipsize="end"
+            android:maxLines="1"
             android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/button_favourites"
             app:layout_constraintStart_toStartOf="parent"
             app:text="@{viewModel.comics.toData().title}"
             tools:text="TextView" />
@@ -83,6 +83,17 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+
+        <CheckBox
+            android:id="@+id/button_favourites"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:button="@drawable/selector_favourite_item"
+            app:layout_constraintBottom_toBottomOf="@id/text_comic_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_comic_title" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 
