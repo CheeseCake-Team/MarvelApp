@@ -15,8 +15,7 @@ class ComicMapper(private val searchQueryEntity: SearchQueryEntity?) : IMapper<C
             price = input.prices?.get(0)?.price,
             pageCount = input.pageCount,
             modified = input.modified,
-            imageUri = input.thumbnail?.path + input.thumbnail?.extension,
-            searchID = searchQueryEntity?.id
+            imageUri = input.thumbnail?.path + input.thumbnail?.extension
         )
     }
 }

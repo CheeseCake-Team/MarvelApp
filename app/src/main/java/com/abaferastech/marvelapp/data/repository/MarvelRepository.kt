@@ -1,8 +1,9 @@
 package com.abaferastech.marvelapp.data.repository
 
+import com.abaferastech.marvelapp.data.local.database.daos.SearchQueryDao
+import com.abaferastech.marvelapp.data.local.database.entity.SearchQueryEntity
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import com.abaferastech.marvelapp.data.remote.response.BaseResponse
-import com.abaferastech.marvelapp.data.remote.response.ComicDTO
 import com.abaferastech.marvelapp.domain.mapper.CharacterDomainMapper
 import com.abaferastech.marvelapp.domain.mapper.ComicDominMapper
 import com.abaferastech.marvelapp.domain.mapper.CreatorMapper
@@ -12,10 +13,10 @@ import com.abaferastech.marvelapp.domain.models.Character
 import com.abaferastech.marvelapp.domain.models.Comic
 import com.abaferastech.marvelapp.domain.models.Creator
 import com.abaferastech.marvelapp.domain.models.Event
+import com.abaferastech.marvelapp.domain.models.SearchQuery
 import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.model.UIState
 import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import javax.inject.Inject
@@ -26,16 +27,20 @@ class MarvelRepository @Inject constructor(
     private val seriesMapper: SeriesMapper,
     private val creatorMapper: CreatorMapper,
     private val eventMapper: EventMapper,
-    private val characterDomainMapper: CharacterDomainMapper
+    private val characterDomainMapper: CharacterDomainMapper,
+    private val searchQueryDao: SearchQueryDao
 ) : IMarvelRepository {
-    private val searchQueryDao: SearchQueryDao,
 
-    fun getAllSearchQueries(): Observable<List<SearchQueryEntity>> {
-        return searchQueryDao.getAllSearchQueries()
+
+    fun SearchQuery.asSearchQueryEntity() = SearchQueryEntity(id, searchQuery)
+    fun SearchQueryEntity.asSearchQuery() = SearchQuery(id, searchQuery)
+    fun getAllSearchQueries(): Observable<List<SearchQuery>> {
+        return searchQueryDao.getAllSearchQueries().map { it.map { q -> q.asSearchQuery() } }
     }
 
-    fun deleteSearchQuery(searchQueryEntity: SearchQueryEntity) {
-        searchQueryDao.delete(searchQueryEntity)
+    fun deleteSearchQuery(searchQueryEntity: SearchQuery) {
+
+        searchQueryDao.delete(searchQueryEntity.asSearchQueryEntity())
     }
 
     fun insertSearchQuery(searchQuery: String) {

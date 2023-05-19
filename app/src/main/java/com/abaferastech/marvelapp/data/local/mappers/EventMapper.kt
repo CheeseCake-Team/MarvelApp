@@ -12,7 +12,7 @@ class EventMapper: IMapper<List<EventDTO>, List<EventEntity>> {
                 title = eventDTO.title,
                 description = eventDTO.description,
                 modified = eventDTO.modified,
-                imageUri = eventDTO.thumbnail?.path + eventDTO.thumbnail?.extension
+                imageUri = eventDTO.thumbnail?.path + eventDTO.thumbnail?.extension,
             )
         }
     }

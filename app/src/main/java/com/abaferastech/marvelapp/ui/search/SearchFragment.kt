@@ -65,7 +65,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         val clickSearchEventObserver = EventObserver<SearchEvents> { event ->
             handleSearchEvent(event)
         }
-        viewModel.searchEvents.observe(viewLifecycleOwner, clickSearchEventObserver)
+        viewModel.navigationEvents.observe(viewLifecycleOwner, clickSearchEventObserver)
     }
 
     private fun handleSearchEvent(event: SearchEvents?) {

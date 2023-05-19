@@ -11,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.remote.response.Thumbnail
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
-import com.abaferastech.marvelapp.ui.character.characters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
 import com.abaferastech.marvelapp.ui.event.events.EventAdapter
+import com.abaferastech.marvelapp.ui.home.adapters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesAdapter
 import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.SearchItem
@@ -22,20 +22,14 @@ import com.bumptech.glide.Glide
 
 
 @BindingAdapter("app:imageUrl")
-fun ImageView.setImageFromUrl(thumbnail: Thumbnail?) {
-    thumbnail?.path?.let { path ->
-        val imageUrl = if (path.contains("image_not_available")) {
-            R.drawable.no_image
-        } else {
-            "${thumbnail?.path}.${thumbnail?.extension}"
-        }
-        Glide.with(this)
-            .load(imageUrl)
-            .placeholder(R.drawable.no_image)
-            .error(R.drawable.no_image)
-            .centerCrop()
-            .into(this)
-    }
+fun ImageView.setImageFromUrl(imageUri: String?) {
+    val imageUrl = imageUri.takeIf { !it.isNullOrEmpty() && !it.contains("image_not_available") } ?: R.drawable.no_image
+    Glide.with(this)
+        .load(imageUrl)
+        .placeholder(R.drawable.no_image)
+        .error(R.drawable.no_image)
+        .centerCrop()
+        .into(this)
 }
 
 @BindingAdapter(value = ["app:items"])
@@ -52,10 +46,10 @@ fun showLoading(view: ProgressBar, isShowing: Boolean) {
 fun setSearchRecyclerViewItems(view: RecyclerView, items: SearchItem?) {
     items.let {
         when (items) {
-            is SearchItem.Character -> (view.adapter as CharactersAdapter?)?.setItems(items.items)
-            is SearchItem.Event -> (view.adapter as EventAdapter?)?.setItems(items.items)
-            is SearchItem.Series -> (view.adapter as SeriesAdapter?)?.setItems(items.items)
-            is SearchItem.Comic -> (view.adapter as ComicsAdapter?)?.setItems(items.items)
+            is SearchItem.CharacterItem -> (view.adapter as CharactersAdapter?)?.setItems(items.items)
+            is SearchItem.EventItem -> (view.adapter as EventAdapter?)?.setItems(items.items)
+            is SearchItem.SeriesItem -> (view.adapter as SeriesAdapter?)?.setItems(items.items)
+            is SearchItem.ComicItem -> (view.adapter as ComicsAdapter?)?.setItems(items.items)
             else -> {}
         }
     }

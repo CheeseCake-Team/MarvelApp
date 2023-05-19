@@ -28,6 +28,7 @@ object NetworkModule {
         rxJava3CallAdapterFactory: RxJava3CallAdapterFactory
     ): MarvelApiService {
         val retrofit = Retrofit.Builder()
+
             .baseUrl(BuildConfig.BASE_URL)
             .addCallAdapterFactory(rxJava3CallAdapterFactory)
             .addConverterFactory(gsonConverterFactory)
