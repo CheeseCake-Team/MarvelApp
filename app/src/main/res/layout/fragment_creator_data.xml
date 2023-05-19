@@ -30,7 +30,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:showWhenSuccess="@{viewModel.creator}"/>
+                app:showWhenSuccess="@{viewModel.creator}" />
 
             <TextView
                 android:id="@+id/text_view_creator_modified"
@@ -42,7 +42,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_creator_fullName"
-                app:showWhenSuccess="@{viewModel.creator}"/>
+                app:showWhenSuccess="@{viewModel.creator}" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:showWhenLoading="@{viewModel.creator}" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottie_error"
@@ -54,8 +64,7 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:lottie_autoPlay="true"
                 app:lottie_rawRes="@raw/lottie_error"
-                app:showWhenError="@{viewModel.creator}"
-                />
+                app:showWhenError="@{viewModel.creator}" />
 
             <Button
                 android:id="@+id/button_refresh"

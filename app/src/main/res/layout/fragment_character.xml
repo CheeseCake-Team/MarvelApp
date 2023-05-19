@@ -10,100 +10,112 @@
             type="com.abaferastech.marvelapp.ui.character.characterDetails.CharacterDetailsViewModel" />
 
     </data>
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/motion_character"
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutDescription="@xml/fragment_character_details_scene"
-        app:showWhenSuccess="@{viewModel.character}">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.utils.widget.ImageFilterView
-            android:id="@+id/image_view_comic_image2"
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/motion_character"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/single_page_image_height"
-            android:foreground="@drawable/header_details_gradient"
-            android:scaleType="centerCrop"
-            app:altSrc="@color/md_theme_surface"
-            app:imageUrl="@{viewModel.character.toData().imageUri}"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="match_parent"
+            app:layoutDescription="@xml/fragment_character_details_scene"
+            app:showWhenSuccess="@{viewModel.character}">
 
-        <TextView
-            android:id="@+id/text_character_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_16dp"
-            android:layout_marginBottom="@dimen/space_16dp"
-            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-            app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
-            app:layout_constraintTop_toTopOf="@id/back_button"
-            app:layout_constraintVertical_bias="1.0"
-            app:text="@{viewModel.character.toData().name}"
-            tools:text="TextView" />
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/image_view_comic_image2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/single_page_image_height"
+                android:foreground="@drawable/header_details_gradient"
+                android:scaleType="centerCrop"
+                app:altSrc="@color/md_theme_surface"
+                app:imageUrl="@{viewModel.character.toData().imageUri}"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
-            style="@style/Widget.Material3.TabLayout.Secondary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/view_pager"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_comic_image2"
-            app:tabGravity="fill"
-            app:tabMode="scrollable" />
+            <TextView
+                android:id="@+id/text_character_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_16dp"
+                android:layout_marginBottom="@dimen/space_16dp"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
+                app:layout_constraintTop_toTopOf="@id/back_button"
+                app:layout_constraintVertical_bias="1.0"
+                app:text="@{viewModel.character.toData().name}"
+                tools:text="TextView" />
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_layout">
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                style="@style/Widget.Material3.TabLayout.Secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toTopOf="@+id/view_pager"
+                app:layout_constraintTop_toBottomOf="@+id/image_view_comic_image2"
+                app:tabGravity="fill"
+                app:tabMode="scrollable" />
 
-        </androidx.viewpager2.widget.ViewPager2>
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tab_layout">
 
-        <Button
-            android:id="@+id/back_button"
-            style="?attr/materialIconButtonStyle"
+            </androidx.viewpager2.widget.ViewPager2>
+
+            <Button
+                android:id="@+id/back_button"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_48dp"
+                android:singleLine="true"
+                app:icon="@drawable/ic_back"
+                app:iconTint="@color/md_theme_onSurface"
+                app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_48dp"
-            android:singleLine="true"
-            app:icon="@drawable/ic_back"
-            app:iconTint="@color/md_theme_onSurface"
-            app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:showWhenLoading="@{viewModel.character}" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/lottie_error"
-        android:layout_width="@dimen/lottie_error_size"
-        android:layout_height="@dimen/lottie_error_size"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/lottie_error"
-        app:showWhenError="@{viewModel.character}" />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_error"
+            android:layout_width="@dimen/lottie_error_size"
+            android:layout_height="@dimen/lottie_error_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/lottie_error"
+            app:showWhenError="@{viewModel.character}" />
 
 
-    <Button
-        android:id="@+id/button_refresh"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:text="@string/refresh"
-        android:layout_marginTop="@dimen/space_16dp"
-        android:onClick="@{()->viewModel.refresh()}"
-        app:layout_constraintEnd_toEndOf="@+id/lottie_error"
-        app:layout_constraintStart_toStartOf="@+id/lottie_error"
-        app:layout_constraintTop_toBottomOf="@+id/lottie_error"
-        app:showWhenError="@{viewModel.character}" />
+        <Button
+            android:id="@+id/button_refresh"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:onClick="@{()->viewModel.refresh()}"
+            android:text="@string/refresh"
+            app:layout_constraintEnd_toEndOf="@+id/lottie_error"
+            app:layout_constraintStart_toStartOf="@+id/lottie_error"
+            app:layout_constraintTop_toBottomOf="@+id/lottie_error"
+            app:showWhenError="@{viewModel.character}" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

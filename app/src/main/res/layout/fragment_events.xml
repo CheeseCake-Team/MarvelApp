@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.event.events.EventsViewModel"/>
+            type="com.abaferastech.marvelapp.ui.event.events.EventsViewModel" />
 
     </data>
 
@@ -16,18 +16,19 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:paddingVertical="@dimen/space_12dp"
             android:id="@+id/recycler_view_events"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:clipToPadding="false"
+            android:paddingVertical="@dimen/space_12dp"
             app:items="@{viewModel.events.toData()}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            tools:listitem="@layout/item_events"/>
+            app:showWhenSuccess="@{viewModel.events}"
+            tools:listitem="@layout/item_events" />
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -54,9 +55,9 @@
             android:id="@+id/button_refresh"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:text="@string/refresh"
             android:layout_marginTop="@dimen/space_16dp"
             android:onClick="@{()->viewModel.getMarvelEvents()}"
+            android:text="@string/refresh"
             app:layout_constraintEnd_toEndOf="@+id/lottie_error"
             app:layout_constraintStart_toStartOf="@+id/lottie_error"
             app:layout_constraintTop_toBottomOf="@+id/lottie_error"

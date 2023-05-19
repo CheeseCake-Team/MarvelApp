@@ -23,6 +23,7 @@
             android:padding="@dimen/space_12dp"
             app:items="@{viewModel.seriesViewAll.toData()}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:showWhenSuccess="@{viewModel.seriesViewAll}"
             tools:listitem="@layout/item_series_horizontal" />
 
         <ProgressBar
@@ -50,9 +51,9 @@
             android:id="@+id/button_refresh"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:text="@string/refresh"
             android:layout_marginTop="@dimen/space_16dp"
             android:onClick="@{()->viewModel.getMarvelSeries()}"
+            android:text="@string/refresh"
             app:layout_constraintEnd_toEndOf="@+id/lottie_error"
             app:layout_constraintStart_toStartOf="@+id/lottie_error"
             app:layout_constraintTop_toBottomOf="@+id/lottie_error"

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.abaferastech.marvelapp.ui.series.seriesDetails.SeriesDetailsViewModel" />
@@ -30,8 +31,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="Title"
-                app:showWhenSuccess="@{viewModel.series}"/>
+                app:showWhenSuccess="@{viewModel.series}"
+                tools:text="Title" />
 
             <TextView
                 android:id="@+id/text_view_series_start_year"
@@ -43,8 +44,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_series_title"
-                tools:text="2012"
-                app:showWhenSuccess="@{viewModel.series}"/>
+                app:showWhenSuccess="@{viewModel.series}"
+                tools:text="2012" />
 
             <TextView
                 android:id="@+id/text_view_series_end_year"
@@ -56,8 +57,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_series_start_year"
-                tools:text="2012"
-                app:showWhenSuccess="@{viewModel.series}"/>
+                app:showWhenSuccess="@{viewModel.series}"
+                tools:text="2012" />
 
             <TextView
                 android:id="@+id/text_view_series_rating"
@@ -69,8 +70,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_series_end_year"
-                tools:text="6.7"
-                app:showWhenSuccess="@{viewModel.series}"/>
+                app:showWhenSuccess="@{viewModel.series}"
+                tools:text="6.7" />
 
             <TextView
                 android:id="@+id/text_view_series_date"
@@ -82,8 +83,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_series_rating"
-                tools:text="2012"
-                app:showWhenSuccess="@{viewModel.series}"/>
+                app:showWhenSuccess="@{viewModel.series}"
+                tools:text="2012" />
 
             <TextView
                 android:id="@+id/text_view_series_description"
@@ -95,7 +96,17 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_series_date"
-                app:showWhenSuccess="@{viewModel.series}"/>
+                app:showWhenSuccess="@{viewModel.series}" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:showWhenLoading="@{viewModel.series}" />
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/lottie_error"
@@ -113,8 +124,8 @@
                 android:id="@+id/button_refresh"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
-                android:text="@string/refresh"
                 android:layout_marginTop="@dimen/space_16dp"
+                android:text="@string/refresh"
                 app:layout_constraintEnd_toEndOf="@+id/lottie_error"
                 app:layout_constraintStart_toStartOf="@+id/lottie_error"
                 app:layout_constraintTop_toBottomOf="@+id/lottie_error"

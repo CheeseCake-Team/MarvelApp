@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
-            type="com.abaferastech.marvelapp.ui.event.eventDetails.EventViewModel"/>
+            type="com.abaferastech.marvelapp.ui.event.eventDetails.EventViewModel" />
 
     </data>
 
@@ -14,90 +15,101 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutDescription="@xml/fragment_event_scene">
-
-
-        <androidx.constraintlayout.utils.widget.ImageFilterButton
-            android:id="@+id/image_view_event_thumbnail"
+        <androidx.constraintlayout.motion.widget.MotionLayout
             android:layout_width="match_parent"
-            android:foreground="@drawable/header_details_gradient"
-            android:scaleType="centerCrop"
-            app:altSrc="@color/md_theme_surface"
-            android:layout_height="400dp"
-            app:imageUrl="@{viewModel.event.toData().imageUri}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@color/design_default_color_secondary_variant" />
-        <Button
-            android:id="@+id/back_button"
-            style="?attr/materialIconButtonStyle"
+            android:layout_height="match_parent"
+            app:layoutDescription="@xml/fragment_event_scene"
+            app:showWhenSuccess="@{viewModel.event}">
+
+
+            <androidx.constraintlayout.utils.widget.ImageFilterButton
+                android:id="@+id/image_view_event_thumbnail"
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:foreground="@drawable/header_details_gradient"
+                android:scaleType="centerCrop"
+                app:altSrc="@color/md_theme_surface"
+                app:imageUrl="@{viewModel.event.toData().imageUri}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@color/design_default_color_secondary_variant" />
+
+            <Button
+                android:id="@+id/back_button"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_48dp"
+                android:singleLine="true"
+                app:icon="@drawable/ic_back"
+                app:iconTint="@color/md_theme_onSurface"
+                app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/event_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginBottom="16dp"
+                android:ellipsize="end"
+                android:gravity="bottom|start"
+                android:maxLines="1"
+                android:text="@{viewModel.event.toData().title}"
+                android:textAppearance="@style/TextAppearance.Material3.DisplaySmall"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@id/image_view_event_thumbnail"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="Mujtaba" />
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/event_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/event_view_pager"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/event_title"
+                app:tabGravity="fill"
+                app:tabIndicatorAnimationMode="linear"
+                app:tabIndicatorGravity="bottom"
+                app:tabMode="scrollable"
+                app:tabTextColor="@color/md_theme_inverseSurface" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/event_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:clipToPadding="false"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/event_tab_layout">
+
+            </androidx.viewpager2.widget.ViewPager2>
+
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_48dp"
-            app:icon="@drawable/ic_back"
-            android:singleLine="true"
-            app:iconTint="@color/md_theme_onSurface"
-            app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-        <TextView
-            android:id="@+id/event_title"
-            android:layout_width="0dp"
-            android:layout_margin="16dp"
-            android:textSize="24sp"
-            android:ellipsize="end"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginBottom="16dp"
-            android:maxLines="1"
-            tools:text="Mujtaba"
-            android:layout_height="wrap_content"
-            android:gravity="bottom|start"
-            android:text="@{viewModel.event.toData().title}"
-            android:textAppearance="@style/TextAppearance.Material3.DisplaySmall"
-            app:layout_constraintBottom_toBottomOf="@id/image_view_event_thumbnail"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-
-
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/event_tab_layout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="8dp"
-            app:tabIndicatorAnimationMode="linear"
-            app:tabIndicatorGravity="bottom"
-            app:tabMode="scrollable"
-            app:tabGravity="fill"
-            app:layout_constraintBottom_toTopOf="@+id/event_view_pager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/event_title"
-            app:tabTextColor="@color/md_theme_inverseSurface" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/event_view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:clipToPadding="false"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/event_tab_layout">
-
-        </androidx.viewpager2.widget.ViewPager2>
-
-
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+            app:layout_constraintTop_toTopOf="parent"
+            app:showWhenLoading="@{viewModel.event}" />
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lottie_error"
@@ -116,17 +128,15 @@
             android:id="@+id/button_refresh"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:text="@string/refresh"
             android:layout_marginTop="@dimen/space_16dp"
             android:onClick="@{()->viewModel.refresh()}"
+            android:text="@string/refresh"
             app:layout_constraintEnd_toEndOf="@+id/lottie_error"
             app:layout_constraintStart_toStartOf="@+id/lottie_error"
             app:layout_constraintTop_toBottomOf="@+id/lottie_error"
             app:showWhenError="@{viewModel.event}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
 
 
 </layout>

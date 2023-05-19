@@ -22,9 +22,10 @@
             android:clipToPadding="false"
             android:padding="@dimen/space_12dp"
             app:items="@{viewModel.seriesViewAll.toData()}"
-            app:spanCount="2"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/items_series_view_all"/>
+            app:showWhenSuccess="@{viewModel.seriesViewAll}"
+            app:spanCount="2"
+            tools:listitem="@layout/items_series_view_all" />
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -51,9 +52,9 @@
             android:id="@+id/button_refresh"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:text="@string/refresh"
             android:layout_marginTop="@dimen/space_16dp"
             android:onClick="@{()->viewModel.getMarvelSeries()}"
+            android:text="@string/refresh"
             app:layout_constraintEnd_toEndOf="@+id/lottie_error"
             app:layout_constraintStart_toStartOf="@+id/lottie_error"
             app:layout_constraintTop_toBottomOf="@+id/lottie_error"
