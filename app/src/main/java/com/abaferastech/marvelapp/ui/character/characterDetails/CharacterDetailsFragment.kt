@@ -1,6 +1,7 @@
 package com.abaferastech.marvelapp.ui.character.characterDetails
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.Toast
@@ -17,7 +18,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-
 class CharacterDetailsFragment :
     BaseFragment<FragmentCharacterBinding>() {
 
@@ -26,6 +26,13 @@ class CharacterDetailsFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.allCharacters.observe(viewLifecycleOwner) { isFavourite ->
+//            if (isFavourite) {
+//                binding.buttonFavourites.isChecked = true
+//            }
+            Log.i( "onViewCreated: ","${isFavourite.toString()}")
+        }
 
         binding.buttonFavourites.setOnClickListener {
             if ((it as CheckBox).isChecked) {
@@ -38,8 +45,10 @@ class CharacterDetailsFragment :
         viewModel.isFavouriteClicked.observe(viewLifecycleOwner) { isClicked ->
             isClicked?.let {
                 if (it) {
+                    viewModel.insertCharacter()
                     Toast.makeText(requireContext(), "added to room", Toast.LENGTH_SHORT).show()
                 } else {
+                    viewModel.deleteCharacter()
                     Toast.makeText(requireContext(), "removed from room", Toast.LENGTH_SHORT).show()
                 }
             }

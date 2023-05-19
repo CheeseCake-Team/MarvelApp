@@ -1,5 +1,7 @@
 package com.abaferastech.marvelapp.data.repository
 
+import android.annotation.SuppressLint
+import android.util.Log
 import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
 import com.abaferastech.marvelapp.data.local.database.entity.CharacterEntity
 import com.abaferastech.marvelapp.data.local.mappers.CharacterMapper
@@ -17,7 +19,11 @@ import com.abaferastech.marvelapp.domain.models.Creator
 import com.abaferastech.marvelapp.domain.models.Event
 import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.model.UIState
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -49,11 +55,17 @@ class MarvelRepository @Inject constructor(
     }
 
 
-    fun getSingleCharacter(characterId: Int): Single<UIState<Character>> {
-        return wrapResponseWithState { apiService.getSingleCharacter(characterId) }.mapUIState(
-            characterDomainMapper::map
-        ).mapListToSingleItem()
-    }
+//    fun getSingleCharacter(characterId: Int): Observable<UIState<Character>> {
+//        return characterDao.getCharacterById(characterId).subscribeOn(Schedulers.io())
+//            .observeOn(Schedulers.io()).doOnSuccess { s ->
+//                s.asDomainModel()
+//            }.doOnError {
+//                wrapResponseWithState { apiService.getSingleCharacter(characterId) }.mapUIState(
+//                    characterDomainMapper::map
+//                ).mapListToSingleItem()
+//            }
+//
+//    }
 
     fun getSingleEvent(eventsId: Int): Single<UIState<Event>> {
         return wrapResponseWithState { apiService.getEventsById(eventsId) }.mapUIState(eventMapper::map)
@@ -278,9 +290,45 @@ class MarvelRepository @Inject constructor(
         characterDao.getAllCharacters()
     }
 
-    fun insertCharacter(character: CharacterEntity) {
-        characterDao.insertCharacter(character)
+    fun insertCharacter(character: Character) {
+        characterDao.insertCharacter(character.asEntityModel()).subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io()).subscribe()
     }
 
+    fun getAllEntityCharacters(): Single<List<Character>> {
+        return characterDao.getAllCharacters().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map { list -> list.map { it.asDomainModel() } }
+    }
+
+
+    @SuppressLint("CheckResult")
+    fun deleteCharacter(character: Character) {
+        characterDao.deleteCharacter(character.asEntityModel()).subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io()).subscribe()
+    }
+
+
+    fun Character.asEntityModel(): CharacterEntity {
+        return CharacterEntity(
+            id = this.id,
+            name = this.name,
+            description = this.description,
+            modified = this.modified,
+            imageUri = this.imageUri,
+            isFavourite = this.isFavourite
+        )
+    }
+
+    fun CharacterEntity.asDomainModel(): Character {
+        return Character(
+            id = this.id,
+            name = this.name,
+            description = this.description,
+            modified = this.modified,
+            imageUri = this.imageUri,
+            isFavourite = this.isFavourite
+        )
+    }
 
 }

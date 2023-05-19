@@ -1,5 +1,7 @@
 package com.abaferastech.marvelapp.ui.character.characterDetails
 
+import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -22,10 +24,48 @@ class CharacterDetailsViewModel @Inject constructor( val repository:MarvelReposi
     private val _character = MutableLiveData<UIState<Character>>()
     val character: LiveData<UIState<Character>> = _character
 
+     val allCharacters = MutableLiveData<List<Character>>()
+
+     val _isCharacterFavourite = MutableLiveData<Boolean>(false)
+    val isCharacterFavourite : LiveData<Boolean> get() = _isCharacterFavourite
+
     fun getSingleCharacter(passedId: Int? = null) {
         val characterId = passedId ?: characterArgs.characterId
         repository.getSingleCharacter(characterId)
             .applySchedulersAndPostUIStates(_character::postValue)
     }
+
+    private fun checkIfFavourite() {
+        val characterId = character.value?.toData()?.id
+        Log.i("ebrabw: ",characterId.toString())
+        _isCharacterFavourite.postValue(allCharacters.value?.any { it.id == characterId })
+    }
+
+    init {
+        getAllCharacters()
+        checkIfFavourite()
+    }
+
+    fun insertCharacter() {
+        character.value?.toData()?.apply { isFavourite = true }?.let { repository.insertCharacter(it) }
+    }
+
+    fun deleteCharacter() {
+        character.value?.toData()?.let { repository.deleteCharacter(it) }
+    }
+    @SuppressLint("CheckResult")
+    fun getAllCharacters() {
+        Log.i( "getAllCharacters: ", repository.getAllEntityCharacters().toString())
+        repository.getAllEntityCharacters().subscribe { characterList ->
+            Log.i("ebrabw", "getAllCharacters: $characterList")
+            allCharacters.postValue(characterList)
+            Log.i("ebrabw", "getAllCharacters: ${allCharacters.value}")
+
+
+        }
+    }
+
+
+
 
 }

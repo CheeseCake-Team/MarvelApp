@@ -1,6 +1,7 @@
 package com.abaferastech.marvelapp.data.local.database.daos
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -18,15 +19,15 @@ interface CharacterDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCharacterList(series: List<CharacterEntity>):Completable
 
+    @Delete
+    fun deleteCharacter(character: CharacterEntity):Completable
+
     @Update
     fun updateCharacter(character: CharacterEntity): Completable
 
     @Query("SELECT * FROM CHARACTER_TABLE")
-    fun getAllCharacters(): List<CharacterEntity>
-
-    @Query("SELECT * FROM CHARACTER_TABLE WHERE name=:name")
-    fun getCharacterByName(name: String): Single<CharacterEntity>
+    fun getAllCharacters(): Single<List<CharacterEntity>>
 
     @Query("SELECT * FROM CHARACTER_TABLE WHERE id=:id")
-    fun getCharacterById(id: Int): Single<CharacterEntity>
+    fun getCharacterById(id: Int): Observable<CharacterEntity>
 }
