@@ -29,5 +29,5 @@ interface CharacterDao {
     fun getAllCharacters(): Single<List<CharacterEntity>>
 
     @Query("SELECT * FROM CHARACTER_TABLE WHERE id=:id")
-    fun getCharacterById(id: Int): Observable<CharacterEntity>
+    fun getCharacterById(id: Int): Single<CharacterEntity>
 }

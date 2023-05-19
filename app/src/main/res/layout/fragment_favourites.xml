@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+            name="viewModel"
+            type="com.abaferastech.marvelapp.ui.favourites.FavouritesViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -15,6 +18,7 @@
          android:id="@+id/recycler_view_favourits"
          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
          android:layout_width="match_parent"
+         app:items = "@{viewModel.allCharacters}"
          android:layout_height="match_parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

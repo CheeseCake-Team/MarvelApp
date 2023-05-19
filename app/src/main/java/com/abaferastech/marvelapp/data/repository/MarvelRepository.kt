@@ -5,6 +5,7 @@ import android.util.Log
 import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
 import com.abaferastech.marvelapp.data.local.database.entity.CharacterEntity
 import com.abaferastech.marvelapp.data.local.mappers.CharacterMapper
+import com.abaferastech.marvelapp.data.remote.MarvelAPI.apiService
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import com.abaferastech.marvelapp.data.remote.response.BaseResponse
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
@@ -55,17 +56,13 @@ class MarvelRepository @Inject constructor(
     }
 
 
-//    fun getSingleCharacter(characterId: Int): Observable<UIState<Character>> {
-//        return characterDao.getCharacterById(characterId).subscribeOn(Schedulers.io())
-//            .observeOn(Schedulers.io()).doOnSuccess { s ->
-//                s.asDomainModel()
-//            }.doOnError {
-//                wrapResponseWithState { apiService.getSingleCharacter(characterId) }.mapUIState(
-//                    characterDomainMapper::map
-//                ).mapListToSingleItem()
-//            }
-//
-//    }
+    fun getSingleCharacter(characterId: Int): Single<UIState<Character>> {
+        characterDao.getCharacterById(characterId).subscribeOn(Schedulers.io())
+        return wrapResponseWithState { apiService.getSingleCharacter(characterId) }.mapUIState(
+            characterDomainMapper::map
+        ).mapListToSingleItem()
+    }
+
 
     fun getSingleEvent(eventsId: Int): Single<UIState<Event>> {
         return wrapResponseWithState { apiService.getEventsById(eventsId) }.mapUIState(eventMapper::map)
