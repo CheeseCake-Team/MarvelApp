@@ -110,7 +110,7 @@
                 app:showWhenError="@{viewModel.series}" />
 
             <Button
-                android:id="@+id/button_retry"
+                android:id="@+id/button_refresh"
                 android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:text="@string/refresh"
