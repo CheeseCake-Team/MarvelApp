@@ -183,4 +183,8 @@
         android:id="@+id/comicsViewAllHorizontalFragment"
         android:name="com.abaferastech.marvelapp.ui.comic.comics.ComicsViewAllHorizontalFragment"
         android:label="ComicsViewAllHorizontalFragment" />
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="com.abaferastech.marvelapp.ui.favourites.FavouritesFragment"
+        android:label="Favourites" />
 </navigation>

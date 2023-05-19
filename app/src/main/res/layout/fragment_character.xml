@@ -29,12 +29,14 @@
 
         <TextView
             android:id="@+id/text_character_name"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             android:layout_marginHorizontal="@dimen/space_16dp"
             android:layout_marginBottom="@dimen/space_16dp"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
+            app:layout_constraintEnd_toStartOf="@id/button_favourites"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@id/back_button"
             app:layout_constraintVertical_bias="1.0"
             app:text="@{viewModel.character.toData().name}"
@@ -66,13 +68,23 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/space_16dp"
             android:layout_marginTop="@dimen/space_48dp"
-            app:icon="@drawable/ic_back"
             android:singleLine="true"
+            app:icon="@drawable/ic_back"
             app:iconTint="@color/md_theme_onSurface"
             app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
+
+        <CheckBox
+            android:id="@+id/button_favourites"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/selector_favourite_item"
+            app:layout_constraintBottom_toBottomOf="@id/text_character_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_character_name" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

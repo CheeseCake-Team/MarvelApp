@@ -14,4 +14,8 @@
         android:id="@+id/eventsFragment"
         android:title="@string/event"
         android:icon="@drawable/ic_event"/>
+    <item
+        android:id="@+id/favouritesFragment"
+        android:title="@string/favourites"
+        android:icon="@drawable/ic_favourite_outlined"/>
 </menu>
