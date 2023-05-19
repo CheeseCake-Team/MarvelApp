@@ -29,7 +29,8 @@
                 android:text='@{"Name: " + viewModel.character.toData().name}'
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:showWhenSuccess="@{viewModel.character}"/>
 
             <TextView
                 android:id="@+id/text_view_character_modified"
@@ -40,6 +41,7 @@
                 android:text='@{"Date: " + viewModel.character.toData().modified.split("T")[0]}'
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:showWhenSuccess="@{viewModel.character}"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_character_name" />
 
             <TextView
@@ -51,7 +53,32 @@
                 android:text='@{"Description: " + viewModel.character.toData().description}'
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                app:showWhenSuccess="@{viewModel.character}"
                 app:layout_constraintTop_toBottomOf="@+id/text_view_character_modified" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_error"
+                android:layout_width="@dimen/lottie_error_size"
+                android:layout_height="@dimen/lottie_error_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/lottie_error"
+                app:showWhenError="@{viewModel.character}" />
+
+
+            <Button
+                android:id="@+id/button_retry"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:text="@string/refresh"
+                android:layout_marginTop="@dimen/space_16dp"
+                app:layout_constraintEnd_toEndOf="@+id/lottie_error"
+                app:layout_constraintStart_toStartOf="@+id/lottie_error"
+                app:layout_constraintTop_toBottomOf="@+id/lottie_error"
+                app:showWhenError="@{viewModel.character}" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

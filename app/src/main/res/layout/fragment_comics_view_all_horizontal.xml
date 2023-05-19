@@ -47,17 +47,6 @@
             app:lottie_rawRes="@raw/lottie_error"
             app:showWhenError="@{viewModel.comics}" />
 
-        <TextView
-            android:id="@+id/text_view_error_message"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-            android:text="@string/error_message"
-            app:layout_constraintEnd_toEndOf="@+id/lottie_error"
-            app:layout_constraintStart_toStartOf="@id/lottie_error"
-            app:layout_constraintTop_toBottomOf="@+id/lottie_error"
-            app:showWhenError="@{viewModel.comics}" />
-
         <Button
             android:id="@+id/button_retry"
             android:layout_width="180dp"
@@ -65,9 +54,9 @@
             android:text="@string/refresh"
             android:layout_marginTop="@dimen/space_16dp"
             android:onClick="@{()->viewModel.getMarvelComics()}"
-            app:layout_constraintEnd_toEndOf="@+id/text_view_error_message"
-            app:layout_constraintStart_toStartOf="@+id/text_view_error_message"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_error_message"
+            app:layout_constraintEnd_toEndOf="@+id/lottie_error"
+            app:layout_constraintStart_toStartOf="@+id/lottie_error"
+            app:layout_constraintTop_toBottomOf="@+id/lottie_error"
             app:showWhenError="@{viewModel.comics}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
