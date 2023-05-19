@@ -1,6 +1,8 @@
 package com.abaferastech.marvelapp.data.repository
 
+import com.abaferastech.marvelapp.data.local.database.daos.MarvelDao
 import com.abaferastech.marvelapp.data.local.database.daos.SearchDao
+import com.abaferastech.marvelapp.data.local.database.entity.ComicEntity
 import com.abaferastech.marvelapp.data.local.database.entity.SearchQueryEntity
 import com.abaferastech.marvelapp.data.local.database.entity.search.ComicSearchEntity
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
@@ -17,9 +19,9 @@ import com.abaferastech.marvelapp.domain.models.Event
 import com.abaferastech.marvelapp.domain.models.SearchQuery
 import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.model.UIState
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -30,12 +32,24 @@ class MarvelRepository @Inject constructor(
     private val creatorMapper: CreatorMapper,
     private val eventMapper: EventMapper,
     private val characterDomainMapper: CharacterDomainMapper,
-    private val searchDao: SearchDao
+    private val searchDao: SearchDao,
+    private val marvelDao: MarvelDao,
 ) : IMarvelRepository {
 
 
     fun SearchQuery.asSearchQueryEntity() = SearchQueryEntity(id, searchQuery)
     fun SearchQueryEntity.asSearchQuery() = SearchQuery(id, searchQuery)
+
+    fun Comic.asComicEntity() = ComicEntity(
+        id = id,
+        title = title,
+        description = description,
+        issueNumber = issueNumber,
+        price = price,
+        pageCount = pageCount,
+        modified = modified,
+        imageUri = imageUri,
+    )
 
     fun ComicSearchEntity.asComic() = Comic(
         id = id,
@@ -47,7 +61,6 @@ class MarvelRepository @Inject constructor(
         modified = modified,
         imageUri = imageUri
     )
-
 
 
     fun getAllSearchQueries(): Observable<List<SearchQuery>> {
@@ -66,17 +79,29 @@ class MarvelRepository @Inject constructor(
     fun getSearchQueryEntityByQuery(searchQuery: String): SearchQueryEntity =
         searchDao.getSearchQueryEntityByQuery(searchQuery)
 
+    fun refreshComics(): Completable {
+        return wrapResponseWithState({ apiService.getAllComics() }, comicMapper::map)
+            .flatMapCompletable { uiState ->
+                if (uiState is UIState.Success) {
+                    val comics = uiState.data
+                    Completable.fromAction {
+                        comics?.map { it.asComicEntity() }?.let { marvelDao.insertComicList(it) }
+                    }
+                } else {
+                    Completable.error(Throwable("Failed to fetch users"))
+                }
+            }
+    }
+
+    fun getUsers(): Observable<List<ComicEntity>> {
+        return marvelDao.getAllComics()
+            .filter { users -> users.isNotEmpty() }
+            .switchIfEmpty(refreshComics().andThen(marvelDao.getAllComics()))
+    }
+
+
     override fun searchInComics(query: String): Single<UIState<List<Comic>>> {
-//        return searchDao.getSearchedComics(query)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(Schedulers.io())
-//            .map {
-//                    wrapResponseWithState({ apiService.searchInComics(query) }, comicMapper::map)
-////                if (it.isEmpty()) {
-////                } else
-////                    UIState.Success(it.map { item -> item.asComic() })
-//
-//            }
+
         return wrapResponseWithState({ apiService.searchInComics(query) }, comicMapper::map)
     }
 
