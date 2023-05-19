@@ -21,7 +21,6 @@ object DatabaseModule {
     fun provideMarvelDatabase(@ApplicationContext context: Context) =
         Room.databaseBuilder(context, MarvelDatabase::class.java, "MARVEL_DATABASE").build()
 
-
     @Singleton
     @Provides
     fun provideCharacterDao(marvelDatabase: MarvelDatabase): CharacterDao {
