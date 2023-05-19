@@ -90,6 +90,8 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
             Log.d("TaDa", "updateComicsDataItem: $data")
 
             _homeData.postValue(UIState.Success(data))
+        } else if (_characters.value is UIState.Error){
+            _homeData.postValue(UIState.Error("error"))
         }
     }
 
