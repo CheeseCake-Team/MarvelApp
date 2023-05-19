@@ -3,9 +3,7 @@ package com.abaferastech.marvelapp.di
 import android.content.Context
 import androidx.room.Room
 import com.abaferastech.marvelapp.data.local.database.MarvelDatabase
-import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
-import com.abaferastech.marvelapp.data.local.database.daos.ComicDao
-import com.abaferastech.marvelapp.data.local.database.daos.SeriesDao
+import com.abaferastech.marvelapp.data.local.database.daos.MarvelDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,20 +22,8 @@ object DatabaseModule {
 
     @Singleton
     @Provides
-    fun provideCharacterDao(marvelDatabase: MarvelDatabase): CharacterDao {
-        return marvelDatabase.characterDao()
-    }
-
-    @Singleton
-    @Provides
-    fun provideComicDao(marvelDatabase: MarvelDatabase): ComicDao {
-        return marvelDatabase.comicDao()
-    }
-
-    @Singleton
-    @Provides
-    fun provideSeriesDao(marvelDatabase: MarvelDatabase): SeriesDao {
-        return marvelDatabase.seriesDao()
+    fun provideMarvelDaoDao(marvelDatabase: MarvelDatabase): MarvelDao {
+        return marvelDatabase.marvelDao()
     }
 
 }

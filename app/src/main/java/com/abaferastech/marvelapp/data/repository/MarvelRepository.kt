@@ -3,20 +3,19 @@ package com.abaferastech.marvelapp.data.repository
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import com.abaferastech.marvelapp.data.remote.response.BaseResponse
 import com.abaferastech.marvelapp.domain.mapper.CharacterDomainMapper
-import com.abaferastech.marvelapp.domain.mapper.EventMapper
-import com.abaferastech.marvelapp.domain.mapper.CreatorMapper
 import com.abaferastech.marvelapp.domain.mapper.ComicDominMapper
+import com.abaferastech.marvelapp.domain.mapper.CreatorMapper
+import com.abaferastech.marvelapp.domain.mapper.EventMapper
 import com.abaferastech.marvelapp.domain.mapper.SeriesMapper
 import com.abaferastech.marvelapp.domain.models.Character
-import com.abaferastech.marvelapp.domain.models.Event
-import com.abaferastech.marvelapp.domain.models.Creator
 import com.abaferastech.marvelapp.domain.models.Comic
+import com.abaferastech.marvelapp.domain.models.Creator
+import com.abaferastech.marvelapp.domain.models.Event
 import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.model.UIState
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class MarvelRepository @Inject constructor(
     private val apiService: MarvelApiService,
@@ -28,215 +27,191 @@ class MarvelRepository @Inject constructor(
 ) : IMarvelRepository {
 
     override fun searchInComics(query: String): Single<UIState<List<Comic>>> {
-        return wrapResponseWithState { apiService.searchInComics(query) }
-            .mapUIState(comicMapper::map)
+        return wrapResponseWithState({ apiService.searchInComics(query) }, comicMapper::map)
     }
 
     override fun searchInCharacters(query: String): Single<UIState<List<Character>>> {
-        return wrapResponseWithState { apiService.searchInCharacters(query) }
-            .mapUIState(characterDomainMapper::map)
+        return wrapResponseWithState(
+            { apiService.searchInCharacters(query) }, characterDomainMapper::map
+        )
     }
 
     override fun searchInEvents(query: String): Single<UIState<List<Event>>> {
-        return wrapResponseWithState { apiService.searchInEvents(query) }
-            .mapUIState(eventMapper::map)
+        return wrapResponseWithState({ apiService.searchInEvents(query) }, eventMapper::map)
     }
 
     override fun searchInSeries(query: String): Single<UIState<List<Series>>> {
-        return wrapResponseWithState { apiService.searchInSeries(query) }
-            .mapUIState(seriesMapper::map)
+        return wrapResponseWithState({ apiService.searchInSeries(query) }, seriesMapper::map)
     }
 
 
     override fun getSingleCharacter(characterId: Int): Single<UIState<Character>> {
-        return wrapResponseWithState { apiService.getSingleCharacter(characterId) }
-            .mapUIState(characterDomainMapper::map).mapListToSingleItem()
+        return wrapResponseWithState(
+            { apiService.getSingleCharacter(characterId) }, characterDomainMapper::map
+        ).mapListToSingleItem()
     }
 
-    override fun getSingleEvent(eventsId: Int):
-            Single<UIState<Event>> {
-        return wrapResponseWithState { apiService.getEventsById(eventsId) }
-            .mapUIState(eventMapper::map).mapListToSingleItem()
+    override fun getSingleEvent(eventsId: Int): Single<UIState<Event>> {
+        return wrapResponseWithState(
+            { apiService.getEventsById(eventsId) }, eventMapper::map
+        ).mapListToSingleItem()
     }
 
 
     override fun getSingleSeries(seriesId: Int): Single<UIState<Series>> {
-        return wrapResponseWithState { apiService.getSingleSeries(seriesId) }
-            .mapUIState(seriesMapper::map).mapListToSingleItem()
+        return wrapResponseWithState(
+            { apiService.getSingleSeries(seriesId) }, seriesMapper::map
+        ).mapListToSingleItem()
 
     }
 
     override fun getSingleComic(comicsId: Int): Single<UIState<Comic>> {
-        return wrapResponseWithState { apiService.getSingleComic(comicsId) }
-            .mapUIState(comicMapper::map).mapListToSingleItem()
+        return wrapResponseWithState(
+            { apiService.getSingleComic(comicsId) }, comicMapper::map
+        ).mapListToSingleItem()
     }
 
     override fun getSingleCreator(creatorId: Int): Single<UIState<Creator>> {
-        return wrapResponseWithState { apiService.getSingleCreator(creatorId) }
-            .mapUIState(creatorMapper::map).mapListToSingleItem()
+        return wrapResponseWithState(
+            { apiService.getSingleCreator(creatorId) }, creatorMapper::map
+        ).mapListToSingleItem()
     }
 
     override fun getAllEvents(): Single<UIState<List<Event>>> {
-        return wrapResponseWithState { apiService.getAllEvents() }
-            .mapUIState(eventMapper::map)
+        return wrapResponseWithState({ apiService.getAllEvents() }, eventMapper::map)
     }
 
     override fun getAllCharacters(): Single<UIState<List<Character>>> {
-        return wrapResponseWithState { apiService.getAllCharacters() }
-            .mapUIState(characterDomainMapper::map)
+        return wrapResponseWithState({ apiService.getAllCharacters() }, characterDomainMapper::map)
 
     }
 
 
     override fun getAllComics(): Single<UIState<List<Comic>>> {
-        return wrapResponseWithState { apiService.getAllComics() }
-            .mapUIState(comicMapper::map)
+        return wrapResponseWithState({ apiService.getAllComics() }, comicMapper::map)
     }
 
     override fun getAllCreators(): Single<UIState<List<Creator>>> {
-        return wrapResponseWithState { apiService.getAllCreators() }
-            .mapUIState(creatorMapper::map)
+        return wrapResponseWithState({ apiService.getAllCreators() }, creatorMapper::map)
     }
 
 
     override fun getEventComics(eventId: Int): Single<UIState<List<Comic>>> {
-        return wrapResponseWithState { apiService.getSeriesComics(eventId) }
-            .mapUIState(comicMapper::map)
+        return wrapResponseWithState({ apiService.getSeriesComics(eventId) }, comicMapper::map)
     }
 
 
     override fun getCharacterEvents(characterId: Int): Single<UIState<List<Event>>> {
-        return wrapResponseWithState { apiService.getCharacterEvents(characterId) }
-            .mapUIState(eventMapper::map)
+        return wrapResponseWithState(
+            { apiService.getCharacterEvents(characterId) }, eventMapper::map
+        )
     }
 
     override fun getCharacterComics(characterId: Int): Single<UIState<List<Comic>>> {
-        return wrapResponseWithState { apiService.getCharacterComics(characterId) }
-            .mapUIState(comicMapper::map)
+        return wrapResponseWithState(
+            { apiService.getCharacterComics(characterId) }, comicMapper::map
+        )
     }
 
     override fun getCharacterSeries(characterId: Int): Single<UIState<List<Series>>> {
-        return wrapResponseWithState { apiService.getCharacterSeries(characterId) }
-            .mapUIState(seriesMapper::map)
+        return wrapResponseWithState(
+            { apiService.getCharacterSeries(characterId) }, seriesMapper::map
+        )
     }
 
 
     override fun getSeriesFullUrl(fullUrl: String): Single<UIState<List<Series>>> {
-        return wrapResponseWithState { apiService.getSeriesFullUrl(fullUrl) }
-            .mapUIState(seriesMapper::map)
+        return wrapResponseWithState({ apiService.getSeriesFullUrl(fullUrl) }, seriesMapper::map)
     }
 
     override fun getSeriesComics(seriesId: Int): Single<UIState<List<Comic>>> {
-        return wrapResponseWithState { apiService.getSeriesComics(seriesId) }
-            .mapUIState(comicMapper::map)
+        return wrapResponseWithState({ apiService.getSeriesComics(seriesId) }, comicMapper::map)
     }
 
     override fun getSeriesEvents(seriesId: Int): Single<UIState<List<Event>>> {
-        return wrapResponseWithState { apiService.getSeriesEvents(seriesId) }
-            .mapUIState(eventMapper::map)
+        return wrapResponseWithState({ apiService.getSeriesEvents(seriesId) }, eventMapper::map)
     }
 
     override fun getSeriesCharacters(seriesId: Int): Single<UIState<List<Character>>> {
-        return wrapResponseWithState { apiService.getSeriesCharacters(seriesId) }
-            .mapUIState(characterDomainMapper::map)
+        return wrapResponseWithState(
+            { apiService.getSeriesCharacters(seriesId) }, characterDomainMapper::map
+        )
     }
 
     override fun getEventCharacters(eventId: Int): Single<UIState<List<Character>>> {
-        return wrapResponseWithState { apiService.getEventCharacters(eventId) }
-            .mapUIState(characterDomainMapper::map)
+        return wrapResponseWithState(
+            { apiService.getEventCharacters(eventId) }, characterDomainMapper::map
+        )
     }
 
 
     override fun getAllSeries(): Single<UIState<List<Series>>> {
-        return wrapResponseWithState { apiService.getAllSeries() }
-            .mapUIState(seriesMapper::map)
+        return wrapResponseWithState({ apiService.getAllSeries() }, seriesMapper::map)
     }
 
 
     override fun getComicEvents(comicsId: Int): Single<UIState<List<Event>>> {
-        return wrapResponseWithState { apiService.getComicEvents(comicsId) }
-            .mapUIState(eventMapper::map)
+        return wrapResponseWithState({ apiService.getComicEvents(comicsId) }, eventMapper::map)
     }
 
     override fun getComicCharacters(comicsId: Int): Single<UIState<List<Character>>> {
-        return wrapResponseWithState { apiService.getComicCharacters(comicsId) }
-            .mapUIState(characterDomainMapper::map)
+        return wrapResponseWithState(
+            { apiService.getComicCharacters(comicsId) }, characterDomainMapper::map
+        )
     }
 
     override fun getComicSeries(comicsId: Int): Single<UIState<List<Series>>> {
-        return wrapResponseWithState { apiService.getComicSeries(comicsId) }
-            .mapUIState(seriesMapper::map)
+        return wrapResponseWithState({ apiService.getComicSeries(comicsId) }, seriesMapper::map)
     }
 
 
     override fun getEventSeries(comicsId: Int): Single<UIState<List<Series>>> {
-        return wrapResponseWithState { apiService.getEventSeries(comicsId) }
-            .mapUIState(seriesMapper::map)
+        return wrapResponseWithState({ apiService.getEventSeries(comicsId) }, seriesMapper::map)
     }
 
 
     override fun getSeriesCreators(creatorId: Int): Single<UIState<List<Creator>>> {
-        return wrapResponseWithState { apiService.getSeriesCreators(creatorId) }
-            .mapUIState(creatorMapper::map)
+        return wrapResponseWithState(
+            { apiService.getSeriesCreators(creatorId) }, creatorMapper::map
+        )
     }
 
     override fun getComicCreators(comicsId: Int): Single<UIState<List<Creator>>> {
-        return wrapResponseWithState { apiService.getComicCreators(comicsId) }
-            .mapUIState(creatorMapper::map)
+        return wrapResponseWithState({ apiService.getComicCreators(comicsId) }, creatorMapper::map)
     }
 
     override fun getCreatorEvents(creatorId: Int): Single<UIState<List<Event>>> {
-        return wrapResponseWithState { apiService.getCreatorEvents(creatorId) }
-            .mapUIState(eventMapper::map)
+        return wrapResponseWithState({ apiService.getCreatorEvents(creatorId) }, eventMapper::map)
     }
 
     override fun getCreatorCharacters(creatorId: Int): Single<UIState<List<Character>>> {
-        return wrapResponseWithState { apiService.getCreatorCharacters(creatorId) }
-            .mapUIState(characterDomainMapper::map)
+        return wrapResponseWithState(
+            { apiService.getCreatorCharacters(creatorId) }, characterDomainMapper::map
+        )
     }
 
     override fun getCreatorComics(creatorId: Int): Single<UIState<List<Comic>>> {
-        return wrapResponseWithState { apiService.getSeriesComics(creatorId) }
-            .mapUIState(comicMapper::map)
+        return wrapResponseWithState({ apiService.getSeriesComics(creatorId) }, comicMapper::map)
     }
 
     override fun getCreatorSeries(creatorId: Int): Single<UIState<List<Series>>> {
-        return wrapResponseWithState { apiService.getCreatorSeries(creatorId) }
-            .mapUIState(seriesMapper::map)
+        return wrapResponseWithState({ apiService.getCreatorSeries(creatorId) }, seriesMapper::map)
     }
 
-
-
-
-
-    override fun <I, O> refreshDatabaseWithWrapResponse(
-        request: () -> Single<Response<BaseResponse<I>>>,
-        mapper: (List<I>?) -> List<O>,
-        insertIntoDatabase: (List<O>) -> Unit
-    ) {
-        request().map {
-            if (it.isSuccessful) {
-                val items = it.body()?.data?.results
-                mapper(items).let(insertIntoDatabase)
-            } else {
-                throw Throwable()
-            }
-        }
-    }
-
-
-    override fun <T> wrapResponseWithState(request: () -> Single<Response<BaseResponse<T>>>):
-            Single<UIState<List<T>>> {
+    private fun <I, O> wrapResponseWithState(
+        request: () -> Single<Response<BaseResponse<I>>>, mapper: (List<I>) -> List<O>
+    ): Single<UIState<List<O>>> {
         return request().map {
             if (it.isSuccessful) {
-                UIState.Success(it.body()?.data?.results)
+                val transformedList = mapper(it.body()?.data?.results!!)
+                UIState.Success(transformedList)
             } else {
                 UIState.Error(it.message())
             }
         }
     }
 
-    override fun <T> Single<UIState<List<T>>>.mapListToSingleItem(): Single<UIState<T>> {
+    private fun <T> Single<UIState<List<T>>>.mapListToSingleItem(): Single<UIState<T>> {
         return this.map { state ->
             when (state) {
                 is UIState.Success -> {
@@ -255,22 +230,6 @@ class MarvelRepository @Inject constructor(
                 is UIState.Loading -> {
                     state
                 }
-            }
-        }
-    }
-
-    override fun <T, O> Single<UIState<List<T>>>.mapUIState(mapper: (List<T>) -> List<O>)
-            : Single<UIState<List<O>>> {
-        return this.map { uiState ->
-            when (uiState) {
-                is UIState.Success -> {
-                    val dataList = uiState.data
-                    val transformedList = mapper(dataList!!)
-                    UIState.Success(transformedList)
-                }
-
-                is UIState.Error -> uiState
-                is UIState.Loading -> uiState
             }
         }
     }

@@ -44,16 +44,5 @@ interface IMarvelRepository {
     fun getCreatorCharacters(creatorId: Int): Single<UIState<List<Character>>>
     fun getCreatorComics(creatorId: Int): Single<UIState<List<Comic>>>
     fun getCreatorSeries(creatorId: Int): Single<UIState<List<Series>>>
-    fun <I, O> refreshDatabaseWithWrapResponse(
-        request: () -> Single<Response<BaseResponse<I>>>,
-        mapper: (List<I>?) -> List<O>,
-        insertIntoDatabase: (List<O>) -> Unit
-    )
-
-    fun <T> wrapResponseWithState(request: () -> Single<Response<BaseResponse<T>>>):
-            Single<UIState<List<T>>>
-
-    fun <T> Single<UIState<List<T>>>.mapListToSingleItem(): Single<UIState<T>>
-    fun <T, O> Single<UIState<List<T>>>.mapUIState(mapper: (List<T>) -> List<O>): Single<UIState<List<O>>>
 
 }
