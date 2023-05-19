@@ -23,7 +23,7 @@ interface MarvelDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertComicList(series: List<ComicEntity>): Completable
+    fun insertComicList(comics: List<ComicEntity>): Completable
 
     @Query("SELECT * FROM COMIC_TABLE")
     fun getAllComics(): Observable<List<ComicEntity>>

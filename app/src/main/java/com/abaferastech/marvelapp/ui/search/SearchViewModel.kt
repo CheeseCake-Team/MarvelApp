@@ -66,8 +66,8 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
                     TYPE.EVENT -> repository.searchInEvents(searchQuery).toObservable()
                         .map { SearchItem.EventItem(it.toData() as List<Event>) }
 
-                    else -> repository.searchInComics(searchQuery).toObservable()
-                        .map { SearchItem.ComicItem(it.toData() as List<Comic>) }
+                    else -> repository.searchInComics(searchQuery)
+                        .map {  SearchItem.ComicItem(it) }
                 }
             }
             .subscribe(::onSuccess, ::onError)

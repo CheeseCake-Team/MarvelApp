@@ -40,4 +40,15 @@ interface SearchDao {
     @Query("SELECT * FROM EVENT_SEARCH_TABLE WHERE title LIKE '%' || :title || '%' ")
     fun getSearchedEvents(title: String): Observable<List<EventSearchEntity>>
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertSearchedComicList(comics: List<ComicSearchEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertSearchedEventList(events: List<EventSearchEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertSearchedSeriesList(series: List<SeriesSearchEntity>)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertSearchedCharacterList(characters: List<CharacterSearchEntity>)
 }
