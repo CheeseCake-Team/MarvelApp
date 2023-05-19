@@ -2,6 +2,7 @@ package com.abaferastech.marvelapp.data.repository
 
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import com.abaferastech.marvelapp.data.remote.response.BaseResponse
+import com.abaferastech.marvelapp.data.remote.response.ComicDTO
 import com.abaferastech.marvelapp.domain.mapper.CharacterDomainMapper
 import com.abaferastech.marvelapp.domain.mapper.ComicDominMapper
 import com.abaferastech.marvelapp.domain.mapper.CreatorMapper
@@ -13,6 +14,8 @@ import com.abaferastech.marvelapp.domain.models.Creator
 import com.abaferastech.marvelapp.domain.models.Event
 import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.model.UIState
+import io.reactivex.rxjava3.core.Observable
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
 import javax.inject.Inject
@@ -25,6 +28,29 @@ class MarvelRepository @Inject constructor(
     private val eventMapper: EventMapper,
     private val characterDomainMapper: CharacterDomainMapper
 ) : IMarvelRepository {
+    private val searchQueryDao: SearchQueryDao,
+
+    fun getAllSearchQueries(): Observable<List<SearchQueryEntity>> {
+        return searchQueryDao.getAllSearchQueries()
+    }
+
+    fun deleteSearchQuery(searchQueryEntity: SearchQueryEntity) {
+        searchQueryDao.delete(searchQueryEntity)
+    }
+
+    fun insertSearchQuery(searchQuery: String) {
+        searchQueryDao.insert(SearchQueryEntity(searchQuery = searchQuery))
+    }
+
+    fun getSearchQueryEntityByQuery(searchQuery: String): SearchQueryEntity =
+        searchQueryDao.getSearchQueryEntityByQuery(searchQuery)
+
+//
+//    fun searchInComics(query: String): Single<UIState<List<ComicDTO>>> {
+//        val id = getSearchQueryEntityByQuery(query).id
+//
+//        return wrapResponseWithState { apiService.searchInComics(query) }
+//    }
 
     override fun searchInComics(query: String): Single<UIState<List<Comic>>> {
         return wrapResponseWithState({ apiService.searchInComics(query) }, comicMapper::map)

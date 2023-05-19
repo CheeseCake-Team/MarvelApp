@@ -8,6 +8,7 @@ import com.abaferastech.marvelapp.data.local.database.entity.ComicEntity
 import com.abaferastech.marvelapp.data.local.database.entity.CreatorEntity
 import com.abaferastech.marvelapp.data.local.database.entity.EventEntity
 import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
+import javax.inject.Inject
 
 @Database(
     entities = [
@@ -19,6 +20,7 @@ import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
 
 abstract class MarvelDatabase : RoomDatabase() {
     abstract fun marvelDao(): MarvelDao
+    abstract fun searchQueryDoa(): SearchQueryDao
 }
 
 

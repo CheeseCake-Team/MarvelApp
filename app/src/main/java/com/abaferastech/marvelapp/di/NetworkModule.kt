@@ -4,6 +4,7 @@ import com.abaferastech.marvelapp.BuildConfig
 import com.abaferastech.marvelapp.data.remote.AuthInterceptor
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import com.abaferastech.marvelapp.data.remote.MessageDigest
+import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,11 +24,12 @@ object NetworkModule {
     @Provides
     fun provideMarvelService(
         okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory
+        gsonConverterFactory: GsonConverterFactory,
+        rxJava3CallAdapterFactory: RxJava3CallAdapterFactory
     ): MarvelApiService {
         val retrofit = Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
-            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
+            .addCallAdapterFactory(rxJava3CallAdapterFactory)
             .addConverterFactory(gsonConverterFactory)
             .client(okHttpClient)
             .build()
@@ -65,4 +67,9 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideGson(): GsonConverterFactory = GsonConverterFactory.create()
+
+    @Singleton
+    @Provides
+    fun provideRXJava3CallAdapterFactory(): RxJava3CallAdapterFactory =
+        RxJava3CallAdapterFactory.create()
 }

@@ -17,6 +17,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="@{() -> listener.onClickCharacter(item)}"
         android:padding="@dimen/space_4dp">
 
         <com.google.android.material.imageview.ShapeableImageView

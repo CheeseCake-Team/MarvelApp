@@ -9,6 +9,7 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.R
+import com.abaferastech.marvelapp.data.remote.response.Thumbnail
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.character.characters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
@@ -21,12 +22,12 @@ import com.bumptech.glide.Glide
 
 
 @BindingAdapter("app:imageUrl")
-fun ImageView.setImageFromUrl(imageUri: String?) {
-    imageUri?.let {
-        val imageUrl = if (it.contains("image_not_available")) {
+fun ImageView.setImageFromUrl(thumbnail: Thumbnail?) {
+    thumbnail?.path?.let { path ->
+        val imageUrl = if (path.contains("image_not_available")) {
             R.drawable.no_image
         } else {
-            it
+            "${thumbnail?.path}.${thumbnail?.extension}"
         }
         Glide.with(this)
             .load(imageUrl)
@@ -36,6 +37,7 @@ fun ImageView.setImageFromUrl(imageUri: String?) {
             .into(this)
     }
 }
+
 @BindingAdapter(value = ["app:items"])
 fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
     (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
@@ -50,10 +52,10 @@ fun showLoading(view: ProgressBar, isShowing: Boolean) {
 fun setSearchRecyclerViewItems(view: RecyclerView, items: SearchItem?) {
     items.let {
         when (items) {
-            is SearchItem.CharacterItem -> (view.adapter as CharactersAdapter?)?.setItems(items.items)
-            is SearchItem.EventItem -> (view.adapter as EventAdapter?)?.setItems(items.items)
-            is SearchItem.SeriesItem -> (view.adapter as SeriesAdapter?)?.setItems(items.items)
-            is SearchItem.ComicItem -> (view.adapter as ComicsAdapter?)?.setItems(items.items)
+            is SearchItem.Character -> (view.adapter as CharactersAdapter?)?.setItems(items.items)
+            is SearchItem.Event -> (view.adapter as EventAdapter?)?.setItems(items.items)
+            is SearchItem.Series -> (view.adapter as SeriesAdapter?)?.setItems(items.items)
+            is SearchItem.Comic -> (view.adapter as ComicsAdapter?)?.setItems(items.items)
             else -> {}
         }
     }
@@ -61,16 +63,10 @@ fun setSearchRecyclerViewItems(view: RecyclerView, items: SearchItem?) {
 
 @BindingAdapter("emptyStateTextView")
 fun setEmptyStateTextViewVisibility(
-    emptyStateTextView: TextView, items: SearchItem?
+    emptyStateTextView: TextView, searchItem: SearchItem?
 ) {
-    items.let {
-        emptyStateTextView.visibility = when (items) {
-            is SearchItem.CharacterItem -> if (items.items.isEmpty()) View.VISIBLE else View.INVISIBLE
-            is SearchItem.EventItem -> if (items.items.isEmpty()) View.VISIBLE else View.INVISIBLE
-            is SearchItem.SeriesItem -> if (items.items.isEmpty()) View.VISIBLE else View.INVISIBLE
-            is SearchItem.ComicItem -> if (items.items.isEmpty()) View.VISIBLE else View.INVISIBLE
-            else -> View.INVISIBLE
-        }
+    searchItem.let {
+        emptyStateTextView.isVisible = searchItem?.itemsList?.isEmpty() == true
     }
 }
 
