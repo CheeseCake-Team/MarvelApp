@@ -101,6 +101,11 @@ fun chipGroupVisibility(horizontalScrollView: HorizontalScrollView, isVisible: B
     horizontalScrollView.visibility = if (isVisible) View.VISIBLE else View.GONE
 }
 
+@BindingAdapter("app:showWhenError")
+fun <T> showWhenError(view: View, uiState: UIState<T>?) {
+    if (uiState is UIState.Error) view.visibility = View.VISIBLE
+    else view.visibility = View.GONE
+}
 
 @BindingAdapter("app:showWhenLoading")
 fun <T> showWhenLoading(view: View, uiState: UIState<T>?) {
