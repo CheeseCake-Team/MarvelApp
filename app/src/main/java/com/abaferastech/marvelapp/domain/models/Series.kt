@@ -8,5 +8,6 @@ data class Series(
     val endYear: Int,
     val rating: String?,
     val modified: String?,
-    val imageUri: String?
+    val imageUri: String?,
+    var searchID: Long? = null
 )

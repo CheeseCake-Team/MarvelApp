@@ -11,7 +11,7 @@
 
         <variable
             name="item"
-            type="com.abaferastech.marvelapp.data.local.database.entity.SearchQueryEntity" />
+            type="com.abaferastech.marvelapp.domain.models.SearchQuery" />
     </data>
 
     <com.google.android.material.card.MaterialCardView

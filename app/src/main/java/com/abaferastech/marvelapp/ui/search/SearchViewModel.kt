@@ -1,7 +1,6 @@
 package com.abaferastech.marvelapp.ui.search
 
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.local.database.entity.SearchQueryEntity
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
@@ -9,42 +8,43 @@ import com.abaferastech.marvelapp.data.remote.response.ComicDTO
 import com.abaferastech.marvelapp.data.remote.response.EventDTO
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
+import com.abaferastech.marvelapp.domain.models.SearchQuery
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsInteractionListener
 import com.abaferastech.marvelapp.ui.event.events.EventsInteractionListener
-import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
 import com.abaferastech.marvelapp.ui.model.Event
 import com.abaferastech.marvelapp.ui.model.SearchItem
 import com.abaferastech.marvelapp.ui.model.TYPE
-import dagger.hilt.android.lifecycle.HiltViewModel
 import com.abaferastech.marvelapp.ui.model.UIState
 import com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllInteractionListener
+import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
 import io.reactivex.rxjava3.subjects.PublishSubject
 import java.util.concurrent.TimeUnit
 import javax.inject.Inject
+
 @HiltViewModel
 
 class SearchViewModel @Inject constructor(val repository: MarvelRepository) : BaseViewModel(),
     CharactersInteractionListener, EventsInteractionListener, SeriesViewAllInteractionListener,
     ComicsInteractionListener, OldQueryListener {
 
-    private val _oldSearchQueries = MutableLiveData<List<SearchQueryEntity>>()
-    val oldSearchQueries: LiveData<List<SearchQueryEntity>> get() = _oldSearchQueries
+    private val _oldSearchQueries = MutableLiveData<List<SearchQuery>>()
+    val oldSearchQueries = _oldSearchQueries
 
-    val searchQuery = MutableLiveData("")
 
     private val _searchType = MutableLiveData(TYPE.COMIC)
-    val searchType: LiveData<TYPE> get() = _searchType
+    val searchType = _searchType
 
     private val searchObserver: PublishSubject<String> = PublishSubject.create()
 
     private var _searchingResponse = MutableLiveData<UIState<SearchItem>>()
     val searchingResponse = _searchingResponse
+
+    val searchQuery = MutableLiveData("")
 
     val searchEvents = MutableLiveData<Event<SearchEvents>>()
 
@@ -74,9 +74,11 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
 
     private fun getOldSearchQueriesFromDatabase() {
         repository.getAllSearchQueries()
-            .subscribe(_oldSearchQueries::postValue) {
-            Log.e("error while fetching", it.message.toString())
-        }.addTo(compositeDisposable)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .doOnError { Log.e("error while fetching", it.message.toString()) }
+            .subscribe(_oldSearchQueries::postValue)
+            .addTo(compositeDisposable)
     }
 
     private fun onSuccess(searchItem: SearchItem) {
@@ -87,21 +89,15 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
         _searchingResponse.postValue(UIState.Error(throwable.message.toString()))
     }
 
-    fun search(searchQuery: String) {
-        if (searchQuery != "") {
-            searchObserver.onNext(searchQuery)
-            this.searchQuery.postValue(searchQuery)
+    fun search(query: String) {
+        if (query != "") {
+            searchObserver.onNext(query)
+            searchQuery.postValue(query)
         }
     }
 
     fun saveSearchQuery(oldQuery: String) {
-        Completable.fromAction {
-            repository.insertSearchQuery(oldQuery)
-        }
-            .subscribeOn(Schedulers.io())
-            .subscribe {
-                Log.e("save", "save Completed")
-            }.addTo(compositeDisposable)
+        repository.insertSearchQuery(oldQuery)
     }
 
     fun changeSearchType(type: TYPE) {
@@ -125,19 +121,13 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
         searchEvents.postValue(Event(SearchEvents.ClickSeriesEvent(series.id)))
     }
 
-    override fun onSearchQueryClick(oldQueryEntity: SearchQueryEntity) {
+    override fun onSearchQueryClick(oldQueryEntity: SearchQuery) {
         search(oldQueryEntity.searchQuery)
         searchEvents.postValue(Event(SearchEvents.HideSearchViewEvent(oldQueryEntity.searchQuery)))
     }
 
-    override fun onDeleteClick(oldQueryEntity: SearchQueryEntity) {
-        Completable.fromAction {
-            repository.deleteSearchQuery(oldQueryEntity)
-        }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe {
-                Log.e("delete", "delete Completed")
-            }.addTo(compositeDisposable)
+    override fun onDeleteClick(oldQueryEntity: SearchQuery) {
+        repository.deleteSearchQuery(oldQueryEntity)
+
     }
 }

@@ -1,6 +1,6 @@
 package com.abaferastech.marvelapp.data.repository
 
-import com.abaferastech.marvelapp.data.local.database.MarvelDatabase
+import android.util.Log
 import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
 import com.abaferastech.marvelapp.data.local.database.daos.SearchQueryDao
 import com.abaferastech.marvelapp.data.local.database.entity.SearchQueryEntity
@@ -14,30 +14,46 @@ import com.abaferastech.marvelapp.data.remote.response.EventDTO
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.domain.mapper.CharacterDomainMapper
 import com.abaferastech.marvelapp.domain.models.Character
+import com.abaferastech.marvelapp.domain.models.SearchQuery
 import com.abaferastech.marvelapp.ui.model.UIState
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Response
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class MarvelRepository @Inject constructor(
     private val characterDao: CharacterDao,
     private val searchQueryDao: SearchQueryDao,
     private val apiService: MarvelApiService
 ) {
+    fun SearchQueryEntity.toSearchQuery() = SearchQuery(this.id, this.searchQuery)
+    fun SearchQuery.toSearchQueryEntity() = SearchQueryEntity(this.id, this.searchQuery)
 
-    fun getAllSearchQueries(): Observable<List<SearchQueryEntity>> {
-        return searchQueryDao.getAllSearchQueries()
+    fun getAllSearchQueries(): Observable<List<SearchQuery>> {
+        return searchQueryDao.getAllSearchQueries().map {
+            it.map { q ->
+                q.toSearchQuery()
+            }
+        }
     }
 
-    fun deleteSearchQuery(searchQueryEntity: SearchQueryEntity) {
-        searchQueryDao.delete(searchQueryEntity)
+    fun deleteSearchQuery(searchQuery: SearchQuery) {
+        searchQueryDao.delete(searchQuery.toSearchQueryEntity())
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .doOnError { Log.e("error while delete", it.message.toString()) }
+            .doOnComplete { Log.e("delete", "delete Completed") }
+            .subscribe()
     }
 
     fun insertSearchQuery(searchQuery: String) {
         searchQueryDao.insert(SearchQueryEntity(searchQuery = searchQuery))
+            .subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
+            .doOnError { Log.e("error while fetching", it.message.toString()) }
+            .doOnComplete { Log.e("save", "save Completed") }
+            .subscribe()
     }
 
     fun getSearchQueryEntityByQuery(searchQuery: String): SearchQueryEntity =

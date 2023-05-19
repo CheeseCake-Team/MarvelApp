@@ -17,7 +17,8 @@ abstract class BaseViewModel : ViewModel() {
     protected fun <T : Any> Single<UIState<T>>.applySchedulersAndPostUIStates(
         postValue: (UIState<T>) -> Unit,
     ) {
-        this.subscribeOn(Schedulers.io())
+        this
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { postValue(UIState.Loading) }
             .doOnError { error -> (postValue(UIState.Error(error.message.toString()))) }
