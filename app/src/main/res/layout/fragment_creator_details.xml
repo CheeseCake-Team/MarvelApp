@@ -38,7 +38,7 @@
             android:layout_marginTop="@dimen/space_16dp"
             android:layout_marginBottom="@dimen/space_8dp"
             android:scaleType="centerCrop"
-            app:imageUrl="@{viewModel.creator.toData().thumbnail}"
+            app:imageUrl="@{viewModel.creator.toData().imageUri}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"

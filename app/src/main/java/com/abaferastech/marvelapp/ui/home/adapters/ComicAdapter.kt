@@ -2,6 +2,7 @@ package com.abaferastech.marvelapp.ui.home.adapters
 
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.data.remote.response.ComicDTO
+import com.abaferastech.marvelapp.domain.models.Comic
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 
@@ -11,5 +12,5 @@ class ComicAdapter(listener: ComicsInteractionListener) :
 }
 
 interface ComicsInteractionListener : BaseInteractionListener {
-    fun onClickComics(comics: ComicDTO)
+    fun onClickComics(comics: Comic)
 }

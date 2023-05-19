@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="viewModel"
             type="com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsViewModel" />
@@ -57,7 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/space_16dp"
             android:layout_marginTop="@dimen/space_16dp"
-            android:text='@{"Price: " + viewModel.comics.toData().prices[0].price.toString()}'
+            android:text='@{"Price: " + viewModel.comics.toData().price.toString()}'
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/text_view_comic_modified" />

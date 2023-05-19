@@ -1,8 +1,7 @@
 package com.abaferastech.marvelapp.ui.search
 
-import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.local.database.entity.SearchQueryEntity
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
 import com.abaferastech.marvelapp.data.remote.response.ComicDTO
 import com.abaferastech.marvelapp.data.remote.response.EventDTO
@@ -46,7 +45,7 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
 
     val searchQuery = MutableLiveData("")
 
-    val searchEvents = MutableLiveData<Event<SearchEvents>>()
+    val searchEvents = MutableLiveData<EventModel<SearchEvents>>()
 
     init {
         getOldSearchQueriesFromDatabase()

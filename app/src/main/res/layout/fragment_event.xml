@@ -24,7 +24,7 @@
             android:scaleType="centerCrop"
             app:altSrc="@color/md_theme_surface"
             android:layout_height="400dp"
-            app:imageUrl="@{viewModel.event.toData().thumbnail}"
+            app:imageUrl="@{viewModel.event.toData().imageUri}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
