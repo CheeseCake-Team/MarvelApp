@@ -8,6 +8,10 @@
             type="com.abaferastech.marvelapp.ui.creator.creators.CreatorsViewModel" />
     </data>
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_view_creators"
         android:layout_width="match_parent"
@@ -17,6 +21,42 @@
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         app:spanCount="4" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_error"
+            android:layout_width="@dimen/lottie_error_size"
+            android:layout_height="@dimen/lottie_error_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/lottie_error"
+            app:showWhenError="@{viewModel.creators}" />
+
+        <TextView
+            android:id="@+id/text_view_error_message"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/error_message"
+            app:layout_constraintEnd_toEndOf="@+id/lottie_error"
+            app:layout_constraintStart_toStartOf="@id/lottie_error"
+            app:layout_constraintTop_toBottomOf="@+id/lottie_error"
+            app:showWhenError="@{viewModel.creators}" />
+
+        <Button
+            android:id="@+id/button_retry"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:text="@string/refresh"
+            android:layout_marginTop="@dimen/space_16dp"
+            app:layout_constraintEnd_toEndOf="@+id/text_view_error_message"
+            app:layout_constraintStart_toStartOf="@+id/text_view_error_message"
+            app:layout_constraintTop_toBottomOf="@+id/text_view_error_message"
+            app:showWhenError="@{viewModel.creators}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </layout>

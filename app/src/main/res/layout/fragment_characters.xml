@@ -48,11 +48,16 @@
             app:lottie_rawRes="@raw/lottie_error"
             app:showWhenError="@{viewModel.characters}" />
 
+
         <Button
-            android:layout_width="wrap_content"
+            android:id="@+id/button_retry"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@id/lottie_error"
+            android:text="@string/refresh"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:onClick="@{()-> viewModel.getAllCharacters()}"
             app:layout_constraintEnd_toEndOf="@+id/lottie_error"
+            app:layout_constraintStart_toStartOf="@+id/lottie_error"
             app:layout_constraintTop_toBottomOf="@+id/lottie_error"
             app:showWhenError="@{viewModel.characters}" />
 
