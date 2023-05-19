@@ -4,9 +4,7 @@ import android.content.Context
 import android.util.Log
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import retrofit2.HttpException
-import javax.inject.Inject
 
 
 class RefreshCharactersWorker (
