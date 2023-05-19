@@ -2,8 +2,9 @@ package com.abaferastech.marvelapp.domain.mapper
 
 import com.abaferastech.marvelapp.domain.models.Comic
 import com.abaferastech.marvelapp.data.remote.response.ComicDTO
+import javax.inject.Inject
 
-class ComicDominMapper : IMapper<List<ComicDTO>, List<Comic>>{
+class ComicDominMapper @Inject constructor() : IMapper<List<ComicDTO>, List<Comic>>{
     override fun map(input: List<ComicDTO>): List<Comic> {
         return input.map{ComicDTO->
             Comic(

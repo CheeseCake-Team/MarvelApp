@@ -4,8 +4,9 @@ import com.abaferastech.marvelapp.domain.mapper.IMapper
 import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
+import javax.inject.Inject
 
-class SeriesMapper : IMapper<List<SeriesDTO>, List<Series>> {
+class SeriesMapper @Inject constructor() : IMapper<List<SeriesDTO>, List<Series>> {
     override fun map(input: List<SeriesDTO>): List<Series> {
         return input.map { seriesDTO ->
             Series(
