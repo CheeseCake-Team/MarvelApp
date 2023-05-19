@@ -2,10 +2,6 @@ package com.abaferastech.marvelapp.ui.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
-import com.abaferastech.marvelapp.data.remote.response.ComicDTO
-import com.abaferastech.marvelapp.data.remote.response.EventDTO
-import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.domain.models.Character
 import com.abaferastech.marvelapp.domain.models.Comic
@@ -60,20 +56,20 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
             }.debounce(1, TimeUnit.SECONDS).flatMap { searchQuery ->
                 when (searchType.value) {
                     TYPE.SERIES -> repository.searchInSeries(searchQuery).toObservable().map {
-                            SearchItem.Series(it.toData() as List<SeriesDTO>)
+                            SearchItem.SeriesItem(it.toData() as List<Series>)
                         }
 
                     TYPE.CHARACTER -> repository.searchInCharacters(searchQuery).toObservable()
                         .map {
-                            SearchItem.Character(it.toData() as List<CharacterDTO>)
+                            SearchItem.CharacterItem(it.toData() as List<Character>)
                         }
 
                     TYPE.EVENT -> repository.searchInEvents(searchQuery).toObservable().map {
-                            SearchItem.Event(it.toData() as List<EventDTO>)
+                            SearchItem.EventItem(it.toData() as List<Event>)
                         }
 
                     else -> repository.searchInComics(searchQuery).toObservable().map {
-                        SearchItem.Comic(it.toData() as List<ComicDTO>)
+                        SearchItem.ComicItem(it.toData() as List<Comic>)
                     }
 
                 }
@@ -98,15 +94,15 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
     }
 
     override fun onClickCharacter(character: Character) {
-        navigationEvents.postValue(EventModel(SearchEvents.ClickCharacterEvent(character.id!!)))
+        navigationEvents.postValue(EventModel(SearchEvents.ClickCharacterEvent(character.id)))
     }
 
     override fun onClickComic(comic: Comic) {
-        navigationEvents.postValue(EventModel(SearchEvents.ClickComicEvent(comic.id!!)))
+        navigationEvents.postValue(EventModel(SearchEvents.ClickComicEvent(comic.id)))
     }
 
     override fun onEventClick(event: Event) {
-        navigationEvents.postValue(EventModel(SearchEvents.ClickEventEvent(event.id!!)))
+        navigationEvents.postValue(EventModel(SearchEvents.ClickEventEvent(event.id)))
     }
 
     override fun onClickSeries(series: Series) {

@@ -6,7 +6,7 @@ import com.abaferastech.marvelapp.domain.models.Comic
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 
 class ComicsAdapter(listener: ComicsInteractionListener) :
-    BaseAdapter<ComicDTO>(listener) {
+    BaseAdapter<Comic>(listener) {
     override val layoutId = R.layout.item_comic_horizontal
 }
 
