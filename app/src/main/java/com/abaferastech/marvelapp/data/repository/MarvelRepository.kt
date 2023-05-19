@@ -1,25 +1,12 @@
 package com.abaferastech.marvelapp.data.repository
 
-import android.util.Log
-import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
-import com.abaferastech.marvelapp.data.local.database.daos.ComicDao
-import com.abaferastech.marvelapp.data.local.database.daos.SeriesDao
-import com.abaferastech.marvelapp.data.local.mappers.DTOCharacterListMapper
-import com.abaferastech.marvelapp.data.local.mappers.DTOComicListMapper
-import com.abaferastech.marvelapp.data.local.mappers.DTOSeriesListMapper
+import com.abaferastech.marvelapp.data.local.database.daos.MarvelDao
 import com.abaferastech.marvelapp.data.local.database.daos.SearchDao
+import com.abaferastech.marvelapp.data.local.database.entity.ComicEntity
 import com.abaferastech.marvelapp.data.local.database.entity.SearchQueryEntity
 import com.abaferastech.marvelapp.data.local.database.entity.search.ComicSearchEntity
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import com.abaferastech.marvelapp.data.remote.response.BaseResponse
-import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
-import com.abaferastech.marvelapp.data.remote.response.ComicDTO
-import com.abaferastech.marvelapp.data.remote.response.CreatorDTO
-import com.abaferastech.marvelapp.data.remote.response.EventDTO
-import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
-import com.abaferastech.marvelapp.domain.mapper.EntityCharacterListMapper
-import com.abaferastech.marvelapp.domain.mapper.EntityComicListMapper
-import com.abaferastech.marvelapp.domain.mapper.EntitySeriesListMapper
 import com.abaferastech.marvelapp.domain.mapper.CharacterDomainMapper
 import com.abaferastech.marvelapp.domain.mapper.ComicDominMapper
 import com.abaferastech.marvelapp.domain.mapper.CreatorMapper
@@ -31,13 +18,10 @@ import com.abaferastech.marvelapp.domain.models.Creator
 import com.abaferastech.marvelapp.domain.models.Event
 import com.abaferastech.marvelapp.domain.models.SearchQuery
 import com.abaferastech.marvelapp.domain.models.Series
-import com.abaferastech.marvelapp.domain.models.Comic
-import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.model.UIState
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Response
 import javax.inject.Inject
 
@@ -48,12 +32,24 @@ class MarvelRepository @Inject constructor(
     private val creatorMapper: CreatorMapper,
     private val eventMapper: EventMapper,
     private val characterDomainMapper: CharacterDomainMapper,
-    private val searchDao: SearchDao
+    private val searchDao: SearchDao,
+    private val marvelDao: MarvelDao,
 ) : IMarvelRepository {
 
 
     fun SearchQuery.asSearchQueryEntity() = SearchQueryEntity(id, searchQuery)
     fun SearchQueryEntity.asSearchQuery() = SearchQuery(id, searchQuery)
+
+    fun Comic.asComicEntity() = ComicEntity(
+        id = id,
+        title = title,
+        description = description,
+        issueNumber = issueNumber,
+        price = price,
+        pageCount = pageCount,
+        modified = modified,
+        imageUri = imageUri,
+    )
 
     fun ComicSearchEntity.asComic() = Comic(
         id = id,
@@ -67,27 +63,8 @@ class MarvelRepository @Inject constructor(
     )
 
 
-
     fun getAllSearchQueries(): Observable<List<SearchQuery>> {
         return searchDao.getAllSearchQueries().map { it.map { q -> q.asSearchQuery() } }
-    private val characterDao: CharacterDao,
-    private val seriesDao: SeriesDao,
-    private val comicDao: ComicDao,
-    private val apiService: MarvelApiService
-) {
-
-    private val characterMapper = DTOCharacterListMapper()
-    private val characterDomainMapper = EntityCharacterListMapper()
-
-    private val dTOComicListMapper = DTOComicListMapper()
-    private val entityComicListMapper = EntityComicListMapper()
-
-    private val dTOSeriesListMapper = DTOSeriesListMapper()
-    private val entitySeriesListMapper = EntitySeriesListMapper()
-
-
-    fun searchInComics(query: String): Single<UIState<List<ComicDTO>>> {
-        return wrapResponseWithState { apiService.searchInComics(query) }
     }
 
     fun deleteSearchQuery(searchQueryEntity: SearchQuery) {
@@ -102,17 +79,29 @@ class MarvelRepository @Inject constructor(
     fun getSearchQueryEntityByQuery(searchQuery: String): SearchQueryEntity =
         searchDao.getSearchQueryEntityByQuery(searchQuery)
 
+    fun refreshComics(): Completable {
+        return wrapResponseWithState({ apiService.getAllComics() }, comicMapper::map)
+            .flatMapCompletable { uiState ->
+                if (uiState is UIState.Success) {
+                    val comics = uiState.data
+                    Completable.fromAction {
+                        comics?.map { it.asComicEntity() }?.let { marvelDao.insertComicList(it) }
+                    }
+                } else {
+                    Completable.error(Throwable("Failed to fetch users"))
+                }
+            }
+    }
+
+    fun getUsers(): Observable<List<ComicEntity>> {
+        return marvelDao.getAllComics()
+            .filter { users -> users.isNotEmpty() }
+            .switchIfEmpty(refreshComics().andThen(marvelDao.getAllComics()))
+    }
+
+
     override fun searchInComics(query: String): Single<UIState<List<Comic>>> {
-//        return searchDao.getSearchedComics(query)
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(Schedulers.io())
-//            .map {
-//                    wrapResponseWithState({ apiService.searchInComics(query) }, comicMapper::map)
-////                if (it.isEmpty()) {
-////                } else
-////                    UIState.Success(it.map { item -> item.asComic() })
-//
-//            }
+
         return wrapResponseWithState({ apiService.searchInComics(query) }, comicMapper::map)
     }
 
@@ -265,8 +254,6 @@ class MarvelRepository @Inject constructor(
 
     override fun getComicCreators(comicsId: Int): Single<UIState<List<Creator>>> {
         return wrapResponseWithState({ apiService.getComicCreators(comicsId) }, creatorMapper::map)
-    fun getCachedCharacter(): Single<List<Character>> {
-        return characterDao.getAllCharacters().map { characterDomainMapper.map(it) }
     }
 
     override fun getCreatorEvents(creatorId: Int): Single<UIState<List<Event>>> {
@@ -276,72 +263,11 @@ class MarvelRepository @Inject constructor(
     override fun getCreatorCharacters(creatorId: Int): Single<UIState<List<Character>>> {
         return wrapResponseWithState(
             { apiService.getCreatorCharacters(creatorId) }, characterDomainMapper::map
-    fun getCachedComics(): Single<List<Comic>> {
-        return comicDao.getAllComics().map { entityComicListMapper.map(it) }
-    }
-
-    fun getCachedSeries(): Single<List<Series>> {
-        return seriesDao.getAllSeries().map { entitySeriesListMapper.map(it) }
-    }
-
-    fun refreshCharacters() {
-        refreshData(
-            { apiService.getAllCharacters() },
-            { characterMapper.map(it!!) },
-            { items -> characterDao.insertCharacterList(items) }
         )
-    }
-
-    fun refreshComics() {
-        refreshData(
-            { apiService.getAllComics() },
-            { dTOComicListMapper.map(it!!) },
-            { items -> comicDao.insertComicList(items) }
-        )
-    }
-
-    fun refreshSeries() {
-        refreshData(
-            { apiService.getAllSeries() },
-            { dTOSeriesListMapper.map(it!!) },
-            { items -> seriesDao.insertSeriesList(items) }
-        )
-    }
-
-    fun refreshHome() {
-        Log.d("MAMO", "refreshHome: called")
-        refreshSeries()
-        refreshComics()
-        refreshCharacters()
-    }
-
-    private fun <I, O> refreshData(
-        request: () -> Single<Response<BaseResponse<I>>>,
-        mapper: (List<I>?) -> List<O>,
-        insertIntoDatabase: (List<O>) -> Completable
-    ) {
-        refreshDatabaseWithWrapResponse(request, mapper, insertIntoDatabase)
-            .subscribeOn(Schedulers.io())
-            .observeOn(Schedulers.io())
-            .doOnError { throwable -> throw throwable }
-            .subscribe()
     }
 
     override fun getCreatorComics(creatorId: Int): Single<UIState<List<Comic>>> {
         return wrapResponseWithState({ apiService.getSeriesComics(creatorId) }, comicMapper::map)
-    private fun <I, O> refreshDatabaseWithWrapResponse(
-        request: () -> Single<Response<BaseResponse<I>>>,
-        mapper: (List<I>?) -> List<O>,
-        insertIntoDatabase: (List<O>) -> Completable
-    ): Completable {
-        return request().flatMapCompletable {
-            if (it.isSuccessful) {
-                val items = it.body()?.data?.results
-                insertIntoDatabase(mapper(items))
-            } else {
-                Completable.error(Throwable())
-            }
-        }
     }
 
     override fun getCreatorSeries(creatorId: Int): Single<UIState<List<Series>>> {
@@ -383,5 +309,4 @@ class MarvelRepository @Inject constructor(
             }
         }
     }
-
 }
