@@ -1,5 +1,6 @@
 package com.abaferastech.marvelapp.data.repository
 
+import android.util.Log
 import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
 import com.abaferastech.marvelapp.data.local.database.daos.ComicDao
 import com.abaferastech.marvelapp.data.local.database.daos.SeriesDao
@@ -22,7 +23,6 @@ import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.model.UIState
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Response
 import javax.inject.Inject
@@ -219,7 +219,8 @@ class MarvelRepository @Inject constructor(
         )
     }
 
-    fun refreshHome(){
+    fun refreshHome() {
+        Log.d("MAMO", "refreshHome: called")
         refreshSeries()
         refreshComics()
         refreshCharacters()

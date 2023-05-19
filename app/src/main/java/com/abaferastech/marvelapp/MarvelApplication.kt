@@ -14,19 +14,21 @@ import java.util.concurrent.TimeUnit
 class MarvelApplication : Application() {
     override fun onCreate() {
         super.onCreate()
+
         val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .setRequiredNetworkType(NetworkType.UNMETERED)
+            .setRequiresBatteryNotLow(true)
             .build()
 
         val workRequest = PeriodicWorkRequestBuilder<RefreshCharactersWorker>(
-            repeatInterval = 24,
-            repeatIntervalTimeUnit = TimeUnit.HOURS
+            repeatInterval = 3,
+            repeatIntervalTimeUnit = TimeUnit.SECONDS
         )
             .setConstraints(constraints)
             .addTag(RefreshCharactersWorker.WORK_TAG)
             .build()
 
-        WorkManager.getInstance(applicationContext).enqueueUniquePeriodicWork(
+        WorkManager.getInstance(this).enqueueUniquePeriodicWork(
             RefreshCharactersWorker.WORK_TAG,
             ExistingPeriodicWorkPolicy.KEEP,
             workRequest
