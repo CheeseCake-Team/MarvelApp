@@ -1,18 +1,17 @@
 package com.abaferastech.marvelapp.ui.search
 
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
-import com.abaferastech.marvelapp.data.remote.response.ComicDTO
-import com.abaferastech.marvelapp.data.remote.response.EventDTO
-import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
+import com.abaferastech.marvelapp.domain.models.Character
+import com.abaferastech.marvelapp.domain.models.Comic
+import com.abaferastech.marvelapp.domain.models.Event
 import com.abaferastech.marvelapp.domain.models.SearchQuery
+import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsInteractionListener
 import com.abaferastech.marvelapp.ui.event.events.EventsInteractionListener
-import com.abaferastech.marvelapp.ui.model.Event
+import com.abaferastech.marvelapp.ui.model.EventModel
 import com.abaferastech.marvelapp.ui.model.SearchItem
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.model.UIState
@@ -55,16 +54,16 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
                 _searchingResponse.postValue(UIState.Loading)
                 when (searchType.value) {
                     TYPE.SERIES -> repository.searchInSeries(searchQuery).toObservable()
-                        .map { SearchItem.Series(it.toData() as List<SeriesDTO>) }
+                        .map { SearchItem.SeriesItem(it.toData() as List<Series>) }
 
                     TYPE.CHARACTER -> repository.searchInCharacters(searchQuery).toObservable()
-                        .map { SearchItem.Character(it.toData() as List<CharacterDTO>) }
+                        .map { SearchItem.CharacterItem(it.toData() as List<Character>) }
 
                     TYPE.EVENT -> repository.searchInEvents(searchQuery).toObservable()
-                        .map { SearchItem.Event(it.toData() as List<EventDTO>) }
+                        .map { SearchItem.EventItem(it.toData() as List<Event>) }
 
                     else -> repository.searchInComics(searchQuery).toObservable()
-                        .map { SearchItem.Comic(it.toData() as List<ComicDTO>) }
+                        .map { SearchItem.ComicItem(it.toData() as List<Comic>) }
                 }
             }
             .subscribe(::onSuccess, ::onError)
@@ -104,19 +103,19 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
         search(searchQuery.value.toString())
     }
 
-    override fun onClickCharacter(character: CharacterDTO) {
+    override fun onClickCharacter(character: com.abaferastech.marvelapp.domain.models.Character) {
         searchEvents.postValue(Event(SearchEvents.ClickCharacterEvent(character.id!!)))
     }
 
-    override fun onClickComic(comic: ComicDTO) {
+    override fun onClickComic(comic: Comic) {
         searchEvents.postValue(Event(SearchEvents.ClickComicEvent(comic.id!!)))
     }
 
-    override fun onEventClick(event: EventDTO) {
+    override fun onEventClick(event: Event) {
         searchEvents.postValue(Event(SearchEvents.ClickEventEvent(event.id!!)))
     }
 
-    override fun onClickSeries(series: SeriesDTO) {
+    override fun onClickSeries(series: Series) {
         searchEvents.postValue(Event(SearchEvents.ClickSeriesEvent(series.id)))
     }
 
@@ -127,6 +126,5 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
 
     override fun onDeleteClick(oldQueryEntity: SearchQuery) {
         repository.deleteSearchQuery(oldQueryEntity)
-
     }
 }

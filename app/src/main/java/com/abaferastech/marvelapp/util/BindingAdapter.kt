@@ -9,7 +9,6 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.remote.response.Thumbnail
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
@@ -51,10 +50,10 @@ fun showLoading(view: ProgressBar, isShowing: Boolean) {
 fun setSearchRecyclerViewItems(view: RecyclerView, items: SearchItem?) {
     items.let {
         when (items) {
-            is SearchItem.Character -> (view.adapter as CharactersAdapter?)?.setItems(items.items)
-            is SearchItem.Event -> (view.adapter as EventAdapter?)?.setItems(items.items)
-            is SearchItem.Series -> (view.adapter as SeriesAdapter?)?.setItems(items.items)
-            is SearchItem.Comic -> (view.adapter as ComicsAdapter?)?.setItems(items.items)
+            is SearchItem.CharacterItem -> (view.adapter as CharactersAdapter?)?.setItems(items.items)
+            is SearchItem.EventItem -> (view.adapter as EventAdapter?)?.setItems(items.items)
+            is SearchItem.SeriesItem -> (view.adapter as SeriesAdapter?)?.setItems(items.items)
+            is SearchItem.ComicItem -> (view.adapter as ComicsAdapter?)?.setItems(items.items)
             else -> {}
         }
     }
