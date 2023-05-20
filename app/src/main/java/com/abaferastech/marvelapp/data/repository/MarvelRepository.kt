@@ -277,16 +277,26 @@ class MarvelRepository @Inject constructor(
 
 
     override fun getSingleSeries(seriesId: Int): Single<UIState<Series>> {
-        return wrapResponseWithState(
-            { apiService.getSingleSeries(seriesId) }, seriesMapper::map
-        ).mapListToSingleItem()
-
+        val series = favouriteDao.getSeriesByIdOrNull(seriesId)
+        return if (series == null) {
+            wrapResponseWithState(
+                { apiService.getSingleSeries(seriesId)},
+                seriesMapper::map
+            ).mapListToSingleItem()
+        }else {
+            Single.just(UIState.Success(series.asDomainModel()))
+        }
     }
 
     override fun getSingleComic(comicId: Int): Single<UIState<Comic>> {
-        return wrapResponseWithState(
-            { apiService.getSingleComic(comicId) }, comicMapper::map
-        ).mapListToSingleItem()
+        val comic = favouriteDao.getComicByIdOrNull(comicId)
+        return if (comic == null) {
+            wrapResponseWithState(
+                { apiService.getSingleComic(comicId) }, comicMapper::map
+            ).mapListToSingleItem()
+        } else {
+            Single.just(UIState.Success(comic.asDomainModel()))
+        }
     }
 
     override fun getSingleCreator(creatorId: Int): Single<UIState<Creator>> {

@@ -1,6 +1,7 @@
 package com.abaferastech.marvelapp.ui.series.seriesDetails
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -10,7 +11,12 @@ import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.kotlin.addTo
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
+
 @HiltViewModel
 
 class SeriesDetailsViewModel @Inject constructor(
@@ -27,56 +33,59 @@ class SeriesDetailsViewModel @Inject constructor(
 
     var isFavouriteClicked = MutableLiveData<Boolean>()
 
-    val allSeries = MutableLiveData<List<Series>>()
-
-    val _isSeriesFavourite = MutableLiveData<Boolean>(false)
-    val isSeriesFavourite : LiveData<Boolean> get() = _isSeriesFavourite
+    private val _isSeriesFavourite = MutableLiveData(false)
+    val isSeriesFavourite: LiveData<Boolean> get() = _isSeriesFavourite
 
 
     fun getSeriesById(passeId: Int? = null) {
         val seriesId = passeId ?: seriesArgs.seriesId
-        repository.getSingleSeries(seriesId)
-            .applySchedulersAndPostUIStates(_series::postValue)
+        Completable.fromAction {
+            repository.getSingleSeries(seriesId).doOnSuccess {
+                Log.i("it",it.toString())
+                when (it) {
+                    is UIState.Success -> {
+                        _isSeriesFavourite.postValue(it.toData()?.isFavourite)
+                    }
+
+                    else -> {
+                        _isSeriesFavourite.postValue(false)
+                    }
+                }
+            }
+                .applySchedulersAndPostUIStates(_series::postValue)
+        }
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+            .addTo(compositeDisposable)
     }
 
     fun refresh() {
-        val seriesId =  seriesArgs.seriesId
+        val seriesId = seriesArgs.seriesId
         getSeriesById(seriesId)
     }
 
-    private fun checkIfFavourite() {
-        val characterId = series.value?.toData()?.id
-
-        _isSeriesFavourite.postValue(allSeries.value?.any { it.id == characterId })
-    }
-
-    init {
-        getAllSeries()
-        checkIfFavourite()
-    }
-
     fun insertSeries() {
-        series.value?.toData()?.apply { isFavourite = true }?.let { repository.insertSeries(it) }
+        Completable.fromAction {
+            _series.value?.toData()?.apply { isFavourite = true }
+                ?.let { repository.insertSeries(it) }
+        }
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+            .addTo(compositeDisposable)
     }
 
     fun deleteSeries() {
-        series.value?.toData()?.let { repository.deleteSeries(it) }
-    }
-
-    @SuppressLint("CheckResult")
-    fun getAllSeries() {
-        repository.getAllCashedSeries().subscribe { characterList ->
-            allSeries.postValue(characterList)
+        Completable.fromAction {
+            _series.value?.toData()?.let { repository.deleteSeries(it) }
         }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeOn(Schedulers.io())
+            .subscribe()
+            .addTo(compositeDisposable)
     }
 
     fun onFavouriteClick() {
-        // Handle the logic when the button is clicked
-        if (isFavouriteClicked.value == true) {
-            isFavouriteClicked.postValue(false)
-        } else {
-            isFavouriteClicked.postValue(true)
-        }
+
     }
 
 }

@@ -45,9 +45,9 @@ class CharacterDetailsFragment : BaseFragment<FragmentCharacterBinding>() {
                 }
             }
         }
+
         viewModel.isCharacterFavourite.observe(viewLifecycleOwner){
             it.let {
-                Log.d("MAMO", "onViewCreated:${it} ")
                 binding.buttonFavourites.isChecked = it
             }
         }

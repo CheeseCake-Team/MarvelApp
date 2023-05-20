@@ -45,6 +45,12 @@ class ComicDetailsFragment :
             }
         }
 
+        viewModel.isComicFavourite.observe(viewLifecycleOwner){
+            it.let {
+                binding.buttonFavourites.isChecked = it
+            }
+        }
+
         viewModel.getSingleComic()
         init()
     }

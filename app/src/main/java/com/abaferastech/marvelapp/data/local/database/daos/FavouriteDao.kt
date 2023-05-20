@@ -32,8 +32,8 @@ interface FavouriteDao {
     @Query("SELECT * FROM SERIES_FAVOURITE_TABLE WHERE title=:title")
     fun getSeriesByName(title: String): Single<SeriesFavouriteEntity>
 
-    @Query("SELECT * FROM SERIES_FAVOURITE_TABLE WHERE id=:id")
-    fun getSeriesById(id: Int): Single<SeriesFavouriteEntity>
+    @Query("SELECT * FROM Series_FAVOURITE_TABLE WHERE id=:id")
+    fun getSeriesByIdOrNull(id: Int): SeriesFavouriteEntity?
 
     @Delete
     fun deleteSeries(series: SeriesFavouriteEntity):Completable
@@ -74,8 +74,6 @@ interface FavouriteDao {
     fun getComicByName(title: String): Single<ComicFavouriteEntity>
 
     @Query("SELECT * FROM COMIC_Favourite_TABLE WHERE id=:id")
-    fun getComicById(id: Int): Single<ComicFavouriteEntity>
-
-
+    fun getComicByIdOrNull(id: Int): ComicFavouriteEntity?
 
 }

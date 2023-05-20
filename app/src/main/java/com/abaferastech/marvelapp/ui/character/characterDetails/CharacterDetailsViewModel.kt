@@ -62,9 +62,8 @@ class CharacterDetailsViewModel @Inject constructor(
                 ?.let { repository.insertCharacter(it) }
         }
             .subscribeOn(Schedulers.io())
-            .subscribe {
-                Log.e("save", "save Completed")
-            }.addTo(compositeDisposable)
+            .subscribe()
+            .addTo(compositeDisposable)
     }
 
     fun deleteCharacter() {
@@ -73,10 +72,8 @@ class CharacterDetailsViewModel @Inject constructor(
         }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
-            .subscribe {
-                Log.e("save", "save Completed")
-            }.addTo(compositeDisposable)
-
+            .subscribe()
+            .addTo(compositeDisposable)
     }
 
     fun refresh() {

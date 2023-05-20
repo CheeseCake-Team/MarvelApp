@@ -49,11 +49,15 @@ class SeriesDetailsFragment : BaseFragment<FragmentSeriesDetailsBinding>() {
             isClicked?.let {
                 if (it) {
                     viewModel.insertSeries()
-                    Toast.makeText(requireContext(), "added to room", Toast.LENGTH_SHORT).show()
                 } else {
                     viewModel.deleteSeries()
-                    Toast.makeText(requireContext(), "removed from room", Toast.LENGTH_SHORT).show()
                 }
+            }
+        }
+
+        viewModel.isSeriesFavourite.observe(viewLifecycleOwner){
+            it.let {
+                binding.buttonFavourites.isChecked = it
             }
         }
 
