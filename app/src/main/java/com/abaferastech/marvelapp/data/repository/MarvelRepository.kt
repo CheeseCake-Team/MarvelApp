@@ -1,5 +1,6 @@
 package com.abaferastech.marvelapp.data.repository
 
+import android.annotation.SuppressLint
 import android.util.Log
 import com.abaferastech.marvelapp.data.local.database.daos.FavouriteDao
 import com.abaferastech.marvelapp.data.local.database.daos.MarvelDao
@@ -712,11 +713,14 @@ class MarvelRepository @Inject constructor(
     }
 
     fun insertComic(comic: Comic) {
-        favouriteDao.insertComic(comic.asEntityModel())
+        favouriteDao.insertComic(comic.asEntityModel()).subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io()).subscribe()
     }
 
+    @SuppressLint("CheckResult")
     fun deleteComic(comic: Comic) {
-        favouriteDao.deleteComic(comic.asEntityModel())
+        favouriteDao.deleteComic(comic.asEntityModel()).subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io()).subscribe()
     }
 
     fun getAllCashedComic(): Single<List<Comic>> {

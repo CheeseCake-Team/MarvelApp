@@ -3,11 +3,13 @@ package com.abaferastech.marvelapp.utils
 import android.view.View
 import android.widget.HorizontalScrollView
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.abaferastech.marvelapp.R
@@ -69,7 +71,10 @@ fun setFavouritesRecyclerViewItems(view: RecyclerView, items: FavouriteItems?) {
             }
 //            is FavouriteItems.FavouriteEvents -> (view.adapter as EventAdapter?)?.setItems(items.items)
 //            is FavouriteItems.FavouriteSeries -> (view.adapter as SeriesAdapter?)?.setItems(items.items)
-            is FavouriteItems.FavouriteComics -> (view.adapter as FavouriteComicsAdapter?)?.setItems(items.items)
+            is FavouriteItems.FavouriteComics -> {
+                view.layoutManager = LinearLayoutManager(view.context)
+                (view.adapter as FavouriteComicsAdapter?)?.setItems(items.items)
+            }
             else -> {}
         }
     }
