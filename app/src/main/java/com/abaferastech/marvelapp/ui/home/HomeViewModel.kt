@@ -37,18 +37,8 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
 
 
     init {
-        _homeData.postValue(UIState.Loading)
 
-        repository.getAllCharacters()
-            .applySchedulersAndPostUIStates(::onCharacterSuccess, ::onError)
-
-
-        repository.getAllComics()
-            .applySchedulersAndPostUIStates(::onComicsSuccess, ::onError)
-
-
-        repository.getAllSeries()
-            .applySchedulersAndPostUIStates(::onSeriesSuccess, ::onError)
+        getAllHomeData()
 
     }
 
@@ -121,5 +111,19 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
     fun restoreRecyclerViewState(): Parcelable = state
     fun stateInitialized(): Boolean = ::state.isInitialized
 
+    fun getAllHomeData(){
 
+        _homeData.postValue(UIState.Loading)
+
+        repository.getAllCharacters()
+            .applySchedulersAndPostUIStates(::onCharacterSuccess, ::onError)
+
+
+        repository.getAllComics()
+            .applySchedulersAndPostUIStates(::onComicsSuccess, ::onError)
+
+
+        repository.getAllSeries()
+            .applySchedulersAndPostUIStates(::onSeriesSuccess, ::onError)
+    }
 }
