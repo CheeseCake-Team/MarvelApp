@@ -3,8 +3,9 @@ package com.abaferastech.marvelapp.data.local.searchMappers.EntityToModel
 import com.abaferastech.marvelapp.data.local.database.entity.search.EventSearchEntity
 import com.abaferastech.marvelapp.domain.mapper.IMapper
 import com.abaferastech.marvelapp.domain.models.Event
+import javax.inject.Inject
 
-class EventSearchEntityMapper : IMapper<List<EventSearchEntity>, List<Event>> {
+class EventSearchEntityMapper @Inject constructor(): IMapper<List<EventSearchEntity>, List<Event>> {
     override fun map(input: List<EventSearchEntity>): List<Event> {
         return input.map { eventSearchEntity ->
             Event(
