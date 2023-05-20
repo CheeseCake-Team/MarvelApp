@@ -38,10 +38,10 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
     val searchQuery = MutableLiveData("")
 
     private val _searchType = MutableLiveData(TYPE.COMIC)
-    val searchType: LiveData<TYPE>  = _searchType
+    val searchType: LiveData<TYPE> get() = _searchType
 
     private var _searchingResponse = MutableLiveData<UIState<SearchItem>>()
-    val searchingResponse = _searchingResponse
+    val searchingResponse: LiveData<UIState<SearchItem>> get() =  _searchingResponse
 
     val navigationEvents = MutableLiveData<EventModel<SearchEvents>>()
 
@@ -67,12 +67,12 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
 
     fun search(searchQuery: String) {
         if (searchQuery != "") {
+            this.searchQuery.postValue(searchQuery)
             Observable.just(searchQuery)
                 .flatMap { mySearchQuery ->
                     _searchingResponse.postValue(UIState.Loading)
-                    Log.d("MAMO", "search: $mySearchQuery")
-                    Log.d("MAMO", "search: ${_searchType.value}")
-                    when (_searchType.value) {
+                    Log.d("MAMO", "search: ${searchType.value}")
+                    when (searchType.value) {
                         TYPE.SERIES -> repository.searchInSeries(mySearchQuery)
                             .map { SearchItem.SeriesItem(it) }
 
@@ -88,7 +88,6 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
                 }
                 .subscribe(::onSuccess, ::onError)
                 .addTo(compositeDisposable)
-            this.searchQuery.postValue(searchQuery)
         }
     }
 
@@ -103,11 +102,7 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
     }
 
     fun changeSearchType(type: TYPE) {
-        _searchType.postValue(type)
-        Log.d("MAMO", "changeSearchType: input $type ")
-        Log.d("MAMO", "changeSearchType: _searchType ${_searchType.value} ")
-        Log.d("MAMO", "changeSearchType: live data searchType ${searchType.value} ")
-        _searchType.postValue(TYPE.CHARACTER)
+        _searchType.value = type
         search(searchQuery.value.toString())
     }
 
