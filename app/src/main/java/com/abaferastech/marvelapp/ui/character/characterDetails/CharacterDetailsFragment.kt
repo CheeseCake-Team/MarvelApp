@@ -27,13 +27,6 @@ class CharacterDetailsFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.allCharacters.observe(viewLifecycleOwner) { isFavourite ->
-//            if (isFavourite) {
-//                binding.buttonFavourites.isChecked = true
-//            }
-            Log.i( "onViewCreated: ","${isFavourite.toString()}")
-        }
-
         binding.buttonFavourites.setOnClickListener {
             if ((it as CheckBox).isChecked) {
                 viewModel.isFavouriteClicked.postValue(true)

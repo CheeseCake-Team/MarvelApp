@@ -26,8 +26,8 @@ class FavouritesViewModel @Inject constructor(
 
     @SuppressLint("CheckResult")
     fun getCachedCharacters() {
-        Log.i( "getAllCharacters: ", repository.getAllEntityCharacters().toString())
-        repository.getAllEntityCharacters().subscribe { items ->
+        Log.i( "getAllCharacters: ", repository.getAllCashedCharacters().toString())
+        repository.getAllCashedCharacters().subscribe { items ->
            _allCharacters.postValue(items)
         }
     }

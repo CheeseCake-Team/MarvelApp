@@ -1,6 +1,7 @@
 package com.abaferastech.marvelapp.data.local.database.daos
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
@@ -22,11 +23,14 @@ interface ComicDao {
     fun updateComic(comic: ComicEntity): Completable
 
     @Query("SELECT * FROM COMIC_TABLE")
-    fun getAllComics(): Observable<List<ComicEntity>>
+    fun getAllCachedComics(): Single<List<ComicEntity>>
 
     @Query("SELECT * FROM COMIC_TABLE WHERE title=:title")
     fun getComicByName(title: String): Single<ComicEntity>
 
     @Query("SELECT * FROM COMIC_TABLE WHERE id=:id")
     fun getComicById(id: Int): Single<ComicEntity>
+
+    @Delete
+    fun deleteComic(comic: ComicEntity):Completable
 }

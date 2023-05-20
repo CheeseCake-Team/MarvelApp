@@ -53,19 +53,16 @@ class CharacterDetailsViewModel @Inject constructor( val repository:MarvelReposi
     fun deleteCharacter() {
         character.value?.toData()?.let { repository.deleteCharacter(it) }
     }
+
     @SuppressLint("CheckResult")
     fun getAllCharacters() {
-        Log.i( "getAllCharacters: ", repository.getAllEntityCharacters().toString())
-        repository.getAllEntityCharacters().subscribe { characterList ->
+        Log.i( "getAllCharacters: ", repository.getAllCashedCharacters().toString())
+        repository.getAllCashedCharacters().subscribe { characterList ->
             Log.i("ebrabw", "getAllCharacters: $characterList")
             allCharacters.postValue(characterList)
             Log.i("ebrabw", "getAllCharacters: ${allCharacters.value}")
-
-
         }
     }
-
-
 
 
 }

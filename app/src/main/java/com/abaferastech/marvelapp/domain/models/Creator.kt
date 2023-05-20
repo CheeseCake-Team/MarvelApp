@@ -4,5 +4,7 @@ data class Creator(
     val id: Int?,
     val fullName: String?,
     val modified: String?,
-    val imageUri: String?
+    val imageUri: String?,
+    var isFavourite: Boolean? = null
+
 )

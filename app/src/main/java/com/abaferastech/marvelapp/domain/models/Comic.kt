@@ -8,5 +8,7 @@ data class Comic(
     val price: Float?,
     val pageCount: Int?,
     val modified: String?,
-    val imageUri: String?
+    val imageUri: String?,
+    var isFavourite: Boolean? = null
+
 )

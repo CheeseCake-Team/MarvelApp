@@ -1,11 +1,10 @@
 package com.abaferastech.marvelapp.data.repository
 
-import android.annotation.SuppressLint
-import android.util.Log
 import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
+import com.abaferastech.marvelapp.data.local.database.daos.ComicDao
 import com.abaferastech.marvelapp.data.local.database.entity.CharacterEntity
+import com.abaferastech.marvelapp.data.local.database.entity.ComicEntity
 import com.abaferastech.marvelapp.data.local.mappers.CharacterMapper
-import com.abaferastech.marvelapp.data.remote.MarvelAPI.apiService
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import com.abaferastech.marvelapp.data.remote.response.BaseResponse
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
@@ -21,15 +20,15 @@ import com.abaferastech.marvelapp.domain.models.Event
 import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.model.UIState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import retrofit2.Response
 import javax.inject.Inject
 
 class MarvelRepository @Inject constructor(
-    private val characterDao: CharacterDao, private val apiService: MarvelApiService
+    private val characterDao: CharacterDao,
+    private val comicDao: ComicDao,
+    private val apiService: MarvelApiService
 ) {
 
     private val comicMapper: ComicDominMapper = ComicDominMapper()
@@ -284,7 +283,7 @@ class MarvelRepository @Inject constructor(
     }
 
     fun getCachedCharacters() {
-        characterDao.getAllCharacters()
+        characterDao.getAllCashedCharacters()
     }
 
     fun insertCharacter(character: Character) {
@@ -292,14 +291,27 @@ class MarvelRepository @Inject constructor(
             .observeOn(Schedulers.io()).subscribe()
     }
 
-    fun getAllEntityCharacters(): Single<List<Character>> {
-        return characterDao.getAllCharacters().subscribeOn(Schedulers.io())
+    fun getAllCashedCharacters(): Single<List<Character>> {
+        return characterDao.getAllCashedCharacters().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map { list -> list.map { it.asDomainModel() } }
     }
 
+    fun insertComic(comic: Comic) {
+        comicDao.insertComic(comic.asEntityModel()).subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io()).subscribe()
+    }
 
-    @SuppressLint("CheckResult")
+    fun deleteComic(comic: Comic) {
+        comicDao.deleteComic(comic.asEntityModel()).subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io()).subscribe()
+    }
+    fun getAllCashedComic(): Single<List<Comic>> {
+        return comicDao.getAllCachedComics().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map { list -> list.map { it.asDomainModel() } }
+    }
+
     fun deleteCharacter(character: Character) {
         characterDao.deleteCharacter(character.asEntityModel()).subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io()).subscribe()
@@ -324,6 +336,34 @@ class MarvelRepository @Inject constructor(
             description = this.description,
             modified = this.modified,
             imageUri = this.imageUri,
+            isFavourite = this.isFavourite
+        )
+    }
+
+    fun Comic.asEntityModel(): ComicEntity {
+        return ComicEntity(
+            id = this.id,
+            title = this.title,
+            description = this.description,
+            modified = this.modified,
+            imageUri = this.imageUri,
+            price = this.price,
+            pageCount = this.pageCount,
+            issueNumber = this.issueNumber,
+            isFavourite = this.isFavourite
+        )
+    }
+
+    fun ComicEntity.asDomainModel(): Comic {
+        return Comic(
+            id = this.id,
+            title = this.title,
+            description = this.description,
+            modified = this.modified,
+            imageUri = this.imageUri,
+            price = this.price,
+            pageCount = this.pageCount,
+            issueNumber = this.issueNumber,
             isFavourite = this.isFavourite
         )
     }

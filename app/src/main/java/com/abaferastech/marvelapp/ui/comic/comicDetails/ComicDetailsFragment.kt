@@ -1,7 +1,10 @@
 package com.abaferastech.marvelapp.ui.comic.comicDetails
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.CheckBox
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -20,25 +23,30 @@ class ComicDetailsFragment :
 
     override val viewModel: ComicDetailsViewModel by viewModels()
 
-    override fun onResume() {
-        super.onResume()
-        (activity as AppCompatActivity).supportActionBar.let {
-            it?.hide()
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        (activity as AppCompatActivity).supportActionBar.let {
-            it?.show()
-        }
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.getSingleComic()
+        binding.buttonFavourites.setOnClickListener {
+            if ((it as CheckBox).isChecked) {
+                viewModel.isFavouriteClicked.postValue(true)
+            } else {
+                viewModel.isFavouriteClicked.postValue(false)
+            }
+        }
 
+        viewModel.isFavouriteClicked.observe(viewLifecycleOwner) { isClicked ->
+            isClicked?.let {
+                if (it) {
+                    viewModel.insertComic()
+                    Toast.makeText(requireContext(), "added to room", Toast.LENGTH_SHORT).show()
+                } else {
+                    viewModel.deleteComic()
+                    Toast.makeText(requireContext(), "removed from room", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+        viewModel.getSingleComic()
         init()
     }
 
@@ -65,4 +73,19 @@ class ComicDetailsFragment :
         )
         binding.viewPager.adapter = adapter
     }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as AppCompatActivity).supportActionBar.let {
+            it?.hide()
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        (activity as AppCompatActivity).supportActionBar.let {
+            it?.show()
+        }
+    }
+
 }
