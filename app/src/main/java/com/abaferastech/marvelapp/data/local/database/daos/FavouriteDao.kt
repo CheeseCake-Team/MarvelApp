@@ -8,6 +8,7 @@ import androidx.room.Query
 import androidx.room.Update
 import com.abaferastech.marvelapp.data.local.database.entity.favourite.CharacterFavouriteEntity
 import com.abaferastech.marvelapp.data.local.database.entity.favourite.ComicFavouriteEntity
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
@@ -20,7 +21,7 @@ interface FavouriteDao {
     fun deleteCharacter(character: CharacterFavouriteEntity)
 
     @Delete
-    fun deleteComic(comic: ComicFavouriteEntity)
+    fun deleteComic(comic: ComicFavouriteEntity):  Completable
 
     @Update
     fun updateCharacter(character: CharacterFavouriteEntity)
@@ -31,7 +32,7 @@ interface FavouriteDao {
     @Query("SELECT * FROM CHARACTER_FAVOURITE_TABLE WHERE id=:id")
     fun getCharacterByIdNullable(id: Int): CharacterFavouriteEntity?
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertComic(comic: ComicFavouriteEntity)
+    fun insertComic(comic: ComicFavouriteEntity): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertComicList(series: List<ComicFavouriteEntity>)
