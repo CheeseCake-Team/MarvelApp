@@ -6,8 +6,6 @@ import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
 
-interface FavouritesInteractionListener : BaseInteractionListener
-
 class FavouriteCharactersAdapter(listener: CharactersInteractionListener) :
     BaseAdapter<Character>(object : CharactersInteractionListener {
         override fun onClickCharacter(character: Character) {}
