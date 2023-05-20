@@ -7,9 +7,7 @@ import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
 
 class FavouriteCharactersAdapter(listener: CharactersInteractionListener) :
-    BaseAdapter<Character>(object : CharactersInteractionListener {
-        override fun onClickCharacter(character: Character) {}
-    }) {
+    BaseAdapter<Character>(listener) {
 
     override val layoutId = R.layout.item_view_all_characters
 

@@ -57,13 +57,6 @@
                     android:onClick="@{() -> viewModel.changeFavouriteType(FavouritesType.SERIES)}"
                     android:text="@string/series" />
 
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{() -> viewModel.changeFavouriteType(FavouritesType.EVENTS)}"
-                    android:text="@string/events" />
-
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 

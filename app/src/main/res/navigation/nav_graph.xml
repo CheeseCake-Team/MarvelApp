@@ -189,7 +189,17 @@
     <fragment
         android:id="@+id/favouritesFragment"
         android:name="com.abaferastech.marvelapp.ui.favourites.FavouritesFragment"
-        android:label="Favourites" />
+        android:label="Favourites" >
+        <action
+            android:id="@+id/action_favouritesFragment_to_characterFragment"
+            app:destination="@id/characterFragment" />
+        <action
+            android:id="@+id/action_favouritesFragment_to_comicDetailsFragment"
+            app:destination="@id/comicDetailsFragment" />
+        <action
+            android:id="@+id/action_favouritesFragment_to_seriesDetailsFragment"
+            app:destination="@id/seriesDetailsFragment" />
+    </fragment>
     <dialog
         android:id="@+id/filterFragment"
         android:name="com.abaferastech.marvelapp.ui.filter.FilterFragment"

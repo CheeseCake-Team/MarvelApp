@@ -8,9 +8,7 @@ import com.abaferastech.marvelapp.ui.home.adapters.SeriesInteractionListener
 import com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllInteractionListener
 
 class FavouriteSeriesAdapter (listener: SeriesViewAllInteractionListener) :
-    BaseAdapter<Series>(object : SeriesViewAllInteractionListener {
-        override fun onClickSeries(series: Series) {}
-    }) {
+    BaseAdapter<Series>(listener) {
 
     override val layoutId = R.layout.items_series_view_all
 
