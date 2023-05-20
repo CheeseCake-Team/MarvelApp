@@ -9,12 +9,7 @@ import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.remote.response.Thumbnail
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
-import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
-import com.abaferastech.marvelapp.ui.event.events.EventAdapter
-import com.abaferastech.marvelapp.ui.home.adapters.CharactersAdapter
-import com.abaferastech.marvelapp.ui.home.adapters.SeriesAdapter
 import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.SearchItem
 import com.abaferastech.marvelapp.ui.model.UIState
@@ -34,25 +29,14 @@ fun ImageView.setImageFromUrl(imageUri: String?) {
 
 @BindingAdapter(value = ["app:items"])
 fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
-    (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())
+    items?.let {
+        (view.adapter as BaseAdapter<T>?)?.setItems(items)
+    }
 }
 
 @BindingAdapter(value = ["app:showLoading"])
 fun showLoading(view: ProgressBar, isShowing: Boolean) {
     view.isVisible = isShowing
-}
-
-@BindingAdapter(value = ["app:setSearchRecyclerViewItems"])
-fun setSearchRecyclerViewItems(view: RecyclerView, items: SearchItem?) {
-    items.let {
-        when (items) {
-            is SearchItem.CharacterItem -> (view.adapter as CharactersAdapter?)?.setItems(items.items)
-            is SearchItem.EventItem -> (view.adapter as EventAdapter?)?.setItems(items.items)
-            is SearchItem.SeriesItem -> (view.adapter as SeriesAdapter?)?.setItems(items.items)
-            is SearchItem.ComicItem -> (view.adapter as ComicsAdapter?)?.setItems(items.items)
-            else -> {}
-        }
-    }
 }
 
 @BindingAdapter("emptyStateTextView")
