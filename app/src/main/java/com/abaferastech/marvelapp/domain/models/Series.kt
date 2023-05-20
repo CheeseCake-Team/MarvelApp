@@ -9,6 +9,6 @@ data class Series(
     val rating: String?,
     val modified: String?,
     val imageUri: String?,
-    var isFavourite: Boolean? = null
+    var isFavourite: Boolean = false
 
 )

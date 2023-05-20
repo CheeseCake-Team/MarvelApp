@@ -2,7 +2,6 @@ package com.abaferastech.marvelapp.ui.search
 
 import android.os.Bundle
 import android.util.Log
-import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
@@ -36,12 +35,12 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
         val searchQueryAdapter = SearchQueryAdapter(viewModel)
         binding.recyclerViewSearchHistory.adapter = searchQueryAdapter
+        viewModel.search(viewModel.searchQuery.value.toString())
     }
 
     private fun addEventAndListeners() {
         binding.searchView.editText.setOnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                binding.searchBar.text = binding.searchView.text
                 binding.searchView.hide()
                 viewModel.search(binding.searchView.text.toString())
                 viewModel.saveSearchQuery(binding.searchView.text.toString())
@@ -107,7 +106,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     private fun setAdapter(it: TYPE?) {
-        Log.d("MAMO", "setAdapter: $it")
+        Log.d("setSearchRecyclerViewItems", "setAdapter: $it")
         val adapter = when (it) {
             TYPE.CHARACTER -> CharacterViewAllAdapter(viewModel)
             TYPE.EVENT -> EventAdapter(viewModel)

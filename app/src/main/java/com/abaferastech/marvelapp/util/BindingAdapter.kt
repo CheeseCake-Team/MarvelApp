@@ -7,20 +7,24 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
-import com.abaferastech.marvelapp.ui.character.characters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
 import com.abaferastech.marvelapp.ui.event.events.EventAdapter
 import com.abaferastech.marvelapp.ui.favourites.FavouriteItems
 import com.abaferastech.marvelapp.ui.favourites.FavouritesType
 import com.abaferastech.marvelapp.ui.favourites.favouritesAdapters.FavouriteCharactersAdapter
 import com.abaferastech.marvelapp.ui.favourites.favouritesAdapters.FavouriteComicsAdapter
+import com.abaferastech.marvelapp.ui.favourites.favouritesAdapters.FavouriteSeriesAdapter
+import com.abaferastech.marvelapp.ui.home.adapters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesAdapter
 import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.SearchItem
 import com.abaferastech.marvelapp.ui.model.UIState
+import com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllAdapter
 import com.bumptech.glide.Glide
 
 
@@ -64,6 +68,11 @@ fun setFavouritesRecyclerViewItems(view: RecyclerView, items: FavouriteItems?) {
                 view.layoutManager = GridLayoutManager(view.context,4)
                 (view.adapter as FavouriteCharactersAdapter?)?.setItems(items.items)
             }
+            is FavouriteItems.FavouriteSeries -> {
+                view.layoutManager = GridLayoutManager(view.context, 2)
+                (view.adapter as FavouriteSeriesAdapter?)?.setItems(items.items)
+            }
+
 //            is FavouriteItems.FavouriteEvents -> (view.adapter as EventAdapter?)?.setItems(items.items)
 //            is FavouriteItems.FavouriteSeries -> (view.adapter as SeriesAdapter?)?.setItems(items.items)
             is FavouriteItems.FavouriteComics -> {
@@ -108,6 +117,11 @@ fun setTagTitle(view: TextView, dataItem: DataItem) {
 @BindingAdapter("app:chipGroupVisibility")
 fun chipGroupVisibility(horizontalScrollView: HorizontalScrollView, isVisible: Boolean) {
     horizontalScrollView.visibility = if (isVisible) View.VISIBLE else View.GONE
+}
+
+@BindingAdapter("app:showWhenEmpty")
+fun showWhenEmpty(view: View, empty: Boolean){
+    view.isVisible = empty
 }
 
 @BindingAdapter("app:showWhenError")

@@ -11,6 +11,9 @@ import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
 import com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllInteractionListener
 import dagger.hilt.android.lifecycle.HiltViewModel
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.kotlin.addTo
+import io.reactivex.rxjava3.schedulers.Schedulers
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,7 +23,7 @@ class FavouritesViewModel @Inject constructor(
     SeriesViewAllInteractionListener {
 
     private var _favouritesItems = MutableLiveData<FavouriteItems>()
-    val favouriteItems: LiveData<FavouriteItems> get() = _favouritesItems
+    val favouriteItems: LiveData<FavouriteItems> = _favouritesItems
 
     var favouritesType = MutableLiveData(FavouritesType.COMICS)
 
@@ -28,19 +31,26 @@ class FavouritesViewModel @Inject constructor(
         getAllCachedComics()
     }
 
-    @SuppressLint("CheckResult")
     fun getCachedCharacters() {
-        repository.getAllCashedCharacters().subscribe { items ->
-            _favouritesItems.postValue(FavouriteItems.FavouriteCharacters(items))
+        repository.getAllCashedCharacters()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { items ->
+                _favouritesItems.postValue(FavouriteItems.FavouriteCharacters(items))
 
-        }
+            }
+            .addTo(compositeDisposable)
+
     }
 
-    @SuppressLint("CheckResult")
     fun getAllCachedComics() {
-        repository.getAllCashedComic().subscribe { items ->
-            _favouritesItems.postValue(FavouriteItems.FavouriteComics(items))
-        }
+        repository.getAllCashedComic()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe { items ->
+                _favouritesItems.postValue(FavouriteItems.FavouriteComics(items))
+            }
+            .addTo(compositeDisposable)
     }
 
 fun getAllCachedSeries(){

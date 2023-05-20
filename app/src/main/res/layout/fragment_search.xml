@@ -17,12 +17,13 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true">
 
-        <ImageView
-            android:id="@+id/imageView"
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="@string/no_data_available"
+            android:textSize="@dimen/no_data_text_size"
             android:layout_gravity="center"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:showWhenEmpty="@{viewModel.searchingResponse.toData().itemsList.empty}"/>
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -30,7 +31,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:visibility="invisible"
             app:showWhenLoading="@{viewModel.searchingResponse}" />
 
         <androidx.recyclerview.widget.RecyclerView
@@ -41,7 +41,8 @@
             android:padding="@dimen/space_12dp"
             app:items="@{viewModel.searchingResponse.toData().itemsList}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:showWhenSuccess="@{viewModel.searchingResponse}"/>
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -57,6 +58,7 @@
                     android:id="@+id/search_bar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:text="@{viewModel.searchQuery}"
                     app:menu="@menu/filter"
                     android:hint="@string/search" />
 
@@ -70,20 +72,20 @@
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
             android:fitsSystemWindows="true"
-            android:hint="@string/search"
-            app:layout_anchor="@id/search_bar">
+            app:layout_anchor="@id/search_bar"
+            android:hint="@string/search">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_16dp"
                     android:layout_marginStart="@dimen/space_16dp"
-                    android:text="Recent search queries"
-                    />
+                    android:layout_marginTop="@dimen/space_16dp"
+                    android:text="Recent search queries" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycler_view_search_history"
@@ -96,73 +98,5 @@
             </LinearLayout>
 
         </com.google.android.material.search.SearchView>
-
-        <!--<androidx.appcompat.widget.AppCompatEditText
-            android:id="@+id/search_text_input_layout"
-            style="@style/CustomSearchBar"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:layout_marginHorizontal="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_16dp"
-            android:drawableStart="@drawable/ic_search"
-            android:drawablePadding="@dimen/space_16dp"
-            android:focusableInTouchMode="true"
-            android:hint="@string/type_here"
-            android:inputType="text"
-            android:maxLength="30"
-            android:paddingStart="@dimen/space_16dp"
-            android:paddingEnd="@dimen/space_16dp"
-            android:text="@={viewModel.searchQuery}"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_search"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:clipToPadding="false"
-            android:padding="@dimen/space_12dp"
-            app:setSearchRecyclerViewItems="@{viewModel.searchingResponse}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
-            />
-
-        <Button
-            android:id="@+id/button_filter"
-            style="?attr/materialIconButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/space_8dp"
-            android:onClick="@{() -> viewModel.toggleChipGroupVisibility()}"
-            android:contentDescription="@string/filter_button"
-            app:icon="@drawable/ic_filter"
-            app:iconTint="@color/md_theme_onSurfaceVariant"
-            app:layout_constraintBottom_toBottomOf="@+id/search_text_input_layout"
-            app:layout_constraintEnd_toEndOf="@+id/search_text_input_layout"
-            app:layout_constraintTop_toTopOf="@+id/search_text_input_layout" />
-
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            app:showLoading="@{viewModel.isLoading()}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/text_view_search_result"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8dp"
-            android:text="@string/no_data_found"
-            app:emptyStateTextView="@{viewModel.searchingResponse}"
-            app:layout_constraintEnd_toEndOf="@+id/progressBar"
-            app:layout_constraintStart_toStartOf="@+id/progressBar"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar" />-->
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

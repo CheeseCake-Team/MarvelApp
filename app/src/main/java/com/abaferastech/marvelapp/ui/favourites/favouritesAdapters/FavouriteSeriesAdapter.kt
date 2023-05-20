@@ -12,6 +12,6 @@ class FavouriteSeriesAdapter (listener: SeriesViewAllInteractionListener) :
         override fun onClickSeries(series: Series) {}
     }) {
 
-    override val layoutId = R.layout.item_series_horizontal
+    override val layoutId = R.layout.items_series_view_all
 
 }

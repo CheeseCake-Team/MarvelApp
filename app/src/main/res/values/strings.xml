@@ -25,4 +25,5 @@
     <string name="filter">filter</string>
     <string name="delete">delete</string>
     <string name="recent_search_query">recent search query</string>
+    <string name="no_data_available">No Data Available</string>
 </resources>
