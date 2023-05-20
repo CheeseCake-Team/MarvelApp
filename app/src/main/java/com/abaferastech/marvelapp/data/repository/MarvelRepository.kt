@@ -5,6 +5,9 @@ import android.util.Log
 import com.abaferastech.marvelapp.data.local.database.daos.FavouriteDao
 import com.abaferastech.marvelapp.data.local.database.daos.MarvelDao
 import com.abaferastech.marvelapp.data.local.database.daos.SearchDao
+import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
+import com.abaferastech.marvelapp.data.local.database.daos.ComicDao
+import com.abaferastech.marvelapp.data.local.database.daos.SeriesDao
 import com.abaferastech.marvelapp.data.local.database.entity.CharacterEntity
 import com.abaferastech.marvelapp.data.local.database.entity.ComicEntity
 import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
@@ -15,6 +18,8 @@ import com.abaferastech.marvelapp.data.local.database.entity.search.ComicSearchE
 import com.abaferastech.marvelapp.data.local.database.entity.search.EventSearchEntity
 import com.abaferastech.marvelapp.data.local.database.entity.search.SearchQueryEntity
 import com.abaferastech.marvelapp.data.local.database.entity.search.SeriesSearchEntity
+import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
+import com.abaferastech.marvelapp.data.local.mappers.CharacterMapper
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import com.abaferastech.marvelapp.data.remote.response.BaseResponse
 import com.abaferastech.marvelapp.domain.mapper.CharacterDomainMapper
@@ -46,6 +51,7 @@ class MarvelRepository @Inject constructor(
     private val creatorMapper: CreatorMapper,
     private val characterDomainMapper: CharacterDomainMapper,
     private val searchDao: SearchDao,
+    private val seriesDao: SeriesDao,
     private val marvelDao: MarvelDao,
     private val favouriteDao: FavouriteDao,
 
@@ -477,37 +483,19 @@ class MarvelRepository @Inject constructor(
             }
     }*/
 
-//    override fun searchInEvents(query: String): Single<UIState<List<Event>>> {
-//        return wrapResponseWithState({ apiService.searchInEvents(query) }, eventMapper::map)
-//    }
-
-//    override fun searchInSeries(query: String): Single<UIState<List<Series>>> {
-//
-//        return wrapResponseWithState({ apiService.searchInSeries(query) }, seriesMapper::map)
-//    }
-
-
-    override fun getSingleCharacter(characterId: Int): Single<UIState<Character>> {
-//        return wrapResponseWithState(
-//            { apiService.getSingleCharacter(characterId) }, characterDomainMapper::map
-//        ).mapListToSingleItem()
-        val character = favouriteDao.getCharacterByIdNullable(characterId)
-        return if (character == null) {
-            Log.d("MAMO", "getSingleCharacter: from api ${character}")
-            wrapResponseWithState(
-                { apiService.getSingleCharacter(characterId) }, characterDomainMapper::map
-            ).mapListToSingleItem()
-        } else {
-            Log.d("MAMO", "getSingleCharacter: from room ${character}")
-            Single.just(UIState.Success(character.asDomainModel()))
+    private fun <I, O> refreshDatabaseWithWrapResponse(
+        request: () -> Single<Response<BaseResponse<I>>>,
+        mapper: (List<I>?) -> List<O>,
+        insertIntoDatabase: (List<O>) -> Unit
+    ) {
+        request().map {
+            if (it.isSuccessful) {
+                val items = it.body()?.data?.results
+                mapper(items).let(insertIntoDatabase)
+            } else {
+                throw Throwable()
+            }
         }
-    }
-
-
-    override fun getSingleEvent(eventsId: Int): Single<UIState<Event>> {
-        return wrapResponseWithState(
-            { apiService.getEventsById(eventsId) }, eventMapper::map
-        ).mapListToSingleItem()
     }
 
 
@@ -729,6 +717,22 @@ class MarvelRepository @Inject constructor(
             .map { list -> list.map { it.asDomainModel() } }
     }
 
+    fun insertSeries(series: Series) {
+        seriesDao.insertSeries(series.asEntityModel()).subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io()).subscribe()
+    }
+
+    fun deleteSeries(series: Series) {
+        seriesDao.deleteSeries(series.asEntityModel()).subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io()).subscribe()
+    }
+
+    fun getAllCashedSeries(): Single<List<Series>> {
+        return seriesDao.getAllCashedSeries().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map { list -> list.map { it.asDomainModel() } }
+    }
+
     fun deleteCharacter(character: Character) {
         favouriteDao.deleteCharacter(character.asEntityModel())
     }
@@ -781,6 +785,34 @@ class MarvelRepository @Inject constructor(
             pageCount = this.pageCount,
             issueNumber = this.issueNumber,
             isFavourite = this.isFavourite
+        )
+    }
+
+    fun Series.asEntityModel(): SeriesEntity {
+        return SeriesEntity(
+            id = this.id,
+            title = this.title,
+            description = this.description,
+            rating = this.rating,
+            imageUri = this.imageUri,
+            startYear = this.startYear,
+            endYear = this.endYear,
+            isFavourite = this.isFavourite,
+            modified = this.modified
+        )
+    }
+
+    fun SeriesEntity.asDomainModel(): Series {
+        return Series(
+            id = this.id,
+            title = this.title,
+            description = this.description,
+            rating = this.rating,
+            imageUri = this.imageUri,
+            startYear = this.startYear,
+            endYear = this.endYear,
+            isFavourite = this.isFavourite,
+            modified = this.modified
         )
     }
 

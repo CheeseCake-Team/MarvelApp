@@ -32,19 +32,20 @@
                 app:layout_constraintTop_toTopOf="parent"
                 tools:src="@color/material_dynamic_tertiary70" />
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="@dimen/space_16dp"
-                android:layout_marginBottom="@dimen/space_16dp"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:text="@{viewModel.series.toData().title}"
-                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-                app:layout_constraintBottom_toBottomOf="@+id/image_series"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="1.0" />
+        <TextView
+            android:id="@+id/text_view_series_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/space_16dp"
+            android:layout_marginBottom="@dimen/space_16dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{viewModel.series.toData().title}"
+            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+            app:layout_constraintBottom_toBottomOf="@+id/image_series"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+             />
 
 
             <com.google.android.material.tabs.TabLayout
@@ -77,6 +78,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
 
+        <CheckBox
+            android:id="@+id/button_favourites"
+            style="@style/Widget.Material3.Button.IconButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/space_16dp"
+            android:button="@drawable/selector_favourite_item"
+            app:layout_constraintBottom_toBottomOf="@id/text_view_series_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/text_view_series_name" />
 
         </androidx.constraintlayout.motion.widget.MotionLayout>
 

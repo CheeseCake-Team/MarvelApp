@@ -5,16 +5,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.domain.models.Character
+import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.character.characters.CharactersInteractionListener
+import com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllInteractionListener
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class FavouritesViewModel @Inject constructor(
     private val repository: MarvelRepository
-) : BaseViewModel(), BaseInteractionListener, CharactersInteractionListener {
+) : BaseViewModel(), BaseInteractionListener, CharactersInteractionListener ,
+    SeriesViewAllInteractionListener {
 
     private var _favouritesItems = MutableLiveData<FavouriteItems>()
     val favouriteItems: LiveData<FavouriteItems> get() = _favouritesItems
@@ -40,12 +43,22 @@ class FavouritesViewModel @Inject constructor(
         }
     }
 
+fun getAllCachedSeries(){
+    repository.getAllCashedSeries().subscribe() { items ->
+        _favouritesItems.postValue(FavouriteItems.FavouriteSeries(items))
+    }
+}
+
     override fun onClickCharacter(character: Character) {
         TODO("Not yet implemented")
     }
 
     fun changeFavouriteType(passedType: FavouritesType) {
         favouritesType.postValue(passedType)
+    }
+
+    override fun onClickSeries(series: Series) {
+        TODO("Not yet implemented")
     }
 
 

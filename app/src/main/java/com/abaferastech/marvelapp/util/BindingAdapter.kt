@@ -3,20 +3,16 @@ package com.abaferastech.marvelapp.utils
 import android.view.View
 import android.widget.HorizontalScrollView
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
+import com.abaferastech.marvelapp.ui.character.characters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
 import com.abaferastech.marvelapp.ui.event.events.EventAdapter
-import com.abaferastech.marvelapp.ui.home.adapters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.favourites.FavouriteItems
 import com.abaferastech.marvelapp.ui.favourites.FavouritesType
 import com.abaferastech.marvelapp.ui.favourites.favouritesAdapters.FavouriteCharactersAdapter
@@ -38,7 +34,6 @@ fun ImageView.setImageFromUrl(imageUri: String?) {
         .centerCrop()
         .into(this)
 }
-
 @BindingAdapter(value = ["app:items"])
 fun <T> setRecyclerItems(view: RecyclerView, items: List<T>?) {
     (view.adapter as BaseAdapter<T>?)?.setItems(items ?: emptyList())

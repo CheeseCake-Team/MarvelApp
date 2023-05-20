@@ -9,6 +9,7 @@ import com.abaferastech.marvelapp.databinding.FragmentFavouritesBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.favourites.favouritesAdapters.FavouriteCharactersAdapter
 import com.abaferastech.marvelapp.ui.favourites.favouritesAdapters.FavouriteComicsAdapter
+import com.abaferastech.marvelapp.ui.favourites.favouritesAdapters.FavouriteSeriesAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -35,7 +36,9 @@ class FavouritesFragment : BaseFragment<FragmentFavouritesBinding>() {
 
                 }
                 FavouritesType.SERIES -> {
-
+                    viewModel.getAllCachedSeries()
+                    val adapter = FavouriteSeriesAdapter(viewModel)
+                    binding.recyclerViewFavourites.adapter = adapter
                 }
                 FavouritesType.EVENTS -> {
 

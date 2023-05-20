@@ -1,5 +1,6 @@
 package com.abaferastech.marvelapp.ui.series.seriesDetails
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
@@ -24,6 +25,14 @@ class SeriesDetailsViewModel @Inject constructor(
         SeriesDetailsFragmentArgs.fromSavedStateHandle(it)
     }
 
+    var isFavouriteClicked = MutableLiveData<Boolean>()
+
+    val allSeries = MutableLiveData<List<Series>>()
+
+    val _isSeriesFavourite = MutableLiveData<Boolean>(false)
+    val isSeriesFavourite : LiveData<Boolean> get() = _isSeriesFavourite
+
+
     fun getSeriesById(passeId: Int? = null) {
         val seriesId = passeId ?: seriesArgs.seriesId
         repository.getSingleSeries(seriesId)
@@ -33,6 +42,41 @@ class SeriesDetailsViewModel @Inject constructor(
     fun refresh() {
         val seriesId =  seriesArgs.seriesId
         getSeriesById(seriesId)
+    }
+
+    private fun checkIfFavourite() {
+        val characterId = series.value?.toData()?.id
+
+        _isSeriesFavourite.postValue(allSeries.value?.any { it.id == characterId })
+    }
+
+    init {
+        getAllSeries()
+        checkIfFavourite()
+    }
+
+    fun insertSeries() {
+        series.value?.toData()?.apply { isFavourite = true }?.let { repository.insertSeries(it) }
+    }
+
+    fun deleteSeries() {
+        series.value?.toData()?.let { repository.deleteSeries(it) }
+    }
+
+    @SuppressLint("CheckResult")
+    fun getAllSeries() {
+        repository.getAllCashedSeries().subscribe { characterList ->
+            allSeries.postValue(characterList)
+        }
+    }
+
+    fun onFavouriteClick() {
+        // Handle the logic when the button is clicked
+        if (isFavouriteClicked.value == true) {
+            isFavouriteClicked.postValue(false)
+        } else {
+            isFavouriteClicked.postValue(true)
+        }
     }
 
 }
