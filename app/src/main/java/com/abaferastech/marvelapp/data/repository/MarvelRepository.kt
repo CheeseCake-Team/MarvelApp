@@ -282,9 +282,12 @@ class MarvelRepository @Inject constructor(
         }
     }
 
-    fun getCachedCharacters() {
-        characterDao.getAllCashedCharacters()
-    }
+//    fun getCachedCharacters() {
+//        characterDao.getAllCashedCharacters()
+//    }
+//    fun getCachedComics() {
+//        comicDao.getCachedComics()
+//    }
 
     fun insertCharacter(character: Character) {
         characterDao.insertCharacter(character.asEntityModel()).subscribeOn(Schedulers.io())
@@ -307,7 +310,7 @@ class MarvelRepository @Inject constructor(
             .observeOn(Schedulers.io()).subscribe()
     }
     fun getAllCashedComic(): Single<List<Comic>> {
-        return comicDao.getAllCachedComics().subscribeOn(Schedulers.io())
+        return comicDao.getCachedComics().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map { list -> list.map { it.asDomainModel() } }
     }

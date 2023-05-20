@@ -7,7 +7,8 @@ import androidx.fragment.app.viewModels
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.databinding.FragmentFavouritesBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
-import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
+import com.abaferastech.marvelapp.ui.favourites.favouritesAdapters.FavouriteCharactersAdapter
+import com.abaferastech.marvelapp.ui.favourites.favouritesAdapters.FavouriteComicsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,11 +20,30 @@ class FavouritesFragment : BaseFragment<FragmentFavouritesBinding>() {
         super.onViewCreated(view, savedInstanceState)
         (activity as AppCompatActivity?)!!.supportActionBar!!.setDisplayHomeAsUpEnabled(false)
 
-        setupCharacterAdapter()
+
+        viewModel.favouritesType.observe(viewLifecycleOwner) { type ->
+            when (type) {
+                FavouritesType.COMICS -> {
+                    viewModel.getAllCachedComics()
+                    val adapter = FavouriteComicsAdapter(viewModel)
+                    binding.recyclerViewFavourites.adapter = adapter
+                }
+                FavouritesType.CHARACTERS -> {
+                    viewModel.getCachedCharacters()
+                    val adapter = FavouriteCharactersAdapter(viewModel)
+                    binding.recyclerViewFavourites.adapter = adapter
+
+                }
+                FavouritesType.SERIES -> {
+
+                }
+                FavouritesType.EVENTS -> {
+
+                }
+            }
+        }
     }
 
-    private fun setupCharacterAdapter() {
-        val adapter = FavouritesAdapter(viewModel)
-        binding.recyclerViewFavourits.adapter = adapter
-    }
+
 }
+
