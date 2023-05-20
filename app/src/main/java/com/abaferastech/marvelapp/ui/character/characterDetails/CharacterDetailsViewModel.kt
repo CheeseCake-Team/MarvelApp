@@ -29,31 +29,31 @@ class CharacterDetailsViewModel @Inject constructor(
     var isFavouriteClicked = MutableLiveData<Boolean>()
 
     private val _character = MutableLiveData<UIState<Character>>()
-    val character: LiveData<UIState<Character>> = _character
+    val character: LiveData<UIState<Character>> get() = _character
 
-    val _isCharacterFavourite = MutableLiveData(false)
-    val isCharacterFavourite: LiveData<Boolean> = _isCharacterFavourite
+    private val _isCharacterFavourite = MutableLiveData(false)
+    val isCharacterFavourite: LiveData<Boolean> get() = _isCharacterFavourite
 
     fun getSingleCharacter(passedId: Int? = null) {
         val characterId = passedId ?: characterArgs.characterId
 
         Completable.fromAction {
-            repository.getSingleCharacter(characterId)
+            repository.getSingleCharacter(characterId).doOnSuccess {
+                when (it) {
+                    is UIState.Success -> {
+                        _isCharacterFavourite.postValue(it.toData()?.isFavourite)
+                    }
+
+                    else -> {
+                        _isCharacterFavourite.postValue(false)
+                    }
+                }
+            }
                 .applySchedulersAndPostUIStates(_character::postValue)
         }
             .subscribeOn(Schedulers.io())
-            .subscribe {
-                Log.e("save", "save Completed")
-            }.addTo(compositeDisposable)
-    }
-
-    private fun checkIfFavourite() {
-        if (_character.value is UIState.Success)
-            _isCharacterFavourite.postValue(_character.value?.toData()?.isFavourite)
-    }
-
-    init {
-        checkIfFavourite()
+            .subscribe()
+            .addTo(compositeDisposable)
     }
 
     fun insertCharacter() {

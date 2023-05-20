@@ -490,16 +490,15 @@ class MarvelRepository @Inject constructor(
 //        return wrapResponseWithState(
 //            { apiService.getSingleCharacter(characterId) }, characterDomainMapper::map
 //        ).mapListToSingleItem()
-        val it = favouriteDao.getCharacterByIdNullable(characterId)
-        return if (it == null) {
-            Log.d("MAMO", "getSingleCharacter: from api ${it}")
+        val character = favouriteDao.getCharacterByIdNullable(characterId)
+        return if (character == null) {
+            Log.d("MAMO", "getSingleCharacter: from api ${character}")
             wrapResponseWithState(
                 { apiService.getSingleCharacter(characterId) }, characterDomainMapper::map
             ).mapListToSingleItem()
         } else {
-            Log.d("MAMO", "getSingleCharacter: from api ${it}")
-
-            Single.just(UIState.Success(it.asDomainModel()))
+            Log.d("MAMO", "getSingleCharacter: from room ${character}")
+            Single.just(UIState.Success(character.asDomainModel()))
         }
     }
 

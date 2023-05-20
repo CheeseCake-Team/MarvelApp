@@ -9,6 +9,6 @@ data class Comic(
     val pageCount: Int?,
     val modified: String?,
     val imageUri: String?,
-    var isFavourite: Boolean? = null
+    var isFavourite: Boolean = false
 
 )

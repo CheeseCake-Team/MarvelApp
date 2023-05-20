@@ -11,5 +11,5 @@ data class EventFavouriteEntity(
     val description: String?,
     val modified: String?,
     val imageUri: String,
-    val isFavourite: Boolean? = null,
+    val isFavourite: Boolean = false,
 )

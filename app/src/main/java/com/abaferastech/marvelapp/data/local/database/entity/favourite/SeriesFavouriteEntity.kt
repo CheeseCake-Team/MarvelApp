@@ -13,5 +13,5 @@ data class SeriesFavouriteEntity(
     val rating: String?,
     val modified: String?,
     val imageUri: String?,
-    val isFavourite: Boolean? = null,
+    val isFavourite: Boolean = false,
 )
