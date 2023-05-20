@@ -41,7 +41,6 @@ abstract class BaseViewModel : ViewModel() {
         onSuccess: (data: UIState<T>) -> Unit,
         onError: (e: Throwable) -> Unit,
     ) {
-
         this.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(onSuccess, onError)
