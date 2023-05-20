@@ -1,277 +1,651 @@
 package com.abaferastech.marvelapp.data.repository
-import android.util.Log
-import com.abaferastech.marvelapp.data.local.database.MarvelDatabase
-import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
-import com.abaferastech.marvelapp.data.local.mappers.CharacterMapper
+
+import com.abaferastech.marvelapp.data.local.database.daos.MarvelDao
+import com.abaferastech.marvelapp.data.local.database.daos.SearchDao
+import com.abaferastech.marvelapp.data.local.database.entity.CharacterEntity
+import com.abaferastech.marvelapp.data.local.database.entity.ComicEntity
+import com.abaferastech.marvelapp.data.local.database.entity.SearchQueryEntity
+import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
+import com.abaferastech.marvelapp.data.local.database.entity.search.CharacterSearchEntity
+import com.abaferastech.marvelapp.data.local.database.entity.search.ComicSearchEntity
+import com.abaferastech.marvelapp.data.local.database.entity.search.EventSearchEntity
+import com.abaferastech.marvelapp.data.local.database.entity.search.SeriesSearchEntity
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import com.abaferastech.marvelapp.data.remote.response.BaseResponse
-import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
-import com.abaferastech.marvelapp.data.remote.response.ComicDTO
-import com.abaferastech.marvelapp.data.remote.response.CreatorDTO
-import com.abaferastech.marvelapp.data.remote.response.EventDTO
-import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.domain.mapper.CharacterDomainMapper
-import com.abaferastech.marvelapp.domain.mapper.EventMapper
-import com.abaferastech.marvelapp.domain.mapper.CreatorMapper
 import com.abaferastech.marvelapp.domain.mapper.ComicDominMapper
+import com.abaferastech.marvelapp.domain.mapper.CreatorMapper
+import com.abaferastech.marvelapp.domain.mapper.EventMapper
 import com.abaferastech.marvelapp.domain.mapper.SeriesMapper
 import com.abaferastech.marvelapp.domain.models.Character
-import com.abaferastech.marvelapp.domain.models.Event
-import com.abaferastech.marvelapp.domain.models.Creator
 import com.abaferastech.marvelapp.domain.models.Comic
+import com.abaferastech.marvelapp.domain.models.Creator
+import com.abaferastech.marvelapp.domain.models.Event
+import com.abaferastech.marvelapp.domain.models.SearchQuery
 import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.model.UIState
+import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
-import java.io.IOException
 import javax.inject.Inject
-import javax.inject.Singleton
 
 class MarvelRepository @Inject constructor(
-    private val characterDao: CharacterDao,
-    private val apiService: MarvelApiService
-) {
+    private val apiService: MarvelApiService,
+    private val comicMapper: ComicDominMapper,
+    private val seriesMapper: SeriesMapper,
+    private val creatorMapper: CreatorMapper,
+    private val eventMapper: EventMapper,
+    private val characterDomainMapper: CharacterDomainMapper,
+    private val searchDao: SearchDao,
+    private val marvelDao: MarvelDao,
+) : IMarvelRepository {
 
-    private val comicMapper: ComicDominMapper = ComicDominMapper()
-    private val seriesMapper: SeriesMapper = SeriesMapper()
-    private val creatorMapper: CreatorMapper = CreatorMapper()
-    private val eventMapper: EventMapper = EventMapper()
-    
-    fun searchInComics(query: String): Single<UIState<List<Comic>>> {
-        return wrapResponseWithState { apiService.searchInComics(query) }
-            .mapUIState(comicMapper::map)
+
+    fun SearchQuery.asSearchQueryEntity() = SearchQueryEntity(id, searchQuery)
+    fun SearchQueryEntity.asSearchQuery() = SearchQuery(id, searchQuery)
+
+    fun Comic.asComicSearchEntity() = ComicSearchEntity(
+        id = id,
+        title = title,
+        issueNumber = issueNumber,
+        modified = modified,
+        imageUri = imageUri,
+    )
+
+    fun ComicSearchEntity.asComic() = Comic(
+        id = id,
+        title = title,
+        description = null,
+        issueNumber = issueNumber,
+        price = null,
+        pageCount = null,
+        modified = modified,
+        imageUri = imageUri
+    )
+
+    fun Event.asEventSearchEntity() = EventSearchEntity(
+        id = id, title = title, imageUri = imageUri
+    )
+
+    fun EventSearchEntity.asEvent() = Event(
+        id = id, title = title, description = null, modified = null, imageUri = imageUri
+    )
+
+    fun Character.asCharacterSearchEntity() = CharacterSearchEntity(
+        id = id, name = name, modified = modified, imageUri = imageUri
+    )
+
+    fun CharacterSearchEntity.asCharacter() = Character(
+        id = id, name = name, description = null, modified = modified, imageUri = imageUri
+    )
+
+    fun Series.asSeriesSearchEntity() = SeriesSearchEntity(
+        id = id, title = title, startYear = startYear, modified = modified, imageUri = imageUri
+    )
+
+    fun SeriesSearchEntity.asSeries() = Series(
+        id = id,
+        title = title,
+        description = null,
+        startYear = startYear,
+        endYear = null,
+        rating = null,
+        modified = modified,
+        imageUri = imageUri
+    )
+
+    fun Comic.asComicEntity() = ComicEntity(
+        id = id,
+        title = title,
+        issueNumber = issueNumber,
+        modified = modified,
+        imageUri = imageUri,
+        description = null,
+        price = null,
+        pageCount = null
+    )
+
+    fun ComicEntity.asComics() = Comic(
+        id = id,
+        title = title,
+        description = description,
+        issueNumber = issueNumber,
+        price = price,
+        pageCount = pageCount,
+        modified = modified,
+        imageUri = imageUri
+    )
+
+    fun Series.asSeriesEntity() = SeriesEntity(
+        id = id,
+        title = title,
+        startYear = startYear,
+        modified = modified,
+        imageUri = imageUri,
+        description = null,
+        endYear = null,
+        rating = null
+    )
+
+    fun SeriesEntity.asSeries() = Series(
+
+        id = id,
+        title = title,
+        description = description,
+        startYear = startYear,
+        endYear = endYear,
+        rating = rating,
+        modified = modified,
+        imageUri = imageUri
+    )
+
+    fun Character.asCharacterEntity(): CharacterEntity {
+        return CharacterEntity(
+            id = id,
+            name = name,
+            description = description,
+            modified = modified,
+            imageUri = imageUri
+        )
     }
 
-    fun searchInCharacters(query: String): Single<UIState<List<CharacterDTO>>> {
-        return wrapResponseWithState { apiService.searchInCharacters(query) }
-    }
-
-    fun searchInEvents(query: String): Single<UIState<List<Event>>> {
-        return wrapResponseWithState { apiService.searchInEvents(query) }
-            .mapUIState (eventMapper::map)
-    }
-
-    fun searchInSeries(query: String): Single<UIState<List<Series>>> {
-        return wrapResponseWithState { apiService.searchInSeries(query) }
-            .mapUIState(seriesMapper::map)
+    fun CharacterEntity.asCharacter(): Character {
+        return Character(
+            id = id,
+            name = name,
+            description = description,
+            modified = modified,
+            imageUri = imageUri
+        )
     }
 
 
-    fun getSingleCharacter(characterId: Int): Single<UIState<com.abaferastech.marvelapp.domain.models.Character>> {
-        return wrapResponseWithState { apiService.getSingleCharacter(characterId) }.mapUIState(characterDomainMapper::map).mapListToSingleItem()
+    fun getAllSearchQueries(): Observable<List<SearchQuery>> {
+        return searchDao.getAllSearchQueries().map { it.map { q -> q.asSearchQuery() } }
     }
 
-    fun getSingleEvent(eventsId: Int):
-            Single<UIState<Event>> {
-        return wrapResponseWithState { apiService.getEventsById(eventsId) }
-            .mapUIState(eventMapper::map).mapListToSingleItem()
+    fun deleteSearchQuery(searchQueryEntity: SearchQuery) {
+
+        searchDao.deleteSearchQuery(searchQueryEntity.asSearchQueryEntity())
     }
 
-
-    fun getSingleSeries(seriesId: Int): Single<UIState<Series>> {
-        return wrapResponseWithState { apiService.getSingleSeries(seriesId) }
-            .mapUIState(seriesMapper::map).mapListToSingleItem()
-
+    fun insertSearchQuery(searchQuery: String) {
+        searchDao.insertSearchQuery(SearchQueryEntity(searchQuery = searchQuery))
     }
 
-    fun getSingleComic(comicsId: Int): Single<UIState<Comic>> {
-        return wrapResponseWithState { apiService.getSingleComic(comicsId) }
-            .mapUIState(comicMapper::map).mapListToSingleItem()
-    }
+    fun getSearchQueryEntityByQuery(searchQuery: String): SearchQueryEntity =
+        searchDao.getSearchQueryEntityByQuery(searchQuery)
 
-    fun getSingleCreator(creatorId: Int): Single<UIState<Creator>> {
-        return wrapResponseWithState { apiService.getSingleCreator(creatorId) }
-            .mapUIState(creatorMapper::map).mapListToSingleItem()
-    }
-
-    fun getAllEvents(): Single<UIState<List<Event>>> {
-        return wrapResponseWithState { apiService.getAllEvents() }
-            .mapUIState (eventMapper::map)
-    }
-
-    fun getAllCharacters(): Single<UIState<List<Character>>> {
-        return wrapResponseWithState { apiService.getAllCharacters() }
-                .mapUIState(characterDomainMapper::map)
-
-    }
-
-
-    fun getAllComics(): Single<UIState<List<Comic>>> {
-        return wrapResponseWithState { apiService.getAllComics() }
-            .mapUIState(comicMapper::map)    }
-
-    fun getAllCreators(): Single<UIState<List<Creator>>> {
-        return wrapResponseWithState { apiService.getAllCreators() }
-            .mapUIState(creatorMapper::map)
-    }
-
-
-    fun getEventComics(eventId: Int): Single<UIState<List<Comic>>> {
-        return wrapResponseWithState { apiService.getSeriesComics(eventId) }
-            .mapUIState(comicMapper::map)
-    }
-
-
-    fun getCharacterEvents(characterId: Int): Single<UIState<List<Event>>> {
-        return wrapResponseWithState { apiService.getCharacterEvents(characterId) }
-            .mapUIState (eventMapper::map)
-    }
-
-    fun getCharacterComics(characterId: Int): Single<UIState<List<Comic>>> {
-        return wrapResponseWithState { apiService.getCharacterComics(characterId) }
-            .mapUIState(comicMapper::map)
-    }
-
-    fun getCharacterSeries(characterId: Int): Single<UIState<List<Series>>> {
-        return wrapResponseWithState { apiService.getCharacterSeries(characterId) }
-            .mapUIState(seriesMapper::map)
-    }
-
-
-
-
-
-    fun getSeriesFullUrl(fullUrl: String): Single<UIState<List<Series>>> {
-        return wrapResponseWithState { apiService.getSeriesFullUrl(fullUrl) }
-            .mapUIState(seriesMapper::map)
-    }
-
-    fun getSeriesComics(seriesId: Int): Single<UIState<List<Comic>>> {
-        return wrapResponseWithState { apiService.getSeriesComics(seriesId) }
-            .mapUIState(comicMapper::map)
-    }
-
-    fun getSeriesEvents(seriesId: Int): Single<UIState<List<Event>>> {
-        return wrapResponseWithState { apiService.getSeriesEvents(seriesId) }
-            .mapUIState(eventMapper::map)
-    }
-
-    fun getSeriesCharacters(seriesId: Int): Single<UIState<List<Character>>> {
-        return wrapResponseWithState { apiService.getSeriesCharacters(seriesId) }
-            .mapUIState(characterDomainMapper::map)
-    }
-
-    fun getEventCharacters(eventId: Int): Single<UIState<List<Character>>> {
-        return wrapResponseWithState { apiService.getEventCharacters(eventId) }
-            .mapUIState(characterDomainMapper::map)
-    }
-
-
-    fun getAllSeries(): Single<UIState<List<Series>>> {
-        return wrapResponseWithState { apiService.getAllSeries() }
-            .mapUIState(seriesMapper::map)
-    }
-
-    fun <T, O> Single<UIState<List<T>>>.mapUIState(mapper: (List<T>) -> List<O>): Single<UIState<List<O>>> {
-        return this.map { uiState ->
+    private fun refreshSearchComics(title: String): Completable {
+        return wrapResponseWithState(
+            { apiService.searchInComics(title) },
+            comicMapper::map
+        ).flatMapCompletable { uiState ->
             when (uiState) {
                 is UIState.Success -> {
-                    val dataList = uiState.data
-                    val transformedList = mapper(dataList!!)
-                    UIState.Success(transformedList)
+                    val comics = uiState.data
+                    Completable.fromCallable {
+                        comics?.map { it.asComicSearchEntity() }?.let {
+                            searchDao.insertSearchedComicList(it)
+                        }
+                    }
+                }
+                else  ->{
+                    Completable.error(Throwable("Failed to fetch comics"))
                 }
 
-                is UIState.Error -> uiState
-                is UIState.Loading -> uiState
             }
         }
     }
 
-    fun getComicEvents(comicsId: Int): Single<UIState<List<Event>>> {
-        return wrapResponseWithState { apiService.getComicEvents(comicsId) }
-            .mapUIState(eventMapper::map)
+    private fun refreshSearchEvents(title: String): Completable {
+        return wrapResponseWithState({ apiService.searchInEvents(title) }, eventMapper::map)
+            .flatMapCompletable { uiState ->
+                if (uiState is UIState.Success) {
+                    val events = uiState.data
+                    Completable.fromCallable {
+                        events?.map { it.asEventSearchEntity() }?.let {
+                            searchDao.insertSearchedEventList(it)
+                        }
+                    }
+                } else {
+                    Completable.error(Throwable("Failed to fetch events"))
+                }
+            }
     }
 
-    fun getComicCharacters(comicsId: Int): Single<UIState<List<Character>>> {
-        return wrapResponseWithState { apiService.getComicCharacters(comicsId) }
-            .mapUIState(characterDomainMapper::map)
+    private fun refreshSearchCharacters(name: String): Completable {
+        return wrapResponseWithState(
+            { apiService.searchInCharacters(name) }, characterDomainMapper::map
+        ).flatMapCompletable { uiState ->
+            if (uiState is UIState.Success) {
+                val characters = uiState.data
+                Completable.fromCallable {
+                    characters?.map { it.asCharacterSearchEntity() }?.let {
+                        searchDao.insertSearchedCharacterList(it)
+                    }
+                }
+            } else {
+                Completable.error(Throwable("Failed to fetch characters"))
+            }
+        }
     }
 
-    fun getComicSeries(comicsId: Int): Single<UIState<List<Series>>> {
-        return wrapResponseWithState { apiService.getComicSeries(comicsId) }
-            .mapUIState(seriesMapper::map)
+    private fun refreshSearchSeries(title: String): Completable {
+        return wrapResponseWithState(
+            { apiService.searchInSeries(title) },
+            seriesMapper::map
+        ).flatMapCompletable { uiState ->
+            if (uiState is UIState.Success) {
+                val series = uiState.data
+                Completable.fromCallable {
+                    series?.map { it.asSeriesSearchEntity() }?.let {
+                        searchDao.insertSearchedSeriesList(it)
+                    }
+                }
+            } else {
+                Completable.error(Throwable("Failed to fetch series"))
+            }
+        }
     }
 
 
+    private fun refreshComics(): Completable {
+        return wrapResponseWithState(
+            { apiService.getAllComics() },
+            comicMapper::map
+        ).flatMapCompletable { uiState ->
+            when (uiState) {
+                is UIState.Success -> {
+                    val comics = uiState.data
+                    Completable.fromCallable {
+                        comics?.map { it.asComicEntity() }?.let {
+                            marvelDao.insertComicList(it)
+                        }
+                    }
+                }
 
+                else -> {
+                    Completable.error(Throwable("Failed to fetch comics"))
+                }
+            }
+        }
+    }
 
-    fun getEventSeries(comicsId: Int): Single<UIState<List<Series>>> {
-        return wrapResponseWithState { apiService.getEventSeries(comicsId) }
-            .mapUIState(seriesMapper::map)
+    private fun refreshSeries(): Completable {
+        return wrapResponseWithState(
+            { apiService.getAllSeries() },
+            seriesMapper::map
+        ).flatMapCompletable { uiState ->
+            when (uiState) {
+                is UIState.Success -> {
+                    val series = uiState.data
+                    Completable.fromCallable {
+                        series?.map { it.asSeriesEntity() }?.let {
+                            marvelDao.insertSeriesList(it)
+                        }
+                    }
+                }
+
+                else -> {
+                    Completable.error(Throwable("Failed to fetch series"))
+                }
+            }
+        }
+    }
+
+    private fun refreshCharacters(): Completable {
+        return wrapResponseWithState({ apiService.getAllCharacters() }, characterDomainMapper::map)
+            .flatMapCompletable { uiState ->
+                when (uiState) {
+                    is UIState.Success -> {
+                        marvelDao.deleteAllCharacters()
+                        val characters = uiState.data
+                        Completable.fromCallable {
+                            characters?.map { it.asCharacterEntity() }?.let {
+                                marvelDao.insertCharacterList(it)
+                            }
+                        }
+                    }
+
+                    else -> {
+                        Completable.error(Throwable("Failed to fetch characters"))
+                    }
+                }
+            }
+    }
+
+    override fun searchInComics(title: String): Observable<List<Comic>> {
+        return searchDao.getSearchedComics(title).flatMap {
+            if (it.isEmpty()) {
+                refreshSearchComics(title).andThen(searchDao.getSearchedComics(title)
+                    .map { comicSearchEntities ->
+                        comicSearchEntities.map { searchEntity -> searchEntity.asComic() }
+                    })
+            } else {
+                Observable.just(it.map { searchEntity -> searchEntity.asComic() })
+            }
+        }
     }
 
 
-    fun getSeriesCreators(creatorId: Int): Single<UIState<List<Creator>>> {
-        return wrapResponseWithState { apiService.getSeriesCreators(creatorId) }
-            .mapUIState (creatorMapper::map)
+    override fun searchInEvents(query: String): Observable<List<Event>> {
+        return searchDao.getSearchedEvents(query).flatMap {
+            if (it.isEmpty()) {
+                refreshSearchEvents(query).andThen(searchDao.getSearchedEvents(query)
+                    .map { eventSearchEntities ->
+                        eventSearchEntities.map { searchEntity -> searchEntity.asEvent() }
+                    })
+            } else {
+                Observable.just(it.map { searchEntity -> searchEntity.asEvent() })
+            }
+        }
     }
 
-    fun getComicCreators(comicsId: Int): Single<UIState<List<Creator>>> {
-        return wrapResponseWithState { apiService.getComicCreators(comicsId) }
-            .mapUIState(creatorMapper::map)
+
+    override fun searchInCharacters(name: String): Observable<List<Character>> {
+        return searchDao.getSearchedCharacter(name).flatMap {
+            if (it.isEmpty()) {
+                refreshSearchCharacters(name).andThen(searchDao.getSearchedCharacter(name)
+                    .map { characterSearchEntities ->
+                        characterSearchEntities.map { searchEntity -> searchEntity.asCharacter() }
+                    })
+            } else {
+                Observable.just(it.map { searchEntity -> searchEntity.asCharacter() })
+            }
+        }
     }
 
-    fun getCreatorEvents(creatorId: Int): Single<UIState<List<Event>>> {
-        return wrapResponseWithState { apiService.getCreatorEvents(creatorId) }
-            .mapUIState (eventMapper::map)
+
+    override fun searchInSeries(title: String): Observable<List<Series>> {
+        return searchDao.getSearchedSeries(title).flatMap {
+            if (it.isEmpty()) {
+                refreshSearchSeries(title).andThen(searchDao.getSearchedSeries(title)
+                    .map { seriesSearchEntities ->
+                        seriesSearchEntities.map { searchEntity -> searchEntity.asSeries() }
+                    })
+            } else {
+                Observable.just(it.map { searchEntity -> searchEntity.asSeries() })
+            }
+        }
     }
 
-    fun getCreatorCharacters(creatorId: Int): Single<UIState<List<Character>>> {
-        return wrapResponseWithState { apiService.getCreatorCharacters(creatorId) }
-            .mapUIState(characterDomainMapper::map)
+    override fun getAllComics(): Observable<UIState<List<Comic>>> {
+        return marvelDao.getAllComics().flatMap {
+            if (it.isEmpty()) {
+                refreshComics().andThen(marvelDao.getAllComics().map { ComicsEntity ->
+                    UIState.Success(ComicsEntity.map { ComicEntity -> ComicEntity.asComics() })
+                })
+            } else {
+                Observable.just(UIState.Success(it.map { ComicEntity -> ComicEntity.asComics() }))
+            }
+        }
     }
 
-    fun getCreatorComics(creatorId: Int): Single<UIState<List<Comic>>> {
-        return wrapResponseWithState { apiService.getSeriesComics(creatorId) }
-            .mapUIState(comicMapper::map)
+
+    override fun getAllSeries(): Observable<UIState<List<Series>>> {
+        return marvelDao.getAllSeries().flatMap {
+            if (it.isEmpty()) {
+                refreshSeries().andThen(marvelDao.getAllSeries().map { seriesEntities ->
+                    UIState.Success(seriesEntities.map { seriesEntity -> seriesEntity.asSeries() })
+                })
+            } else {
+                Observable.just(UIState.Success(it.map { seriesEntity -> seriesEntity.asSeries() }))
+            }
+        }
     }
 
-    fun getCreatorSeries(creatorId: Int): Single<UIState<List<Series>>> {
-        return wrapResponseWithState { apiService.getCreatorSeries(creatorId) }
-            .mapUIState(seriesMapper::map)
+
+    override fun getAllCharacters(): Observable<UIState<List<Character>>> {
+        return marvelDao.getAllCharacters().flatMap {
+            if (it.isEmpty()) {
+                refreshCharacters().andThen(marvelDao.getAllCharacters()
+                    .map { characterEntities ->
+                        UIState.Success(characterEntities.map { characterEntity -> characterEntity.asCharacter() })
+                    })
+            } else {
+                Observable.just(UIState.Success(it.map { characterEntity -> characterEntity.asCharacter() }))
+            }
+        }
     }
 
-    private val characterMapper = CharacterMapper()
-    private val characterDomainMapper = CharacterDomainMapper()
+
+    override fun getAllEvents(): Single<UIState<List<Event>>> {
+        return wrapResponseWithState(
+            { apiService.getAllEvents() },
+            eventMapper::map
+        )
+    }
 
 
+//    override fun searchInComics(title: String): Observable<List<Comic>> {
+//        return searchDao.getSearchedComics(title)
+//            .flatMap {
+//                if (it.isEmpty()) {
+//                    refreshSearchComics(title).andThen(
+//                        searchDao.getSearchedComics(title).map { comicSearchEntities ->
+//                            comicSearchEntities.map { searchEntity -> searchEntity.asComic() }
+//                        })
+//                } else {
+//                    Observable.just(it.map { searchEntity -> searchEntity.asComic() })
+//                }
+//            }
+//    }
 
 
-    private fun <I, O> refreshDatabaseWithWrapResponse(
-        request: () -> Single<Response<BaseResponse<I>>>,
-        mapper: (List<I>?) -> List<O>,
-        insertIntoDatabase: (List<O>) -> Unit
-    ) {
-        request().map {
+//    override fun searchInCharacters(query: String): Single<UIState<List<Character>>> {
+//        TODO("Not yet implemented")
+//    }
+
+    /*private fun refreshSearchedCharacters(name: String): Completable {
+        return wrapResponseWithState({ apiService.searchInCharacters(name) }, characterDomainMapper::map)
+            .flatMapCompletable { uiState ->
+                if (uiState is UIState.Success) {
+                    val characters = uiState.data
+                    Completable.fromCallable {
+                        characters?.map { it.as }?.let {
+                            searchDao.insertSearchedComicList(it)
+                        }
+                    }
+                } else {
+                    Completable.error(Throwable("Failed to fetch comics"))
+                }
+            }
+    }*/
+
+    /*override fun searchInCharacters(query: String): Observable<List<Character>> {
+        return searchDao.getSearchedCharacter(query)
+            .flatMap {
+                if (it.isEmpty()) {
+                    refreshSearchedCharacters(title).andThen(
+                        searchDao.getSearchedComics(title).map { comicSearchEntities ->
+                            comicSearchEntities.map { searchEntity -> searchEntity.asComic() }
+                        })
+                } else {
+                    Observable.just(it.map { searchEntity -> searchEntity.asComic() })
+                }
+            }
+    }*/
+
+//    override fun searchInEvents(query: String): Single<UIState<List<Event>>> {
+//        return wrapResponseWithState({ apiService.searchInEvents(query) }, eventMapper::map)
+//    }
+
+//    override fun searchInSeries(query: String): Single<UIState<List<Series>>> {
+//
+//        return wrapResponseWithState({ apiService.searchInSeries(query) }, seriesMapper::map)
+//    }
+
+
+    override fun getSingleCharacter(characterId: Int): Single<UIState<Character>> {
+        return wrapResponseWithState(
+            { apiService.getSingleCharacter(characterId) }, characterDomainMapper::map
+        ).mapListToSingleItem()
+    }
+
+    override fun getSingleEvent(eventsId: Int): Single<UIState<Event>> {
+        return wrapResponseWithState(
+            { apiService.getEventsById(eventsId) }, eventMapper::map
+        ).mapListToSingleItem()
+    }
+
+
+    override fun getSingleSeries(seriesId: Int): Single<UIState<Series>> {
+        return wrapResponseWithState(
+            { apiService.getSingleSeries(seriesId) }, seriesMapper::map
+        ).mapListToSingleItem()
+
+    }
+
+    override fun getSingleComic(comicsId: Int): Single<UIState<Comic>> {
+        return wrapResponseWithState(
+            { apiService.getSingleComic(comicsId) }, comicMapper::map
+        ).mapListToSingleItem()
+    }
+
+    override fun getSingleCreator(creatorId: Int): Single<UIState<Creator>> {
+        return wrapResponseWithState(
+            { apiService.getSingleCreator(creatorId) }, creatorMapper::map
+        ).mapListToSingleItem()
+    }
+
+//    override fun getAllEvents(): Single<UIState<List<Event>>> {
+//        return wrapResponseWithState({ apiService.getAllEvents() }, eventMapper::map)
+//    }
+
+//    override fun getAllCharacters(): Single<UIState<List<Character>>> {
+//        return wrapResponseWithState({ apiService.getAllCharacters() }, characterDomainMapper::map)
+//
+//    }
+
+
+//    override fun getAllComics(): Single<UIState<List<Comic>>> {
+//        return wrapResponseWithState({ apiService.getAllComics() }, comicMapper::map)
+//    }
+
+    override fun getAllCreators(): Single<UIState<List<Creator>>> {
+        return wrapResponseWithState({ apiService.getAllCreators() }, creatorMapper::map)
+    }
+
+
+    override fun getEventComics(eventId: Int): Single<UIState<List<Comic>>> {
+        return wrapResponseWithState({ apiService.getSeriesComics(eventId) }, comicMapper::map)
+    }
+
+
+    override fun getCharacterEvents(characterId: Int): Single<UIState<List<Event>>> {
+        return wrapResponseWithState(
+            { apiService.getCharacterEvents(characterId) }, eventMapper::map
+        )
+    }
+
+    override fun getCharacterComics(characterId: Int): Single<UIState<List<Comic>>> {
+        return wrapResponseWithState(
+            { apiService.getCharacterComics(characterId) }, comicMapper::map
+        )
+    }
+
+    override fun getCharacterSeries(characterId: Int): Single<UIState<List<Series>>> {
+        return wrapResponseWithState(
+            { apiService.getCharacterSeries(characterId) }, seriesMapper::map
+        )
+    }
+
+
+    override fun getSeriesFullUrl(fullUrl: String): Single<UIState<List<Series>>> {
+        return wrapResponseWithState({ apiService.getSeriesFullUrl(fullUrl) }, seriesMapper::map)
+    }
+
+    override fun getSeriesComics(seriesId: Int): Single<UIState<List<Comic>>> {
+        return wrapResponseWithState({ apiService.getSeriesComics(seriesId) }, comicMapper::map)
+    }
+
+    override fun getSeriesEvents(seriesId: Int): Single<UIState<List<Event>>> {
+        return wrapResponseWithState({ apiService.getSeriesEvents(seriesId) }, eventMapper::map)
+    }
+
+    override fun getSeriesCharacters(seriesId: Int): Single<UIState<List<Character>>> {
+        return wrapResponseWithState(
+            { apiService.getSeriesCharacters(seriesId) }, characterDomainMapper::map
+        )
+    }
+
+    override fun getEventCharacters(eventId: Int): Single<UIState<List<Character>>> {
+        return wrapResponseWithState(
+            { apiService.getEventCharacters(eventId) }, characterDomainMapper::map
+        )
+    }
+
+
+//    override fun getAllSeries(): Single<UIState<List<Series>>> {
+//        return wrapResponseWithState({ apiService.getAllSeries() }, seriesMapper::map)
+//    }
+
+
+    override fun getComicEvents(comicsId: Int): Single<UIState<List<Event>>> {
+        return wrapResponseWithState({ apiService.getComicEvents(comicsId) }, eventMapper::map)
+    }
+
+    override fun getComicCharacters(comicsId: Int): Single<UIState<List<Character>>> {
+        return wrapResponseWithState(
+            { apiService.getComicCharacters(comicsId) }, characterDomainMapper::map
+        )
+    }
+
+    override fun getComicSeries(comicsId: Int): Single<UIState<List<Series>>> {
+        return wrapResponseWithState({ apiService.getComicSeries(comicsId) }, seriesMapper::map)
+    }
+
+
+    override fun getEventSeries(comicsId: Int): Single<UIState<List<Series>>> {
+        return wrapResponseWithState({ apiService.getEventSeries(comicsId) }, seriesMapper::map)
+    }
+
+
+    override fun getSeriesCreators(creatorId: Int): Single<UIState<List<Creator>>> {
+        return wrapResponseWithState(
+            { apiService.getSeriesCreators(creatorId) }, creatorMapper::map
+        )
+    }
+
+    override fun getComicCreators(comicsId: Int): Single<UIState<List<Creator>>> {
+        return wrapResponseWithState({ apiService.getComicCreators(comicsId) }, creatorMapper::map)
+    }
+
+    override fun getCreatorEvents(creatorId: Int): Single<UIState<List<Event>>> {
+        return wrapResponseWithState({ apiService.getCreatorEvents(creatorId) }, eventMapper::map)
+    }
+
+    override fun getCreatorCharacters(creatorId: Int): Single<UIState<List<Character>>> {
+        return wrapResponseWithState(
+            { apiService.getCreatorCharacters(creatorId) }, characterDomainMapper::map
+        )
+    }
+
+    override fun getCreatorComics(creatorId: Int): Single<UIState<List<Comic>>> {
+        return wrapResponseWithState({ apiService.getSeriesComics(creatorId) }, comicMapper::map)
+    }
+
+    override fun getCreatorSeries(creatorId: Int): Single<UIState<List<Series>>> {
+        return wrapResponseWithState({ apiService.getCreatorSeries(creatorId) }, seriesMapper::map)
+    }
+
+    private fun <I, O> wrapResponseWithState(
+        request: () -> Single<Response<BaseResponse<I>>>, mapper: (List<I>) -> List<O>
+    ): Single<UIState<List<O>>> {
+        return request().map {
             if (it.isSuccessful) {
-                val items = it.body()?.data?.results
-                mapper(items).let(insertIntoDatabase)
+                val transformedList = mapper(it.body()?.data?.results!!)
+                UIState.Success(transformedList)
             } else {
-                throw Throwable()
+                UIState.Error(it.message())
             }
         }
     }
 
 
-    private fun <T> wrapResponseWithState(request: () -> Single<Response<BaseResponse<T>>>):
-            Single<UIState<List<T>>> {
-        return request().map { response ->
-            if (response.isSuccessful) {
-                UIState.Success(response.body()?.data?.results)
-            } else {
-                UIState.Error(response.message())
-            }
-        }.onErrorReturn { t ->
-            Log.e("mujtaba", "1", )
-            if (t is IOException) {
-                UIState.Error("Network error. Please check your internet connection.")
-            } else {
-                UIState.Error("An unexpected error occurred.")
-            }
-        }
-    }
-
-        private fun <T> Single<UIState<List<T>>>.mapListToSingleItem(): Single<UIState<T>> {
+    private fun <T> Single<UIState<List<T>>>.mapListToSingleItem(): Single<UIState<T>> {
         return this.map { state ->
             when (state) {
                 is UIState.Success -> {
@@ -295,3 +669,4 @@ class MarvelRepository @Inject constructor(
     }
 
 }
+

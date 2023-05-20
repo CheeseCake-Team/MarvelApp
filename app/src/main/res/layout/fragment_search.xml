@@ -4,77 +4,100 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <import type="com.abaferastech.marvelapp.ui.model.TYPE"/>
+
+        <import type="com.abaferastech.marvelapp.ui.model.TYPE" />
 
         <variable
             name="viewModel"
             type="com.abaferastech.marvelapp.ui.search.SearchViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    <androidx.constraintlayout.motion.widget.MotionLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.search.SearchFragment"
-        app:layoutDescription="@xml/fragment_search_scene">
+        android:fitsSystemWindows="true">
 
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8dp"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginEnd="@dimen/space_16dp"
-            android:scrollbars="none"
-            android:visibility="gone"
-            app:chipGroupVisibility="@{viewModel.isChipGroupVisible()}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/search_text_input_layout">
+            android:layout_gravity="center"
+            tools:srcCompat="@tools:sample/avatars" />
 
-            <com.google.android.material.chip.ChipGroup
-                android:layout_width="0dp"
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="invisible"
+            app:showWhenLoading="@{viewModel.searchingResponse}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_search_result"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:padding="@dimen/space_12dp"
+            app:items="@{viewModel.searchingResponse.toData().itemsList}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:singleLine="true"
-                app:selectionRequired="true"
-                app:singleSelection="true">
+                android:fitsSystemWindows="true">
 
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Filter"
+                <com.google.android.material.search.SearchBar
+                    android:id="@+id/search_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:menu="@menu/filter"
+                    android:hint="@string/search" />
+
+            </com.google.android.material.appbar.MaterialToolbar>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <com.google.android.material.search.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:fitsSystemWindows="true"
+            android:hint="@string/search"
+            app:layout_anchor="@id/search_bar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:onClick="@{()->viewModel.changeSearchType(TYPE.COMIC)}"
-                    android:text="@string/comics" />
+                    android:layout_marginTop="@dimen/space_16dp"
+                    android:layout_marginStart="@dimen/space_16dp"
+                    android:text="Recent search queries"
+                    />
 
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{()->viewModel.changeSearchType(TYPE.CHARACTER)}"
-                    android:text="@string/characters" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_view_search_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:padding="@dimen/space_12dp"
+                    app:items="@{viewModel.oldSearchQueries}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            </LinearLayout>
 
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{()->viewModel.changeSearchType(TYPE.SERIES)}"
-                    android:text="@string/series" />
+        </com.google.android.material.search.SearchView>
 
-                <com.google.android.material.chip.Chip
-                    style="@style/Widget.Material3.Chip.Filter"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="@{()->viewModel.changeSearchType(TYPE.EVENT)}"
-                    android:text="@string/events" />
-
-            </com.google.android.material.chip.ChipGroup>
-        </HorizontalScrollView>
-
-        <androidx.appcompat.widget.AppCompatEditText
+        <!--<androidx.appcompat.widget.AppCompatEditText
             android:id="@+id/search_text_input_layout"
             style="@style/CustomSearchBar"
             android:layout_width="match_parent"
@@ -139,9 +162,7 @@
             app:emptyStateTextView="@{viewModel.searchingResponse}"
             app:layout_constraintEnd_toEndOf="@+id/progressBar"
             app:layout_constraintStart_toStartOf="@+id/progressBar"
-            app:layout_constraintTop_toBottomOf="@+id/progressBar" />
+            app:layout_constraintTop_toBottomOf="@+id/progressBar" />-->
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

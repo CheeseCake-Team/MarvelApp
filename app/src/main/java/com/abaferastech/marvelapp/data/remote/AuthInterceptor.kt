@@ -5,8 +5,9 @@ import okhttp3.Interceptor
 import okhttp3.Interceptor.Chain
 import okhttp3.Response
 import java.time.Instant
+import javax.inject.Inject
 
-class AuthInterceptor(private val messageDigest:MessageDigest) : Interceptor {
+class AuthInterceptor @Inject constructor(private val messageDigest:MessageDigest) : Interceptor {
 
     override fun intercept(chain: Chain): Response {
         val timeStamp = Instant.now().epochSecond.toString()

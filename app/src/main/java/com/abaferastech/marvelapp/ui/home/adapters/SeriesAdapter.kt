@@ -7,7 +7,7 @@ import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.base.BaseInteractionListener
 
 class SeriesAdapter(listener: SeriesInteractionListener) :
-    BaseAdapter<SeriesDTO>(listener) {
+    BaseAdapter<Series>(listener) {
     override val layoutId = R.layout.item_series
 
 }

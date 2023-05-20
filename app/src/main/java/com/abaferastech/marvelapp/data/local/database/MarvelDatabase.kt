@@ -2,30 +2,29 @@ package com.abaferastech.marvelapp.data.local.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
-import com.abaferastech.marvelapp.data.local.database.daos.ComicDao
-import com.abaferastech.marvelapp.data.local.database.daos.CreatorDao
-import com.abaferastech.marvelapp.data.local.database.daos.EventDao
-import com.abaferastech.marvelapp.data.local.database.daos.SeriesDao
+import com.abaferastech.marvelapp.data.local.database.daos.MarvelDao
+import com.abaferastech.marvelapp.data.local.database.daos.SearchDao
 import com.abaferastech.marvelapp.data.local.database.entity.CharacterEntity
 import com.abaferastech.marvelapp.data.local.database.entity.ComicEntity
-import com.abaferastech.marvelapp.data.local.database.entity.CreatorEntity
-import com.abaferastech.marvelapp.data.local.database.entity.EventEntity
+import com.abaferastech.marvelapp.data.local.database.entity.SearchQueryEntity
 import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
-import javax.inject.Inject
+import com.abaferastech.marvelapp.data.local.database.entity.search.CharacterSearchEntity
+import com.abaferastech.marvelapp.data.local.database.entity.search.ComicSearchEntity
+import com.abaferastech.marvelapp.data.local.database.entity.search.EventSearchEntity
+import com.abaferastech.marvelapp.data.local.database.entity.search.SeriesSearchEntity
 
 @Database(
-    entities = [CharacterEntity::class, ComicEntity::class, CreatorEntity::class,
-        EventEntity::class, SeriesEntity::class],
-    version = 2
+    entities = [
+        CharacterEntity::class, ComicEntity::class, CharacterSearchEntity::class,
+        SeriesEntity::class, SearchQueryEntity::class, ComicSearchEntity::class,
+        EventSearchEntity::class, SeriesSearchEntity::class
+    ],
+    version = 1
 )
 
 abstract class MarvelDatabase : RoomDatabase() {
-
-    abstract fun characterDao(): CharacterDao
-    abstract fun comicDao(): ComicDao
-    abstract fun seriesDao(): SeriesDao
+    abstract fun marvelDao(): MarvelDao
+    abstract fun searchQueryDoa(): SearchDao
 }
 
 

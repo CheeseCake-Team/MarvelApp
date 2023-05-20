@@ -7,5 +7,6 @@ sealed class SearchEvents {
     data class ClickComicEvent(val comicID: Int) : SearchEvents()
     data class ClickSeriesEvent(val seriesID: Int) : SearchEvents()
     data class ClickEventEvent(val eventID: Int) : SearchEvents()
+    data class HideSearchViewEvent(val searchQuery: String) : SearchEvents()
 
 }
