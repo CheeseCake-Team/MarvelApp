@@ -107,6 +107,7 @@ class SearchFragment : BaseFragment<FragmentSearchBinding>() {
     }
 
     private fun setAdapter(it: TYPE?) {
+        Log.d("MAMO", "setAdapter: $it")
         val adapter = when (it) {
             TYPE.CHARACTER -> CharacterViewAllAdapter(viewModel)
             TYPE.EVENT -> EventAdapter(viewModel)

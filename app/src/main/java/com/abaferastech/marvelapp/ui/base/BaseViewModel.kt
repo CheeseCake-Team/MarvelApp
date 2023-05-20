@@ -17,7 +17,8 @@ abstract class BaseViewModel : ViewModel() {
     protected fun <T : Any> Single<UIState<T>>.applySchedulersAndPostUIStates(
         postValue: (UIState<T>) -> Unit,
     ) {
-        this.subscribeOn(Schedulers.io())
+        this
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { postValue(UIState.Loading) }
             .doOnError { error -> (postValue(UIState.Error(error.message.toString()))) }
@@ -25,14 +26,15 @@ abstract class BaseViewModel : ViewModel() {
             .addTo(compositeDisposable)
     }
 
-    protected fun <T : Any> Observable<List<T>>.applySchedulersAndPostUIStates(
-        postValue: (List<T>) -> Unit,
+    protected fun <T : Any> Observable<UIState<T>>.applySchedulersAndPostUIStates(
+        postValue: (UIState<T>) -> Unit,
     ) {
-        this.subscribeOn(Schedulers.io())
+
+       this.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { currentState ->
-                postValue(currentState)
-            }
+            .doOnSubscribe { postValue(UIState.Loading) }
+            .doOnError { error -> (postValue(UIState.Error(error.message.toString()))) }
+            .subscribe(postValue)
             .addTo(compositeDisposable)
     }
 

@@ -19,9 +19,9 @@ interface IMarvelRepository {
     fun getSingleSeries(seriesId: Int): Single<UIState<Series>>
     fun getSingleComic(comicId: Int): Single<UIState<Comic>>
     fun getSingleCreator(creatorId: Int): Single<UIState<Creator>>
-    fun getAllEvents(): Observable<List<Event>>
-    fun getAllCharacters(): Observable<List<Character>>
-    fun getAllComics(): Observable<List<Comic>>
+    fun getAllEvents(): Single<UIState<List<Event>>>
+    fun getAllCharacters(): Observable<UIState<List<Character>>>
+    fun getAllComics(): Observable<UIState<List<Comic>>>
     fun getAllCreators(): Single<UIState<List<Creator>>>
     fun getEventComics(eventId: Int): Single<UIState<List<Comic>>>
     fun getCharacterEvents(characterId: Int): Single<UIState<List<Event>>>
@@ -32,7 +32,7 @@ interface IMarvelRepository {
     fun getSeriesEvents(seriesId: Int): Single<UIState<List<Event>>>
     fun getSeriesCharacters(seriesId: Int): Single<UIState<List<Character>>>
     fun getEventCharacters(eventId: Int): Single<UIState<List<Character>>>
-    fun getAllSeries(): Observable<List<Series>>
+    fun getAllSeries(): Observable<UIState<List<Series>>>
     fun getComicEvents(comicId: Int): Single<UIState<List<Event>>>
     fun getComicCharacters(comicId: Int): Single<UIState<List<Character>>>
     fun getComicSeries(comicId: Int): Single<UIState<List<Series>>>

@@ -33,12 +33,12 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
     ComicsInteractionListener, OldQueryListener {
 
     private val _oldSearchQueries = MutableLiveData<List<SearchQuery>>()
-    val oldSearchQueries: LiveData<List<SearchQuery>> get() = _oldSearchQueries
+    val oldSearchQueries: LiveData<List<SearchQuery>> = _oldSearchQueries
 
     val searchQuery = MutableLiveData("")
 
     private val _searchType = MutableLiveData(TYPE.COMIC)
-    val searchType: LiveData<TYPE> get() = _searchType
+    val searchType: LiveData<TYPE>  = _searchType
 
     private var _searchingResponse = MutableLiveData<UIState<SearchItem>>()
     val searchingResponse = _searchingResponse
@@ -70,16 +70,20 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
             Observable.just(searchQuery)
                 .flatMap { mySearchQuery ->
                     _searchingResponse.postValue(UIState.Loading)
-                    when (searchType.value) {
-                        TYPE.SERIES -> repository.searchInSeries(mySearchQuery).map{ SearchItem.SeriesItem(it)}
+                    Log.d("MAMO", "search: $mySearchQuery")
+                    Log.d("MAMO", "search: ${_searchType.value}")
+                    when (_searchType.value) {
+                        TYPE.SERIES -> repository.searchInSeries(mySearchQuery)
+                            .map { SearchItem.SeriesItem(it) }
 
                         TYPE.CHARACTER -> repository.searchInCharacters(mySearchQuery)
-                            .map{ SearchItem.CharacterItem(it)}
+                            .map { SearchItem.CharacterItem(it) }
 
-                        TYPE.EVENT -> repository.searchInEvents(mySearchQuery).map{ SearchItem.EventItem(it)}
+                        TYPE.EVENT -> repository.searchInEvents(mySearchQuery)
+                            .map { SearchItem.EventItem(it) }
 
                         else -> repository.searchInComics(mySearchQuery)
-                            .map {  SearchItem.ComicItem(it) }
+                            .map { SearchItem.ComicItem(it) }
                     }
                 }
                 .subscribe(::onSuccess, ::onError)
@@ -100,6 +104,10 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
 
     fun changeSearchType(type: TYPE) {
         _searchType.postValue(type)
+        Log.d("MAMO", "changeSearchType: input $type ")
+        Log.d("MAMO", "changeSearchType: _searchType ${_searchType.value} ")
+        Log.d("MAMO", "changeSearchType: live data searchType ${searchType.value} ")
+        _searchType.postValue(TYPE.CHARACTER)
         search(searchQuery.value.toString())
     }
 

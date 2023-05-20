@@ -6,7 +6,6 @@ import com.abaferastech.marvelapp.data.local.database.daos.MarvelDao
 import com.abaferastech.marvelapp.data.local.database.daos.SearchDao
 import com.abaferastech.marvelapp.data.local.database.entity.CharacterEntity
 import com.abaferastech.marvelapp.data.local.database.entity.ComicEntity
-import com.abaferastech.marvelapp.data.local.database.entity.EventEntity
 import com.abaferastech.marvelapp.data.local.database.entity.SearchQueryEntity
 import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
 import com.abaferastech.marvelapp.data.local.database.entity.search.CharacterSearchEntity
@@ -17,8 +16,8 @@ import com.abaferastech.marvelapp.data.local.database.entity.search.SeriesSearch
 @Database(
     entities = [
         CharacterEntity::class, ComicEntity::class, CharacterSearchEntity::class,
-        EventEntity::class, SeriesEntity::class, SearchQueryEntity::class,
-        ComicSearchEntity::class, EventSearchEntity::class, SeriesSearchEntity::class
+        SeriesEntity::class, SearchQueryEntity::class, ComicSearchEntity::class,
+        EventSearchEntity::class, SeriesSearchEntity::class
     ],
     version = 1
 )

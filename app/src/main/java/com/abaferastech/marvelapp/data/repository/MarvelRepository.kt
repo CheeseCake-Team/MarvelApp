@@ -1,9 +1,11 @@
 package com.abaferastech.marvelapp.data.repository
 
-import android.provider.CalendarContract.Events
 import com.abaferastech.marvelapp.data.local.database.daos.MarvelDao
 import com.abaferastech.marvelapp.data.local.database.daos.SearchDao
-import com.abaferastech.marvelapp.data.local.database.entity.*
+import com.abaferastech.marvelapp.data.local.database.entity.CharacterEntity
+import com.abaferastech.marvelapp.data.local.database.entity.ComicEntity
+import com.abaferastech.marvelapp.data.local.database.entity.SearchQueryEntity
+import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
 import com.abaferastech.marvelapp.data.local.database.entity.search.CharacterSearchEntity
 import com.abaferastech.marvelapp.data.local.database.entity.search.ComicSearchEntity
 import com.abaferastech.marvelapp.data.local.database.entity.search.EventSearchEntity
@@ -61,39 +63,25 @@ class MarvelRepository @Inject constructor(
         modified = modified,
         imageUri = imageUri
     )
+
     fun Event.asEventSearchEntity() = EventSearchEntity(
-        id = id,
-        title = title,
-        imageUri = imageUri
+        id = id, title = title, imageUri = imageUri
     )
 
     fun EventSearchEntity.asEvent() = Event(
-        id = id,
-        title = title,
-        description = null,
-        modified = null,
-        imageUri = imageUri
+        id = id, title = title, description = null, modified = null, imageUri = imageUri
     )
+
     fun Character.asCharacterSearchEntity() = CharacterSearchEntity(
-        id = id,
-        name = name,
-        modified = modified,
-        imageUri = imageUri
+        id = id, name = name, modified = modified, imageUri = imageUri
     )
 
     fun CharacterSearchEntity.asCharacter() = Character(
-        id = id,
-        name = name,
-        description = null,
-        modified = modified,
-        imageUri = imageUri
+        id = id, name = name, description = null, modified = modified, imageUri = imageUri
     )
+
     fun Series.asSeriesSearchEntity() = SeriesSearchEntity(
-        id = id,
-        title = title,
-        startYear= startYear,
-        modified = modified,
-        imageUri = imageUri
+        id = id, title = title, startYear = startYear, modified = modified, imageUri = imageUri
     )
 
     fun SeriesSearchEntity.asSeries() = Series(
@@ -106,49 +94,51 @@ class MarvelRepository @Inject constructor(
         modified = modified,
         imageUri = imageUri
     )
-    fun Comic.asComicEntity()=ComicEntity(
-             id = id,
-            title = title,
-            issueNumber = issueNumber,
-            modified = modified,
-            imageUri = imageUri,
-            description = null,
-            price = null,
-            pageCount = null
+
+    fun Comic.asComicEntity() = ComicEntity(
+        id = id,
+        title = title,
+        issueNumber = issueNumber,
+        modified = modified,
+        imageUri = imageUri,
+        description = null,
+        price = null,
+        pageCount = null
     )
 
-fun ComicEntity.asComics()=Comic(
-        id=id,
-      title=title,
-    description=description ,
-    issueNumber=issueNumber,
-     price=price,
-    pageCount= pageCount,
-    modified = modified,
-    imageUri=imageUri
-)
-    fun Series.asSeriesEntity()=SeriesEntity (
-            id = id,
-            title = title,
-            startYear = startYear,
-            modified = modified,
-            imageUri = imageUri,
-            description = null,
-            endYear = null,
-            rating = null
-        )
+    fun ComicEntity.asComics() = Comic(
+        id = id,
+        title = title,
+        description = description,
+        issueNumber = issueNumber,
+        price = price,
+        pageCount = pageCount,
+        modified = modified,
+        imageUri = imageUri
+    )
 
-    fun SeriesEntity.asSeries()=Series (
+    fun Series.asSeriesEntity() = SeriesEntity(
+        id = id,
+        title = title,
+        startYear = startYear,
+        modified = modified,
+        imageUri = imageUri,
+        description = null,
+        endYear = null,
+        rating = null
+    )
 
-            id = id,
-            title = title,
-            description = description,
-            startYear = startYear,
-            endYear = endYear,
-            rating = rating,
-            modified = modified,
-            imageUri = imageUri
-        )
+    fun SeriesEntity.asSeries() = Series(
+
+        id = id,
+        title = title,
+        description = description,
+        startYear = startYear,
+        endYear = endYear,
+        rating = rating,
+        modified = modified,
+        imageUri = imageUri
+    )
 
     fun Character.asCharacterEntity(): CharacterEntity {
         return CharacterEntity(
@@ -169,29 +159,6 @@ fun ComicEntity.asComics()=Comic(
             imageUri = imageUri
         )
     }
-    fun Event.asEventEntity(): EventEntity {
-        return EventEntity(
-            id = id,
-            title = title,
-            modified = modified,
-            imageUri = imageUri,
-            description = null,
-
-        )
-    }
-    fun EventEntity.asEvent(): Event {
-        return Event(
-            id = id,
-            title = title,
-            description = null,
-            modified = modified,
-            imageUri = imageUri
-        )
-    }
-
-
-
-
 
 
     fun getAllSearchQueries(): Observable<List<SearchQuery>> {
@@ -211,37 +178,27 @@ fun ComicEntity.asComics()=Comic(
         searchDao.getSearchQueryEntityByQuery(searchQuery)
 
     private fun refreshSearchComics(title: String): Completable {
-        return wrapResponseWithState({ apiService.searchInComics(title) }, comicMapper::map)
-            .flatMapCompletable { uiState ->
-                when (uiState) {
-                    is UIState.Success -> {
-                        val comics = uiState.data
-                        Completable.fromCallable {
-                            comics?.map { it.asComicSearchEntity() }?.let {
-                                searchDao.insertSearchedComicList(it)
-                            }
+        return wrapResponseWithState(
+            { apiService.searchInComics(title) },
+            comicMapper::map
+        ).flatMapCompletable { uiState ->
+            when (uiState) {
+                is UIState.Success -> {
+                    val comics = uiState.data
+                    Completable.fromCallable {
+                        comics?.map { it.asComicSearchEntity() }?.let {
+                            searchDao.insertSearchedComicList(it)
                         }
                     }
-                    else -> {
-                        Completable.error(Throwable("Failed to fetch comics"))
-                    }
                 }
+                else  ->{
+                    Completable.error(Throwable("Failed to fetch comics"))
+                }
+
             }
+        }
     }
 
-    override fun searchInComics(title: String): Observable<List<Comic>> {
-        return searchDao.getSearchedComics(title)
-            .flatMap {
-                if (it.isEmpty()) {
-                    refreshSearchComics(title).andThen(
-                        searchDao.getSearchedComics(title).map { comicSearchEntities ->
-                            comicSearchEntities.map { searchEntity -> searchEntity.asComic() }
-                        })
-                } else {
-                    Observable.just(it.map { searchEntity -> searchEntity.asComic() })
-                }
-            }
-    }
     private fun refreshSearchEvents(title: String): Completable {
         return wrapResponseWithState({ apiService.searchInEvents(title) }, eventMapper::map)
             .flatMapCompletable { uiState ->
@@ -258,149 +215,92 @@ fun ComicEntity.asComics()=Comic(
             }
     }
 
-    override fun searchInEvents(title: String): Observable<List<Event>> {
-        return searchDao.getSearchedEvents(title)
-            .flatMap {
-                if (it.isEmpty()) {
-                    refreshSearchEvents(title).andThen(
-                        searchDao.getSearchedEvents(title).map { eventSearchEntities ->
-                            eventSearchEntities.map { searchEntity -> searchEntity.asEvent() }
-                        })
-                } else {
-                    Observable.just(it.map { searchEntity -> searchEntity.asEvent() })
-                }
-            }
-    }
     private fun refreshSearchCharacters(name: String): Completable {
-        return wrapResponseWithState({ apiService.searchInCharacters(name) }, characterDomainMapper::map)
-            .flatMapCompletable { uiState ->
-                if (uiState is UIState.Success) {
-                    val characters = uiState.data
+        return wrapResponseWithState(
+            { apiService.searchInCharacters(name) }, characterDomainMapper::map
+        ).flatMapCompletable { uiState ->
+            if (uiState is UIState.Success) {
+                val characters = uiState.data
+                Completable.fromCallable {
+                    characters?.map { it.asCharacterSearchEntity() }?.let {
+                        searchDao.insertSearchedCharacterList(it)
+                    }
+                }
+            } else {
+                Completable.error(Throwable("Failed to fetch characters"))
+            }
+        }
+    }
+
+    private fun refreshSearchSeries(title: String): Completable {
+        return wrapResponseWithState(
+            { apiService.searchInSeries(title) },
+            seriesMapper::map
+        ).flatMapCompletable { uiState ->
+            if (uiState is UIState.Success) {
+                val series = uiState.data
+                Completable.fromCallable {
+                    series?.map { it.asSeriesSearchEntity() }?.let {
+                        searchDao.insertSearchedSeriesList(it)
+                    }
+                }
+            } else {
+                Completable.error(Throwable("Failed to fetch series"))
+            }
+        }
+    }
+
+
+    private fun refreshComics(): Completable {
+        return wrapResponseWithState(
+            { apiService.getAllComics() },
+            comicMapper::map
+        ).flatMapCompletable { uiState ->
+            when (uiState) {
+                is UIState.Success -> {
+                    val comics = uiState.data
                     Completable.fromCallable {
-                        characters?.map { it.asCharacterSearchEntity() }?.let {
-                            searchDao.insertSearchedCharacterList(it)
+                        comics?.map { it.asComicEntity() }?.let {
+                            marvelDao.insertComicList(it)
                         }
                     }
-                } else {
-                    Completable.error(Throwable("Failed to fetch characters"))
+                }
+
+                else -> {
+                    Completable.error(Throwable("Failed to fetch comics"))
                 }
             }
+        }
     }
-    override fun searchInCharacters(name: String): Observable<List<Character>> {
-        return searchDao.getSearchedCharacter(name)
-            .flatMap {
-                if (it.isEmpty()) {
-                    refreshSearchCharacters(name).andThen(
-                        searchDao.getSearchedCharacter(name).map { characterSearchEntities ->
-                            characterSearchEntities.map { searchEntity -> searchEntity.asCharacter() }
-                        }
-                    )
-                } else {
-                    Observable.just(it.map { searchEntity -> searchEntity.asCharacter() })
-                }
-            }
-    }
-    private fun refreshSearchSeries(title: String): Completable {
-        return wrapResponseWithState({ apiService.searchInSeries(title) }, seriesMapper::map)
-            .flatMapCompletable { uiState ->
-                if (uiState is UIState.Success) {
+
+    private fun refreshSeries(): Completable {
+        return wrapResponseWithState(
+            { apiService.getAllSeries() },
+            seriesMapper::map
+        ).flatMapCompletable { uiState ->
+            when (uiState) {
+                is UIState.Success -> {
                     val series = uiState.data
                     Completable.fromCallable {
-                        series?.map { it.asSeriesSearchEntity() }?.let {
-                            searchDao.insertSearchedSeriesList(it)
+                        series?.map { it.asSeriesEntity() }?.let {
+                            marvelDao.insertSeriesList(it)
                         }
                     }
-                } else {
+                }
+
+                else -> {
                     Completable.error(Throwable("Failed to fetch series"))
                 }
             }
-    }
-    override fun searchInSeries(title: String): Observable<List<Series>> {
-        return searchDao.getSearchedSeries(title)
-            .flatMap {
-                if (it.isEmpty()) {
-                    refreshSearchSeries(title).andThen(
-                        searchDao.getSearchedSeries(title).map { seriesSearchEntities ->
-                            seriesSearchEntities.map { searchEntity -> searchEntity.asSeries() }
-                        }
-                    )
-                } else {
-                    Observable.just(it.map { searchEntity -> searchEntity.asSeries() })
-                }
-            }
+        }
     }
 
-    private fun refreshComics(): Completable {
-        return wrapResponseWithState({ apiService.getAllComics() }, comicMapper::map)
-            .flatMapCompletable { uiState ->
-                when (uiState) {
-                    is UIState.Success -> {
-                        val comics = uiState.data
-                        Completable.fromCallable {
-                            comics?.map { it.asComicEntity() }?.let {
-                                marvelDao.insertComicList(it)
-                            }
-                        }
-                    }
-                    else -> {
-                        Completable.error(Throwable("Failed to fetch comics"))
-                    }
-                }
-            }
-    }
-
-
-    override fun getAllComics(): Observable<List<Comic>> {
-        return marvelDao.getAllComics()
-            .flatMap {
-                if (it.isEmpty()) {
-                    refreshComics().andThen(
-                        marvelDao.getAllComics().map { ComicsEntity ->
-                            ComicsEntity.map { ComicEntity -> ComicEntity.asComics() }
-                        }
-                    )
-                } else {
-                    Observable.just(it.map { ComicEntity -> ComicEntity.asComics() })
-                }
-            }
-    }
-    private fun refreshSeries(): Completable {
-        return wrapResponseWithState({ apiService.getAllSeries() }, seriesMapper::map)
-            .flatMapCompletable { uiState ->
-                when (uiState) {
-                    is UIState.Success -> {
-                        val series = uiState.data
-                        Completable.fromCallable {
-                            series?.map { it.asSeriesEntity() }?.let {
-                                marvelDao.insertSeriesList(it)
-                            }
-                        }
-                    }
-                    else -> {
-                        Completable.error(Throwable("Failed to fetch series"))
-                    }
-                }
-            }
-    }
-    override fun getAllSeries(): Observable<List<Series>> {
-        return marvelDao.getAllSeries()
-            .flatMap {
-                if (it.isEmpty()) {
-                    refreshSeries().andThen(
-                        marvelDao.getAllSeries().map { seriesEntities ->
-                            seriesEntities.map { seriesEntity -> seriesEntity.asSeries() }
-                        }
-                    )
-                } else {
-                    Observable.just(it.map { seriesEntity -> seriesEntity.asSeries() })
-                }
-            }
-    }
     private fun refreshCharacters(): Completable {
         return wrapResponseWithState({ apiService.getAllCharacters() }, characterDomainMapper::map)
             .flatMapCompletable { uiState ->
                 when (uiState) {
                     is UIState.Success -> {
+                        marvelDao.deleteAllCharacters()
                         val characters = uiState.data
                         Completable.fromCallable {
                             characters?.map { it.asCharacterEntity() }?.let {
@@ -408,6 +308,7 @@ fun ComicEntity.asComics()=Comic(
                             }
                         }
                     }
+
                     else -> {
                         Completable.error(Throwable("Failed to fetch characters"))
                     }
@@ -415,59 +316,107 @@ fun ComicEntity.asComics()=Comic(
             }
     }
 
-
-    override fun getAllCharacters(): Observable<List<Character>> {
-        return marvelDao.getAllCharacters()
-            .flatMap {
-                if (it.isEmpty()) {
-                    refreshCharacters().andThen(
-                        marvelDao.getAllCharacters().map { characterEntities ->
-                            characterEntities.map { characterEntity -> characterEntity.asCharacter() }
-                        }
-                    )
-                } else {
-                    Observable.just(it.map { characterEntity -> characterEntity.asCharacter() })
-                }
+    override fun searchInComics(title: String): Observable<List<Comic>> {
+        return searchDao.getSearchedComics(title).flatMap {
+            if (it.isEmpty()) {
+                refreshSearchComics(title).andThen(searchDao.getSearchedComics(title)
+                    .map { comicSearchEntities ->
+                        comicSearchEntities.map { searchEntity -> searchEntity.asComic() }
+                    })
+            } else {
+                Observable.just(it.map { searchEntity -> searchEntity.asComic() })
             }
-    }
-    private fun refreshEvents(): Completable {
-        return wrapResponseWithState({ apiService.getAllEvents() }, eventMapper::map)
-            .flatMapCompletable { uiState ->
-                when (uiState) {
-                    is UIState.Success -> {
-                        val events = uiState.data
-                        Completable.fromCallable {
-                            events?.map { it.asEventEntity() }?.let {
-                                marvelDao.insertEventList(it)
-                            }
-                        }
-                    }
-                    else -> {
-                        Completable.error(Throwable("Failed to fetch events"))
-                    }
-                }
-            }
-    }
-
-    override fun getAllEvents(): Observable<List<Event>> {
-        return marvelDao.getAllEvents()
-            .flatMap {
-                if (it.isEmpty()) {
-                    refreshEvents().andThen(
-                        marvelDao.getAllEvents().map { eventEntities ->
-                            eventEntities.map { eventEntity -> eventEntity.asEvent() }
-                        }
-                    )
-                } else {
-                    Observable.just(it.map { eventEntity -> eventEntity.asEvent() })
-                }
-            }
+        }
     }
 
 
+    override fun searchInEvents(query: String): Observable<List<Event>> {
+        return searchDao.getSearchedEvents(query).flatMap {
+            if (it.isEmpty()) {
+                refreshSearchEvents(query).andThen(searchDao.getSearchedEvents(query)
+                    .map { eventSearchEntities ->
+                        eventSearchEntities.map { searchEntity -> searchEntity.asEvent() }
+                    })
+            } else {
+                Observable.just(it.map { searchEntity -> searchEntity.asEvent() })
+            }
+        }
+    }
 
 
+    override fun searchInCharacters(name: String): Observable<List<Character>> {
+        return searchDao.getSearchedCharacter(name).flatMap {
+            if (it.isEmpty()) {
+                refreshSearchCharacters(name).andThen(searchDao.getSearchedCharacter(name)
+                    .map { characterSearchEntities ->
+                        characterSearchEntities.map { searchEntity -> searchEntity.asCharacter() }
+                    })
+            } else {
+                Observable.just(it.map { searchEntity -> searchEntity.asCharacter() })
+            }
+        }
+    }
 
+
+    override fun searchInSeries(title: String): Observable<List<Series>> {
+        return searchDao.getSearchedSeries(title).flatMap {
+            if (it.isEmpty()) {
+                refreshSearchSeries(title).andThen(searchDao.getSearchedSeries(title)
+                    .map { seriesSearchEntities ->
+                        seriesSearchEntities.map { searchEntity -> searchEntity.asSeries() }
+                    })
+            } else {
+                Observable.just(it.map { searchEntity -> searchEntity.asSeries() })
+            }
+        }
+    }
+
+    override fun getAllComics(): Observable<UIState<List<Comic>>> {
+        return marvelDao.getAllComics().flatMap {
+            if (it.isEmpty()) {
+                refreshComics().andThen(marvelDao.getAllComics().map { ComicsEntity ->
+                    UIState.Success(ComicsEntity.map { ComicEntity -> ComicEntity.asComics() })
+                })
+            } else {
+                Observable.just(UIState.Success(it.map { ComicEntity -> ComicEntity.asComics() }))
+            }
+        }
+    }
+
+
+    override fun getAllSeries(): Observable<UIState<List<Series>>> {
+        return marvelDao.getAllSeries().flatMap {
+            if (it.isEmpty()) {
+                refreshSeries().andThen(marvelDao.getAllSeries().map { seriesEntities ->
+                    UIState.Success(seriesEntities.map { seriesEntity -> seriesEntity.asSeries() })
+                })
+            } else {
+                Observable.just(UIState.Success(it.map { seriesEntity -> seriesEntity.asSeries() }))
+            }
+        }
+    }
+
+
+    override fun getAllCharacters(): Observable<UIState<List<Character>>> {
+        return marvelDao.getAllCharacters().flatMap {
+            if (it.isEmpty()) {
+                refreshCharacters().andThen(marvelDao.getAllCharacters()
+                    .map { characterEntities ->
+                        UIState.Success(characterEntities.map { characterEntity -> characterEntity.asCharacter() })
+                    })
+            } else {
+                Observable.just(UIState.Success(it.map { characterEntity -> characterEntity.asCharacter() }))
+            }
+        }
+    }
+
+
+    override fun getAllEvents(): Single<UIState<List<Event>>> {
+        return wrapResponseWithState(
+            { apiService.getAllEvents() },
+            eventMapper::map
+        )
+    }
 
 
 //    override fun searchInComics(title: String): Observable<List<Comic>> {
@@ -483,8 +432,6 @@ fun ComicEntity.asComics()=Comic(
 //                }
 //            }
 //    }
-
-
 
 
 //    override fun searchInCharacters(query: String): Single<UIState<List<Character>>> {
