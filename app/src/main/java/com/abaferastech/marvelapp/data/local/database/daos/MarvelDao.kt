@@ -19,7 +19,7 @@ interface MarvelDao {
 
 
     @Query("SELECT * FROM CHARACTER_TABLE")
-    fun getAllCharacters(): List<CharacterEntity>
+    fun getAllCharacters(): Observable<List<CharacterEntity>>
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)

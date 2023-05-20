@@ -71,14 +71,12 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
                 .flatMap { mySearchQuery ->
                     _searchingResponse.postValue(UIState.Loading)
                     when (searchType.value) {
-                        TYPE.SERIES -> repository.searchInSeries(mySearchQuery).toObservable()
-                            .map { SearchItem.SeriesItem(it.toData() as List<Series>) }
+                        TYPE.SERIES -> repository.searchInSeries(mySearchQuery).map{ SearchItem.SeriesItem(it)}
 
-                        TYPE.CHARACTER -> repository.searchInCharacters(mySearchQuery).toObservable()
-                            .map { SearchItem.CharacterItem(it.toData() as List<Character>) }
+                        TYPE.CHARACTER -> repository.searchInCharacters(mySearchQuery)
+                            .map{ SearchItem.CharacterItem(it)}
 
-                        TYPE.EVENT -> repository.searchInEvents(mySearchQuery).toObservable()
-                            .map { SearchItem.EventItem(it.toData() as List<Event>) }
+                        TYPE.EVENT -> repository.searchInEvents(mySearchQuery).map{ SearchItem.EventItem(it)}
 
                         else -> repository.searchInComics(mySearchQuery)
                             .map {  SearchItem.ComicItem(it) }

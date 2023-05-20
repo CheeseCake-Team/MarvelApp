@@ -11,17 +11,17 @@ import io.reactivex.rxjava3.core.Single
 
 interface IMarvelRepository {
     fun searchInComics(title: String): Observable<List<Comic>>
-    fun searchInCharacters(query: String): Single<UIState<List<Character>>>
-    fun searchInEvents(query: String): Single<UIState<List<Event>>>
-    fun searchInSeries(query: String): Single<UIState<List<Series>>>
+    fun searchInCharacters(query: String): Observable<List<Character>>
+    fun searchInEvents(query: String): Observable<List<Event>>
+    fun searchInSeries(query: String): Observable<List<Series>>
     fun getSingleCharacter(characterId: Int): Single<UIState<Character>>
     fun getSingleEvent(eventId: Int): Single<UIState<Event>>
     fun getSingleSeries(seriesId: Int): Single<UIState<Series>>
     fun getSingleComic(comicId: Int): Single<UIState<Comic>>
     fun getSingleCreator(creatorId: Int): Single<UIState<Creator>>
-    fun getAllEvents(): Single<UIState<List<Event>>>
-    fun getAllCharacters(): Single<UIState<List<Character>>>
-    fun getAllComics(): Single<UIState<List<Comic>>>
+    fun getAllEvents(): Observable<List<Event>>
+    fun getAllCharacters(): Observable<List<Character>>
+    fun getAllComics(): Observable<List<Comic>>
     fun getAllCreators(): Single<UIState<List<Creator>>>
     fun getEventComics(eventId: Int): Single<UIState<List<Comic>>>
     fun getCharacterEvents(characterId: Int): Single<UIState<List<Event>>>
@@ -32,7 +32,7 @@ interface IMarvelRepository {
     fun getSeriesEvents(seriesId: Int): Single<UIState<List<Event>>>
     fun getSeriesCharacters(seriesId: Int): Single<UIState<List<Character>>>
     fun getEventCharacters(eventId: Int): Single<UIState<List<Character>>>
-    fun getAllSeries(): Single<UIState<List<Series>>>
+    fun getAllSeries(): Observable<List<Series>>
     fun getComicEvents(comicId: Int): Single<UIState<List<Event>>>
     fun getComicCharacters(comicId: Int): Single<UIState<List<Character>>>
     fun getComicSeries(comicId: Int): Single<UIState<List<Series>>>
