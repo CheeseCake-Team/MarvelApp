@@ -7,7 +7,9 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
@@ -61,7 +63,10 @@ fun setSearchRecyclerViewItems(view: RecyclerView, items: SearchItem?) {
 fun setFavouritesRecyclerViewItems(view: RecyclerView, items: FavouriteItems?) {
     items.let {
         when (items) {
-            is FavouriteItems.FavouriteCharacters -> (view.adapter as FavouriteCharactersAdapter?)?.setItems(items.items)
+            is FavouriteItems.FavouriteCharacters -> {
+                view.layoutManager = GridLayoutManager(view.context,4)
+                (view.adapter as FavouriteCharactersAdapter?)?.setItems(items.items)
+            }
 //            is FavouriteItems.FavouriteEvents -> (view.adapter as EventAdapter?)?.setItems(items.items)
 //            is FavouriteItems.FavouriteSeries -> (view.adapter as SeriesAdapter?)?.setItems(items.items)
             is FavouriteItems.FavouriteComics -> (view.adapter as FavouriteComicsAdapter?)?.setItems(items.items)
