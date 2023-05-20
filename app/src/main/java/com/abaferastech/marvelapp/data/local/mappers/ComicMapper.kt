@@ -2,7 +2,7 @@ package com.abaferastech.marvelapp.data.local.mappers
 
 import com.abaferastech.marvelapp.domain.mapper.IMapper
 import com.abaferastech.marvelapp.data.local.database.entity.ComicEntity
-import com.abaferastech.marvelapp.data.local.database.entity.SearchQueryEntity
+import com.abaferastech.marvelapp.data.local.database.entity.search.SearchQueryEntity
 import com.abaferastech.marvelapp.data.remote.response.ComicDTO
 
 class ComicMapper(private val searchQueryEntity: SearchQueryEntity?) : IMapper<ComicDTO, ComicEntity> {

@@ -21,26 +21,26 @@ interface MarvelDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSeriesList(series: List<SeriesEntity>)
 
-    @Query("DELETE FROM CHARACTER_TABLE")
+    @Query("DELETE FROM CHARACTER_HOME_TABLE")
     fun deleteAllCharacters()
 
-    @Query("DELETE FROM COMIC_TABLE")
+    @Query("DELETE FROM COMIC_HOME_TABLE")
     fun deleteAllComics()
 
-    @Query("DELETE FROM SERIES_TABLE")
+    @Query("DELETE FROM SERIES_HOME_TABLE")
     fun deleteAllSeries()
 
 
 
-    @Query("SELECT * FROM CHARACTER_TABLE")
+    @Query("SELECT * FROM CHARACTER_HOME_TABLE")
     fun getAllCharacters(): Observable<List<CharacterEntity>>
 
 
-    @Query("SELECT * FROM COMIC_TABLE")
+    @Query("SELECT * FROM COMIC_HOME_TABLE")
     fun getAllComics(): Observable<List<ComicEntity>>
 
 
-    @Query("SELECT * FROM SERIES_TABLE")
+    @Query("SELECT * FROM SERIES_HOME_TABLE")
     fun getAllSeries(): Observable<List<SeriesEntity>>
 
 }

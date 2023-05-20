@@ -1,7 +1,6 @@
 package com.abaferastech.marvelapp.ui.search
 
 import com.abaferastech.marvelapp.R
-import com.abaferastech.marvelapp.data.local.database.entity.SearchQueryEntity
 import com.abaferastech.marvelapp.domain.models.SearchQuery
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.base.BaseInteractionListener

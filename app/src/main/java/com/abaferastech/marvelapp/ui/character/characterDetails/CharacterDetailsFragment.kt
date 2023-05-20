@@ -18,8 +18,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class CharacterDetailsFragment :
-    BaseFragment<FragmentCharacterBinding>() {
+class CharacterDetailsFragment : BaseFragment<FragmentCharacterBinding>() {
 
     override val layoutIdFragment = R.layout.fragment_character
     override val viewModel: CharacterDetailsViewModel by viewModels()
@@ -46,8 +45,13 @@ class CharacterDetailsFragment :
                 }
             }
         }
+        viewModel.isCharacterFavourite.observe(viewLifecycleOwner){
+            Log.d("MAMO", "onViewCreated:${it} ")
+            binding.buttonFavourites.isChecked = it
+        }
 
         viewModel.getSingleCharacter()
+
         init()
     }
 

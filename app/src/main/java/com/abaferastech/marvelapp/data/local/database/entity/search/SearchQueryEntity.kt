@@ -1,4 +1,4 @@
-package com.abaferastech.marvelapp.data.local.database.entity
+package com.abaferastech.marvelapp.data.local.database.entity.search
 
 import androidx.room.Entity
 import androidx.room.Index

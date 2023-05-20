@@ -13,8 +13,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 
-class CharacterDataFragment :
-    BaseFragment<FragmentCharacterDataBinding>() {
+class CharacterDataFragment : BaseFragment<FragmentCharacterDataBinding>() {
 
     override val layoutIdFragment = R.layout.fragment_character_data
     override val viewModel: CharacterDetailsViewModel by viewModels()

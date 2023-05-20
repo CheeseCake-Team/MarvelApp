@@ -5,7 +5,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.abaferastech.marvelapp.data.local.database.entity.SearchQueryEntity
+import com.abaferastech.marvelapp.data.local.database.entity.search.SearchQueryEntity
 import com.abaferastech.marvelapp.data.local.database.entity.search.CharacterSearchEntity
 import com.abaferastech.marvelapp.data.local.database.entity.search.ComicSearchEntity
 import com.abaferastech.marvelapp.data.local.database.entity.search.EventSearchEntity
@@ -51,4 +51,6 @@ interface SearchDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertSearchedCharacterList(characters: List<CharacterSearchEntity>)
+
+
 }

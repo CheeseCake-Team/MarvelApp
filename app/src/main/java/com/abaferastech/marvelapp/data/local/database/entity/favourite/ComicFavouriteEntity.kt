@@ -1,10 +1,10 @@
-package com.abaferastech.marvelapp.data.local.database.entity
+package com.abaferastech.marvelapp.data.local.database.entity.favourite
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity("COMIC_HOME_TABLE")
-data class ComicEntity(
+@Entity("COMIC_Favourite_TABLE")
+data class ComicFavouriteEntity(
     @PrimaryKey(false) val id: Int,
     val title: String,
     val description: String?,
@@ -13,4 +13,5 @@ data class ComicEntity(
     val pageCount: Int?,
     val modified: String?,
     val imageUri: String?,
+    val isFavourite: Boolean? = null,
 )
