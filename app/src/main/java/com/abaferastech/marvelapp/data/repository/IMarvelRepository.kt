@@ -1,13 +1,16 @@
 package com.abaferastech.marvelapp.data.repository
 
+import com.abaferastech.marvelapp.data.remote.response.BaseResponse
 import com.abaferastech.marvelapp.domain.models.Character
 import com.abaferastech.marvelapp.domain.models.Comic
 import com.abaferastech.marvelapp.domain.models.Creator
 import com.abaferastech.marvelapp.domain.models.Event
 import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.model.UIState
+import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
+import retrofit2.Response
 
 interface IMarvelRepository {
     fun searchInComics(title: String): Observable<List<Comic>>
@@ -43,5 +46,25 @@ interface IMarvelRepository {
     fun getCreatorCharacters(creatorId: Int): Single<UIState<List<Character>>>
     fun getCreatorComics(creatorId: Int): Single<UIState<List<Comic>>>
     fun getCreatorSeries(creatorId: Int): Single<UIState<List<Series>>>
+
+    fun refreshSearchComics(title: String): Completable
+    fun refreshSearchEvents(title: String): Completable
+    fun refreshSearchCharacters(name: String): Completable
+    fun refreshSearchSeries(title: String): Completable
+    fun refreshComics(): Completable
+    fun refreshSeries(): Completable
+    fun refreshCharacters(): Completable
+    fun <I, O> refreshData(
+        apiCall: () -> Single<Response<BaseResponse<I>>>,
+        mapper: (List<I>) -> List<O>,
+        insertData: (List<O>) -> Unit,
+        errorMessage: String
+    ): Completable
+
+    fun <T, R> refreshAndFetchData(
+        refreshData: () -> Completable,
+        fetchData: () -> Observable<List<T>>,
+        mapData: (List<T>) -> List<R>
+    ): Observable<List<R>>
 
 }

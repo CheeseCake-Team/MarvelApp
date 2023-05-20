@@ -93,7 +93,7 @@ class MarvelRepository @Inject constructor(
         searchDao.getSearchQueryEntityByQuery(searchQuery)
 
 
-    private fun refreshSearchComics(title: String): Completable {
+    override fun refreshSearchComics(title: String): Completable {
         return refreshData(
             { apiService.searchInComics(title) },
             comicSearchMapper::map,
@@ -105,7 +105,7 @@ class MarvelRepository @Inject constructor(
 
 
 
-    private fun refreshSearchEvents(title: String): Completable {
+    override fun refreshSearchEvents(title: String): Completable {
         return refreshData(
             { apiService.searchInEvents(title) },
             eventSearchDtoMapper::map,
@@ -114,7 +114,7 @@ class MarvelRepository @Inject constructor(
         )
     }
 
-    private fun refreshSearchCharacters(name: String): Completable {
+    override fun refreshSearchCharacters(name: String): Completable {
         return refreshData(
             { apiService.searchInCharacters(name) },
             characterSearchDtoMapper::map,
@@ -123,7 +123,7 @@ class MarvelRepository @Inject constructor(
         )
     }
 
-    private fun refreshSearchSeries(title: String): Completable {
+    override fun refreshSearchSeries(title: String): Completable {
         return refreshData(
             { apiService.searchInSeries(title) },
             seriesSearchDtoMapper::map,
@@ -133,7 +133,7 @@ class MarvelRepository @Inject constructor(
     }
 
 
-    private fun refreshComics(): Completable {
+ override fun refreshComics(): Completable {
         return refreshData(
             { apiService.getAllComics() },
             comicDtoMapper::map,
@@ -142,7 +142,7 @@ class MarvelRepository @Inject constructor(
         )
     }
 
-    private fun refreshSeries(): Completable {
+   override fun refreshSeries(): Completable {
         return refreshData(
             { apiService.getAllSeries() },
             seriesDtoMapper::map,
@@ -151,7 +151,7 @@ class MarvelRepository @Inject constructor(
         )
     }
 
-    private fun refreshCharacters(): Completable {
+    override fun refreshCharacters(): Completable {
         return refreshData(
             { apiService.getAllCharacters() },
             characterDtoMapper::map,
@@ -159,7 +159,7 @@ class MarvelRepository @Inject constructor(
             "Failed to fetch characters"
         )
     }
-    private fun <I, O> refreshData(
+       override fun <I, O> refreshData(
         apiCall: () -> Single<Response<BaseResponse<I>>>,
         mapper: (List<I>) -> List<O>,
         insertData: (List<O>) -> Unit,
@@ -179,7 +179,7 @@ class MarvelRepository @Inject constructor(
             }
     }
 
-    private fun <T, R> refreshAndFetchData(
+   override fun <T, R> refreshAndFetchData(
         refreshData: () -> Completable,
         fetchData: () -> Observable<List<T>>,
         mapData: (List<T>) -> List<R>
