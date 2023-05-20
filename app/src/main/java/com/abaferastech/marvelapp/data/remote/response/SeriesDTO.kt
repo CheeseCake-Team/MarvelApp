@@ -1,10 +1,5 @@
 package com.abaferastech.marvelapp.data.remote.response
 
-import com.abaferastech.marvelapp.data.remote.response.CreatorItem
-import com.abaferastech.marvelapp.data.remote.response.MarvelResults
-import com.abaferastech.marvelapp.data.remote.response.ResponseItem
-import com.abaferastech.marvelapp.data.remote.response.Thumbnail
-import com.abaferastech.marvelapp.data.remote.response.Url
 import com.google.gson.annotations.SerializedName
 
 data class SeriesDTO(

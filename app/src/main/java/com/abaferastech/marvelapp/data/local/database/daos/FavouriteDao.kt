@@ -6,25 +6,23 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
 import com.abaferastech.marvelapp.data.local.database.entity.favourite.CharacterFavouriteEntity
 import com.abaferastech.marvelapp.data.local.database.entity.favourite.ComicFavouriteEntity
 import com.abaferastech.marvelapp.data.local.database.entity.favourite.SeriesFavouriteEntity
 import io.reactivex.rxjava3.core.Completable
-import io.reactivex.rxjava3.core.Maybe
 import io.reactivex.rxjava3.core.Single
 
 @Dao
 interface FavouriteDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertSeries(series: SeriesFavouriteEntity):Completable
+    fun insertSeries(series: SeriesFavouriteEntity): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertSeriesList(series: List<SeriesFavouriteEntity>):Completable
+    fun insertSeriesList(series: List<SeriesFavouriteEntity>): Completable
 
     @Update
-    fun updateSeries(series: SeriesFavouriteEntity):Completable
+    fun updateSeries(series: SeriesFavouriteEntity): Completable
 
     @Query("SELECT * FROM SERIES_FAVOURITE_TABLE")
     fun getAllCashedSeries(): Single<List<SeriesFavouriteEntity>>
@@ -36,7 +34,7 @@ interface FavouriteDao {
     fun getSeriesByIdOrNull(id: Int): SeriesFavouriteEntity?
 
     @Delete
-    fun deleteSeries(series: SeriesFavouriteEntity):Completable
+    fun deleteSeries(series: SeriesFavouriteEntity): Completable
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -50,7 +48,7 @@ interface FavouriteDao {
     fun deleteCharacter(character: CharacterFavouriteEntity): Completable
 
     @Delete
-    fun deleteComic(comic: ComicFavouriteEntity):  Completable
+    fun deleteComic(comic: ComicFavouriteEntity): Completable
 
     @Update
     fun updateCharacter(character: CharacterFavouriteEntity): Completable

@@ -31,7 +31,6 @@ interface MarvelDao {
     fun deleteAllSeries()
 
 
-
     @Query("SELECT * FROM CHARACTER_HOME_TABLE")
     fun getAllCharacters(): Observable<List<CharacterEntity>>
 

@@ -103,8 +103,6 @@ class MarvelRepository @Inject constructor(
     }
 
 
-
-
     override fun refreshSearchEvents(title: String): Completable {
         return refreshData(
             { apiService.searchInEvents(title) },
@@ -133,7 +131,7 @@ class MarvelRepository @Inject constructor(
     }
 
 
- override fun refreshComics(): Completable {
+    override fun refreshComics(): Completable {
         return refreshData(
             { apiService.getAllComics() },
             comicDtoMapper::map,
@@ -142,7 +140,7 @@ class MarvelRepository @Inject constructor(
         )
     }
 
-   override fun refreshSeries(): Completable {
+    override fun refreshSeries(): Completable {
         return refreshData(
             { apiService.getAllSeries() },
             seriesDtoMapper::map,
@@ -159,7 +157,8 @@ class MarvelRepository @Inject constructor(
             "Failed to fetch characters"
         )
     }
-       override fun <I, O> refreshData(
+
+    override fun <I, O> refreshData(
         apiCall: () -> Single<Response<BaseResponse<I>>>,
         mapper: (List<I>) -> List<O>,
         insertData: (List<O>) -> Unit,
@@ -174,12 +173,13 @@ class MarvelRepository @Inject constructor(
                             insertData(data!!)
                         }
                     }
+
                     else -> Completable.error(Throwable(errorMessage))
                 }
             }
     }
 
-   override fun <T, R> refreshAndFetchData(
+    override fun <T, R> refreshAndFetchData(
         refreshData: () -> Completable,
         fetchData: () -> Observable<List<T>>,
         mapData: (List<T>) -> List<R>
@@ -280,10 +280,10 @@ class MarvelRepository @Inject constructor(
         val series = favouriteDao.getSeriesByIdOrNull(seriesId)
         return if (series == null) {
             wrapResponseWithState(
-                { apiService.getSingleSeries(seriesId)},
+                { apiService.getSingleSeries(seriesId) },
                 seriesMapper::map
             ).mapListToSingleItem()
-        }else {
+        } else {
             Single.just(UIState.Success(series.asDomainModel()))
         }
     }

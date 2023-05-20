@@ -4,7 +4,6 @@ import com.abaferastech.marvelapp.BuildConfig
 import com.abaferastech.marvelapp.data.remote.AuthInterceptor
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import com.abaferastech.marvelapp.data.remote.MessageDigest
-import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -83,7 +83,6 @@ interface MarvelApiService {
     fun getSeriesCreators(@Path("seriesId") characterId: Int): Single<Response<BaseResponse<CreatorDTO>>>
 
 
-
     @GET("comics")
     fun getAllComics(): Single<Response<BaseResponse<ComicDTO>>>
 

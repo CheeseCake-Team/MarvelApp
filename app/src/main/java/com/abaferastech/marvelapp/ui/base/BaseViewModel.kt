@@ -52,5 +52,4 @@ abstract class BaseViewModel : ViewModel() {
         super.onCleared()
         compositeDisposable.dispose()
     }
-
 }

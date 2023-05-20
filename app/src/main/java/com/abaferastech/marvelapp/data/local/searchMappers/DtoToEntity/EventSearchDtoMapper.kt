@@ -5,7 +5,8 @@ import com.abaferastech.marvelapp.data.remote.response.EventDTO
 import com.abaferastech.marvelapp.domain.mapper.IMapper
 import javax.inject.Inject
 
-class EventSearchDtoMapper @Inject constructor(): IMapper<List<EventDTO>, List<EventSearchEntity>> {
+class EventSearchDtoMapper @Inject constructor() :
+    IMapper<List<EventDTO>, List<EventSearchEntity>> {
     override fun map(input: List<EventDTO>): List<EventSearchEntity> {
         return input.map { eventDTO ->
             EventSearchEntity(

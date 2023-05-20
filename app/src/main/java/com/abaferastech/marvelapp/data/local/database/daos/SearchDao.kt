@@ -5,10 +5,10 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.abaferastech.marvelapp.data.local.database.entity.search.SearchQueryEntity
 import com.abaferastech.marvelapp.data.local.database.entity.search.CharacterSearchEntity
 import com.abaferastech.marvelapp.data.local.database.entity.search.ComicSearchEntity
 import com.abaferastech.marvelapp.data.local.database.entity.search.EventSearchEntity
+import com.abaferastech.marvelapp.data.local.database.entity.search.SearchQueryEntity
 import com.abaferastech.marvelapp.data.local.database.entity.search.SeriesSearchEntity
 import io.reactivex.rxjava3.core.Observable
 

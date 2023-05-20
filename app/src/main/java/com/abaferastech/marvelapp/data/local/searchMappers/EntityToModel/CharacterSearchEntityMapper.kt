@@ -5,7 +5,8 @@ import com.abaferastech.marvelapp.domain.mapper.IMapper
 import com.abaferastech.marvelapp.domain.models.Character
 import javax.inject.Inject
 
-class CharacterSearchEntityMapper @Inject constructor(): IMapper<List<CharacterSearchEntity>, List<Character>> {
+class CharacterSearchEntityMapper @Inject constructor() :
+    IMapper<List<CharacterSearchEntity>, List<Character>> {
     override fun map(input: List<CharacterSearchEntity>): List<Character> {
         return input.map { characterSearchEntity ->
             Character(
