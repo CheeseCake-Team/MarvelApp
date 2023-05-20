@@ -29,5 +29,8 @@ class EventViewModel @Inject constructor(
             .applySchedulersAndPostUIStates(_event::postValue)
 
     }
-
+    fun refresh() {
+        val eventId =  eventArgs.eventId
+        getSingleEvent(eventId)
+    }
 }

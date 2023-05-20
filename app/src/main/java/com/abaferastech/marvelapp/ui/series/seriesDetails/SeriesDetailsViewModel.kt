@@ -30,4 +30,9 @@ class SeriesDetailsViewModel @Inject constructor(
             .applySchedulersAndPostUIStates(_series::postValue)
     }
 
+    fun refresh() {
+        val seriesId =  seriesArgs.seriesId
+        getSeriesById(seriesId)
+    }
+
 }

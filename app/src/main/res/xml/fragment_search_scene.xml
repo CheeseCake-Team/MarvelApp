@@ -34,7 +34,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/recycler_view_search"
+            app:layout_constraintTop_toTopOf="@id/recycler_view_search_result"
             app:visibilityMode="ignore" />
     </ConstraintSet>
 
@@ -79,7 +79,7 @@
             app:visibilityMode="ignore" />
 
         <Constraint
-            android:id="@+id/recycler_view_search"
+            android:id="@+id/recycler_view_search_result"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:clipToPadding="false"
@@ -96,7 +96,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@id/recycler_view_search"
+            app:layout_constraintTop_toTopOf="@id/recycler_view_search_result"
             app:visibilityMode="ignore" />
 
         <Constraint
@@ -119,6 +119,6 @@
         app:constraintSetStart="@+id/start">
         <OnSwipe
             app:dragDirection="dragUp"
-            app:touchAnchorId="@+id/recycler_view_search" />
+            app:touchAnchorId="@+id/recycler_view_search_result" />
     </Transition>
 </MotionScene>

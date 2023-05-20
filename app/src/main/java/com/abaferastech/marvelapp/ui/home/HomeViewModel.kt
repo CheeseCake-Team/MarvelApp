@@ -4,9 +4,6 @@ import android.os.Parcelable
 import android.util.Log
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
-import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
-import com.abaferastech.marvelapp.data.remote.response.ComicDTO
-import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.domain.models.Character
 import com.abaferastech.marvelapp.domain.models.Comic
@@ -79,17 +76,19 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
 
     private fun updateComicsDataItem() {
         if (_characters.value is UIState.Success) {
-            val comics = _comics.value?.toData() ?: emptyList()
+            val comics = _comics.value?.toData()
             data.add(
                 DataItem.ComicsTagItem(
                     Tag(
-                        id = 2, title = "COMICS", ResourcesData = comics.shuffled()
+                        id = 2, title = "COMICS", ResourcesData = comics?.shuffled()!!
                     ), this
                 )
             )
             Log.d("TaDa", "updateComicsDataItem: $data")
 
             _homeData.postValue(UIState.Success(data))
+        } else if (_characters.value is UIState.Error){
+            _homeData.postValue(UIState.Error("error"))
         }
     }
 
@@ -117,7 +116,7 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
 
 
     override fun onClickCharacter(character: Character) {
-        navigationEvents.postValue(EventModel(HomeEvent.ClickCharacterEvent(character.id!!)))
+        navigationEvents.postValue(EventModel(HomeEvent.ClickCharacterEvent(character.id)))
     }
 
     override fun onClickSeries(series: Series) {
@@ -125,7 +124,7 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
     }
 
     override fun onClickComics(comics: Comic) {
-        navigationEvents.postValue(EventModel(HomeEvent.ClickComicEvent(comics.id!!)))
+        navigationEvents.postValue(EventModel(HomeEvent.ClickComicEvent(comics.id)))
     }
 
 

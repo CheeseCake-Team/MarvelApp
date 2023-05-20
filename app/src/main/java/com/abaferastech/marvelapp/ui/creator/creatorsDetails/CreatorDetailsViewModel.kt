@@ -28,6 +28,11 @@ class CreatorDetailsViewModel @Inject constructor(val repository:MarvelRepositor
             .applySchedulersAndPostUIStates(_creator::postValue)
     }
 
+    fun refresh() {
+        val creatorId =  creatorArgs.creatorId
+        getMarvelCreator(creatorId)
+    }
+
 }
 
 

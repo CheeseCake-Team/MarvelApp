@@ -10,6 +10,7 @@ import com.abaferastech.marvelapp.databinding.FragmentCharactersBinding
 import com.abaferastech.marvelapp.ui.base.BaseFragment
 import com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsFragmentDirections
 import com.abaferastech.marvelapp.ui.event.eventDetails.EventFragmentDirections
+import com.abaferastech.marvelapp.ui.home.adapters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.model.EventObserver
 import com.abaferastech.marvelapp.ui.model.TYPE
 import com.abaferastech.marvelapp.ui.series.seriesDetails.SeriesDetailsFragmentDirections

@@ -5,10 +5,10 @@ import com.abaferastech.marvelapp.data.local.database.entity.CharacterEntity
 import com.abaferastech.marvelapp.data.remote.response.CharacterDTO
 import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.domain.models.Series
+import javax.inject.Inject
 
-class CharacterDomainMapper : IMapper<List<CharacterDTO>, List<Character>> {
-
-    override fun map(input: List<CharacterDTO>): List<Character> {
+class CharacterDomainMapper @Inject constructor() : IMapper<List<CharacterDTO>, List<Character>> {
+    override fun map(input: List<CharacterDTO>):List< Character> {
         return input.map { characterDTO ->
             Character(
                 id = characterDTO.id!!,

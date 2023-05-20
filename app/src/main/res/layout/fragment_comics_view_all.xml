@@ -21,11 +21,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:clipToPadding="false"
-            app:items = "@{viewModel.comics.toData()}"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="2"
             android:padding="@dimen/space_12dp"
-            tools:listitem="@layout/item_comic_grid"/>
+            app:items="@{viewModel.comics.toData()}"
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:showWhenSuccess="@{viewModel.comics}"
+            app:spanCount="2"
+            tools:listitem="@layout/item_comic_grid" />
 
         <ProgressBar
             android:layout_width="wrap_content"
@@ -34,7 +35,32 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:showWhenLoading="@{viewModel.comics}"/>
+            app:showWhenLoading="@{viewModel.comics}" />
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_error"
+            android:layout_width="@dimen/lottie_error_size"
+            android:layout_height="@dimen/lottie_error_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/lottie_error"
+            app:showWhenError="@{viewModel.comics}" />
+
+
+        <Button
+            android:id="@+id/button_refresh"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:onClick="@{()->viewModel.getMarvelComics()}"
+            android:text="@string/refresh"
+            app:layout_constraintEnd_toEndOf="@+id/lottie_error"
+            app:layout_constraintStart_toStartOf="@+id/lottie_error"
+            app:layout_constraintTop_toBottomOf="@+id/lottie_error"
+            app:showWhenError="@{viewModel.comics}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

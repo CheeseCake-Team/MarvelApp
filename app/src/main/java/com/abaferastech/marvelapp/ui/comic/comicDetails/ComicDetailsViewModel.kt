@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
+import com.abaferastech.marvelapp.data.remote.response.ComicDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.domain.models.Comic
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
@@ -66,4 +67,8 @@ class ComicDetailsViewModel @Inject constructor(
         comics.value?.toData()?.let { repository.deleteComic(it) }
     }
 
+    fun refresh() {
+        val comicId =  comicArgs.comicID
+        getSingleComic(comicId)
+    }
 }

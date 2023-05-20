@@ -79,6 +79,9 @@
         <action
             android:id="@+id/action_searchFragment_to_seriesDetailsFragment"
             app:destination="@id/seriesDetailsFragment" />
+        <action
+            android:id="@+id/action_searchFragment_to_filterFragment"
+            app:destination="@id/filterFragment" />
     </fragment>
     <fragment
         android:id="@+id/charactersFragment"
@@ -187,4 +190,8 @@
         android:id="@+id/favouritesFragment"
         android:name="com.abaferastech.marvelapp.ui.favourites.FavouritesFragment"
         android:label="Favourites" />
+    <dialog
+        android:id="@+id/filterFragment"
+        android:name="com.abaferastech.marvelapp.ui.filter.FilterFragment"
+        android:label="FilterFragment" />
 </navigation>

@@ -23,4 +23,5 @@
     <dimen name="single_page_end_image_height">116dp</dimen>
     <dimen name="creator_image_width">200dp</dimen>
     <dimen name="indicator_width">40dp</dimen>
+    <dimen name="lottie_error_size">180dp</dimen>
 </resources>

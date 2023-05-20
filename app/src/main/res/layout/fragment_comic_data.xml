@@ -4,84 +4,126 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="viewModel"
             type="com.abaferastech.marvelapp.ui.comic.comicDetails.ComicDetailsViewModel" />
     </data>
-<androidx.core.widget.NestedScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scrollbars="none">
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.comic.comicDetails.ComicDataFragment">
+        android:scrollbars="none">
 
-        <TextView
-            android:id="@+id/text_view_comic_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_16dp"
-            android:text='@{"Title: " + viewModel.comics.toData().title}'
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.comic.comicDetails.ComicDataFragment">
 
-        <TextView
-            android:id="@+id/text_view_comic_issue_number"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_16dp"
-            android:layout_marginTop="16dp"
-            android:text='@{"Issue: " + viewModel.comics.toData().issueNumber}'
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_comic_title" />
+            <TextView
+                android:id="@+id/text_view_comic_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:text='@{"Title: " + viewModel.comics.toData().title}'
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:showWhenSuccess="@{viewModel.comics}" />
 
-        <TextView
-            android:id="@+id/text_view_comic_modified"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_16dp"
-            android:text='@{"Date: " + viewModel.comics.toData().modified.split("T")[0]}'
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_comic_issue_number" />
+            <TextView
+                android:id="@+id/text_view_comic_issue_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_16dp"
+                android:layout_marginTop="16dp"
+                android:text='@{"Issue: " + viewModel.comics.toData().issueNumber}'
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_comic_title"
+                app:showWhenSuccess="@{viewModel.comics}" />
 
-        <TextView
-            android:id="@+id/text_view_comic_prices"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_16dp"
-            android:text='@{"Price: " + viewModel.comics.toData().price.toString()}'
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_comic_modified" />
+            <TextView
+                android:id="@+id/text_view_comic_modified"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:text='@{"Date: " + viewModel.comics.toData().modified.split("T")[0]}'
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_comic_issue_number"
+                app:showWhenSuccess="@{viewModel.comics}" />
 
-        <TextView
-            android:id="@+id/text_view_comic_page_count"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_16dp"
-            android:text='@{"pageCount: " + viewModel.comics.toData().pageCount.toString()}'
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_comic_prices" />
+            <TextView
+                android:id="@+id/text_view_comic_prices"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:text='@{"Price: " + viewModel.comics.toData().price.toString()}'
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_comic_modified"
+                app:showWhenSuccess="@{viewModel.comics}" />
 
-        <TextView
-            android:id="@+id/text_view_comic_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_16dp"
-            android:text='@{"Description: " + viewModel.comics.toData().description}'
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_comic_page_count" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+            <TextView
+                android:id="@+id/text_view_comic_page_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:text='@{"pageCount: " + viewModel.comics.toData().pageCount.toString()}'
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_comic_prices"
+                app:showWhenSuccess="@{viewModel.comics}" />
+
+            <TextView
+                android:id="@+id/text_view_comic_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:text='@{"Description: " + viewModel.comics.toData().description}'
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_view_comic_page_count"
+                app:showWhenSuccess="@{viewModel.comics}" />
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:showWhenLoading="@{viewModel.comics}" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/lottie_error"
+                android:layout_width="@dimen/lottie_error_size"
+                android:layout_height="@dimen/lottie_error_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/lottie_error"
+                app:showWhenError="@{viewModel.comics}" />
+
+            <Button
+                android:id="@+id/button_refresh"
+                android:layout_width="180dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:text="@string/refresh"
+                app:layout_constraintEnd_toEndOf="@+id/lottie_error"
+                app:layout_constraintStart_toStartOf="@+id/lottie_error"
+                app:layout_constraintTop_toBottomOf="@+id/lottie_error"
+                app:showWhenError="@{viewModel.comics}" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 </layout>

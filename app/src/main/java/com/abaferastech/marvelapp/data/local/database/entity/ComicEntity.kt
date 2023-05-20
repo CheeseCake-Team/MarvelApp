@@ -1,18 +1,9 @@
 package com.abaferastech.marvelapp.data.local.database.entity
 
 import androidx.room.Entity
-import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 
-@Entity(
-    "COMIC_TABLE",
-    foreignKeys = [ForeignKey(
-        entity = SearchQueryEntity::class,
-        parentColumns = arrayOf("id"),
-        childColumns = arrayOf("searchID"),
-        onDelete = ForeignKey.CASCADE
-    )]
-)
+@Entity("COMIC_TABLE")
 data class ComicEntity(
     @PrimaryKey(false) val id: Int,
     val title: String,
@@ -22,7 +13,5 @@ data class ComicEntity(
     val pageCount: Int?,
     val modified: String?,
     val imageUri: String?,
-    var searchID: Long? = null,
     val isFavourite: Boolean? = null,
-
     )
