@@ -34,12 +34,12 @@ class ComicDetailsViewModel @Inject constructor(
 
     init {
         getAllCachedComics()
-        Log.i(
-            "vwWEvwevvwvewwv", ":${
-                repository.getAllCashedComic().subscribe { s ->
-                    s.toString()
-                }
-            }")
+//        Log.i(
+//            "vwWEvwevvwvewwv", ":${
+//                repository.getAllCashedComic().subscribe { s ->
+//                    s.toString()
+//                }
+//            }")
     }
 
     fun getSingleComic(passedId: Int? = null) {
@@ -52,9 +52,7 @@ class ComicDetailsViewModel @Inject constructor(
     fun getAllCachedComics() {
         Log.i("getAllCharacters: ", repository.getAllCashedComic().toString())
         repository.getAllCashedComic().subscribe { comicsList ->
-            Log.i("ebrabw", "getAllCharacters: $comicsList")
             _allComics.postValue(comicsList)
-            Log.i("ebrabw", "comics: ${_allComics.value}")
         }
     }
 
