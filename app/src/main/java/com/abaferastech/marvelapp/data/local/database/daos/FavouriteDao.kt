@@ -17,6 +17,10 @@ interface FavouriteDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertCharacter(character: CharacterFavouriteEntity)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertComic(comic: ComicFavouriteEntity)
+
+
     @Delete
     fun deleteCharacter(character: CharacterFavouriteEntity)
 
@@ -31,8 +35,6 @@ interface FavouriteDao {
 
     @Query("SELECT * FROM CHARACTER_FAVOURITE_TABLE WHERE id=:id")
     fun getCharacterByIdNullable(id: Int): CharacterFavouriteEntity?
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertComic(comic: ComicFavouriteEntity): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertComicList(series: List<ComicFavouriteEntity>)

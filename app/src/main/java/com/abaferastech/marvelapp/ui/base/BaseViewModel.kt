@@ -3,7 +3,6 @@ package com.abaferastech.marvelapp.ui.base
 import androidx.lifecycle.ViewModel
 import com.abaferastech.marvelapp.ui.model.UIState
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
@@ -30,7 +29,7 @@ abstract class BaseViewModel : ViewModel() {
         postValue: (UIState<T>) -> Unit,
     ) {
 
-       this.subscribeOn(Schedulers.io())
+        this.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnSubscribe { postValue(UIState.Loading) }
             .doOnError { error -> (postValue(UIState.Error(error.message.toString()))) }
@@ -38,17 +37,13 @@ abstract class BaseViewModel : ViewModel() {
             .addTo(compositeDisposable)
     }
 
-    protected fun <T : Any> Single<T>.applySchedulersAndPostUIStates() {
+    protected fun <T : Any> Observable<UIState<T>>.applySchedulersAndPostUIStates(
+        onSuccess: (data: UIState<T>) -> Unit,
+        onError: (e: Throwable) -> Unit,
+    ) {
         this.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
-            .addTo(compositeDisposable)
-    }
-
-    protected fun Completable.applySchedulersAndPostUIStates() {
-        this.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
+            .subscribe(onSuccess, onError)
             .addTo(compositeDisposable)
     }
 
