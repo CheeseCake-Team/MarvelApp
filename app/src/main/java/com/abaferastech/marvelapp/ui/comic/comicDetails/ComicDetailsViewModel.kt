@@ -26,9 +26,6 @@ class ComicDetailsViewModel @Inject constructor(
     private val _comics = MutableLiveData<UIState<Comic>>()
     val comics: LiveData<UIState<Comic>> = _comics
 
-    private val _allComics = MutableLiveData<List<Comic>>()
-    val allComics: LiveData<List<Comic>> get() = _allComics
-
     var isFavouriteClicked = MutableLiveData<Boolean>()
 
     private val _isComicFavourite = MutableLiveData(false)

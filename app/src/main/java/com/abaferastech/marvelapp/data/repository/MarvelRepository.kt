@@ -559,7 +559,8 @@ class MarvelRepository @Inject constructor(
             imageUri = this.imageUri,
             startYear = this.startYear,
             endYear = this.endYear,
-            modified = this.modified
+            modified = this.modified,
+            isFavourite = this.isFavourite
         )
     }
 

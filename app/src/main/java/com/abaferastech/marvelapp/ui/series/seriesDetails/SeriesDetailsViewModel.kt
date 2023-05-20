@@ -66,7 +66,10 @@ class SeriesDetailsViewModel @Inject constructor(
 
     fun insertSeries() {
         Completable.fromAction {
-            _series.value?.toData()?.apply { isFavourite = true }
+            _series.value?.toData()?.apply {
+
+                isFavourite = true
+                Log.i("fadsf", this.toString())   }
                 ?.let { repository.insertSeries(it) }
         }
             .subscribeOn(Schedulers.io())
