@@ -1,13 +1,10 @@
 package com.abaferastech.marvelapp.ui.series.seriesDetails
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.SavedStateHandle
-import com.abaferastech.marvelapp.data.remote.response.SeriesDTO
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
-import com.abaferastech.marvelapp.domain.models.Character
 import com.abaferastech.marvelapp.domain.models.Series
 import com.abaferastech.marvelapp.ui.base.BaseViewModel
 import com.abaferastech.marvelapp.ui.model.UIState
@@ -62,7 +59,7 @@ class SeriesDetailsViewModel @Inject constructor(
 
     @SuppressLint("CheckResult")
     fun getAllSeries() {
-        repository.getAllCashedCSeries().subscribe { characterList ->
+        repository.getAllCashedSeries().subscribe { characterList ->
             allSeries.postValue(characterList)
         }
     }

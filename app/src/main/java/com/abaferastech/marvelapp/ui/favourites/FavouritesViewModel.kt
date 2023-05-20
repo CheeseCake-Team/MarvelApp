@@ -40,6 +40,13 @@ class FavouritesViewModel @Inject constructor(
         }
     }
 
+    @SuppressLint("CheckResult")
+    fun getAllCachedSeries() {
+        repository.getAllCashedSeries().subscribe { items ->
+            _favouritesItems.postValue(FavouriteItems.FavouriteSeries(items))
+        }
+    }
+
     override fun onClickCharacter(character: Character) {
         TODO("Not yet implemented")
     }

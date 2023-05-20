@@ -328,7 +328,7 @@ class MarvelRepository @Inject constructor(
             .observeOn(Schedulers.io()).subscribe()
     }
 
-    fun getAllCashedCSeries(): Single<List<Series>> {
+    fun getAllCashedSeries(): Single<List<Series>> {
         return seriesDao.getAllCashedSeries().subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .map { list -> list.map { it.asDomainModel() } }
