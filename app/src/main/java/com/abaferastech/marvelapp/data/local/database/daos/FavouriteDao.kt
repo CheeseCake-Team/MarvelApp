@@ -40,20 +40,20 @@ interface FavouriteDao {
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertCharacter(character: CharacterFavouriteEntity)
+    fun insertCharacter(character: CharacterFavouriteEntity): Completable
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertComic(comic: ComicFavouriteEntity)
+    fun insertComic(comic: ComicFavouriteEntity): Completable
 
 
     @Delete
-    fun deleteCharacter(character: CharacterFavouriteEntity)
+    fun deleteCharacter(character: CharacterFavouriteEntity): Completable
 
     @Delete
     fun deleteComic(comic: ComicFavouriteEntity):  Completable
 
     @Update
-    fun updateCharacter(character: CharacterFavouriteEntity)
+    fun updateCharacter(character: CharacterFavouriteEntity): Completable
 
     @Query("SELECT * FROM CHARACTER_FAVOURITE_TABLE")
     fun getAllCashedCharacters(): Single<List<CharacterFavouriteEntity>>
@@ -62,10 +62,10 @@ interface FavouriteDao {
     fun getCharacterByIdNullable(id: Int): CharacterFavouriteEntity?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertComicList(series: List<ComicFavouriteEntity>)
+    fun insertComicList(series: List<ComicFavouriteEntity>): Completable
 
     @Update
-    fun updateComic(comic: ComicFavouriteEntity)
+    fun updateComic(comic: ComicFavouriteEntity): Completable
 
     @Query("SELECT * FROM COMIC_Favourite_TABLE")
     fun getCachedComics(): Single<List<ComicFavouriteEntity>>

@@ -441,11 +441,13 @@ class MarvelRepository @Inject constructor(
 
 
     fun insertCharacter(character: Character) {
-        favouriteDao.insertCharacter(character.asEntityModel())
+        favouriteDao.insertCharacter(character.asEntityModel()).subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io()).subscribe()
     }
 
     fun insertComic(comic: Comic) {
-        favouriteDao.insertComic(comic.asEntityModel())
+        favouriteDao.insertComic(comic.asEntityModel()).subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io()).subscribe()
     }
 
     fun getAllCashedCharacters(): Single<List<Character>> {
@@ -455,7 +457,8 @@ class MarvelRepository @Inject constructor(
 
     fun getAllCashedComic(): Single<List<Comic>> {
         return favouriteDao.getCachedComics()
-            .map { list -> list.map { it.asDomainModel() } }
+            .map { list -> list.map { it.asDomainModel() } }.subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io())
     }
 
 
