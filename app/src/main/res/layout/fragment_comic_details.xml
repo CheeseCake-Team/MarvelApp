@@ -11,79 +11,120 @@
 
     </data>
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/constraintLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutDescription="@xml/fragment_comics_details_scene">
+        android:layout_height="match_parent">
 
-
-        <androidx.constraintlayout.utils.widget.ImageFilterView
-            android:id="@+id/image_view_comic_image2"
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/constraintLayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/single_page_image_height"
-            android:foreground="@drawable/header_details_gradient"
-            android:scaleType="centerCrop"
-            app:altSrc="@color/md_theme_surface"
-            app:imageUrl="@{viewModel.comics.toData().imageUri}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@color/material_dynamic_tertiary70" />
+            android:layout_height="match_parent"
+            app:layoutDescription="@xml/fragment_comics_details_scene"
+            app:showWhenSuccess="@{viewModel.comics}">
 
-        <TextView
-            android:id="@+id/text_comic_title"
-            android:layout_width="0dp"
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/image_view_comic_image2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/single_page_image_height"
+                android:foreground="@drawable/header_details_gradient"
+                android:scaleType="centerCrop"
+                app:altSrc="@color/md_theme_surface"
+                app:imageUrl="@{viewModel.comics.toData().imageUri}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:src="@color/material_dynamic_tertiary70" />
+
+            <TextView
+                android:id="@+id/text_comic_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/space_16dp"
+                android:layout_marginBottom="@dimen/space_16dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:text="@{viewModel.comics.toData().title}"
+                tools:text="TextView" />
+
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                style="@style/Widget.Material3.TabLayout.Secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/text_comic_title"
+                app:tabGravity="fill"
+                app:tabMode="scrollable" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tab_layout">
+
+            </androidx.viewpager2.widget.ViewPager2>
+
+            <Button
+                android:id="@+id/back_button"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_54dp"
+                app:icon="@drawable/ic_back"
+                app:iconTint="@color/md_theme_onSurface"
+                app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/space_16dp"
-            android:layout_marginBottom="@dimen/space_16dp"
-            android:maxLines="1"
-            android:ellipsize="end"
-            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-            app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:text="@{viewModel.comics.toData().title}"
-            tools:text="TextView" />
-
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
-            style="@style/Widget.Material3.TabLayout.Secondary"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_comic_title"
-            app:tabGravity="fill"
-            app:tabMode="scrollable" />
-
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_layout">
+            app:layout_constraintTop_toTopOf="parent"
+            app:showWhenLoading="@{viewModel.comics}" />
 
-        </androidx.viewpager2.widget.ViewPager2>
-
-        <Button
-            android:id="@+id/back_button"
-            style="?attr/materialIconButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_54dp"
-            app:icon="@drawable/ic_back"
-            app:iconTint="@color/md_theme_onSurface"
-            app:layout_constraintBottom_toBottomOf="@+id/image_view_comic_image2"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_error"
+            android:layout_width="@dimen/lottie_error_size"
+            android:layout_height="@dimen/lottie_error_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/lottie_error"
+            app:showWhenError="@{viewModel.comics}" />
 
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <Button
+            android:id="@+id/button_refresh"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_16dp"
+            android:onClick="@{()->viewModel.refresh()}"
+            android:text="@string/refresh"
+            app:layout_constraintEnd_toEndOf="@+id/lottie_error"
+            app:layout_constraintStart_toStartOf="@+id/lottie_error"
+            app:layout_constraintTop_toBottomOf="@+id/lottie_error"
+            app:showWhenError="@{viewModel.comics}" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

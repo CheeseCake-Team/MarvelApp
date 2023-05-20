@@ -1,8 +1,7 @@
 package com.abaferastech.marvelapp.ui.home
 
 import android.os.Parcelable
-import android.util.Log
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.abaferastech.marvelapp.data.repository.MarvelRepository
 import com.abaferastech.marvelapp.domain.models.Character
@@ -28,12 +27,9 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
     private lateinit var state: Parcelable
 
 
-    private val _homeData = MediatorLiveData<UIState<List<DataItem>>>()
-    val homeData = _homeData
+    private val _homeData = MutableLiveData<UIState<List<DataItem>>>()
+    val homeData: LiveData<UIState<List<DataItem>>> = _homeData
 
-    private val _characters = MutableLiveData<UIState<List<Character>>>()
-    private val _comics = MutableLiveData<UIState<List<Comic>>>()
-    private val _series = MutableLiveData<UIState<List<Series>>>()
     private val data = mutableListOf<DataItem>()
 
 
@@ -42,76 +38,60 @@ class HomeViewModel @Inject constructor(val repository: MarvelRepository) : Base
 
     init {
         _homeData.postValue(UIState.Loading)
-        _homeData.addSource(_characters) {
-            updateCharacterDataItem()
-        }
-        _homeData.addSource(_comics) {
-            updateComicsDataItem()
-        }
-        _homeData.addSource(_series) {
-            updateSeriesDataItem()
-        }
 
-        repository.getAllCharacters().applySchedulersAndPostUIStates(_characters::postValue)
-        repository.getAllComics().applySchedulersAndPostUIStates(_comics::postValue)
-        repository.getAllSeries().applySchedulersAndPostUIStates(_series::postValue)
+        repository.getAllCharacters()
+            .applySchedulersAndPostUIStates(::onCharacterSuccess, ::onError)
+
+
+        repository.getAllComics()
+            .applySchedulersAndPostUIStates(::onComicsSuccess, ::onError)
+
+
+        repository.getAllSeries()
+            .applySchedulersAndPostUIStates(::onSeriesSuccess, ::onError)
+
     }
 
-    private fun updateCharacterDataItem() {
-        if (_characters.value is UIState.Success) {
-            val characters = _characters.value?.toData()
-            data.add(DataItem.HeaderItem(characters?.shuffled()?.take(4)!!))
-            data.add(
-                DataItem.CharacterTagItem(
-                    Tag(
-                        id = 1, title = "CHARACTERS", ResourcesData = characters.shuffled()
-                    ), this
-                )
+    private fun onError(e: Throwable) {
+        _homeData.postValue(UIState.Error(e.message.toString()))
+    }
+
+    private fun onCharacterSuccess(charactersState: UIState<List<Character>>) {
+        val characters = charactersState.toData()!!
+        data.add(DataItem.HeaderItem(characters.shuffled().take(4)))
+        data.add(
+            DataItem.CharacterTagItem(
+                Tag(id = 1, title = "CHARACTERS", ResourcesData = characters.shuffled()),
+                this
             )
-            _homeData.postValue(UIState.Success(data))
-        }
-
+        )
+        _homeData.postValue(UIState.Success(data))
     }
 
 
-    private fun updateComicsDataItem() {
-        if (_characters.value is UIState.Success) {
-            val comics = _comics.value?.toData()
-            data.add(
-                DataItem.ComicsTagItem(
-                    Tag(
-                        id = 2, title = "COMICS", ResourcesData = comics?.shuffled()!!
-                    ), this
-                )
+    private fun onComicsSuccess(comicsState: UIState<List<Comic>>) {
+        val comics = comicsState.toData()!!
+        data.add(
+            DataItem.ComicsTagItem(
+                Tag(
+                    id = 2, title = "COMICS", ResourcesData = comics.shuffled()
+                ), this
             )
-            Log.d("TaDa", "updateComicsDataItem: $data")
+        )
 
-            _homeData.postValue(UIState.Success(data))
-        }
+        _homeData.postValue(UIState.Success(data))
     }
 
-    private fun updateSeriesDataItem() {
-        if (_characters.value is UIState.Success) {
-            val series = _series.value?.toData()
-            data.add(
-                DataItem.SeriesTagItem(
-                    Tag(id = 3, title = "SERIES", ResourcesData = series?.shuffled()!!),
-                    this
-                )
+    private fun onSeriesSuccess(seriesState: UIState<List<Series>>) {
+        val series = seriesState.toData()
+        data.add(
+            DataItem.SeriesTagItem(
+                Tag(id = 3, title = "SERIES", ResourcesData = series?.shuffled()!!),
+                this
             )
-            Log.d("TaDa", "updateSeriesDataItem: $data")
-            _homeData.postValue(UIState.Success(data))
-        }
-        Log.d("TaDa", "updateSeriesDataItem: $data")
+        )
+        _homeData.postValue(UIState.Success(data))
     }
-
-    override fun onCleared() {
-        super.onCleared()
-        _homeData.removeSource(_characters)
-        _homeData.removeSource(_comics)
-        _homeData.removeSource(_series)
-    }
-
 
     override fun onClickCharacter(character: Character) {
         navigationEvents.postValue(EventModel(HomeEvent.ClickCharacterEvent(character.id)))

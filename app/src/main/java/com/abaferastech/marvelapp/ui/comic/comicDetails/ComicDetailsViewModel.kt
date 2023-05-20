@@ -28,4 +28,8 @@ class ComicDetailsViewModel @Inject constructor(val repository:MarvelRepository,
         repository.getSingleComic(comicId)
             .applySchedulersAndPostUIStates(_comics::postValue)
     }
+    fun refresh() {
+        val comicId =  comicArgs.comicID
+        getSingleComic(comicId)
+    }
 }

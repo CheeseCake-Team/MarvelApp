@@ -10,75 +10,115 @@
             type="com.abaferastech.marvelapp.ui.creator.creatorsDetails.CreatorDetailsViewModel" />
     </data>
 
-    <androidx.constraintlayout.motion.widget.MotionLayout
-        android:id="@+id/constraintLayout"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layoutDescription="@xml/creator_details_scene"
-        tools:context=".ui.base.CreatorSeriesFragment">
+        android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/back_button"
-            style="?attr/materialIconButtonStyle"
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/constraintLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layoutDescription="@xml/creator_details_scene"
+            app:showWhenSuccess="@{viewModel.creator}"
+            tools:context=".ui.base.CreatorSeriesFragment">
+
+            <Button
+                android:id="@+id/back_button"
+                style="?attr/materialIconButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/space_16dp"
+                android:layout_marginTop="@dimen/space_48dp"
+                app:icon="@drawable/ic_back"
+                app:iconTint="@color/md_theme_onSurface"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+
+            <androidx.constraintlayout.utils.widget.ImageFilterView
+                android:id="@+id/image_creator"
+                android:layout_width="@dimen/creator_image_width"
+                android:layout_height="@dimen/creator_image_width"
+                android:layout_marginTop="@dimen/space_16dp"
+                android:layout_marginBottom="@dimen/space_8dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{viewModel.creator.toData().imageUri}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:roundPercent="1" />
+
+            <TextView
+                android:id="@+id/text_creator_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_8dp"
+                android:gravity="center"
+                android:maxLines="1"
+                android:text="@{viewModel.creator.toData().fullName}"
+                android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                app:layout_constraintEnd_toEndOf="@id/image_creator"
+                app:layout_constraintStart_toStartOf="@id/image_creator"
+                app:layout_constraintTop_toBottomOf="@id/image_creator"
+                tools:text="Creator Name" />
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_layout"
+                style="@style/Widget.Material3.TabLayout.Secondary"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_16dp"
+                app:layout_constraintBottom_toTopOf="@+id/view_pager"
+                app:layout_constraintTop_toBottomOf="@+id/text_creator_name"
+                app:tabGravity="fill"
+                app:tabMode="scrollable" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tab_layout">
+
+            </androidx.viewpager2.widget.ViewPager2>
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="@dimen/space_16dp"
-            android:layout_marginTop="@dimen/space_48dp"
-            app:icon="@drawable/ic_back"
-            app:iconTint="@color/md_theme_onSurface"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-
-
-        <androidx.constraintlayout.utils.widget.ImageFilterView
-            android:id="@+id/image_creator"
-            android:layout_width="@dimen/creator_image_width"
-            android:layout_height="@dimen/creator_image_width"
-            android:layout_marginTop="@dimen/space_16dp"
-            android:layout_marginBottom="@dimen/space_8dp"
-            android:scaleType="centerCrop"
-            app:imageUrl="@{viewModel.creator.toData().imageUri}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:roundPercent="1"
-            />
+            app:showWhenLoading="@{viewModel.creator}" />
 
-        <TextView
-            android:id="@+id/text_creator_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_8dp"
-            android:gravity="center"
-            android:text="@{viewModel.creator.toData().fullName}"
-            android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
-            app:layout_constraintEnd_toEndOf="@id/image_creator"
-            app:layout_constraintStart_toStartOf="@id/image_creator"
-            app:layout_constraintTop_toBottomOf="@id/image_creator"
-            tools:text="Creator Name"
-            android:maxLines="1"
-            />
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/lottie_error"
+            android:layout_width="@dimen/lottie_error_size"
+            android:layout_height="@dimen/lottie_error_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/lottie_error"
+            app:showWhenError="@{viewModel.creator}" />
 
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tab_layout"
-            style="@style/Widget.Material3.TabLayout.Secondary"
-            android:layout_width="match_parent"
+
+        <Button
+            android:id="@+id/button_refresh"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_16dp"
-            app:layout_constraintBottom_toTopOf="@+id/view_pager"
-            app:layout_constraintTop_toBottomOf="@+id/text_creator_name"
-            app:tabGravity="fill"
-            app:tabMode="scrollable"/>
+            android:onClick="@{()->viewModel.refresh()}"
+            android:text="@string/refresh"
+            app:layout_constraintEnd_toEndOf="@+id/lottie_error"
+            app:layout_constraintStart_toStartOf="@+id/lottie_error"
+            app:layout_constraintTop_toBottomOf="@+id/lottie_error"
+            app:showWhenError="@{viewModel.creator}" />
 
-        <androidx.viewpager2.widget.ViewPager2
-            android:id="@+id/view_pager"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tab_layout">
-
-        </androidx.viewpager2.widget.ViewPager2>
-
-    </androidx.constraintlayout.motion.widget.MotionLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

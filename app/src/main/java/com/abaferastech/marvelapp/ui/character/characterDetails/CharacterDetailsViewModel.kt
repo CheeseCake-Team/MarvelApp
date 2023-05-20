@@ -11,6 +11,7 @@ import com.abaferastech.marvelapp.domain.models.Character
 import com.abaferastech.marvelapp.ui.model.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
+import kotlin.math.cbrt
 
 @HiltViewModel
 class CharacterDetailsViewModel @Inject constructor( val repository:MarvelRepository , state: SavedStateHandle) : BaseViewModel() {
@@ -19,8 +20,10 @@ class CharacterDetailsViewModel @Inject constructor( val repository:MarvelReposi
         CharacterDetailsFragmentArgs.fromSavedStateHandle(it)
     }
 
-    private val _character = MutableLiveData<UIState<com.abaferastech.marvelapp.domain.models.Character>>()
-    val character: LiveData<UIState<com.abaferastech.marvelapp.domain.models.Character>> = _character
+    private val _character =
+        MutableLiveData<UIState<com.abaferastech.marvelapp.domain.models.Character>>()
+    val character: LiveData<UIState<com.abaferastech.marvelapp.domain.models.Character>> =
+        _character
 
     fun getSingleCharacter(passedId: Int? = null) {
         val characterId = passedId ?: characterArgs.characterId
@@ -28,4 +31,8 @@ class CharacterDetailsViewModel @Inject constructor( val repository:MarvelReposi
             .applySchedulersAndPostUIStates(_character::postValue)
     }
 
+    fun refresh() {
+        val characterId =  characterArgs.characterId
+        getSingleCharacter(characterId)
+    }
 }
