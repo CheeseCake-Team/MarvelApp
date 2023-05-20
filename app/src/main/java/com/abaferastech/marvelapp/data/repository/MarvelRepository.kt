@@ -1,5 +1,6 @@
 package com.abaferastech.marvelapp.data.repository
 
+import android.util.Log
 import com.abaferastech.marvelapp.data.local.database.daos.MarvelDao
 import com.abaferastech.marvelapp.data.local.database.daos.SearchDao
 import com.abaferastech.marvelapp.data.local.database.entity.CharacterEntity
@@ -28,6 +29,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Single
 import retrofit2.Response
+import java.io.IOException
 import javax.inject.Inject
 
 class MarvelRepository @Inject constructor(
@@ -191,7 +193,8 @@ class MarvelRepository @Inject constructor(
                         }
                     }
                 }
-                else  ->{
+
+                else -> {
                     Completable.error(Throwable("Failed to fetch comics"))
                 }
 
@@ -640,6 +643,13 @@ class MarvelRepository @Inject constructor(
                 UIState.Success(transformedList)
             } else {
                 UIState.Error(it.message())
+            }
+        }.onErrorReturn { t ->
+            Log.e("mujtaba", "1")
+            if (t is IOException) {
+                UIState.Error("Network error. Please check your internet connection.")
+            } else {
+                UIState.Error("An unexpected error occurred.")
             }
         }
     }
