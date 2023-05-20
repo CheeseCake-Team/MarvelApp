@@ -1,12 +1,15 @@
 package com.abaferastech.marvelapp.utils
 
 import android.view.View
+import android.widget.Button
+import android.widget.CheckBox
 import android.widget.HorizontalScrollView
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.abaferastech.marvelapp.R
 import com.abaferastech.marvelapp.ui.base.BaseAdapter
@@ -121,4 +124,6 @@ fun <T> showWhenSuccess(view: View, UiState: UIState<T>?) {
 //        isClicked.postValue(true)
 //    }
 //}
+
+
 

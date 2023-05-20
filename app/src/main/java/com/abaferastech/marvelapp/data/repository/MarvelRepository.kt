@@ -2,8 +2,10 @@ package com.abaferastech.marvelapp.data.repository
 
 import com.abaferastech.marvelapp.data.local.database.daos.CharacterDao
 import com.abaferastech.marvelapp.data.local.database.daos.ComicDao
+import com.abaferastech.marvelapp.data.local.database.daos.SeriesDao
 import com.abaferastech.marvelapp.data.local.database.entity.CharacterEntity
 import com.abaferastech.marvelapp.data.local.database.entity.ComicEntity
+import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
 import com.abaferastech.marvelapp.data.local.mappers.CharacterMapper
 import com.abaferastech.marvelapp.data.remote.MarvelApiService
 import com.abaferastech.marvelapp.data.remote.response.BaseResponse
@@ -28,6 +30,7 @@ import javax.inject.Inject
 class MarvelRepository @Inject constructor(
     private val characterDao: CharacterDao,
     private val comicDao: ComicDao,
+    private val seriesDao: SeriesDao,
     private val apiService: MarvelApiService
 ) {
 
@@ -312,6 +315,22 @@ class MarvelRepository @Inject constructor(
             .map { list -> list.map { it.asDomainModel() } }
     }
 
+    fun insertSeries(series: Series) {
+        seriesDao.insertSeries(series.asEntityModel()).subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io()).subscribe()
+    }
+
+    fun deleteSeries(series: Series) {
+        seriesDao.deleteSeries(series.asEntityModel()).subscribeOn(Schedulers.io())
+            .observeOn(Schedulers.io()).subscribe()
+    }
+
+    fun getAllCashedCSeries(): Single<List<Series>> {
+        return seriesDao.getAllCashedSeries().subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map { list -> list.map { it.asDomainModel() } }
+    }
+
     fun deleteCharacter(character: Character) {
         characterDao.deleteCharacter(character.asEntityModel()).subscribeOn(Schedulers.io())
             .observeOn(Schedulers.io()).subscribe()
@@ -365,6 +384,34 @@ class MarvelRepository @Inject constructor(
             pageCount = this.pageCount,
             issueNumber = this.issueNumber,
             isFavourite = this.isFavourite
+        )
+    }
+
+    fun Series.asEntityModel(): SeriesEntity {
+        return SeriesEntity(
+            id = this.id,
+            title = this.title,
+            description = this.description,
+            rating = this.rating,
+            imageUri = this.imageUri,
+            startYear = this.startYear,
+            endYear = this.endYear,
+            isFavourite = this.isFavourite,
+            modified = this.modified
+        )
+    }
+
+    fun SeriesEntity.asDomainModel(): Series {
+        return Series(
+            id = this.id,
+            title = this.title,
+            description = this.description,
+            rating = this.rating,
+            imageUri = this.imageUri,
+            startYear = this.startYear,
+            endYear = this.endYear,
+            isFavourite = this.isFavourite,
+            modified = this.modified
         )
     }
 

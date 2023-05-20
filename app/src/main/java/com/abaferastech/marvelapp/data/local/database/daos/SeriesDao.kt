@@ -1,10 +1,12 @@
 package com.abaferastech.marvelapp.data.local.database.daos
 
 import androidx.room.Dao
+import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import com.abaferastech.marvelapp.data.local.database.entity.ComicEntity
 import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Completable
 import com.abaferastech.marvelapp.data.local.database.entity.SeriesEntity
@@ -23,11 +25,14 @@ interface SeriesDao {
     fun updateSeries(series: SeriesEntity):Completable
 
     @Query("SELECT * FROM SERIES_TABLE")
-    fun getAllSeries(): Observable<List<SeriesEntity>>
+    fun getAllCashedSeries(): Single<List<SeriesEntity>>
 
     @Query("SELECT * FROM SERIES_TABLE WHERE title=:title")
     fun getSeriesByName(title: String): Single<SeriesEntity>
 
     @Query("SELECT * FROM SERIES_TABLE WHERE id=:id")
     fun getSeriesById(id: Int): Single<SeriesEntity>
+
+    @Delete
+    fun deleteSeries(series: SeriesEntity):Completable
 }
