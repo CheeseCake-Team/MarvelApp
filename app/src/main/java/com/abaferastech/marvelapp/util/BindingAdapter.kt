@@ -16,6 +16,10 @@ import com.abaferastech.marvelapp.ui.base.BaseAdapter
 import com.abaferastech.marvelapp.ui.character.characters.CharactersAdapter
 import com.abaferastech.marvelapp.ui.comic.comics.ComicsAdapter
 import com.abaferastech.marvelapp.ui.event.events.EventAdapter
+import com.abaferastech.marvelapp.ui.favourites.FavouriteItems
+import com.abaferastech.marvelapp.ui.favourites.FavouritesType
+import com.abaferastech.marvelapp.ui.favourites.favouritesAdapters.FavouriteCharactersAdapter
+import com.abaferastech.marvelapp.ui.favourites.favouritesAdapters.FavouriteComicsAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesAdapter
 import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.SearchItem
@@ -57,6 +61,18 @@ fun setSearchRecyclerViewItems(view: RecyclerView, items: SearchItem?) {
             is SearchItem.Event -> (view.adapter as EventAdapter?)?.setItems(items.items)
             is SearchItem.Series -> (view.adapter as SeriesAdapter?)?.setItems(items.items)
             is SearchItem.Comic -> (view.adapter as ComicsAdapter?)?.setItems(items.items)
+            else -> {}
+        }
+    }
+}
+@BindingAdapter(value = ["app:itemsFavourites"])
+fun setFavouritesRecyclerViewItems(view: RecyclerView, items: FavouriteItems?) {
+    items.let {
+        when (items) {
+            is FavouriteItems.FavouriteCharacters -> (view.adapter as FavouriteCharactersAdapter?)?.setItems(items.items)
+//            is FavouriteItems.FavouriteEvents -> (view.adapter as EventAdapter?)?.setItems(items.items)
+//            is FavouriteItems.FavouriteSeries -> (view.adapter as SeriesAdapter?)?.setItems(items.items)
+            is FavouriteItems.FavouriteComics -> (view.adapter as FavouriteComicsAdapter?)?.setItems(items.items)
             else -> {}
         }
     }
@@ -116,14 +132,6 @@ fun <T> showWhenSuccess(view: View, UiState: UIState<T>?) {
     else view.visibility = View.GONE
 }
 
-//@BindingAdapter("app:iconCheckedState")
-//fun setIconCheckedState(checkBox: CheckBox,isClicked: MutableLiveData<Boolean>) {
-//    if (!(checkBox.isChecked) && isClicked.value != null) {
-//        isClicked.postValue(false)
-//    } else {
-//        isClicked.postValue(true)
-//    }
-//}
 
 
 

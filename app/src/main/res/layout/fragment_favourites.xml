@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="com.abaferastech.marvelapp.ui.favourites.FavouritesType"/>
 
         <variable
             name="viewModel"
@@ -37,6 +38,7 @@
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.changeFavouriteType(FavouritesType.COMICS)}"
                     android:checked="true"
                     android:text="@string/comics" />
 
@@ -44,28 +46,31 @@
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.changeFavouriteType(FavouritesType.CHARACTERS)}"
                     android:text="@string/characters" />
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.changeFavouriteType(FavouritesType.SERIES)}"
                     android:text="@string/series" />
 
                 <com.google.android.material.chip.Chip
                     style="@style/Widget.Material3.Chip.Filter"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:onClick="@{() -> viewModel.changeFavouriteType(FavouritesType.EVENTS)}"
                     android:text="@string/events" />
 
             </com.google.android.material.chip.ChipGroup>
         </HorizontalScrollView>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycler_view_favourits"
+            android:id="@+id/recycler_view_favourites"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:items="@{viewModel.allCharacters}"
+            app:itemsFavourites="@{viewModel.favouriteItems}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/horizontalScrollView" />

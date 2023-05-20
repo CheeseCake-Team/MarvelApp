@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.abaferastech.marvelapp.data.local.database.entity.ComicEntity
-import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Single
 
@@ -23,7 +22,7 @@ interface ComicDao {
     fun updateComic(comic: ComicEntity): Completable
 
     @Query("SELECT * FROM COMIC_TABLE")
-    fun getAllCachedComics(): Single<List<ComicEntity>>
+    fun getCachedComics(): Single<List<ComicEntity>>
 
     @Query("SELECT * FROM COMIC_TABLE WHERE title=:title")
     fun getComicByName(title: String): Single<ComicEntity>

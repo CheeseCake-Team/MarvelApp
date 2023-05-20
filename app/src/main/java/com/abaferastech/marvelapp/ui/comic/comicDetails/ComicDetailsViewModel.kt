@@ -13,7 +13,10 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class ComicDetailsViewModel @Inject constructor(val repository:MarvelRepository, state: SavedStateHandle) : BaseViewModel() {
+class ComicDetailsViewModel @Inject constructor(
+    val repository: MarvelRepository,
+    state: SavedStateHandle
+) : BaseViewModel() {
 
     private val _comics = MutableLiveData<UIState<Comic>>()
     val comics: LiveData<UIState<Comic>> = _comics
@@ -27,11 +30,15 @@ class ComicDetailsViewModel @Inject constructor(val repository:MarvelRepository,
         ComicDetailsFragmentArgs.fromSavedStateHandle(it)
     }
 
+
     init {
         getAllCachedComics()
-        Log.i("vwWEvwevvwvewwv", ":${repository.getAllCashedComic().subscribe{s-> 
-            s.toString()
-        } }")
+        Log.i(
+            "vwWEvwevvwvewwv", ":${
+                repository.getAllCashedComic().subscribe { s ->
+                    s.toString()
+                }
+            }")
     }
 
     fun getSingleComic(passedId: Int? = null) {
@@ -42,7 +49,7 @@ class ComicDetailsViewModel @Inject constructor(val repository:MarvelRepository,
 
     @SuppressLint("CheckResult")
     fun getAllCachedComics() {
-        Log.i( "getAllCharacters: ", repository.getAllCashedComic().toString())
+        Log.i("getAllCharacters: ", repository.getAllCashedComic().toString())
         repository.getAllCashedComic().subscribe { comicsList ->
             Log.i("ebrabw", "getAllCharacters: $comicsList")
             _allComics.postValue(comicsList)

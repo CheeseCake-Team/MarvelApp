@@ -15,7 +15,6 @@ import com.google.android.material.tabs.TabLayoutMediator
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-
 class ComicDetailsFragment :
     BaseFragment<FragmentComicDetailsBinding>() {
 
