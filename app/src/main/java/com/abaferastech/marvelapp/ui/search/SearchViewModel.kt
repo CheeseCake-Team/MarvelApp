@@ -21,10 +21,9 @@ import com.abaferastech.marvelapp.ui.series.seriesViewAll.SeriesViewAllInteracti
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
+import io.reactivex.rxjava3.core.Observable
 import io.reactivex.rxjava3.kotlin.addTo
 import io.reactivex.rxjava3.schedulers.Schedulers
-import io.reactivex.rxjava3.subjects.PublishSubject
-import java.util.concurrent.TimeUnit
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,37 +40,13 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
     private val _searchType = MutableLiveData(TYPE.COMIC)
     val searchType: LiveData<TYPE> get() = _searchType
 
-    private val searchObserver: PublishSubject<String> = PublishSubject.create()
-
     private var _searchingResponse = MutableLiveData<UIState<SearchItem>>()
     val searchingResponse = _searchingResponse
 
-
     val navigationEvents = MutableLiveData<EventModel<SearchEvents>>()
-
 
     init {
         getOldSearchQueriesFromDatabase()
-        searchObserver
-            .debounce(1, TimeUnit.SECONDS)
-            .flatMap { searchQuery ->
-                _searchingResponse.postValue(UIState.Loading)
-                when (searchType.value) {
-                    TYPE.SERIES -> repository.searchInSeries(searchQuery).toObservable()
-                        .map { SearchItem.SeriesItem(it.toData() as List<Series>) }
-
-                    TYPE.CHARACTER -> repository.searchInCharacters(searchQuery).toObservable()
-                        .map { SearchItem.CharacterItem(it.toData() as List<Character>) }
-
-                    TYPE.EVENT -> repository.searchInEvents(searchQuery).toObservable()
-                        .map { SearchItem.EventItem(it.toData() as List<Event>) }
-
-                    else -> repository.searchInComics(searchQuery)
-                        .map {  SearchItem.ComicItem(it) }
-                }
-            }
-            .subscribe(::onSuccess, ::onError)
-            .addTo(compositeDisposable)
     }
 
     private fun onSuccess(searchItem: SearchItem) {
@@ -79,6 +54,7 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
     }
 
     private fun onError(throwable: Throwable) {
+        Log.e("error while fetching", throwable.message.toString())
         _searchingResponse.postValue(UIState.Error(throwable.message.toString()))
     }
 
@@ -91,7 +67,25 @@ class SearchViewModel @Inject constructor(val repository: MarvelRepository) : Ba
 
     fun search(searchQuery: String) {
         if (searchQuery != "") {
-            searchObserver.onNext(searchQuery)
+            Observable.just(searchQuery)
+                .flatMap { mySearchQuery ->
+                    _searchingResponse.postValue(UIState.Loading)
+                    when (searchType.value) {
+                        TYPE.SERIES -> repository.searchInSeries(mySearchQuery).toObservable()
+                            .map { SearchItem.SeriesItem(it.toData() as List<Series>) }
+
+                        TYPE.CHARACTER -> repository.searchInCharacters(mySearchQuery).toObservable()
+                            .map { SearchItem.CharacterItem(it.toData() as List<Character>) }
+
+                        TYPE.EVENT -> repository.searchInEvents(mySearchQuery).toObservable()
+                            .map { SearchItem.EventItem(it.toData() as List<Event>) }
+
+                        else -> repository.searchInComics(mySearchQuery)
+                            .map {  SearchItem.ComicItem(it) }
+                    }
+                }
+                .subscribe(::onSuccess, ::onError)
+                .addTo(compositeDisposable)
             this.searchQuery.postValue(searchQuery)
         }
     }

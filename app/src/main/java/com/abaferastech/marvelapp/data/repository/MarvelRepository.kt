@@ -78,15 +78,19 @@ class MarvelRepository @Inject constructor(
     private fun refreshComics(title: String): Completable {
         return wrapResponseWithState({ apiService.searchInComics(title) }, comicMapper::map)
             .flatMapCompletable { uiState ->
-                if (uiState is UIState.Success) {
-                    val comics = uiState.data
-                    Completable.fromCallable {
-                        comics?.map { it.asComicSearchEntity() }?.let {
-                            searchDao.insertSearchedComicList(it)
+                when (uiState) {
+                    is UIState.Success -> {
+                        val comics = uiState.data
+                        Completable.fromCallable {
+                            comics?.map { it.asComicSearchEntity() }?.let {
+                                searchDao.insertSearchedComicList(it)
+                            }
                         }
                     }
-                } else {
-                    Completable.error(Throwable("Failed to fetch comics"))
+
+                    else -> {
+                        Completable.error(Throwable("Failed to fetch comics"))
+                    }
                 }
             }
     }
