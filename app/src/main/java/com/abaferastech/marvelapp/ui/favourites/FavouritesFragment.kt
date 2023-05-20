@@ -39,7 +39,6 @@ class FavouritesFragment : BaseFragment<FragmentFavouritesBinding>() {
                     viewModel.getAllCachedSeries()
                     val adapter = FavouriteSeriesAdapter(viewModel)
                     binding.recyclerViewFavourites.adapter = adapter
-
                 }
                 FavouritesType.EVENTS -> {
 

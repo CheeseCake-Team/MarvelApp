@@ -20,6 +20,7 @@ import com.abaferastech.marvelapp.ui.favourites.FavouriteItems
 import com.abaferastech.marvelapp.ui.favourites.FavouritesType
 import com.abaferastech.marvelapp.ui.favourites.favouritesAdapters.FavouriteCharactersAdapter
 import com.abaferastech.marvelapp.ui.favourites.favouritesAdapters.FavouriteComicsAdapter
+import com.abaferastech.marvelapp.ui.favourites.favouritesAdapters.FavouriteSeriesAdapter
 import com.abaferastech.marvelapp.ui.home.adapters.SeriesAdapter
 import com.abaferastech.marvelapp.ui.model.DataItem
 import com.abaferastech.marvelapp.ui.model.SearchItem
@@ -71,7 +72,7 @@ fun setFavouritesRecyclerViewItems(view: RecyclerView, items: FavouriteItems?) {
         when (items) {
             is FavouriteItems.FavouriteCharacters -> (view.adapter as FavouriteCharactersAdapter?)?.setItems(items.items)
 //            is FavouriteItems.FavouriteEvents -> (view.adapter as EventAdapter?)?.setItems(items.items)
-//            is FavouriteItems.FavouriteSeries -> (view.adapter as SeriesAdapter?)?.setItems(items.items)
+            is FavouriteItems.FavouriteSeries -> (view.adapter as FavouriteSeriesAdapter?)?.setItems(items.items)
             is FavouriteItems.FavouriteComics -> (view.adapter as FavouriteComicsAdapter?)?.setItems(items.items)
             else -> {}
         }
